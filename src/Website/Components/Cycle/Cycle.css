@@ -1,0 +1,109 @@
+.cycle-bg{
+    fill: none;
+  }
+  .profile.dark .cycle-prog{
+    stroke: #AA367C ;
+  }
+  .profile.light .cycle-prog{
+    stroke: var(--color-li);; ;
+  }
+  .cycle-prog{
+    fill: none;
+    transition: 1s ease-in-out;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .prog-line{
+    margin-top: 7px;
+    height: 10px;
+    width: 100%;
+    background-color: #B8B8B8;
+    border-radius: 50px;
+    position: relative;
+  }
+  .profile.light .cycle{
+    background-color: #e6e6e6;
+    border: 1px solid #eee;
+  }
+  .profile.dark .cycle{
+    background-color: #2d3239;
+    border: 1px solid #555;
+  }
+  .cycle{
+    position: absolute;
+    border-radius: 50%;
+    width: 10.2em;
+    height: 10.2em;
+    color: #fff;
+    left: 77%;
+    top: 50%;
+    transform: translate(-50% , -50%);
+  }
+  .cycle svg{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+  }
+  .profile.dark .inner{
+  box-shadow: 0 0 1.5em rgba(0, 0, 0, 0.7);
+  }
+  .profile.light .inner{
+    box-shadow: 0 0 .5em rgba(0, 0, 0, 0.3);
+    }
+  .cycle .inner{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 7em;
+    height: 7em;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .profile.light .inner::before{
+    background: linear-gradient(90.21deg, rgb(195 136 172) -5.91%, rgb(154 146 191) 111.58%);
+  }
+  .profile.dark .inner::before{
+    background: linear-gradient(120deg , #201c21 , #2f343a);
+  }
+  .inner::before{
+    content: "";
+    box-shadow: 0 0.5em 0.5em rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+    width: 6.5em;
+    height: 6.5em;
+    z-index: -1;
+  }
+  .item h5{
+    margin-top: 1rem;
+      margin-bottom: 0;
+  }
+  .profile.light .item h5{
+    color: #2d3239;
+  }
+  .inner h1{
+    font-size: 2.2em;
+    margin: 0;
+  }
+  .profile.dark .prog-line span{
+    background: linear-gradient(90.21deg, #AA367C -5.91%, #4A2FBD 111.58%);
+  }
+  .profile.light .prog-line span{
+   background: linear-gradient(90.21deg, rgba(170, 54, 124, 0.5) -5.91%, rgba(74, 47, 189, 0.5) 111.58%)
+  }
+  .prog-line span{
+    transform-origin: left;
+    height: 100%;
+    left: 0;
+    border-radius: 50px;
+    position: absolute;
+    transition: 1s all;
+  }
+  

@@ -1,0 +1,203 @@
+.chat_content {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+}
+.chat_content.light{
+    background: linear-gradient(132deg, #d5d88d 0%, #88b884 100%);
+}
+.chat_content.dark{
+    background: url('../../../../img//telegram_dark.png');
+    background-size: contain;
+}
+.chat_content.light::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-image: url(../../../../img/pattern.svg);
+    opacity: .4;
+}
+
+
+.chat_content .chat_container {
+    transition: all .5s ease;
+    margin-bottom: 10rem;
+    margin-top: 8rem;
+}
+
+.chat_content .chat_container.active {
+    visibility: visible;
+    opacity: 1;
+}
+.chat_content .chat_container .content-header.dark{
+background-color: var(--fc-button-active-bg-color);
+}
+.chat_content .chat_container .content-header.light{
+    background-color: #fff;
+    }
+.chat_content .chat_container .content-header {
+    position: fixed;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    height: 7rem;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+}
+
+.chat_content .chat_container .content-header .image {
+    width: 5rem;
+    height: 5rem;
+    margin-left: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat_content .chat_container .content-header .image img {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.chat_content .chat_container .content-header .details {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+    gap: .5rem;
+}
+
+.chat_content .chat_container .content-header .details h3 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.chat_content .chat_container .content-header .details span {
+    font-size: 1.4rem;
+    font-weight: 500;
+    opacity: .6;
+}
+
+.chat_content .chat_container .content-header .icons {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    font-size: 1.6rem;
+    opacity: .6;
+}
+
+.chat_content .chat_container .content-header .icons i {
+    cursor: pointer;
+}
+
+.chat_content .chat_container .chat-container {
+    position: relative;
+    padding:0 2rem;
+}
+
+.chat_content .chat_container .chat-msg {
+    border-radius: 1rem;
+    width: fit-content;
+    max-width: 60%;
+    padding: .5rem 1rem;
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.chat_content .chat_container .chat-msg.light{
+    background-color: var(--whiteColor);
+    margin-right: auto;
+
+}
+.chat_content .chat_container .chat-msg.dark{
+    background-color: var(--fc-button-active-bg-color);
+    margin-right: auto;
+
+}
+.chat_content .chat_container .chat-msg.user.light{
+    background: linear-gradient(-120deg, #d5d88d 0%, #88b884 100%);
+    margin-right:0;
+    margin-left: auto;
+}
+.chat_content .chat_container .chat-msg.user.dark{
+    background: linear-gradient(90.21deg, #AA367C -5.91%, #4A2FBD 111.58%);
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.chat_content .chat_container .chat-msg p {
+    font-size: 1.4rem;
+}
+
+.chat_content .chat_container .chat-msg .time {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    opacity: .7;
+}
+
+.chat_content .chat_container .message-box {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.chat_content .chat_container .message-box .message-content {
+    position: relative;
+    border-radius: 1rem 1rem 0 1rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 60rem;
+}
+
+.chat_content .chat_container .message-box .message-content i {
+    font-size: 2rem;
+    color: var(--grayColor);
+    cursor: pointer;
+}
+
+.chat_content .chat_container .message-box .message-content input {
+    height: 3.7rem;
+    font-size: 1.6rem;
+    width: 100%;
+    padding: 1rem;
+    outline: none;
+    border: none;
+}
+.chat_content.dark .chat_container .message-box .message-content input{
+    color: #fff;
+}
+
+.chat_content .chat_container .message-box .message-content input::placeholder {
+    font-weight: 500;
+    color: var(--borderColor);
+}
+
+.chat_content .chat_container .message-box .micro {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    background-color: var(--mainColor);
+    color: var(--whiteColor);
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}

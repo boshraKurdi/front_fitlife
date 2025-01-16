@@ -1,0 +1,145 @@
+.login .wrapper{
+    background-color: #fff;
+    width: 100%;
+    padding: 25px;
+    margin: 25px auto 0;
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+    border-radius: 10px; 
+    
+    }
+   .login .wrapper h2{
+        background-color:#fcfcfc ;
+        color: hsl(294.74deg 16.89% 62.04%);
+        font-size: 24px;
+        padding: 10px;
+        margin-bottom: 8px;
+        text-align: center;
+        border: 1px dashed hsl(294.74deg 16.89% 62.04%);
+    
+    }
+   .login .wrapper h4{
+        padding-bottom: 5px;
+        color:hsl(294.74deg 16.89% 62.04%) ;
+    }
+   .login .input_group{
+        margin-bottom: 8px;
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        padding: 5px 0;
+    }
+   .login .input_box{
+    width: 100%;
+    margin-right: 12px;
+    padding-bottom: 1rem;
+    position: relative;
+    }
+   .login .wrapper .error{
+        position: absolute;
+        bottom: 0;
+    }
+    
+   .login .input_box:last-child{
+        margin-right: 0;
+    }
+    .input_box .name{
+        padding: 14px 10px 14px 50px;
+        width: 100%;
+        background-color: #fcfcfc;
+        border: 1px solid #0003 ;
+        outline: none;
+        transition: 0.3s;
+        font-size: 1rem;
+        border-radius: 3px;
+        color: #333;
+    
+    }
+    .input_box .name:focus, .dob:focus {
+        -webkit-box-shadow:0 0 2px 1px  hsl(294.74deg 16.89% 62.04%);
+        -moz-box-shadow:0 0 2px 1px hsl(294.74deg 16.89% 62.04%);
+        box-shadow:0 0 2px 1px hsl(294.74deg 16.89% 62.04%);
+        border:1px solid hsl(294.74deg 16.89% 62.04%);
+    }
+    .input_box .icon{
+        width: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        left: 0px;
+        padding: 8px;
+        height: 45px;
+        bottom: 0px;
+        top: 0px;
+        color: #333;
+        background-color: #f1f1f1;
+        border-radius: 2px 0 0 2px;
+        transition: 0.3s;
+        font-size: 1rem;
+        pointer-events: none;
+        border: 1px solid #0003;
+    
+    }
+    .name:focus+.icon{
+        background-color: hsl(294.74deg 16.89% 62.04%);
+        color:#fff;
+        border: 1px solid hsl(294.74deg 16.89% 62.04%);
+        border: none;
+        transition: 1s;
+    
+    }
+    .dob{
+        width: 30%;
+        padding: 14px;
+        text-align: center;
+        background-color: #fcfcfc;
+        transition: 0.3s;
+        outline: none;
+        border: 1px solid #c0bfbf;
+        border-radius:3px;
+    
+    }
+    .radio{
+        display: none;
+    }
+    .input_box label{
+        width: 47%;
+        padding: 13px;
+        margin: 0px 5px;    
+        background: #fcfcfc;
+        display: block;
+        color: hsl(210, 26%, 11%);
+        float: left;
+        font-size: 1.3rem;
+        text-align: center;
+        border-radius: 10px;
+        border: 1px solid #c0bfbf;
+    
+    }
+    .radio:checked+label{
+        background-color: hsl(294.74deg 16.89% 62.04%);
+        color: #fff;
+        transition: 0.5s;
+    
+    }
+    i{
+        margin-right: 5px;
+    }
+    .input_box button{
+        width: 100%;
+        background-color: hsl(294.74deg 16.89% 62.04%);
+        color: #fff;
+        border: none;
+        padding: 15px;
+        border-right: 4px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        border-radius: 8px;
+    
+    }
+    .input_box button:hover{
+        cursor: pointer;
+        background-color: hsla(295, 17%, 62%, 0.4);
+    
+    }

@@ -1,0 +1,50 @@
+.update{
+    color: green;
+}
+.open{
+    color: #aaa;
+}
+.delete{
+    color: red;
+}
+.newR.dark{
+    background: #70d8bd !important;
+}
+.newR.light{
+    background: #22866c !important;
+}
+.newR:hover{
+    opacity: 0.8;
+}
+
+.newR{
+    background: #70d8bd !important;
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    display: flex;
+    align-items: center;
+}
+.newR svg{
+    font-size: 1.8rem !important;
+}
+.uploadfile input {
+    width: 100%;
+    display: none;
+  }
+  
+ .uploadfile .labelFile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    min-height: 150px;
+    font-size: 1.5rem;
+    align-items: center;
+    text-align: center;
+    padding: 5px;
+    color: #404040;
+    cursor: pointer;
+  }
+ .uploadfile .labelFile svg{
+    font-size: 6rem;
+  }

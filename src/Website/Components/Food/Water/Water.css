@@ -1,0 +1,83 @@
+.water{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border-radius: 8px;
+
+}
+.water.light{
+    background-color: #f5f5f5;
+}
+.water.dark{
+    background: var(--fc-button-hover-bg-color)
+}
+.water .water_img{
+    width: 40%;
+}
+.water .water_info{
+    padding-left: 10rem;
+    flex: 1;
+    width: 100%;
+}
+.water .water_info h2{
+    font-size: 3rem;
+    margin-bottom: .5rem;
+}
+.water_title h1{
+    margin: 5rem 0 3rem 0;
+    font-size: 3rem;
+}
+.water .water_info p{
+    font-size: 1.1rem;
+    color: var(--sonic-silver);
+    font-family: cursive;
+    margin-bottom: 4rem;
+}
+.water .water_container{
+    width: 100%;
+    padding: 1rem 2rem;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.water.light .water_info input{
+    background-color: #fff;
+}
+.water.dark .water_info input{
+    background: #eee;
+}
+.water label{
+    font-size: 1.3rem;
+    font-family: cursive;
+    margin: 1rem 0 .5rem 0;
+  }
+.water .water_info input{
+    outline: none;
+    padding: 1.5rem 1rem;
+    border-radius: 8px;
+    margin: 1rem 0 2rem 0;
+    font-size: 1.2rem;
+    box-shadow: 0 0 8px var(--color-pu);
+}
+.water .button--flex{
+    display: inline-flex;
+    align-items: center;
+    column-gap: .5rem;
+  }
+  
+ .water .button--link{
+    background: var(--coquelicot);
+    font-weight: var(--font-medium);
+    color: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 1.3rem;
+    font-family: cursive;
+    letter-spacing: 1px;
+  }
+  
+.water  .button--link:hover .button__icon{
+    transform: translateX(.25rem);
+  }

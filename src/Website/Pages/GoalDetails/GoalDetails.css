@@ -1,0 +1,131 @@
+.card{
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    padding: 0 2rem;
+}
+.card.dark{
+    background: var(--fc-button-hover-border-color);
+}
+.product-imgs{
+    width: 50%;
+}
+.card-wrapper{
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.btn_start{
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--color-pu);
+    border-radius: 8px;
+    font-size: 1.7rem;
+    color: #fff;
+    margin: auto;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+}
+.btn_start svg{
+    transform: translateX(5px);
+    transition: 0.5s;
+    font-size: 2.3rem;
+}
+.btn_start:hover svg{
+    transform: translateX(10px);
+    transition: 0.5s;
+}
+.card img{
+    width: 100%;
+    display: block;
+}
+.img-display{
+    overflow: hidden;
+}
+.img-showcase{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    transition: all 0.5s ease;
+}
+.img-showcase img{
+    width: 75%;
+
+    border-radius: 50%;
+}
+.product-content{
+    padding: 2rem 1rem;
+    flex: 1;
+}
+.product-title{
+    font-size: 3.5rem;
+    text-transform: capitalize;
+    font-weight: 700;
+    position: relative;
+    margin: 1rem 0;
+}
+.product-title::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    width: 80px;
+    background: var(--color-pu);
+}
+.product-link{
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 1rem;
+    display: inline-block;
+    padding: .5rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    background: var(--color-pu);
+    color: #fff;
+    transition: all 0.5s ease;
+}
+.product-link:hover{
+    opacity: 0.9;
+}
+
+.product-price span{
+    font-weight: 400;
+}
+.product-detail h1{
+    text-transform: capitalize;
+    padding-bottom: 0.6rem;
+}
+.product-detail p{
+    font-size: 1.4rem;
+    padding: 0.3rem;
+    opacity: 0.8;
+    line-height: 1.5;
+}
+.product-detail ul{
+    margin: 1rem 0;
+    font-size: 0.9rem;
+}
+.product-detail ul li{
+    margin: 0;
+    list-style: none;
+    display: flex;
+    background-size: 18px;
+    padding-left: 1.7rem;
+    margin: 0.4rem 0;
+    font-weight: 600;
+    opacity: 0.9;
+    align-items: center;
+    font-size: 1.6rem;
+}
+.product-detail ul li svg{
+    color: var(--color-pu);
+    font-size: 2.5rem;
+    margin-right: 1rem;
+}
+.product-detail ul li span{
+    font-weight: 400;
+    margin-left: .5rem;
+}

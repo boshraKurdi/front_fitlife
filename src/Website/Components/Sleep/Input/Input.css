@@ -1,0 +1,56 @@
+.sleep_about .about__container{
+    row-gap: 2rem;
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .sleep_about .about__img{
+    width: 30%;
+    justify-self: center;
+  }
+  
+  .sleep_about .about__title{
+    margin-bottom: var(--mb-1);
+    font-size: 3rem;
+  }
+  
+  .sleep_about .about__description{
+    margin-bottom: var(--mb-2);
+    font-size: 1.2rem;
+    font-family: cursive;
+    color: var(--sonic-silver);
+    width: 500px;
+  }
+  .sleep_about label{
+    font-size: 1.3rem;
+    font-family: cursive;
+    margin: .5rem 0;
+  }
+  .sleep_input{
+    background: #fff;
+    padding: 1.5rem 1rem;
+    outline: 0;
+    font-family: cursive;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 13px var(--color-pu);
+  }
+  
+  .sleep_about .about__details{
+    display: grid;
+    margin-bottom: 1.5rem;
+  }
+  
+  .sleep_about .about__details-description{
+    display: inline-flex;
+    column-gap: .5rem;
+    font-size: var(--small-font-size);
+  }
+  
+  .sleep_about .about__details-icon{
+    font-size: 1rem;
+    color: var(--first-color-1);
+    margin-top: .15rem;
+  }

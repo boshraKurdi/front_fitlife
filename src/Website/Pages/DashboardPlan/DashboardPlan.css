@@ -1,0 +1,437 @@
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top:11rem;
+  min-height: 100vh;
+}
+.profile .p_profile{
+  font-size: 2.3rem;
+  padding: 1rem .5rem;
+  position: relative;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.bmi{
+  display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 1.6rem;
+    position: absolute;
+    font-weight: 700;
+    color: var(--coquelicot);
+    left: 80%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.bmi svg{
+  font-size: 2rem;
+}
+.profile .p_profile::before{
+  content: '';
+  position: absolute;
+  bottom:  0;
+  left: 0;
+  width: 50%;
+  height: 2px;
+  background: var(--coquelicot);
+  border-radius: 8px;
+}
+
+.btn_options{
+  background: var(--coquelicot);
+    font-size: 1.1rem;
+    color: #fff;
+    text-transform: capitalize;
+    display: flex
+;
+    align-items: center;
+}
+.profile.dark .container_profile{
+  background: linear-gradient(
+    to top right,
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.1)
+  );
+} 
+.profile.light .container_profile{
+  background: linear-gradient(
+    to top right,
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.3)
+  );
+} 
+.container_profile {
+  min-height: 100vh;
+  padding: 1rem;
+  width: 90%;
+  height: 100%;
+  backdrop-filter: blur(25px);
+}
+
+.container_profile .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 25px;
+  margin-top: 1em;
+}
+
+.container_profile .navbar .logo {
+  display: flex;
+  align-items: center;
+}
+
+.container_profile .navbar .logo img {
+  animation: rotate 8s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(-360deg);
+  }
+}
+
+
+.container_profile .navbar .navitem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile .navitem .lang select {
+  padding: 6px 30px;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  position: relative;
+  right: 4em;
+}
+
+.profile .navitem .icons {
+  position: relative;
+  right: 1em;
+}
+
+.profile .navitem .icons ul li {
+  position: relative;
+  display: inline-block;
+  font-size: 16px;
+  margin: 0 12px;
+}
+
+.profile .navitem .icons ul li .fa {
+  padding: 5px;
+  color: #fff;
+  background: #000;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.profile .navitem .icons ul li .fa:hover {
+  transform: scale(1.2) rotate(360deg);
+  color: #33cc33;
+  background: transparent;
+}
+
+.profile .navitem .account {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.profile .navitem .account img {
+  border-radius: 50%;
+}
+
+.profile .navitem .account .name {
+  text-transform: capitalize;
+  margin: 0 8px;
+  font-weight: 700;
+}
+
+.profile .navitem .account .username {
+  position: absolute;
+  top: 18px;
+  left: 32px;
+  font-size: 12px;
+  color: #000;
+}
+
+.container-body {
+  width: 100%;
+}
+.profile.light .container-body .sidebar{
+  background: linear-gradient(
+    to top right,
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.3)
+  );
+}
+.profile.dark .container-body .sidebar{
+  background: linear-gradient(
+    to top right,
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.1)
+  ); 
+}
+.container-body .sidebar {
+  margin: 20px 0 20px 20px;
+  border-radius: 14px;
+  padding: 10px;
+}
+.container-body .sidebar ul{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.container-body .sidebar ul li {
+  padding: 10px;
+  display: flex;
+  border-radius: 8px;
+  align-items: center;
+  font-family: monospace;
+  font-size: 1.2rem;
+  text-transform: capitalize;
+}
+.container-body .sidebar ul li svg{
+  font-size: 2rem;
+  margin-right: 1rem;
+  color: var(--coquelicot);
+}
+.container-body .sidebar ul li.sp{
+  background: var(--fc-highlight-color);
+  color: #000;
+  border-bottom: 1px solid #eee;
+  margin: 5px 0;
+  text-align: left;
+  width: 100%;
+  font-family: inherit;
+
+
+}
+
+.profile .btn_profile{
+  text-transform: capitalize;
+  background-color: #339933;
+  padding: 1rem;
+  width: fit-content;
+  font-size: 1.1rem;
+  margin: 2rem auto;
+  color: #fff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  font-weight: 100;
+  letter-spacing: 1px;
+}
+.profile .btn_profile svg , .profile .btn_profile_delete svg{
+  margin-right: 1rem;
+}
+.profile .btn_profile_delete{
+  text-transform: capitalize;
+  background-color: #ff0066;
+  padding: 1rem;
+  width: fit-content;
+  font-size: 1.1em;
+  margin: 2rem auto;
+  display: flex;
+  align-items: center;
+  margin-left: .5rem;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  font-weight: 100;
+  letter-spacing: 1px;
+}
+.profile .btn_profile:hover{
+  background-color: #33cc33;
+}
+
+
+.container-body .sidebar ul li .fa {
+  font-size: 18px;
+  padding: 0 5px;
+}
+
+.container-body .main-body .headtittle {
+  padding: 15px;
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0;
+}
+
+.container-body .main-body .headtittle span {
+  text-transform: capitalize;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.container-body .main-body .headtittle h2 {
+  font-size: 15px;
+  font-weight: normal;
+}
+
+.container-body .main-body .cards {
+  padding: 20px;
+}
+
+.container-body .main-body .cards .row-1 {
+  display: flex;
+  flex-wrap: wrap;
+  grid-gap: 20px;
+}
+.profile.light .container-body .main-body .cards .row_profile .col , .profile.light .container-body .main-body .cards .row_profile_2 .col{
+  background: rgba(255, 255, 255, 0.5);
+}
+.profile.dark .container-body .main-body .cards .row_profile .col , .profile.dark .container-body .main-body .cards .row_profile_2 .col{
+  background: var(--fc-button-hover-bg-color);
+}
+.container-body .main-body .cards .row_profile .col {
+  border-radius: 15px;
+  width: 47%;
+  min-width: 400px;
+}
+.container-body .main-body .cards .row_profile_2 .col {
+  border-radius: 15px;
+  width: 31%;
+  min-width: 300px;
+}
+.profile .latest-activity{
+  padding: 3rem 2rem;
+}
+.profile .pather_day_week{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.profile .pather_day_week .day_week{
+  padding: 1rem;
+  background-color: var(--fc-highlight-color);
+  margin:0.5rem;
+  width: 47%;
+  font-size: 1.3rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.profile .pather_day_week .day_week:last-child{
+  width: 97%;
+}
+.edit_week_day{
+  color: #666;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.edit_week_day:hover{
+  color: #444;
+}
+.profile .pather_day_week .day_week svg{
+  font-size: 2rem;
+}
+.profile .pather_day_week .day_week svg.true{
+  color: #339933;
+}
+.profile .pather_day_week .day_week svg.false{
+  color: #ff0066;
+}
+.profile .cardtittle{
+  font-size: 1.7rem;
+  text-transform: capitalize;
+}
+
+.profile .balance-card , .profile .total-invoice , .profile .paid-invoice {
+  position: relative;
+  padding: 3rem 2rem;
+}
+
+.profile .balance {
+  font-size: 15px;
+  font-weight: 100;
+  padding: 0 10px;
+}
+
+.profile .balance-card span {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #33cc33;
+}
+
+.profile .balance-card img {
+  position: absolute;
+  top: 5em;
+  left: 14em;
+}
+
+.profile .debit-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 18px;
+  background-position: center;
+  background-size: cover;
+  background: #33ccff;
+  color: #fff;
+}
+
+.profile .debit-card .cardnumber {
+  font-size: 18px;
+  padding: 10px 20px;
+  padding-right: 0;
+  background: rgba(255, 255, 255, 0.6);
+  color: #000;
+  font-weight: normal;
+  text-shadow: 1px 1px 1px rgba(16, 16, 16, 0.1),
+    1px 2px 1px rgba(16, 16, 16, 0.1), 1px 3px 1px rgba(16, 16, 16, 0.1),
+    1px 4px 1px rgba(16, 16, 16, 0.1), 1px 5px 1px rgba(16, 16, 16, 0.1);
+}
+
+.profile .debit-card .cardholder {
+  font-size: 18px;
+  padding: 20px;
+  font-weight: normal;
+}
+
+.container_profile .col .t-i,
+.p-i,
+.u-i,
+.i-s {
+  font-size: 25px;
+  font-weight: 700;
+  padding: 20px 5px 20px 20px;
+}
+
+.profile .col .status {
+  font-size: 18px;
+  padding: 6px 20px;
+  border-radius: 6px;
+  color: #fff;
+  position: relative;
+  bottom: 3px;
+}
+
+.profile .total-invoice .status {
+  font-weight: 700;
+  color: #339933;
+  font-size: 16px;
+  padding-left: 5px;
+}
+
+.profile .paid-invoice .status {
+  background: #0066cc;
+}
+
+.profile .unpaid-invoice .status {
+  background: #ff0066;
+}
+
+.profile .invoice-sent .status {
+  background: #ffcc00;
+}

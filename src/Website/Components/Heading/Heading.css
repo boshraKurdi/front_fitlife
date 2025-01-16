@@ -1,0 +1,18 @@
+
+.hero-subtitle,
+.section-subtitle {
+  font-family: var(--ff-catamaran);
+  font-weight: var(--fw-700);
+  text-transform: uppercase;
+  max-width: max-content;
+}
+
+.section-subtitle {
+  background-color: var(--coquelicot_10);
+  color: var(--coquelicot);
+  margin: auto;
+  padding: 8px 20px;
+  border-radius: var(--radius-8);
+}
+
+.section-title { margin-block: 18px 35px; }

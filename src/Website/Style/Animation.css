@@ -1,0 +1,17 @@
+@keyframes rotate360 {
+    0% { transform: translate(-50%, -56%) rotate(0); }
+    100% { transform: translate(-50%, -56%) rotate(1turn); }
+}
+  
+@keyframes move {
+    0% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(-5px, 10px);
+    }
+    100% {
+      transform: translate(5px, 20px);
+    }
+  }
+  

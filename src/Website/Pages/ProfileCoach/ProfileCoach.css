@@ -1,0 +1,170 @@
+.about_section {
+    width: 100%;
+    height: auto;
+    padding: 13rem 13%;
+}
+
+.about_coach {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 80px;
+}
+
+.about_coach .about_img {
+    width: 350px;
+    height: auto;
+    border-radius: 15px;
+    margin-right: 50px;
+}
+
+.about_text h1 {
+    font-size: 34px;
+    margin-bottom: 23px;
+    color: hsl(294.74deg 16.89% 62.04%);
+    position: relative;
+    padding-left: 50px;
+}
+
+.about_text h1::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 2px;
+    background-color: hsl(294.74deg 16.89% 62.04%);
+    border-radius: 10px;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.p_profile_coach{
+
+    border-bottom: 1px solid var(--coquelicot);
+    padding-bottom: 20px;
+}
+
+.about_text p {
+    font-size: 13px;
+    line-height: 26px;
+    margin-bottom: 10px;
+    opacity: .8;
+}
+
+.signature {
+    width: 90px;
+}
+
+.buttons {
+    margin-top: 35px;
+    display: flex;
+}
+
+.buttons button {
+    text-decoration: none;
+    color: #fff;
+    padding: 12px 25px;
+    background-color: hsl(294.74deg 16.89% 62.04%);
+    font-size: 13px;
+    border-radius: 8px;
+    letter-spacing: 1px;
+    margin-right: 55px;
+}
+
+.buttons button i {
+    margin-left: 3px;
+    transition: all .5s ease;
+}
+
+.buttons button:hover i {
+    transform: translateX(6px);
+}
+
+.skill {
+    width: 100%;
+    height: auto;
+    padding-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 70px 50px;
+    position: relative;
+}
+
+#skill_head {
+    font-size: 24px;
+    color: hsl(294.74deg 16.89% 62.04%);
+    position: absolute;
+    left: -60px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+    padding-left: 50px;
+}
+
+#skill_head::after {
+    content: '';
+    position: absolute;
+    width: 35px;
+    height: 2px;
+    background-color: hsl(294.74deg 16.89% 62.04%);
+    border-radius: 10px;
+    left: 0;
+    top: 50%;
+}
+
+.bar .text {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.bar .text p {
+    font-size: 13px;
+    letter-spacing: 1px;
+    font-weight: 500;
+    opacity: .8;
+}
+.bar.dark .progress{
+    background-color: #444;
+}
+.bar.light .progress{
+    background-color: #fff;
+}
+.bar .progress {
+    width: 100%;
+    height: 8px;
+    border-radius: 20px;
+    position: relative;
+}
+
+.bar .progress span {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0px;
+    background-color: hsl(294.74deg 16.89% 62.04%);
+    border-radius: 20px;
+}
+
+
+
+@media (max-width: 1024px){
+    .about_coach{
+        flex-direction: column;
+    }
+    .about_text{
+        margin-top: 2rem;
+    text-align: center;
+    }
+    .about_text h1::after{
+        display: none;
+    }
+    .about_text h1{
+        padding: 0;
+    }
+    .about_coach .about_img{
+        margin: 0;
+    }
+
+}
