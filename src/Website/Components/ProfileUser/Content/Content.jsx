@@ -4,7 +4,6 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import EditIcon from "@mui/icons-material/Edit";
 import Cycle from "../../Cycle/Cycle";
-import BarChart from "../../Chart/BarChart";
 import EmailIcon from '@mui/icons-material/Email';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +14,7 @@ import SkeletonLoading from "../../Loading/SkeletonLoading/SkeletonLoading";
 import LottieFiles from "../../Loading/LottieLoading/LottieFiles";
 import Swal from 'sweetalert2'
 import { NavLink } from "react-router-dom";
+import Water from "../Water/Water";
 // import LocationOnIcon from '@mui/icons-material/LocationOn';
 export default function Content() {
   const dispatch = useDispatch()
@@ -92,8 +92,8 @@ export default function Content() {
             <div className="paid-invoice">
               <h3 className="cardtittle">Sleep</h3>
               <div style={{ display: "flex", alignItems: "center" }}>
-                <h2 className="balance">8h - 7h</h2>
-                <Cycle num="60" />
+                <h2 className="balance">you sleep {profile.sleepForDay}h from 8h</h2>
+                <Cycle num={(profile.sleepForDay/8)*100} />
               </div>
             </div>
           </div>
@@ -167,17 +167,7 @@ export default function Content() {
           <div className="col">
             <div className="latest-activity">
               <h3 className="cardtittle">Latest activity water</h3>
-              <Box height="250px" mt="-20px">
-                <BarChart data={profile.waterForDay} title="water" isDashboard={true} />
-              </Box>
-            </div>
-          </div>
-          <div className="col">
-            <div className="latest-activity">
-              <h3 className="cardtittle">Latest activity sleep</h3>
-              <Box height="250px" mt="-20px">
-                <BarChart title="sleep" data={profile.sleepForDay} isDashboard={true} />
-              </Box>
+                <Water num={profile.waterForDay} />
             </div>
           </div>
           <div className="col">

@@ -13,7 +13,7 @@ export default function Water() {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const { water } = useSelector((state) => state.plan);
-  const [data, setData] = useState(water?.targets.length ? water?.targets[0]?.water : 0);
+  const [data, setData] = useState(water?.targets?.length ? water?.targets[0]?.water : 0);
   const { loading, message, type } = useSelector((state) => state.target);
   
   useEffect(() => {
