@@ -9,7 +9,7 @@ import UsePayment from "../../Hooks/UsePayment";
 import CancelIcon from "@mui/icons-material/Cancel";
 import ButtonLoading from "../../Components/Loading/ButtonLoading/ButtonLoading";
 export default function Payment() {
-  const { register, handleSubmit, onSubmit, errors, error, loading } =
+  const { register, handleSubmit, onSubmit, errors, error, loading , message , type } =
     UsePayment();
   return (
     <div className="login">

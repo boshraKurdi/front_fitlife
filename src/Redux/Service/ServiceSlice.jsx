@@ -4,6 +4,8 @@ import ActPayment from './Act/ActPayment'
 
 const initialState = {
   services: [] ,
+  message:'message',
+  type:'error',
   loading: 'idle',
   error:null
 }
@@ -40,6 +42,8 @@ export const serviceSlice = createSlice({
     })
     builder.addCase(ActPayment.fulfilled , (state , action) => {
       state.loading = 'succeeded' 
+      state.message = action.payload.message
+      state.type = action.payload.type
     })
     builder.addCase(ActPayment.rejected , (state , action) => {
       state.loading = 'failed' 

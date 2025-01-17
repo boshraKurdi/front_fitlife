@@ -44,11 +44,14 @@
   }
   
   .sleep_about .about__details-description{
-    display: inline-flex;
+    display: flex;
     column-gap: .5rem;
+    align-items: center;
     font-size: var(--small-font-size);
   }
-  
+  .sleep_about .about__description svg{
+    color: var(--color-pu);
+  }
   .sleep_about .about__details-icon{
     font-size: 1rem;
     color: var(--first-color-1);

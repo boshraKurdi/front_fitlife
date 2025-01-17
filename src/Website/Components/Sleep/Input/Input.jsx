@@ -3,6 +3,7 @@ import Img2 from '../../../../img/sleep_schedule.png'
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ActStoreSleep } from "../../../../Redux/Target/TargetSlice";
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useSnackbar } from 'notistack';
 import ButtonLoading from "../../Loading/ButtonLoading/ButtonLoading";
 export default function Input({data}) {
@@ -22,8 +23,7 @@ export default function Input({data}) {
           </h2>
 
           <p className="about__description">
-            We have over 4000+ unbiased reviews and our customers trust our
-            plant process and delivery service every time
+          This plan aims to track your sleep activity to enjoy a healthy life. <DarkModeIcon />
           </p>
           <div className="about__details">
                 <label>The amount of sleep you should have😴</label>

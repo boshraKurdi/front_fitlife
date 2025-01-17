@@ -34,7 +34,7 @@ export default function Water() {
           </div>
           <div className="water_info">
             <h2>Enter Quntety Water</h2>
-            <p>asda sdkasnd askdnasdasd as,dnasd as,dnas,d</p>
+            <p style={{display:'flex' , alignItems:'center'}}>To enjoy a healthy life, you must consume sufficient amounts of water.  <OpacityIcon style={{ color: "#0087ff", fontSize: "1.7rem" }} /></p>
             <form>
               <label>The amount of water that you should drink💙</label>
               <input

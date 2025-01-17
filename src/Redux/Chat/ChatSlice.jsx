@@ -8,6 +8,7 @@ import ActSendMessage from './Act/ActSendMessage'
 const initialState = {
   myChats: [] ,
   messages: [] ,
+  message:'',
   myChat: {},
   loading: 'idle',
   loading2: 'idle' ,
@@ -47,7 +48,8 @@ export const chatSlice = createSlice({
       })
       builder.addCase(ActGetMessages.fulfilled , (state , action) => {
         state.loading3 = 'succeeded' 
-        state.messages = action.payload
+        state.messages = action.payload.data
+        state.message = action.payload.message
       })
       builder.addCase(ActGetMessages.rejected , (state , action) => {
         state.loading3 = 'failed' 

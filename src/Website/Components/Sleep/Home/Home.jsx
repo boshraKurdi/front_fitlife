@@ -11,8 +11,7 @@ export default function Home() {
           A plan to make your sleep better <br /> your life better
           </h1>
           <p className="home__description">
-            Create incredible plant design for your offices or apastaments. Add
-            fresness to your new ideas.
+          This plan aims to track your sleep activity to enjoy a healthy life.
           </p>
         </div>
         <Lottie className='home__img' animationData={Lsleep} />

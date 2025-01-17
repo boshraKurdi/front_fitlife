@@ -1,13 +1,13 @@
 .chat_content {
     position: relative;
     width: 100%;
-    min-height: 100vh;
+    min-height: 70vh;
 }
 .chat_content.light{
     background: linear-gradient(132deg, #d5d88d 0%, #88b884 100%);
 }
 .chat_content.dark{
-    background: url('../../../../img//telegram_dark.png');
+    /* background: url('../../../../img//telegram_dark.png'); */
     background-size: contain;
 }
 .chat_content.light::before {
@@ -18,15 +18,19 @@
     width: 100%;
     height: 100%;
     background-size: contain;
-    background-image: url(../../../../img/pattern.svg);
     opacity: .4;
 }
-
+.chat.dark .chat_content .chat_container .message-box .message-content{
+    background-color: var(--coquelicot_20);
+    backdrop-filter: blur(25px);
+}
+.chat.light .chat_content .chat_container .message-box .message-content{
+    background-color: #fff;
+}
 
 .chat_content .chat_container {
     transition: all .5s ease;
     margin-bottom: 10rem;
-    margin-top: 8rem;
 }
 
 .chat_content .chat_container.active {
@@ -34,21 +38,25 @@
     opacity: 1;
 }
 .chat_content .chat_container .content-header.dark{
-background-color: var(--fc-button-active-bg-color);
+    backdrop-filter: blur(38px);
+    background: var(--coquelicot_20);
 }
+.piker{
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+}
+
 .chat_content .chat_container .content-header.light{
     background-color: #fff;
+    z-index: 9999;
     }
 .chat_content .chat_container .content-header {
-    position: fixed;
     padding: 0 1rem;
     display: flex;
     align-items: center;
     height: 7rem;
     z-index: 1;
-    top: 0;
-    left: 0;
-    right: 0;
     width: 100%;
 }
 
@@ -103,6 +111,8 @@ background-color: var(--fc-button-active-bg-color);
 .chat_content .chat_container .chat-container {
     position: relative;
     padding:0 2rem;
+    height: 240px;
+    overflow: auto;
 }
 
 .chat_content .chat_container .chat-msg {
@@ -131,11 +141,16 @@ background-color: var(--fc-button-active-bg-color);
     margin-left: auto;
 }
 .chat_content .chat_container .chat-msg.user.dark{
-    background: linear-gradient(90.21deg, #AA367C -5.91%, #4A2FBD 111.58%);
+    background: var(--fc-button-border-color);
     margin-right: 0;
     margin-left: auto;
 }
-
+.chat.dark .right-side .chat-box .chat-details .chat-msg p{
+    color: var(--fc-more-link-bg-color);
+}
+.chat.light .right-side .chat-box .chat-details .chat-msg p{
+    color: var(--fc-neutral-text-color);
+}
 .chat_content .chat_container .chat-msg p {
     font-size: 1.4rem;
 }
@@ -163,7 +178,7 @@ background-color: var(--fc-button-active-bg-color);
     display: flex;
     align-items: center;
     gap: 1rem;
-    min-width: 60rem;
+    min-width: 30rem;
 }
 
 .chat_content .chat_container .message-box .message-content i {

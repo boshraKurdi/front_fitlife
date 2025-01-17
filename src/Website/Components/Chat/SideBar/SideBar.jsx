@@ -3,7 +3,7 @@ import "./SideBar.css";
 import CreateIcon from "@mui/icons-material/Create";
 import SearchIcon from "@mui/icons-material/Search";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ActGetChat } from "../../../../Redux/Chat/ChatSlice";
 import Content from "./Content/Content";
@@ -12,14 +12,23 @@ export default function SideBar() {
   const dispatch = useDispatch();
   const { value } = useSelector((state) => state.mode);
   const { myChats , loading , error } = useSelector((state) => state.chat);
+  const [searchTerm, setSearchTerm] = useState('');
   useEffect(() => {
     dispatch(ActGetChat())
   } , [dispatch])
-  let newData = myChats.map((chat)=>{
+  const filteredChats = searchTerm
+  ? myChats.filter(chat => 
+    chat.user && chat.user[0]?.name.toLowerCase().includes(searchTerm.toLowerCase()) 
+    )
+  : myChats;
+  let newData = filteredChats.map((chat)=>{
     return(
       <Content key={chat.id} chat={chat} />
     )
   })
+  const handleSearchChange = useCallback((e) => {
+    setSearchTerm(e.target.value);
+  }, []);
   return (
     <div className={`right-side ${value}`}>
       <div className="header-container">
@@ -29,7 +38,7 @@ export default function SideBar() {
           </div>
           <div className="search-box">
             <SearchIcon />
-            <input type="text" placeholder="Search" />
+            <input value={searchTerm} onChange={handleSearchChange} type="text" placeholder="Search" />
           </div>
         </div>
       </div>

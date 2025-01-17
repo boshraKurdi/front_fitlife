@@ -19,7 +19,7 @@ export default function Content({ service }) {
               <CheckCircleIcon />
             </span>
             <span>
-              <strong>{service.duration}</strong> duration service
+              <strong>{service.duration} week</strong> duration service
             </span>
           </li>
           <li>

@@ -36,13 +36,13 @@ export default function DashboardPlan() {
   return (
       <div className={`profile ${value}`}>
         <div className="container_profile">
-          <div class="container-body">
-          <SkeletonLoading loading={loading} error={error} type="meal">
+          <div className="container-body">
+          <SkeletonLoading loading={loading} error={error} type="profile">
             <div className="main-body">
               <div className="headtittle">
                 <div>
                   <span className="greeeting">
-                    {myplan?.plan && myplan?.plan.title}
+                    {myplan?.title}
                   </span>
                   <h2 style={{ display: "flex", alignItems: "center" }}>
                     my progress
