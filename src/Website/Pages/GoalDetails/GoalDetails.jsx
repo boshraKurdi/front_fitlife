@@ -18,7 +18,7 @@ const GoalDetails = () => {
   const nav = useNavigate();
 
   const { goal, error, loading } = useSelector((state) => state.goal);
-  const { loadingStore } = useSelector((state) => state.myGoal);
+  const { loadingStore , message , type } = useSelector((state) => state.myGoal);
   const { token } = useSelector((state) => state.auth);
   const { id } = useParams();
   useEffect(() => {
@@ -81,7 +81,7 @@ const GoalDetails = () => {
                   duration: <span>{goal && goal.duration}</span>
                 </li>
               </ul>
-              {token && goal?.count === 1 ? (
+              {token && goal?.count === 0 ? (
                 "you start"
               ) : (
                 <button
@@ -94,11 +94,16 @@ const GoalDetails = () => {
                           .then(() => {
                             nav("/user");
                             enqueueSnackbar(
-                              `Your journey have just started, one mill journey starts with one step 🤩🤩`,
-                              { variant: "success" }
+                              `${message}`,
+                              { variant: `${type}` }
                             );
                           })
-                          .catch(() => {});
+                          .catch(() => {
+                            enqueueSnackbar(
+                              `${message}`,
+                              { variant: `${type}` }
+                            );
+                          });
                   }}
                   className="btn_start"
                   disabled={
@@ -117,7 +122,7 @@ const GoalDetails = () => {
               )}
             </div>
           </div>
-          {/* <PlanForGoal id={goal && goal.id} /> */}
+          {/* <PlanForGoal plan={goal.plan && goal?.plan} /> */}
         </SkeletonLoading>
       </div>
     </>

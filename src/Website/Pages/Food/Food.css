@@ -26,7 +26,7 @@
     box-shadow: 28px 28px 55px #d4d4d4, -28px -28px 55px #ffffff;
 }
 .avg{
-    background: rgba(255, 255, 255, 0.5);
+    background: #fff;
     padding: 1rem 2rem;
     border-radius: 8px;
     backdrop-filter: blur(48px);
@@ -330,7 +330,7 @@ border-radius: 8px;
 
 
 }
-.filter-card:hover{
+.filter-card:hover , .filter-card.active{
 background-color: var(--coquelicot);
 color: #fff;
 }

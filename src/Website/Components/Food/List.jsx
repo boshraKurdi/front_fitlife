@@ -5,8 +5,7 @@ export default function List({ calories , setCalories , check , setCheck , chipD
   const nav = useNavigate()
   const newDta =
     meals ?
-    meals[0].meal ?
-    meals[0].meal.map((data) => {
+    meals.map((data) => {
       return (
         <div key={data.id} className="detail-card">
           <img
@@ -45,7 +44,7 @@ export default function List({ calories , setCalories , check , setCheck , chipD
           </button>
         </div>
       );
-    }):'' : '';
+    }):'';
   return (
     <div className="main-detail">
       <h2 className="main-title-bottom">choose Order</h2>

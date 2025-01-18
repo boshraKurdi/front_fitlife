@@ -10,7 +10,8 @@ const ActIndex = createAsyncThunk(
               , {
                 'breakfast' : time.breakfast ,
                 'lunch': time.lunch ,
-                'dinner' : time.dinner
+                'dinner' : time.dinner ,
+                'snack' : time.snack
               } , {
                 headers: {
                 Authorization: 'Bearer ' + auth.token

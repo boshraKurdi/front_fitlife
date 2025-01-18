@@ -4,6 +4,7 @@ import ActStore from './Act/ActStore'
 const initialState = {
   myGoals: [] ,
   message: '',
+  type: '',
   loading: 'idle',
   loadingStore : 'idle',
   error:null
@@ -44,10 +45,11 @@ export const myGoalSlice = createSlice({
     })
     builder.addCase(ActStore.fulfilled , (state , action) => {
       state.loadingStore = 'succeeded' 
+      state.message = action.payload.data 
+      state.type = action.payload.type 
     })
     builder.addCase(ActStore.rejected , (state , action) => {
       state.loadingStore = 'failed'
-      console.log(action.payload.status) 
       if (action.payload && typeof action.payload === 'string') {
         state.error = action.payload 
       }

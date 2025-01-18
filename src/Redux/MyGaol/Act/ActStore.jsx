@@ -11,7 +11,7 @@ const ActStore = createAsyncThunk(
                 headers: {
                 Authorization: 'Bearer ' + auth.token
             }});
-            return response.data.data   
+            return response.data   
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 return rejectWithValue(error.response?.data.message || error.message);   

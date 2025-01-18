@@ -13,6 +13,7 @@ const MyPlan = () => {
       dispatch(CleanUp());
     };
   }, [myGoals, dispatch]);
+  console.log(myPlans)
   const newRecorde = myPlans.length
     ? myPlans.map((plans) => {
         const newPlans = plans.map((plan) => {
@@ -30,7 +31,7 @@ const MyPlan = () => {
                       fontSize: "5rem",
                     }}
                   >
-                    {plans.length > 0 && plans[0].goal_plan.plan.type}
+                    {plans.length > 0 && plans[0].plan.type}
                   </h2>
                   <ul className="class-list has-scrollbar">
                     <SwiperComponent data={newPlans} />

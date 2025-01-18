@@ -15,6 +15,7 @@ export default function Food() {
     dinner: false,
     snack: false,
   });
+
   const { meals , id , loading, error , message } = useSelector((state) => state.meal);
   const dispatch = useDispatch();
   useEffect(() => {

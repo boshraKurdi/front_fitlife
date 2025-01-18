@@ -54,6 +54,7 @@ export default function Water() {
                 placeholder="enter leter"
               />
               <button
+                disabled={(loading === 'pending') ? true : false}
                 onClick={(event) => {
                     event.preventDefault()
                   dispatch(ActStoreWater(data))

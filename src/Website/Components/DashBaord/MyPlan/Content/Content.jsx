@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 const Content =  ({ plan }) => {
   const { MyComponentHeroSubtitleH3 } = Components();
   return (
-    <SwiperSlide  key={plan.goal_plan.plan && plan.goal_plan.plan?.id}>
+    <SwiperSlide  key={plan.plan && plan.plan?.id}>
         <li className="scrollbar-item">
           <div className="class-card">
             <figure className="card-banner img-holder">
               <img
-                src={plan.goal_plan.plan?.media && plan.goal_plan.plan.media[0].original_url}
+                src={plan.plan?.media && plan.plan.media[0].original_url}
                 width="416"
                 height="240"
                 loading="lazy"
@@ -21,8 +21,8 @@ const Content =  ({ plan }) => {
             <div className="card-content">
               <div className="title-wrapper">
                 <MyComponentHeroSubtitleH3 className="h3">
-                  <Link to={`/planDetails/${plan.goal_plan.plan && plan.goal_plan?.plan?.id}`} className="card-title">
-                  {plan.goal_plan.plan && plan.goal_plan.plan?.title}
+                  <Link to={`/planDetails/${plan.plan && plan?.plan?.id}`} className="card-title">
+                  {plan.plan && plan.plan?.title}
                   </Link>
                 </MyComponentHeroSubtitleH3>
               </div>
