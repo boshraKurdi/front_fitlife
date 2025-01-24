@@ -1,13 +1,17 @@
 import { useSelector, useDispatch } from "react-redux";
-import { memo, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ActExerciseIndex } from "../../../Redux/Plan/PlanSlice";
 import { format } from "date-fns";
+import Lottie from 'lottie-react';
 import Stepper from "./Stepper/Stepper";
+import Lsleep from '../../../lottiefiles/sleep2.json'
 import { useNavigate } from "react-router-dom";
 import FileDownloadDoneIcon from "@mui/icons-material/FileDownloadDone";
 const Exercises = ({ data, myplan, id }) => {
   const { value } = useSelector((state) => state.mode);
+  const { user } = useSelector((state) => state.auth);
   const nav = useNavigate();
+  const [butt , setButt] = useState(`${user.gender}`);
   const { exercises, loading } = useSelector((state) => state.plan);
   const dispatch = useDispatch();
   const today = format(new Date(), "yyyy-MM-dd");
@@ -23,8 +27,13 @@ const Exercises = ({ data, myplan, id }) => {
         console.log(error);
       });
   }, [dispatch, data, indexOfToday, id]);
-  const newData = exercises.exercise
-    ? exercises?.exercise.map((data) => {
+  const filteredExercise = butt 
+  ? exercises?.exercise?.filter(data => 
+      data?.type === butt
+    )
+  : filteredExercise;
+  const newData = data.day 
+    ? filteredExercise?.map((data) => {
         return (
           <>
             <div className="dd" key={data.id}>
@@ -74,15 +83,26 @@ const Exercises = ({ data, myplan, id }) => {
           <Stepper myplan={myplan} indexOfToday={indexOfToday} data={data} />
         </div>
         <div className="why__content">
+        {data.day ?
+        <>
           <h2 className="section__header">Exercises</h2>
           <p>
             Each day of the week has its own exercises that have been carefully
             studied to achieve physical fitness.
           </p>
+          <div className="type_exe">
+            <button onClick={()=>{setButt('male')}} className={butt === 'male' && 'active'}>male</button>
+            <button  onClick={()=>{setButt('feminine')}} className={butt === 'feminine' && 'active'}>feminine</button>
+          </div>
 
           <div className={`why__grid`}>
             {loading === "pending" ? "loading..." : newData}
           </div>
+          </>
+              : <div style={{display:'flex' , flexDirection: 'column',alignItems: 'center'}}>
+                <Lottie style={{width:'300px'}} animationData={Lsleep} />
+                <p style={{fontSize:'1.7rem'}}>Happy Holidays🥳🥳</p>
+              </div>}
         </div>
       </section>
     </>

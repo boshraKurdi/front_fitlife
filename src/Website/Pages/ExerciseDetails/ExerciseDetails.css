@@ -16,7 +16,32 @@
   .row > .col-1 {
     width: 8.33333%;
   }
-  
+  .viewport ul{
+    margin: 1rem 0;
+    font-size: 0.9rem;
+}
+.viewport ul li{
+    margin: 0;
+    list-style: none;
+    display: flex;
+    background-size: 18px;
+    padding-left: 1.7rem;
+    margin: 0.4rem 0;
+    font-weight: 600;
+    opacity: 0.9;
+    align-items: center;
+    font-size: 1.6rem;
+}
+.viewport ul li svg{
+    color: var(--color-pu);
+    font-size: 2.5rem;
+    margin-right: 1rem;
+}
+.viewport ul li span{
+    font-weight: 400;
+    margin-left: .5rem;
+}
+
   .row > .col-2 {
     width: 16.66667%;
   }

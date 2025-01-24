@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import OpacityIcon from "@mui/icons-material/Opacity";
 import ButtonLoading from "../../Loading/ButtonLoading/ButtonLoading";
 import { useEffect, useState } from "react";
+import LocalDrinkIcon from '@mui/icons-material/LocalDrink';
 import { ActGetWater } from "../../../../Redux/Plan/PlanSlice";
-import { ActStoreWater } from "../../../../Redux/Target/TargetSlice";
+import { ActStoreWater, ResetMessages } from "../../../../Redux/Target/TargetSlice";
 import { useSnackbar } from "notistack";
 export default function Water() {
   const { value } = useSelector((state) => state.mode);
@@ -19,6 +20,12 @@ export default function Water() {
   useEffect(() => {
     dispatch(ActGetWater());
   }, [dispatch]);
+  useEffect(() => {
+      if (message) {
+        enqueueSnackbar(`${message}`, { variant: `${type}` });
+        dispatch(ResetMessages()); 
+      }
+    }, [message, type, dispatch, enqueueSnackbar]);
   return (
     <>
       <div className="water_title">
@@ -53,6 +60,17 @@ export default function Water() {
                 type="number"
                 placeholder="enter leter"
               />
+              <div className="add_water">
+              <span onClick={()=>{
+                setData(data+1)
+              }}>1 liter <LocalDrinkIcon/></span>
+              <span  onClick={()=>{
+                setData(data+2)
+              }}>2 liter <LocalDrinkIcon/></span>
+              <span  onClick={()=>{
+                setData(data+3)
+              }}>3 liter <LocalDrinkIcon/></span>
+              </div>
               <button
                 disabled={(loading === 'pending') ? true : false}
                 onClick={(event) => {
@@ -60,10 +78,8 @@ export default function Water() {
                   dispatch(ActStoreWater(data))
                     .unwrap()
                     .then(() => {
-                      enqueueSnackbar(`${message}`, { variant: `${type}` });
                     })
                     .catch(() => {
-                      enqueueSnackbar(`${message}`, { variant: `${type}` });
                     });
                 }}
                 className="button--link button--flex"

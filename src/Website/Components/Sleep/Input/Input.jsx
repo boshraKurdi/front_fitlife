@@ -1,8 +1,8 @@
 import "./Input.css";
 import Img2 from '../../../../img/sleep_schedule.png' 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ActStoreSleep } from "../../../../Redux/Target/TargetSlice";
+import { ActStoreSleep, ResetMessages } from "../../../../Redux/Target/TargetSlice";
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useSnackbar } from 'notistack';
 import ButtonLoading from "../../Loading/ButtonLoading/ButtonLoading";
@@ -11,6 +11,12 @@ export default function Input({data}) {
     const {loading , message , type} = useSelector((state) => state.target)
     const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch()
+    useEffect(() => {
+          if (message) {
+            enqueueSnackbar(`${message}`, { variant: `${type}` });
+            dispatch(ResetMessages()); 
+          }
+        }, [message, type, dispatch, enqueueSnackbar]);
   return (
     <section className="sleep_about section container" id="about">
       <div className="about__container grid">
@@ -38,10 +44,7 @@ export default function Input({data}) {
             <button onClick={(e)=>{
                 e.preventDefault()
                 dispatch(ActStoreSleep(sleep)).unwrap().then(()=>{
-                    enqueueSnackbar(`${message}`, { variant: `${type}` });
-    
                 }).catch(()=>{
-                    enqueueSnackbar(`${message}`, { variant: `${type}` });
                 })
             }} disabled={loading === 'pending' ? true : false} className="button--link button--flex">
               Save {loading === 'pending' ? <ButtonLoading/> : ''} <i className="ri-arrow-right-down-line button__icon"></i>

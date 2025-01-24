@@ -22,7 +22,11 @@ export const targetSlice = createSlice({
   reducers: {
     CleanUp: (state) => {
         state.target = [] 
-    } 
+    } ,
+    ResetMessages(state) {
+      state.message = null;
+      state.error = null;
+    },
   } ,
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
@@ -32,8 +36,8 @@ export const targetSlice = createSlice({
     })
     builder.addCase(ActStore.fulfilled , (state , action) => {
       state.loading = 'succeeded'
-      state.message = action.payload.message
-      state.type = action.payload.type
+      // state.message = action.payload.message
+      // state.type = action.payload.type
     })
     builder.addCase(ActStore.rejected , (state , action) => {
       state.loading = 'failed' 
@@ -96,5 +100,5 @@ export const targetSlice = createSlice({
 })
 // Action creators are generated for each case reducer function
 export { ActStore , ActStoreE , ActStoreSleep , ActStoreWater } 
-export const { CleanUp  } = targetSlice.actions
+export const { CleanUp , ResetMessages } = targetSlice.actions
 export default targetSlice.reducer

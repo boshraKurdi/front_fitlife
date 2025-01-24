@@ -8,7 +8,7 @@ export default function Size({ setBox, state, setState, form, setForm }) {
   const {ChangeSetting , HandelInput , regex } = UseSize({ setBox, state, setState, form, setForm })
   return (
     <form className="login__create login__create_size" id="login-up">
-      <h1 className="login__title">Create Account</h1>
+      <h1 className="login__title">Complete registration</h1>
       <div className="box_flex">
         <div className="box">
           <div className={form.widthError !== "" && (form.width === "" || !regex.test(form.width)) ? "inputError login__box" : 'login__box'}>
@@ -135,7 +135,9 @@ export default function Size({ setBox, state, setState, form, setForm }) {
           </div>
         </div>
       </div>
-      <button onClick={ChangeSetting} className="login__button next">
+      <button onClick={(e)=>{
+          e.preventDefault();
+        ChangeSetting('s')}} className="login__button next">
       <KeyboardDoubleArrowLeftIcon />  Next
       </button>
     </form>

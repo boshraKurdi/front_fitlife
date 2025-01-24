@@ -6,6 +6,7 @@ const initialState = {
   meals: [] ,
   meal: {} ,
   message: '',
+  date_meals: [],
   id:0,
   loadingShow : 'idle',
   loading: 'idle',
@@ -28,7 +29,7 @@ export const mealSlice = createSlice({
     })
     builder.addCase(ActIndex.fulfilled , (state , action) => {
       state.loading = 'succeeded' 
-      state.meals = action.payload.data
+      state.meals = action.payload
       state.id = action.payload.id
       state.message = action.payload.message
     })

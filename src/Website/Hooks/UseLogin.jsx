@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginScema } from '../index'
-import { ActAuthLogin } from "../../Redux/Auth/AuthSlice";
+import { ActAuthLogin, SetAuth } from "../../Redux/Auth/AuthSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from 'notistack';
@@ -23,9 +23,10 @@ const UseLogin = () => {
 // submit form login
 const onSubmit = async (data) => {
   
-  const promise = dispatch(ActAuthLogin(data)).unwrap().then(()=>{
+  const promise = dispatch(ActAuthLogin(data)).unwrap().then((data)=>{
     nav('/' , {replace: true})
     enqueueSnackbar(`Login successfully!`, { variant: "success" });
+    dispatch(SetAuth(data.user))
     }).catch(()=>{
       enqueueSnackbar(`Login Faild!`, { variant: "error" });
     })

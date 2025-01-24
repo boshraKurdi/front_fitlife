@@ -11,7 +11,7 @@ export default function Address({ setBox, state, setState, form, setForm }) {
   const { getLatALon , stats , setStats , error , loading , ChangeSetting , HandelInput , HandelSignUp} = UseInformation({ setBox, state, setState, form, setForm });
   return (
     <form onSubmit={HandelSignUp} className="login__create login__create_address" id="login-up">
-      <h1 className="login__title">Create Account</h1>
+      <h1 className="login__title">Complete registration</h1>
       <div className="box_flex">
         <div className="box w-100">
           <div className={(form.addressError !== "" && form.address === "") ? "inputError login__box" : 'login__box'}>
@@ -50,7 +50,7 @@ export default function Address({ setBox, state, setState, form, setForm }) {
       )}
       <div className="container_button">
         <button className="login__button" disabled={(loading === 'pending' || stats.loading !== 'succeeded') ? true : false}>{loading === 'pending' ? <ButtonLoading /> : 'OK'}</button>
-        <button onClick={ChangeSetting} className="login__button back">
+        <button onClick={()=>{ChangeSetting('a')}} className="login__button back">
         Back <KeyboardDoubleArrowRightIcon />
         </button>
       </div>

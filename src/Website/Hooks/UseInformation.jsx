@@ -9,8 +9,8 @@ export default function UseInformation({setBox, state, setState, form, setForm})
     const nav = useNavigate()
     const { getLatALon , location , stats , setStats } = UseGetAddress({form, setForm});
     const { error , loading } = useSelector((state) => state.auth)
-    function ChangeSetting() {
-      setBox((prev) => !prev);
+    function ChangeSetting(name) {
+      setBox(name);
     }
     function HandelInput(e) {
       setForm({ ...form, [e.target.name]: e.target.value });

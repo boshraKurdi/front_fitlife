@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from "react-redux"
 import Heading from "../../../Components/Heading/Heading";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SwiperComponent from "../../../Components/Swiper/SwiperComponent";
-import {ActStoreE} from "../../../../Redux/Target/TargetSlice";
+import {ActStoreE, ResetMessages} from "../../../../Redux/Target/TargetSlice";
 import { useSnackbar } from 'notistack';
-
+import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
 export default function Time({calories , plan_id , id}){
   const dispatch = useDispatch();
+  const nav = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
     const { value } = useSelector((state) => state.mode);
     const { loadingE , message , type  } = useSelector((state) => state.target);
@@ -22,6 +24,12 @@ export default function Time({calories , plan_id , id}){
         {title: '9 time' , calories:9*calories} ,
         {title: '10 time' , calories:10*calories} ,
     ]) 
+       useEffect(() => {
+              if (message) {
+                enqueueSnackbar(`${message}`, { variant: `${type}` });
+                dispatch(ResetMessages()); 
+              }
+            }, [message, type, dispatch, enqueueSnackbar]);
     const newData = data.map((d)=>{
         return(
           <>
@@ -31,16 +39,21 @@ export default function Time({calories , plan_id , id}){
             {d.calories} burns calories
             </p>
             <span onClick={()=>(
-                dispatch(ActStoreE({calories:d.calories , id:plan_id , check:id}))
-                .unwrap()
-                      .then(()=>{
-                        enqueueSnackbar(`${message}`, { variant: `${type}`});
-                      })
-                      .catch(()=>{
-                        enqueueSnackbar(`${message}`, { variant: `${type}`});
+                 Swal.fire({
+                        title: "Are You Ready?!",
+                        text: "You won't be able to revert this!",
+                        icon: "question",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "I ready"
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          nav('workout')
+                      }
                       })
             )} style={{borderRadius:'8px'}}>
-              {loadingE === 'pending' ? 'loading..'  : 'save'}
+             start now
             </span>
           </div>
           </>

@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import SkeletonLoading from "../../Components/Loading/SkeletonLoading/SkeletonLoading";
 // import PlanForGoal from "../../Components/PlanForGoal/PlanForGoal";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import { ActStore } from "../../../Redux/MyGaol/MyGoalSlice";
+import { ActStore, ResetMessages } from "../../../Redux/MyGaol/MyGoalSlice";
 import { useSnackbar } from "notistack";
 import ButtonLoading from "../../Components/Loading/ButtonLoading/ButtonLoading";
 const GoalDetails = () => {
@@ -27,6 +27,12 @@ const GoalDetails = () => {
       dispatch(GoalCleanUp());
     };
   }, [dispatch, id]);
+    useEffect(() => {
+                if (message) {
+                  enqueueSnackbar(`${message}`, { variant: `${type}` });
+                  dispatch(ResetMessages()); 
+                }
+              }, [message, type, dispatch, enqueueSnackbar]);
   return (
     <>
       <div className="card top">
@@ -81,9 +87,9 @@ const GoalDetails = () => {
                   duration: <span>{goal && goal.duration}</span>
                 </li>
               </ul>
-              {token && goal?.count === 0 ? (
+              {/* {token && goal?.count === 0 ? (
                 "you start"
-              ) : (
+              ) : ( */}
                 <button
                   onClick={(e) => {
                     e.preventDefault();
@@ -93,16 +99,10 @@ const GoalDetails = () => {
                           .unwrap()
                           .then(() => {
                             nav("/user");
-                            enqueueSnackbar(
-                              `${message}`,
-                              { variant: `${type}` }
-                            );
+                          
                           })
                           .catch(() => {
-                            enqueueSnackbar(
-                              `${message}`,
-                              { variant: `${type}` }
-                            );
+                          
                           });
                   }}
                   className="btn_start"
@@ -119,7 +119,7 @@ const GoalDetails = () => {
                     <KeyboardDoubleArrowRightIcon />
                   )}
                 </button>
-              )}
+              {/* )} */}
             </div>
           </div>
           {/* <PlanForGoal plan={goal.plan && goal?.plan} /> */}

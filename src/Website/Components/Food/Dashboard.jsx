@@ -10,16 +10,13 @@ export default function Dashboard({ meals , id , open }) {
   const [Categories, setCategories] = useState(0);
   const { enqueueSnackbar } = useSnackbar();
   const { value } = useSelector((state) => state.mode);
-  const { loading , message , type} = useSelector((state) => state.target)
+  const { loading } = useSelector((state) => state.target)
   const [check , setCheck] = useState([]);
   const [calories , setCalories] = useState([]);
   const [chipData, setChipData] = useState([]);
   let newArMeat = Categories !== 0 ?
   meals && meals[0]?.meal?.filter(data => data.category_id == Categories) : meals[0].meal
-console.log(newArMeat)
 
-
-  
   const totalCalories = chipData.reduce((accumulator, current) => {
     // تحقق مما إذا كان id الحالي موجودًا في meals
     const existsInMeals = meals[0]?.meal?.some(obj => obj.id === current.id);
@@ -79,10 +76,10 @@ console.log(newArMeat)
             dispatch(ActStore({calories:calories , id:id , check:check}))
             .unwrap()
             .then(()=>{
-              enqueueSnackbar(`${message}`, { variant: `${type}`});
+              enqueueSnackbar(`Your progress in the plan meals has been recorded. Keep going. 😎😍`, { variant: `success`});
             })
             .catch(()=>{
-              enqueueSnackbar(`${message}`, { variant: `${type}`});
+              enqueueSnackbar(`try agen!`, { variant: `error`});
             })
           }} className='save_food' disabled={loading === 'pending' ? true : false}>{loading === 'pending' ? 'loading...' : "Save"}</button>
           </div>

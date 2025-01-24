@@ -18,6 +18,10 @@ export const serviceSlice = createSlice({
         state.services = [] 
     } 
     ,
+    ResetMessages(state) {
+      state.message = null;
+      state.error = null;
+    },
   } ,
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
@@ -56,5 +60,5 @@ export const serviceSlice = createSlice({
 })
 // Action creators are generated for each case reducer function
 export { ActIndex , ActPayment }
-export const { CleanUp } = serviceSlice.actions
+export const { CleanUp ,  ResetMessages } = serviceSlice.actions
 export default serviceSlice.reducer

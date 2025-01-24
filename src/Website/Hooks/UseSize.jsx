@@ -1,7 +1,6 @@
 const UseSize = ({ setBox, state, setState, form, setForm }) => {
     const regex = /^[0-9]+$/;
-    function ChangeSetting(e) {
-      e.preventDefault();
+    function ChangeSetting(name) {
       let flag = false;
       let errors = {};
       setState({ ...state, loading: false });
@@ -28,7 +27,7 @@ const UseSize = ({ setBox, state, setState, form, setForm }) => {
         flag = false;
       }
       if (!flag) {
-        setBox((prev) => !prev);
+        setBox(name);
       }
     }
     function HandelInput(e) {

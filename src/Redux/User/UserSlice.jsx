@@ -5,6 +5,7 @@ import ActShow from './Act/ActShow'
 import ActProfile from './Act/ActProfile'
 import ActDeleteAccount from './Act/ActDeleteAccount'
 import ActEditProfile from './Act/ActEditProfile'
+import ActEditScheduling from './Act/ActEditScheduling'
 
 const initialState = {
   users: [] ,
@@ -112,10 +113,24 @@ export const userSlice = createSlice({
         state.error = action.payload 
       }
     })
+    //ActEditScheduling
+    builder.addCase(ActEditScheduling.pending , (state) => {
+      state.loading = 'pending' 
+      state.error = null
+    })
+    builder.addCase(ActEditScheduling.fulfilled , (state ) => {
+      state.loading = 'succeeded' 
+    })
+    builder.addCase(ActEditScheduling.rejected , (state , action) => {
+      state.loading = 'failed' 
+      if (action.payload && typeof action.payload === 'string') {
+        state.error = action.payload 
+      }
+    })
    }
 
 })
 // Action creators are generated for each case reducer function
-export { ActIndex , ActGetCoach , ActShow, ActProfile ,  ActDeleteAccount , ActEditProfile} 
+export { ActIndex , ActGetCoach , ActShow, ActProfile ,  ActDeleteAccount , ActEditProfile , ActEditScheduling} 
 export const { CleanUp , GoalCleanUp } = userSlice.actions
 export default userSlice.reducer

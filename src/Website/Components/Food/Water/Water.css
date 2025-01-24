@@ -20,6 +20,28 @@
     flex: 1;
     width: 100%;
 }
+.water .add_water{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+.water .add_water span{
+    padding: 1rem;
+    border: 1px solid var(--fc-event-bg-color);
+    width: 30%;
+    color: var(--fc-event-bg-color);
+    border-radius: 9px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    font-size: 1.4rem;
+    justify-content: space-between;
+}
+.water .add_water span:hover{
+    color: #fff;
+    background-color: var(--fc-event-bg-color);
+}
 .water .water_info h2{
     font-size: 3rem;
     margin-bottom: .5rem;

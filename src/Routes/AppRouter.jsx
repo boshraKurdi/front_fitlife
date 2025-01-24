@@ -67,6 +67,8 @@ const Main = lazy(() => import("../Website/Pages/Main/Main")),
    DashboardPlan = lazy(()=> import("../Website/Pages/DashboardPlan/DashboardPlan")),
    EditProfile = lazy(()=> import("../Website/Pages/EditProfile/EditProfile")),
    Sleep = lazy(()=> import("../Website/Pages/Sleep/Sleep")),
+   Workout  = lazy(()=> import("../Website/Pages/Workout/Workout")) ,
+   EditScheduling  = lazy(()=> import("../Website/Pages/EditScheduling/EditScheduling")) ,
   Chat = lazy(()=> import('../Website/Pages/Chat/Chat'));
 const router = createBrowserRouter([
   {
@@ -275,6 +277,19 @@ const router = createBrowserRouter([
         }
     },
     {
+      path: 'exerciseDetails/:id/:plan_id/workout',
+      element: <Suspense fallback={<Loading />}><Workout /></Suspense>,
+      loader : ({params}) =>{
+        if (!regex.test(params.id)) {
+          throw new Response("bad request" , {
+            statusText: "exercise not found" ,
+            status: 400
+          })
+        }
+        return true;
+      }
+  },
+    {
       path: 'myProfile',
       element: <Suspense fallback={<Loading />}><ProfileUser /></Suspense>,
   },
@@ -285,6 +300,10 @@ const router = createBrowserRouter([
   {
     path: 'myProfile/edit',
     element: <Suspense fallback={<Loading />}><EditProfile /></Suspense>,
+},
+{
+  path: 'myProfile/editScheduling',
+  element: <Suspense fallback={<Loading />}><EditScheduling /></Suspense>,
 },
       {
         path: 'mealDetails/:id',
@@ -374,7 +393,7 @@ const router = createBrowserRouter([
             }
           },
           {
-            path: 'planDetails/:id/dashboard/:week' ,
+            path: 'planDetails/:id/dashboard/:week/:day' ,
             element: <Suspense fallback={<Loading />}><DashboardPlan /></Suspense>,
             loader : ({params}) =>{
               if (!regex.test(params.id)) {

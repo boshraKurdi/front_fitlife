@@ -40,7 +40,7 @@ const Home = ({ myplan , loading , error , data }) => {
             </li>
             <li>
               <CheckCircleIcon />
-              duration: <span>{myplan?.duration}</span>
+              duration: <span>{myplan?.duration} week</span>
             </li>
             <li>
             <div style={{width: '100%'}} className="card-progress">
@@ -59,7 +59,7 @@ const Home = ({ myplan , loading , error , data }) => {
             </div>
             </li>
           </ul>
-          <NavLink to={'dashboard/1'} className='btn_start'>show details <KeyboardDoubleArrowRightIcon/></NavLink>
+          {data.day ? <NavLink to={`dashboard/${data.week}/${data.day}`} className='btn_start'>show details <KeyboardDoubleArrowRightIcon/></NavLink> : ''}
         </div>
       </div>
     </div>

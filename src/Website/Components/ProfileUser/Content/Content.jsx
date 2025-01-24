@@ -13,11 +13,13 @@ import { ActDeleteAccount, ActProfile } from "../../../../Redux/User/UserSlice";
 import SkeletonLoading from "../../Loading/SkeletonLoading/SkeletonLoading";
 import LottieFiles from "../../Loading/LottieLoading/LottieFiles";
 import Swal from 'sweetalert2'
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Water from "../Water/Water";
+import BarChart from "../../Chart/BarChart";
 // import LocationOnIcon from '@mui/icons-material/LocationOn';
 export default function Content() {
   const dispatch = useDispatch()
+  const nav = useNavigate();
   const { profile , loading , error } = useSelector((state) => state.user)
   useEffect(()=>{
     dispatch(ActProfile())
@@ -28,6 +30,9 @@ export default function Content() {
     },
     [dispatch]
   );
+  const { user } = useSelector((state) => state.auth)
+  let days = JSON.parse(user.days)
+  console.log(user)
   function HandelDelete(){
     Swal.fire({
       title: "Are you sure?",
@@ -106,7 +111,8 @@ export default function Content() {
             <div className="latest-activity">
               <h3 className="cardtittle">Latest activity exercises</h3>
               <Box height="250px" m="-20px 0 0 0">
-                <LineChart title='exercises' data={profile?.caloriesForDay} isDashboard={true} />
+                {/* <LineChart title='exercises' data={profile?.caloriesForDay} isDashboard={true} /> */}
+                <BarChart data={profile?.caloriesForDay}/>
               </Box>
             </div>
           </div>
@@ -114,7 +120,8 @@ export default function Content() {
             <div className="latest-activity">
               <h3 className="cardtittle">Latest activity meals</h3>
               <Box height="250px" m="-20px 0 0 0">
-                <LineChart data={profile?.FoodForDay} title="meal" isDashboard={true} />
+                {/* <LineChart data={profile?.FoodForDay} title="meal" isDashboard={true} /> */}
+                <BarChart data={profile?.FoodForDay}/>
               </Box>
             </div>
           </div>
@@ -130,35 +137,37 @@ export default function Content() {
                   justifyContent: "space-between",
                 }}
               >
-                Weekly Schedule <EditIcon className="edit_week_day" />
+                Weekly Schedule <EditIcon onClick={()=>{
+                  nav('editScheduling')
+                }} className="edit_week_day" />
               </h3>
               <div className="pather_day_week">
                 <div className="day_week">
-                  <CheckCircleIcon className="true" />
+                  {days.monday ? <CheckCircleIcon className="true" /> :<CancelIcon className="false" />}
                   <span>monday</span>
                 </div>
                 <div className="day_week">
-                  <CheckCircleIcon className="true" />
+                {days.tuesday ? <CheckCircleIcon className="true" /> :<CancelIcon className="false" />}
                   <span>tuesday</span>
                 </div>
                 <div className="day_week">
-                  <CancelIcon className="false" />
+                {days.wednesday ? <CheckCircleIcon className="true" /> :<CancelIcon className="false" />}
                   <span>wednesday</span>
                 </div>
                 <div className="day_week">
-                  <CheckCircleIcon className="true" />
+                {days.thrusday ? <CheckCircleIcon className="true" /> :<CancelIcon className="false" />}
                   <span>thrusday</span>
                 </div>
                 <div className="day_week">
-                  <CancelIcon className="false" />
+                {days.friday ? <CheckCircleIcon className="true" /> :<CancelIcon className="false" />}
                   <span>friday</span>
                 </div>
                 <div className="day_week">
-                  <CheckCircleIcon className="true" />
+                {days.saturday ? <CheckCircleIcon className="true" /> :<CancelIcon className="false" />}
                   <span>saturday</span>
                 </div>
                 <div className="day_week">
-                  <CancelIcon className="false" />
+                {days.sunday ? <CheckCircleIcon className="true" /> :<CancelIcon className="false" />}
                   <span>sunday</span>
                 </div>
               </div>

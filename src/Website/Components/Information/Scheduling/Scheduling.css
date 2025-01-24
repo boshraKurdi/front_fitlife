@@ -1,0 +1,24 @@
+.login__create .day{
+    display: flex
+    ;
+        padding: 1rem;
+        align-items: center;
+        background: var(--color-pi);
+        border-radius: 9px;
+        font-size: 1.2rem;
+        font-family: cursive;
+        width: 30%;
+}
+.login__create .days{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.login__create .d_p{
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    font-family: cursive;
+}

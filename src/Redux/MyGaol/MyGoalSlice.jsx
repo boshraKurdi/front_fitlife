@@ -19,6 +19,9 @@ export const myGoalSlice = createSlice({
         state.error=null
         state.myGoals = [] 
     } ,
+    ResetMessages:(state) =>{
+      state.message = ''
+    }
   } ,
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
@@ -58,5 +61,5 @@ export const myGoalSlice = createSlice({
 })
 // Action creators are generated for each case reducer function
 export { ActGetMyGoal , ActStore } 
-export const { CleanUp } = myGoalSlice.actions
+export const { CleanUp , ResetMessages } = myGoalSlice.actions
 export default myGoalSlice.reducer

@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./Stepper.css";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { memo, useEffect } from "react";
+import {  useEffect } from "react";
 import {SetData} from '../../../../Redux/Mode/ModeSlice'
-const Stepper = memo(({ indexOfToday }) => {
+const Stepper = ({ indexOfToday }) => {
   const { value } = useSelector((state) => state.mode);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -51,7 +51,7 @@ const Stepper = memo(({ indexOfToday }) => {
         dispatch(SetData({day: 7, week: 2 }));
         break;
       default:
-        dispatch(SetData({day: 1, week: 1 }));
+        dispatch(SetData({day: 0, week: 0 }));
     }
   }, [indexOfToday , dispatch]);
 
@@ -203,5 +203,5 @@ const Stepper = memo(({ indexOfToday }) => {
       </div>
     </div>
   );
-});
+};
 export default Stepper;

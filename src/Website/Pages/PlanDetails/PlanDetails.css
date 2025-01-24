@@ -21,7 +21,27 @@
     height:100vh;
     gap: 5rem;
   }
-  
+  .type_exe{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--cadet-gray);
+    color: #fff;
+    margin-top: 1rem;
+    font-size: 1.4rem;
+    font-family: cursive;
+    border-radius: 30px;
+  }
+  .type_exe button{
+    width: 50%;
+    outline: none;
+    border-radius: 30px;
+    padding: 1rem;
+  }
+  .type_exe button.active{
+    background: var(--color-pi);
+  }
   .header__container h1 {
     margin-bottom: 1rem;
     max-width: 800px;

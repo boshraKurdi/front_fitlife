@@ -1,7 +1,6 @@
 import Lottie from 'lottie-react';
 import './Home.css'
 import Lsleep from '../../../../lottiefiles/sleep2.json'
-// import Imgg1 from '../../../../img/sleep.jpg'
 export default function Home() {
   return (
     <section className="sleep_home" id="home">

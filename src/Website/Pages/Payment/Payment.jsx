@@ -3,10 +3,8 @@ import imgAuth from "../../../img/img-login.svg";
 import PersonIcon from "@mui/icons-material/Person";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import UsePayment from "../../Hooks/UsePayment";
-import CancelIcon from "@mui/icons-material/Cancel";
 import ButtonLoading from "../../Components/Loading/ButtonLoading/ButtonLoading";
 export default function Payment() {
   const { register, handleSubmit, onSubmit, errors, error, loading , message , type } =
@@ -18,7 +16,7 @@ export default function Payment() {
           <img src={imgAuth} alt="" />
         </div>
         <div className="login__forms">
-          <div className="wrapper login__create">
+          <div style={{bottom:'-0.5%'}} className="wrapper login__create">
             <h2> Payment Form </h2>
             <form onSubmit={handleSubmit(onSubmit)} method="post">
               <div className="input_group">
@@ -77,7 +75,7 @@ export default function Payment() {
               <div className="input_group">
                 <div className="input_box">
                   <input
-                    type="number"
+                    type="month"
                     className="name"
                     name="month"
                     {...register("month")}
@@ -86,19 +84,6 @@ export default function Payment() {
                   <CalendarMonthIcon className="icon" />
                   <p className="error">{errors.month?.message}</p>
                 </div>
-                <div className="input_box">
-                  <input
-                    type="number"
-                    className="name"
-                    name="year"
-                    {...register("year")}
-                    placeholder="Exp year"
-                  />
-                  <CalendarTodayIcon className="icon" />
-                  <p className="error">{errors.year?.message}</p>
-                </div>
-              </div>
-              <div className="input_group">
                 <div className="input_box">
                   <input
                     type="number"
@@ -112,14 +97,6 @@ export default function Payment() {
                 </div>
               </div>
               <div className="input_group">
-                {error && (
-                  <span className="errorMessage">
-                    <CancelIcon
-                      style={{ marginRight: "15px", color: "#ff4900" }}
-                    />{" "}
-                    {error}
-                  </span>
-                )}
                 <div className="input_box">
                   <button
                     disabled={loading === "pending" ? true : false}

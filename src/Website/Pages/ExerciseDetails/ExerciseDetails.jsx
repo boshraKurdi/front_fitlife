@@ -3,46 +3,72 @@ import SkeletonLoading from "../../Components/Loading/SkeletonLoading/SkeletonLo
 import { useDispatch, useSelector } from "react-redux";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import "../DetailsFood/DetailsFood.css";
-import '../PlanDetails/PlanDetails.css'
+import "../PlanDetails/PlanDetails.css";
 import Stepper from "./Stepper/Stepper";
 import Heading from "../../Components/Heading/Heading";
 import { useEffect } from "react";
+import Swal from "sweetalert2";
 import { ActShow } from "../../../Redux/Exercise/ExerciseSlice";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Time from "./Time/Time";
 
 export default function ExerciseDetails() {
   const { value } = useSelector((state) => state.mode);
   const dispatch = useDispatch();
-  const { id , plan_id  } = useParams()
-  const { loadingShow , error , exercise } = useSelector((state) => state.exercise);
-  useEffect(()=>{
-    dispatch(ActShow(id))
-  } , [dispatch , id])
+  const { id, plan_id } = useParams();
+  const { loadingShow, error, exercise } = useSelector(
+    (state) => state.exercise
+  );
+  useEffect(() => {
+    dispatch(ActShow(id));
+  }, [dispatch, id]);
+  const nav = useNavigate();
   return (
-     <SkeletonLoading loading={loadingShow} error={error} type="detailsGoal">
+    <SkeletonLoading loading={loadingShow} error={error} type="detailsGoal">
       <div className={`viewport ${value}`}>
         <div id="js-scroll-content">
           <section className="two-col-sec section">
             <div className="container">
               <div className="details_food_row align-items-center">
                 <div className="col-lg-5" style={{ marginRight: "2rem" }}>
-                  <div style={{display:'flex' , justifyContent:'center'}} className="sec-img mt-5">
-                    <img src={exercise?.media && exercise?.media[0].original_url} alt="" />
+                  <div
+                    style={{ display: "flex", justifyContent: "center" }}
+                    className="sec-img mt-5"
+                  >
+                    <img
+                      src={exercise?.media && exercise?.media[0].original_url}
+                      alt=""
+                    />
                   </div>
                 </div>
                 <div className="col-lg-7">
                   <div className="sec-text">
                     <h2 className="xxl-title">{exercise?.title}</h2>
-                    <p>
-                      {exercise?.description}
-                    </p>
+                    <p>{exercise?.description}</p>
                   </div>
-                  <div className="sec_info">
+                  <ul>
+                <li>
+                  <CheckCircleIcon />
+                  calories: <span>{exercise?.calories}</span>
+                </li>
+                <li>
+                  <CheckCircleIcon />
+                  counter:{" "}
+                  <span>
+                    {exercise?.counter}
+                  </span>
+                </li>
+                <li>
+                  <CheckCircleIcon />
+                  duration: <span>{exercise?.duration}</span>
+                </li>
+              </ul>
+                  {/* <div className="sec_info">
                     <span>
                       <CheckCircleIcon
                         style={{ fontSize: "2.1rem", marginRight: ".5rem" }}
-                      />{exercise?.calories} calories
+                      />
+                      {exercise?.calories} calories
                     </span>
                     <span>
                       <CheckCircleIcon
@@ -53,9 +79,30 @@ export default function ExerciseDetails() {
                     <span>
                       <CheckCircleIcon
                         style={{ fontSize: "2.1rem", marginRight: ".5rem" }}
-                      />{exercise?.duration} minuts
+                      />
+                      {exercise?.duration} s
                     </span>
-                  </div>
+                  </div> */}
+                  <button
+                    className="btn_start"
+                    onClick={() =>
+                      Swal.fire({
+                        title: "Are You Ready?!",
+                        text: "You won't be able to revert this!",
+                        icon: "question",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "I ready",
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          nav("workout");
+                        }
+                      })
+                    }
+                  >
+                    start now
+                  </button>
                 </div>
               </div>
             </div>
@@ -64,24 +111,47 @@ export default function ExerciseDetails() {
       </div>
       <div id="page-wrapper">
         <div className="container">
-        <Heading title={'Steps'} subTitle={'Steps for exerice'} />
-          <section style={{paddingBottom: '100px' ,display:'flex' , alignItems:'center' , minHeight:'100vh'}} id="one" className="style1 bottom">
-          <Stepper steps={exercise?.steps}/>
+          <Heading title={"Steps"} subTitle={"Steps for exerice"} />
+          <section
+            style={{
+              paddingBottom: "100px",
+              display: "flex",
+              alignItems: "center",
+              minHeight: "100vh",
+            }}
+            id="one"
+            className="style1 bottom"
+          >
+            <Stepper steps={exercise?.steps} />
             <span className="image fit main">
-              <img src={exercise?.media && exercise?.media[0].original_url} alt="" />
+              <img
+                src={exercise?.media && exercise?.media[0].original_url}
+                alt=""
+              />
             </span>
           </section>
-          <section style={{minHeight:'100vh', paddingBottom: '100px'}} id="two" className="style2">
-          <Heading title={'video'} subTitle={'video for exerice'} />
+          <section
+            style={{ minHeight: "100vh", paddingBottom: "100px" }}
+            id="two"
+            className="style2"
+          >
+            <Heading title={"video"} subTitle={"video for exerice"} />
             <span className="image fit main">
-            <video style={{width:'100%' , height:'100%'}} autoplay controls>
-                <source src={exercise?.media && exercise?.media[1].original_url} type={exercise?.media && exercise?.media[1].mime_type} />
-            </video>
+              <video
+                style={{ width: "100%", height: "100%" }}
+                autoplay
+                controls
+              >
+                <source
+                  src={exercise?.media && exercise?.media[1].original_url}
+                  type={exercise?.media && exercise?.media[1].mime_type}
+                />
+              </video>
             </span>
           </section>
         </div>
       </div>
-      <Time id={id} plan_id={plan_id} calories={exercise?.calories}/>
-      </SkeletonLoading>
+      {/* <Time id={id} plan_id={plan_id} calories={exercise?.calories} /> */}
+    </SkeletonLoading>
   );
 }

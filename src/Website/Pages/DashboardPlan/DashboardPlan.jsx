@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./DashboardPlan.css";
 import Cycle from "../../Components/Cycle/Cycle";
-import LineChart from "../../Components/Chart/LineChart";
 import { Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -11,9 +10,10 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import BarChart from "../../Components/Chart/BarChart";
 export default function DashboardPlan() {
   const { value } = useSelector((state) => state.mode);
-  const { id , week } = useParams();
+  const { id , week , day } = useParams();
   const [type , setType] = useState({one:'weekly' , two:week})
   const dispatch = useDispatch();
   const { myplan, error, loading } = useSelector((state) => state.myPlan);
@@ -59,7 +59,7 @@ export default function DashboardPlan() {
                     <div className="balance-card">
                       <h3 className="cardtittle">Total progress</h3>
                       <div style={{ display: "flex", alignItems: "center" }}>
-                        <h2 className="balance">42 exercises</h2>
+                        <h2 className="balance">21 exercises</h2>
                         <Cycle num={myplan?.totalRate} />
                       </div>
                     </div>
@@ -69,7 +69,7 @@ export default function DashboardPlan() {
                     <div className="total-invoice">
                       <h3 className="cardtittle">Daily progress</h3>
                       <div style={{ display: "flex", alignItems: "center" }}>
-                        <h2 className="balance">2 day</h2>
+                        <h2 className="balance">{day} day</h2>
                         <Cycle num={myplan?.totalRateDay} />
                       </div>
                     </div>
@@ -130,11 +130,7 @@ export default function DashboardPlan() {
                         </Menu>
                       </div>
                       <Box height="250px" m="-20px 0 0 0">
-                        <LineChart
-                          data={myplan?.arrDay}
-                          title="daily"
-                          isDashboard={true}
-                        />
+                        <BarChart data={myplan?.arrDay}/>
                       </Box>
                     </div>
                   </div>
