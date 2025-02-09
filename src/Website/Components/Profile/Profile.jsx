@@ -9,20 +9,21 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import PersonAdd from '@mui/icons-material/PersonAdd';
-import Settings from '@mui/icons-material/Settings';
+// import PersonAdd from '@mui/icons-material/PersonAdd';
+// import Settings from '@mui/icons-material/Settings';
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import Logout from '@mui/icons-material/Logout';
 import { useDispatch, useSelector } from 'react-redux';
 import { ActAuthLogout } from '../../../Redux/Auth/AuthSlice';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import ButtonLoading from '../Loading/ButtonLoading/ButtonLoading';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import BedtimeIcon from '@mui/icons-material/Bedtime';
 // import { useEffect } from 'react';
 // import { ActGetMyGoal } from '../../../Redux/MyGaol/MyGoalSlice';
 export default function Profile() {
   const dispatch = useDispatch();
+  const { language } = useSelector((state) => state.mode)
   const { loading , error } = useSelector((state) => state.auth);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -102,55 +103,55 @@ export default function Profile() {
           <> */}
         <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
           <NavLink style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/user'>
-            <Avatar><Home style={{fontSize: '2rem'}} /></Avatar> My Plans
+            <Avatar><Home style={{fontSize: '2rem'}} /></Avatar> {language === 'ar' ? "خططي" : "My Plans"}
           </NavLink>
         </MenuItem>
         <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
          <NavLink style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/food/1'>
-            <Avatar><RestaurantMenuIcon style={{fontSize: '2rem'}} /></Avatar> My Menu
+            <Avatar><RestaurantMenuIcon style={{fontSize: '2rem'}} /></Avatar> {language === 'ar' ? "قائمة الطعام" : "My Menu"}
           </NavLink>
         </MenuItem>
         <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
          <NavLink style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/sleep'>
-            <Avatar><BedtimeIcon style={{fontSize: '2rem'}} /></Avatar> Sleep
+            <Avatar><BedtimeIcon style={{fontSize: '2rem'}} /></Avatar>{language === 'ar' ? "النوم" :"Sleep"}
           </NavLink>
         </MenuItem>
         {/* </>
          } */}
         <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
         <NavLink style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/gym'>
-            <Avatar><FitnessCenterIcon style={{fontSize: '2rem'}} /></Avatar> Gym
+            <Avatar><FitnessCenterIcon style={{fontSize: '2rem'}} /></Avatar>{language === 'ar' ? "النوادي الرياضية" : "Gym"}
           </NavLink>
         </MenuItem>
         <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
           <NavLink style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/services'>
-            <Avatar><AnnouncementIcon style={{fontSize: '2rem'}} /></Avatar> Services
+            <Avatar><AnnouncementIcon style={{fontSize: '2rem'}} /></Avatar> {language === 'ar'  ? "الخدمات" : "Services"}
           </NavLink>
         </MenuItem>
         <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
         <NavLink style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/myProfile'>
-          <Avatar /> My profile 
+          <Avatar /> {language === 'ar' ? "حسابي الشخصي" : "My profile" }
           </NavLink>
         </MenuItem>
         
         <Divider />
-        <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
+        {/* <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
           <ListItemIcon>
             <PersonAdd />
           </ListItemIcon>
           Add another account
-        </MenuItem>
-        <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
+        </MenuItem> */}
+        {/* <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
           <ListItemIcon>
             <Settings />
           </ListItemIcon>
-          Settings
-        </MenuItem>
+        {  Settings}
+        </MenuItem> */}
         <MenuItem sx={{fontSize: '1.4rem'}} onClick={()=>{
           HandelLogout()
           }}>
           {loading === 'pending' ? <ButtonLoading /> :<ListItemIcon><Logout /></ListItemIcon>}
-          Logout 
+         {language === 'ar' ? "تسجيل الخروج" : "Logout" }
         </MenuItem>
       </Menu>
     </React.Fragment>

@@ -7,13 +7,13 @@ const MyPlan = () => {
   const dispatch = useDispatch();
   const { myGoals } = useSelector((state) => state.myGoal);
   const { myPlans } = useSelector((state) => state.myPlan);
+  const { language } = useSelector((state) => state.mode)
   useEffect(() => {
     dispatch(ActIndex());
     return () => {
       dispatch(CleanUp());
     };
   }, [myGoals, dispatch]);
-  console.log(myPlans)
   const newRecorde = myPlans.length
     ? myPlans.map((plans) => {
         const newPlans = plans.map((plan) => {
@@ -31,7 +31,7 @@ const MyPlan = () => {
                       fontSize: "5rem",
                     }}
                   >
-                    {plans.length > 0 && plans[0].plan.type}
+                    {plans.length > 0 && (language === 'ar' ? plans[0].plan.type_ar : plans[0].plan.type)}
                   </h2>
                   <ul className="class-list has-scrollbar">
                     <SwiperComponent data={newPlans} />

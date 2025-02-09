@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { Goal_3 } from "../../../../index"
 import Components from "../../../../Style/Components/Components";
+import { useSelector } from "react-redux";
 export default function Content({coach}){
     const { MyComponentHeroSubtitleH3 } = Components();
+    const { language } = useSelector((state) => state.mode);
     return(
         <li className="scrollbar-item">
       <div className="class-card">
@@ -36,7 +38,7 @@ export default function Content({coach}){
             </MyComponentHeroSubtitleH3>
           </div>
 
-          <p className="card-text">lorem sfmksdmf dsfkmdsf sdkfmsdkmf sdkfmksd</p>
+          <p className="card-text">{language === 'ar' ? coach?.description_ar : coach?.description}</p>
 
           {/* <button onClick={HandelChat} style={{background: 'var(--coquelicot)'}} className="btn" >Start Chat</button> */}
         </div>

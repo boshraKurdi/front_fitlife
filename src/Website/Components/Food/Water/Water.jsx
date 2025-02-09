@@ -10,7 +10,7 @@ import { ActGetWater } from "../../../../Redux/Plan/PlanSlice";
 import { ActStoreWater, ResetMessages } from "../../../../Redux/Target/TargetSlice";
 import { useSnackbar } from "notistack";
 export default function Water() {
-  const { value } = useSelector((state) => state.mode);
+  const { value , language } = useSelector((state) => state.mode);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const { water } = useSelector((state) => state.plan);
@@ -30,7 +30,7 @@ export default function Water() {
     <>
       <div className="water_title">
         <h1 style={{ display: "flex", alignItems: "center" }}>
-          Water Quntity{" "}
+          {language === 'ar' ? "كمية شرب الماء" : "Water Amount"}{" "}
           <OpacityIcon style={{ color: "#0087ff", fontSize: "3rem" }} />
         </h1>
       </div>
@@ -40,17 +40,17 @@ export default function Water() {
             <Lottie className="water__img" animationData={water1} />
           </div>
           <div className="water_info">
-            <h2>Enter Quntety Water</h2>
+            <h2>{language === 'ar' ? "اختر كمية شربك للماء" : "Enter Amount Water"}</h2>
             <p style={{display:'flex' , alignItems:'center'}}>To enjoy a healthy life, you must consume sufficient amounts of water.  <OpacityIcon style={{ color: "#0087ff", fontSize: "1.7rem" }} /></p>
             <form>
-              <label>The amount of water that you should drink💙</label>
+              <label>{language === 'ar' ? "كيمة الماء التي ينبغي ان تشربها" : "The amount of water that you should drink"}💙</label>
               <input
                 className="water-input"
                 style={{ pointerEvents: "none" }}
                 type="string"
                 value={water?.water + "L"}
               />
-              <label>The amount of water that you drunk💦</label>
+              <label>{language === 'ar' ? "كمية الماء التي قمت بشربها" : "The amount of water that you drunk"}💦</label>
               <input
                 value={data}
                 onChange={(e) => {
@@ -63,13 +63,13 @@ export default function Water() {
               <div className="add_water">
               <span onClick={()=>{
                 setData(data+1)
-              }}>1 liter <LocalDrinkIcon/></span>
+              }}>1 {language === 'ar' ? "لتر"  : "liter"} <LocalDrinkIcon/></span>
               <span  onClick={()=>{
                 setData(data+2)
-              }}>2 liter <LocalDrinkIcon/></span>
+              }}>2 {language === 'ar' ? "لتر"  : "liter"} <LocalDrinkIcon/></span>
               <span  onClick={()=>{
                 setData(data+3)
-              }}>3 liter <LocalDrinkIcon/></span>
+              }}>3 {language === 'ar' ? "لتر"  : "liter"} <LocalDrinkIcon/></span>
               </div>
               <button
                 disabled={(loading === 'pending') ? true : false}
@@ -84,7 +84,7 @@ export default function Water() {
                 }}
                 className="button--link button--flex"
               >
-                Save {loading === "pending" ? <ButtonLoading /> : ""}{" "}
+                {language === 'ar' ? "حفظ"  : "save"} {loading === "pending" ? <ButtonLoading /> : ""}{" "}
                 <i className="ri-arrow-right-down-line button__icon"></i>
               </button>
             </form>

@@ -6,12 +6,14 @@ import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import UseSignUp from "../../../Hooks/UseSignUp";
 import ButtonLoading from "../../Loading/ButtonLoading/ButtonLoading";
+import { useSelector } from "react-redux";
 
 export default function SignUp({ ChangeSetting }) {
+  const { language } = useSelector((state) => state.mode)
   const { EmailOnBlurHandeler , onSubmit , errors , handleSubmit , register , status , loading , error } = UseSignUp()
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="login__create" id="login-up">
-      <h1 className="login__title">Create Account</h1>
+      <h1 className="login__title">{language === 'ar' ? 'انشاء حساب' : "Create Account"}</h1>
       <div className="box_flex">
         <div className="box w-100">
           <div className={errors.name ? 'inputError login__box' : 'login__box'}>
@@ -19,7 +21,7 @@ export default function SignUp({ ChangeSetting }) {
             <input
               type="text"
               name="name"
-              placeholder="Username"
+              placeholder={language === 'ar' ? "الاسم الشخصي" : "Username"}
               {...register("name")}
               className="login__input"
             />
@@ -34,13 +36,13 @@ export default function SignUp({ ChangeSetting }) {
               name="email"
               disabled={status === 'checking' ? true : false}
               {...register("email")}
-              placeholder="Email"
+              placeholder={language === 'ar' ? "البريد الالكتروني" : "Email"}
               className="login__input"
               onBlur={EmailOnBlurHandeler}
             />
-            {status === 'checking' && <div className="loader_check_email"></div>}
-            {status === 'av' && <CheckIcon className="true_check_email" />}
-            {status === 'notAv' && <CloseIcon className="close_check_email" />}
+            {status === 'checking' && <div style={{left: language === 'ar' && "11px"}} className="loader_check_email"></div>}
+            {status === 'av' && <CheckIcon  style={{left: language === 'ar' && "11px"}} className="true_check_email" />}
+            {status === 'notAv' && <CloseIcon  style={{left: language === 'ar' && "11px"}} className="close_check_email" />}
           </div>
           <p className="error">{errors.email ? errors.email.message : (status === 'notAv' ? 'the email has already exit' : (status === 'failed' && 'error netWork Please Try Agen!'))}</p>
         </div>
@@ -51,7 +53,7 @@ export default function SignUp({ ChangeSetting }) {
               type="password"
               name="password"
               {...register("password")}
-              placeholder="Password"
+              placeholder={language === 'ar' ? "كلمة السر" : "Password"}
               className="login__input"
             />
           </div>
@@ -64,7 +66,7 @@ export default function SignUp({ ChangeSetting }) {
               type="password"
               name="confirm"
               {...register("confirm")}
-              placeholder="confirm Password"
+              placeholder={language === 'ar' ? "تاكيد كلمة السر" : "confirm Password"}
               className="login__input"
             />
           </div>
@@ -74,7 +76,7 @@ export default function SignUp({ ChangeSetting }) {
       <button className="login__button" disabled={(loading === 'pending' || status === 'checking') ? true : false}>{loading === 'pending' ? <ButtonLoading /> : 'Sign Up'}</button>
       <div className="social-message">
         <div className="line"></div>
-        <p className="message">Login with social accounts</p>
+        <p className="message">{language === 'ar' ? "تسجيل الدخول باستخدام حسابات التواصل الاجتماعي" : "Login with social accounts"}</p>
         <div className="line"></div>
       </div>
       <div className="social-icons">
@@ -87,9 +89,9 @@ export default function SignUp({ ChangeSetting }) {
         </a>
       </div>
       <div>
-        <span className="login__account">Already have an Account ?</span>
+        <span className="login__account">{language === 'ar' ? "هل تملك حساب مسبقا؟" : "Already have an Account ?"}</span>
         <span onClick={ChangeSetting} className="login__signup" id="sign-in">
-          Sign In
+          {language === 'ar' ? 'سجل دخول الان' :"Sign In"}
         </span>
       </div>
     </form>

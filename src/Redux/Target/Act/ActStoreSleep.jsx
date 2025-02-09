@@ -4,9 +4,9 @@ const ActStoreSleep = createAsyncThunk(
     'Target/ActStoreSleep',
     async (sleep, thunkAPI) => {
         const { rejectWithValue , getState } = thunkAPI;
-        const { auth } = getState()
+        const { auth , mode } = getState()
         try {
-            const response = await axios.post(`target/storeSleep` ,{hours:sleep} , {
+            const response = await axios.post(`target/storeSleep?lang=${mode.language}` ,{hours:sleep} , {
                 headers: {
                   Authorization: 'Bearer ' + auth.token
               }

@@ -11,7 +11,7 @@ import { Bg_Image } from "../../index";
 import Components from "../../Style/Components/Components";
 import { useSelector } from "react-redux";
 export default function Footer() {
-  const { value } = useSelector((state) => state.mode)
+  const { value , language } = useSelector((state) => state.mode)
   const { MyComponentHeroSubtitleA} = Components();
   return (
     <footer className={`footer ${value}`} id="contact">
@@ -28,20 +28,20 @@ export default function Footer() {
             </a>
 
             <p className="footer-brand-text">
-              Etiam suscipit fringilla ullamcorper sed malesuada urna nec odio.
+             {language == 'ar' ? 'الاوقات التي يمكننا الرد على طلباتكم': 'Times we can respond to your requests'}
             </p>
 
             <div className="wrapper">
 
               <ul className="footer-brand-list">
                 <li>
-                  <p className="footer-brand-title">Monday - Friday</p>
+                  <p className="footer-brand-title">{language === 'ar' ? "الجمعة - الاثنين" :"Monday - Friday"}</p>
 
                   <p>7:00Am - 10:00Pm</p>
                 </li>
 
                 <li>
-                  <p className="footer-brand-title">Saturday - Sunday</p>
+                  <p className="footer-brand-title">{language === 'ar' ? "السبت - الاحد" : "Saturday - Sunday"}</p>
 
                   <p>7:00Am - 2:00Pm</p>
                 </li>
@@ -51,43 +51,37 @@ export default function Footer() {
 
           <ul className="footer-list">
             <li>
-              <p className="footer-list-title has-before">Our Links</p>
+              <p className="footer-list-title has-before">{language === 'ar' ? "اهم الروابط" : "Our Links"}</p>
             </li>
 
             <li>
               <a href="index" className="footer-link">
-                Home
+                {language === 'ar' ? "الصفحة الرئيسية" : "Home"}
               </a>
             </li>
 
             <li>
               <a href="index" className="footer-link">
-                About Us
+               {language === 'ar' ? "حول الموقع" : "About Us"}
               </a>
             </li>
 
             <li>
               <a href="#index" className="footer-link">
-                classNamees
+                {language === 'ar' ? "الاهداف" : "goals"}
               </a>
             </li>
 
             <li>
               <a href="index" className="footer-link">
-                Blog
-              </a>
-            </li>
-
-            <li>
-              <a href="index" className="footer-link">
-                Contact Us
+                {language === 'ar' ? "تواصل معنا" : "Contact Us"}
               </a>
             </li>
           </ul>
 
           <ul className="footer-list">
             <li>
-              <p className="footer-list-title has-before">Contact Us</p>
+              <p className="footer-list-title has-before">{language === 'ar' ? "تواصل معنا" : "Contact Us"}</p>
             </li>
 
             <li className="footer-list-item">
@@ -96,7 +90,7 @@ export default function Footer() {
               </div>
 
               <address className="address footer-link">
-                1247/Plot No. 39, 15th Phase, Colony, Kukatpally, Hyderabad
+              {language === 'ar' ? "سوريا , حلب حي الفرقان" :  "syria , aleppo Al Furqan neighborhood"}
               </address>
             </li>
 
@@ -135,7 +129,7 @@ export default function Footer() {
 
           <ul className="footer-list">
             <li>
-              <p className="footer-list-title has-before">Our Newsletter</p>
+              <p className="footer-list-title has-before">{language === 'ar' ? "نشرتنا الاخبارية" : "Our Newsletter"}</p>
             </li>
 
             <li>
@@ -144,7 +138,7 @@ export default function Footer() {
                   type="email"
                   name="email_address"
                   aria-label="email"
-                  placeholder="Email Address"
+                  placeholder={language === 'ar' ? "عنوان البريد الالكتروني" :"Email Address"}
                   required
                   className="input-field"
                 />

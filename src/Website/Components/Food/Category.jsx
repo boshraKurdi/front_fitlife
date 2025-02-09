@@ -4,12 +4,14 @@ import LocalPizzaIcon from '@mui/icons-material/LocalPizza';
 import LocalBarIcon from '@mui/icons-material/LocalBar';
 import CoffeeIcon from '@mui/icons-material/Coffee';
 import AppleIcon from '@mui/icons-material/Apple';
+import { useSelector } from 'react-redux';
 export default function Category({Categories , setCategories}){
+  const { language } = useSelector((state) => state.mode)
     return(
         // back-menus
         <div className="main-filter">
           <div>
-            <h2 className="main-title-bottom">Menu <br />Catagory</h2>
+            <h2 className="main-title-bottom">{language === 'ar' ? `قائمة ${<br />} الفئات` :`Menu ${<br />} Catagory`}</h2>
           </div>
           <div className="filter-wrapper">
             <div onClick={()=>{
@@ -18,7 +20,7 @@ export default function Category({Categories , setCategories}){
               <div className="filter-icon">
                 <RestaurantMenuIcon />
               </div>
-              <p>All Menus</p>
+              <p>{language === 'ar' ? "كل القائمة" : "All Menus"}</p>
             </div>
             <div onClick={()=>{
               setCategories(1)
@@ -26,7 +28,7 @@ export default function Category({Categories , setCategories}){
               <div className="filter-icon">
                 <LunchDiningIcon/>
               </div>
-              <p>Meat</p>
+              <p>{language === 'ar' ? "لحوم" : "Meat"}</p>
             </div>
             <div onClick={()=>{
               setCategories(2)
@@ -34,7 +36,7 @@ export default function Category({Categories , setCategories}){
               <div className="filter-icon">
                 <LocalPizzaIcon/>
               </div>
-              <p>Pizza</p>
+              <p>{language === 'ar' ? "بيتزا" : "Pizza"}</p>
             </div>
             <div onClick={()=>{
               setCategories(3)
@@ -42,7 +44,7 @@ export default function Category({Categories , setCategories}){
               <div className="filter-icon">
                 <LocalBarIcon/>
               </div>
-              <p>Drink</p>
+              <p>{language === 'ar' ? "مشروبات" : "Drink"}</p>
             </div>
             <div onClick={()=>{
               setCategories(4)
@@ -50,7 +52,7 @@ export default function Category({Categories , setCategories}){
               <div className="filter-icon">
                 <CoffeeIcon />
               </div>
-              <p>Coffee</p>
+              <p>{language === 'ar' ? "قهوة" : "Coffee"}</p>
             </div>
             <div onClick={()=>{
               setCategories(5)
@@ -58,7 +60,7 @@ export default function Category({Categories , setCategories}){
               <div className="filter-icon">
                 <AppleIcon/>
               </div>
-              <p>Healthy</p>
+              <p>{language === 'ar' ? "صحي" : "Healthy"}</p>
             </div>
           </div>
         </div>

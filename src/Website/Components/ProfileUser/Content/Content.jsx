@@ -1,4 +1,3 @@
-import LineChart from "../../Chart/LineChart";
 import { Box } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -19,6 +18,7 @@ import BarChart from "../../Chart/BarChart";
 // import LocationOnIcon from '@mui/icons-material/LocationOn';
 export default function Content() {
   const dispatch = useDispatch()
+  const { language } = useSelector((state) => state.mode);
   const nav = useNavigate();
   const { profile , loading , error } = useSelector((state) => state.user)
   useEffect(()=>{
@@ -63,8 +63,8 @@ export default function Content() {
         {/* <h2><LocationOnIcon/> syria , aleppo</h2> */}
         </div>
         <div style={{display:'flex' , alignItems:'center'}}>
-      <NavLink to="edit" className="btn_profile"><EditIcon />edit profile</NavLink>
-      <button onClick={HandelDelete} className="btn_profile_delete"><DeleteIcon />delete account</button>
+      <NavLink to="edit" className="btn_profile"><EditIcon />{language == 'ar' ? "تعديل الملف الشخصي" : "edit profile"}</NavLink>
+      <button onClick={HandelDelete} className="btn_profile_delete"><DeleteIcon />{language == 'ar' ? "حذف الحساب" : "delete account"}</button>
       </div>
       </div>
       {profile?.goal_plan?.length ?
@@ -76,7 +76,7 @@ export default function Content() {
         >
           <div className="col">
             <div className="balance-card">
-              <h3 className="cardtittle">Calories</h3>
+              <h3 className="cardtittle">{language == 'ar' ? "السعرات الحرارية" : "Calories"}</h3>
               <div style={{ display: "flex", alignItems: "center" }}>
                 <h2 className="balance">{profile?.goal && (profile?.goal?.calories_max + ' - ' + profile?.goal?.calories_min)}</h2>
                 <Cycle num={profile?.totalRate} />
@@ -86,7 +86,7 @@ export default function Content() {
 
           <div className="col">
             <div className="total-invoice">
-              <h3 className="cardtittle">Healthy Weight</h3>
+              <h3 className="cardtittle">{language == 'ar' ? "الوزن الصحي" : "Healthy Weight"}</h3>
               <div style={{ display: "flex", alignItems: "center" , justifyContent:'space-between' }}>
                 <h2 className="balance">{profile?.width}kg / {profile?.height}cm</h2>
                 <span className="bmi"><AssignmentTurnedInIcon/>{profile?.BMI}</span>
@@ -95,9 +95,9 @@ export default function Content() {
           </div>
           <div className="col">
             <div className="paid-invoice">
-              <h3 className="cardtittle">Sleep</h3>
+              <h3 className="cardtittle">{language == 'ar' ? "النوم" : "Sleep"}</h3>
               <div style={{ display: "flex", alignItems: "center" }}>
-                <h2 className="balance">you sleep {profile.sleepForDay}h from 8h</h2>
+                <h2 className="balance">you sleep {profile.sleepForDay}h {language == 'ar' ? "من" : "from"} 8h</h2>
                 <Cycle num={(profile.sleepForDay/8)*100} />
               </div>
             </div>
@@ -109,7 +109,7 @@ export default function Content() {
         >
           <div className="col">
             <div className="latest-activity">
-              <h3 className="cardtittle">Latest activity exercises</h3>
+              <h3 className="cardtittle">{language == 'ar' ? "اخر نشاطي في التمارين" : "Latest activity exercises"}</h3>
               <Box height="250px" m="-20px 0 0 0">
                 {/* <LineChart title='exercises' data={profile?.caloriesForDay} isDashboard={true} /> */}
                 <BarChart data={profile?.caloriesForDay}/>
@@ -118,7 +118,7 @@ export default function Content() {
           </div>
           <div className="col">
             <div className="latest-activity">
-              <h3 className="cardtittle">Latest activity meals</h3>
+              <h3 className="cardtittle">{language == 'ar' ? "اخر نشاطي في الوجبات" : "Latest activity meals"}</h3>
               <Box height="250px" m="-20px 0 0 0">
                 {/* <LineChart data={profile?.FoodForDay} title="meal" isDashboard={true} /> */}
                 <BarChart data={profile?.FoodForDay}/>
@@ -144,38 +144,38 @@ export default function Content() {
               <div className="pather_day_week">
                 <div className="day_week">
                   {days.monday ? <CheckCircleIcon className="true" /> :<CancelIcon className="false" />}
-                  <span>monday</span>
+                  <span>{language == 'ar' ? "الاثنين" : "monday"}</span>
                 </div>
                 <div className="day_week">
                 {days.tuesday ? <CheckCircleIcon className="true" /> :<CancelIcon className="false" />}
-                  <span>tuesday</span>
+                  <span>{language == 'ar' ? "الثلاثاء" : "tuesday"}</span>
                 </div>
                 <div className="day_week">
                 {days.wednesday ? <CheckCircleIcon className="true" /> :<CancelIcon className="false" />}
-                  <span>wednesday</span>
+                  <span>{language == 'ar' ? "الاربعاء" : "wednesday"}</span>
                 </div>
                 <div className="day_week">
                 {days.thrusday ? <CheckCircleIcon className="true" /> :<CancelIcon className="false" />}
-                  <span>thrusday</span>
+                  <span>{language == 'ar' ? "الخميس" : "thrusday"}</span>
                 </div>
                 <div className="day_week">
                 {days.friday ? <CheckCircleIcon className="true" /> :<CancelIcon className="false" />}
-                  <span>friday</span>
+                  <span>{language == 'ar' ? "الجمعة" : "friday"}</span>
                 </div>
                 <div className="day_week">
                 {days.saturday ? <CheckCircleIcon className="true" /> :<CancelIcon className="false" />}
-                  <span>saturday</span>
+                  <span>{language == 'ar' ? "السبت" : "saturday"}</span>
                 </div>
                 <div className="day_week">
                 {days.sunday ? <CheckCircleIcon className="true" /> :<CancelIcon className="false" />}
-                  <span>sunday</span>
+                  <span>{language == 'ar' ? "الاحد" : "sunday"}</span>
                 </div>
               </div>
             </div>
           </div>
           <div className="col">
             <div className="latest-activity">
-              <h3 className="cardtittle">Latest activity water</h3>
+              <h3 className="cardtittle">{language == 'ar' ? "اخر نشاطي في شرب الماء" : "Latest activity water"}</h3>
                 <Water num={profile.waterForDay} />
             </div>
           </div>
@@ -189,7 +189,7 @@ export default function Content() {
                   justifyContent: "space-between",
                 }}
               >
-                My Goal <EditIcon className="edit_week_day" />
+                {language == 'ar' ? "هدفي" : "My Goal"} <EditIcon className="edit_week_day" />
               </h3>
               <div className="pather_day_week">
                 <div className="day_week">

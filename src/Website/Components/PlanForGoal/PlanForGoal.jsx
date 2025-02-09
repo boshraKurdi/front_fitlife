@@ -8,6 +8,7 @@ import LottieFiles from "../Loading/LottieLoading/LottieFiles";
 const PlanForGoal = ({id}) => {
   const dispatch = useDispatch();
   const { plansForGoal, loading, error } = useSelector((state) => state.plan);
+  const { language } = useSelector((state) => state.mode);
   useEffect(() => {
     dispatch(ActGetPlanForGoal(id));
     return () => {
@@ -20,9 +21,9 @@ const PlanForGoal = ({id}) => {
   return (
     <section className="section blog" id="blog" aria-label="blog">
       <div className="container" style={{ position: "relative" }}>
-        <p className="section-subtitle">My Plan</p>
+        <p className="section-subtitle">{language === 'ar' ? "خططي" : "My Plan"}</p>
 
-        <h2 className="h2 section-title text-center">Latest Plans</h2>
+        <h2 className="h2 section-title text-center">{language === 'ar' ? "اخر الخطط"  : "Latest Plans"}</h2>
         <ul className="class-list has-scrollbar">
           <SkeletonLoading loading={loading} error={error} type="plan">
             {plansForGoal.length > 0 ? (

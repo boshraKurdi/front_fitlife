@@ -1,7 +1,9 @@
 import { useSnackbar } from 'notistack';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 export default function List({ calories , setCalories , check , setCheck , chipData, setChipData, meals }) {
   const { enqueueSnackbar } = useSnackbar();
+  const { language } = useSelector((state) => state.mode)
   const nav = useNavigate()
   const newDta =
     meals ?
@@ -36,18 +38,22 @@ export default function List({ calories , setCalories , check , setCheck , chipD
                 data.calories,
                  
               ]);
+              
+              language === 'ar' ? 
+              enqueueSnackbar(`اضافة ${data?.title_ar} بنجاح!`, { variant: 'success'})
+              :
               enqueueSnackbar(`add ${data?.title} successfully!`, { variant: 'success'});
             }}
             className="add_to_order"
           >
-            add to order
+            {language === 'ar' ? "اضافة الى القائمة" : "add to order"}
           </button>
         </div>
       );
     }):'';
   return (
     <div className="main-detail">
-      <h2 className="main-title-bottom">choose Order</h2>
+      <h2 className="main-title-bottom">{language === 'ar' ? "اختر القائمة" : "choose Order"}</h2>
       <div className="detail-wrapper">{newDta}</div>
     </div>
   );

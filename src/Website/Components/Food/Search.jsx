@@ -4,13 +4,13 @@ import Img2 from "../../../img/menu-2.png";
 import Img3 from "../../../img/menu-3.png";
 import Img4 from "../../../img/menu-4.png";
 export default function Search({ open, setOpen }) {
-  const { value } = useSelector((state) => state.mode);
+  const { value , language } = useSelector((state) => state.mode);
   return (
-    <div class="menu-tab-wp">
-      <div class="row-a">
-        <div class="col-lg-12 m-auto">
-          <div class={`menu-tab ${value}  text-center`}>
-            <ul class="filters">
+    <div className="menu-tab-wp">
+      <div className="row-a">
+        <div className="col-lg-12 m-auto">
+          <div className={`menu-tab ${value}  text-center`}>
+            <ul className="filters">
               <div className="filter-active"></div>
               <li
               style={{color: open.breakfast && '#fff' , background:open.breakfast &&  ( value === 'light' ? 'var(--coquelicot)': 'var(--fc-button-bg-color)')}}
@@ -26,7 +26,7 @@ export default function Search({ open, setOpen }) {
                 className="filter"
               >
                 <img src={Img2} alt="" />
-                Breakfast
+                {language === 'ar' ? "الفطور" : "Breakfast"}
               </li>
               <div className="filter-active"></div>
               <li
@@ -43,7 +43,7 @@ export default function Search({ open, setOpen }) {
                 className="filter"
               >
                 <img src={Img3} alt="" />
-                Lunch
+                {language === 'ar' ? "الغداء" : "Lunch"}
               </li>
               <div className="filter-active"></div>
               <li
@@ -60,12 +60,12 @@ export default function Search({ open, setOpen }) {
                 className="filter"
               >
                 <img src={Img4} alt="" />
-                Dinner
+                {language === 'ar' ? "العشاء" : "Dinner"}
               </li>
-              <div class="filter-active"></div>
+              <div className="filter-active"></div>
               <li
               style={{color: open.snack && '#fff' , background:open.snack &&  ( value === 'light' ? 'var(--coquelicot)': 'var(--fc-button-bg-color)')}}
-                class="filter"
+                className="filter"
                 onClick={() => {
                   setOpen({
                     ...open,
@@ -77,7 +77,7 @@ export default function Search({ open, setOpen }) {
                 }}
               >
                 <img src={Img1} alt="" />
-                snack
+                {language === 'ar' ? "سناك" : "snack"}
               </li>
             </ul>
           </div>

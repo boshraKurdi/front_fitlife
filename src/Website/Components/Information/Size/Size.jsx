@@ -4,11 +4,13 @@ import HeightIcon from "@mui/icons-material/Height";
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import AccessibleForwardIcon from '@mui/icons-material/AccessibleForward';
 import UseSize from "../../../Hooks/UseSize";
+import { useSelector } from "react-redux";
 export default function Size({ setBox, state, setState, form, setForm }) {
+  const { language } = useSelector((state) => state.mode)
   const {ChangeSetting , HandelInput , regex } = UseSize({ setBox, state, setState, form, setForm })
   return (
     <form className="login__create login__create_size" id="login-up">
-      <h1 className="login__title">Complete registration</h1>
+      <h1 className="login__title">{language === 'ar' ? 'اكمال عملية الاشتراك' : "Complete registration"}</h1>
       <div className="box_flex">
         <div className="box">
           <div className={form.widthError !== "" && (form.width === "" || !regex.test(form.width)) ? "inputError login__box" : 'login__box'}>
@@ -20,7 +22,7 @@ export default function Size({ setBox, state, setState, form, setForm }) {
               onChange={(e) => {
                 HandelInput(e);
               }}
-              placeholder="Width"
+              placeholder={language ==='ar' ? 'الوزن': "Width"}
               className="login__input"
             />
           </div>
@@ -47,7 +49,7 @@ export default function Size({ setBox, state, setState, form, setForm }) {
               onChange={(e) => {
                 HandelInput(e);
               }}
-              placeholder="Height"
+              placeholder={language ==='ar' ? 'الطول': "Height"}
               className="login__input"
             />
           </div>
@@ -74,7 +76,7 @@ export default function Size({ setBox, state, setState, form, setForm }) {
               onChange={(e) => {
                 HandelInput(e);
               }}
-              placeholder="Age"
+              placeholder={language ==='ar' ? "العمر" :"Age"}
               className="login__input"
             />
           </div>
@@ -101,7 +103,7 @@ export default function Size({ setBox, state, setState, form, setForm }) {
               onChange={(e) => {
                 HandelInput(e);
               }}
-              placeholder="Illness"
+              placeholder={language ==='ar' ? "المرض": "Illness"}
               className="login__input"
             />
           </div>
@@ -124,13 +126,13 @@ export default function Size({ setBox, state, setState, form, setForm }) {
               <input type="radio" name="gender" onChange={(e) => {
                 HandelInput(e);
               }} value={'feminine'} />
-              <span>feminine</span>
+              <span>{language ==='ar' ? "انثى" : "feminine"}</span>
             </label>
             <label>
               <input type="radio" name="gender" onChange={(e) => {
                 HandelInput(e);
               }} value={'male'} />
-              <span>male</span>
+              <span>{language ==='ar' ? "ذكر" :"male"}</span>
             </label>
           </div>
         </div>
@@ -138,7 +140,7 @@ export default function Size({ setBox, state, setState, form, setForm }) {
       <button onClick={(e)=>{
           e.preventDefault();
         ChangeSetting('s')}} className="login__button next">
-      <KeyboardDoubleArrowLeftIcon />  Next
+      <KeyboardDoubleArrowLeftIcon />  {language ==='ar' ? "التالي" :"Next"}
       </button>
     </form>
   );

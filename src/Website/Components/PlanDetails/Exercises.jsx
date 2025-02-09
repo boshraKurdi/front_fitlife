@@ -8,7 +8,7 @@ import Lsleep from '../../../lottiefiles/sleep2.json'
 import { useNavigate } from "react-router-dom";
 import FileDownloadDoneIcon from "@mui/icons-material/FileDownloadDone";
 const Exercises = ({ data, myplan, id }) => {
-  const { value } = useSelector((state) => state.mode);
+  const { value , language } = useSelector((state) => state.mode);
   const { user } = useSelector((state) => state.auth);
   const nav = useNavigate();
   const [butt , setButt] = useState(`${user.gender}`);
@@ -50,8 +50,8 @@ const Exercises = ({ data, myplan, id }) => {
                 }}
               >
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  <h4>{data.title}</h4>
-                  <p>{data.description}</p>
+                  <h4>{language === 'ar' ? data.title_ar : data.title}</h4>
+                  <p>{language === 'ar' ? data.description_ar : data.description}</p>
                   {myplan?.targets &&
                     myplan?.targets?.map((d) => {
                       return (
@@ -85,10 +85,9 @@ const Exercises = ({ data, myplan, id }) => {
         <div className="why__content">
         {data.day ?
         <>
-          <h2 className="section__header">Exercises</h2>
+          <h2 className="section__header">{language === 'ar' ? "التمارين" : "Exercises"}</h2>
           <p>
-            Each day of the week has its own exercises that have been carefully
-            studied to achieve physical fitness.
+            {language === 'ar' ? 'كل يوم من أيام الأسبوع له تمارينه الخاصة التي تمت دراستها بعناية لتحقيق اللياقة البدنية' : "Each day of the week has its own exercises that have been carefully studied to achieve physical fitness"}
           </p>
           <div className="type_exe">
             <button onClick={()=>{setButt('male')}} className={butt === 'male' && 'active'}>male</button>

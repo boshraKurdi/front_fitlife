@@ -4,9 +4,9 @@ const ActStore = createAsyncThunk(
     'Goal/ActStore',
     async (id , thunkAPI) => {
         const { rejectWithValue , getState } = thunkAPI;
-        const { auth } = getState();
+        const { auth , mode } = getState();
         try {
-            const response = await axios.get(`target/insert/${id}`
+            const response = await axios.get(`target/insert/${id}?lang=${mode.language}`
               ,{
                 headers: {
                 Authorization: 'Bearer ' + auth.token

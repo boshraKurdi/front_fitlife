@@ -10,6 +10,7 @@ import LottieFiles from "../../Loading/LottieLoading/LottieFiles";
 import Heading from "../../Heading/Heading";
 export default function Goal() {
   const dispatch = useDispatch();
+  const { language } = useSelector((state) => state.mode)
   const { goals, loading, error } = useSelector((state) => state.goal);
   useEffect(() => {
     dispatch(ActIndex());
@@ -28,7 +29,7 @@ export default function Goal() {
       style={{ backgroundImage: `url(${Goal_1})` }}
     >
       <div className="container" style={{ position: "relative" }}>
-        <Heading title='Our Classes' subTitle='Fitness Classes For Every Goal' />
+        <Heading title={language === 'ar' ? 'اهدافنا' : 'Our Goals'} subTitle={language === 'ar' ? 'اللياقة البدنية لكل هدف' : 'Fitness Classes For Every Goal'} />
         <ul className="class-list has-scrollbar">
           <SkeletonLoading loading={loading} error={error} type="goal">
             {goals.length > 0 ? 

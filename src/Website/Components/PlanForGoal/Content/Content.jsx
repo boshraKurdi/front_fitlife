@@ -1,7 +1,9 @@
+import { useSelector } from "react-redux";
 import Components from "../../../Style/Components/Components";
 import Level from "../../Level/Level";
 export default function Content({ planLevel }) {
   const { MyComponentHeroSubtitleH3 } = Components();
+  const { language } = useSelector((state) => state.mode);
   return (
     <li className="scrollbar-item">
     <div className="class-card">
@@ -25,7 +27,6 @@ export default function Content({ planLevel }) {
 
       <div className="card-content">
         <div className="title-wrapper">
-          <Level num={planLevel.plan_levels.level.id} />
 
           <MyComponentHeroSubtitleH3 className="h3">
             <a href="index" className="card-title">

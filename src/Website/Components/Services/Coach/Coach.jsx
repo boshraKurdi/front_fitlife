@@ -7,6 +7,7 @@ import SkeletonLoading from "../../Loading/SkeletonLoading/SkeletonLoading";
 import SwiperComponent from "../../Swiper/SwiperComponent";
 import LottieFiles from "../../Loading/LottieLoading/LottieFiles";
 export default function Coach() {
+  const { language } = useSelector((state) => state.mode);
   const dispatch = useDispatch();
   const { coachs, loading, error } = useSelector((state) => state.user);
   useEffect(() => {
@@ -17,7 +18,7 @@ export default function Coach() {
   });
   return (
     <section className="section container">
-      <Heading title="Our Coach" subTitle="Having Your Own Coach And Mentor" />
+      <Heading title={language === 'ar' ?  "مدربينا" : "Our Coach"} subTitle={language === 'ar' ? "الحصول على مدرب ومرشد خاص بك" : "Having Your Own Coach And Mentor"} />
       <ul>
         <SkeletonLoading loading={loading} error={error} type="goal">
           {coachs.length > 0 ? (

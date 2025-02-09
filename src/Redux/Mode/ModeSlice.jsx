@@ -5,8 +5,8 @@ const initialState = {
   type: "success",
   message: null,
   data:{day:1,week:1} ,
-  data_meal:{day:1,week:1}
-
+  data_meal:{day:1,week:1} , 
+  language: 'en'
 };
 
 export const modeSlice = createSlice({
@@ -29,8 +29,12 @@ export const modeSlice = createSlice({
       state.data_meal.day = action.payload.day
       state.data_meal.week = action.payload.week
     }
+    ,
+    SetLanguage : (state )=>{
+     state.language = state.language === 'en' ? 'ar' : 'en'
+    }
   },
 });
 // Action creators are generated for each case reducer function
-export const { SetMode, SetOpen , SetData , SetDataMeal} = modeSlice.actions;
+export const { SetMode, SetOpen , SetData , SetDataMeal , SetLanguage} = modeSlice.actions;
 export default modeSlice.reducer;

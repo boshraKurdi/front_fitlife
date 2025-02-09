@@ -1,6 +1,8 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { SwiperSlide } from "swiper/react";
 export default function Content({ gym }) {
+  const { language } = useSelector((state) => state.mode)
   return (
     <SwiperSlide key={gym.id}>
       <li className="scrollbar-item">
@@ -27,10 +29,10 @@ export default function Content({ gym }) {
             <p className="card-text">
               distance: {gym.distance === 0 ? "قريب جدا" : gym.distance + "km"}
             </p>
-            <p className="card-text">{gym.description && gym.description}</p>
+            <p className="card-text">{gym.description && (language === 'ar' ? gym.description_ar : gym.description)}</p>
 
             <Link to={'../gymDetails/'+gym.id} className="btn-link has-before">
-              Read More
+              {language === 'ar' ? 'التفاصيل' : 'Read More'}
             </Link>
           </div>
         </div>

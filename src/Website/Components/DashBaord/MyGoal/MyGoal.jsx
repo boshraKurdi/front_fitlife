@@ -7,8 +7,10 @@ import SkeletonLoading from "../../Loading/SkeletonLoading/SkeletonLoading";
 import SwiperComponent from "../../Swiper/SwiperComponent";
 import LottieFiles from "../../Loading/LottieLoading/LottieFiles";
 import Heading from "../../Heading/Heading";
+
 const MyGoal = () => {
   const dispatch = useDispatch();
+  const { language } = useSelector((state) => state.mode)
   const { myGoals, loading, error , message } = useSelector((state) => state.myGoal);
   useEffect(() => {
     dispatch(ActGetMyGoal());
@@ -16,11 +18,8 @@ const MyGoal = () => {
       dispatch(CleanUp());
     };
   }, [dispatch]);
-  const newG = myGoals.filter((data)=>{
-    return data.totalRate !== 0
-  })
-  const newMyGoal = newG.map((plan) => {
-    return plan.totalRate !== 0 && <Content key={plan.id} plan={plan} />;
+  const newMyGoal = myGoals.map((plan) => {
+    return <Content key={plan.id} plan={plan} />;
   });
   return (
     <>
@@ -32,7 +31,7 @@ const MyGoal = () => {
       style={{ backgroundImage: `url(${Goal_1})` }}
     >
       <div className="container" style={{ position: "relative" }}>
-        <Heading title="My Plans" subTitle='Latest Plans'/>
+        <Heading title={language === 'ar' ? 'خططي' : "My Plans"} subTitle={language === 'ar' ? 'اخر الخطط' : 'Latest Plans'}/>
         <ul className="class-list has-scrollbar">
           <SkeletonLoading loading={loading} error={error} type="plan">
             {(myGoals.length > 0) ? (

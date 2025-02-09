@@ -2,8 +2,10 @@ import "./Hero.css";
 import {Hero_1 , Hero_2 , Hero_3 , Hero_4 , Hero_5 , Bg_Image} from '../../../index'
 import Components from "../../../Style/Components/Components";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { useSelector } from "react-redux";
 export default function Hero() {
   const { MyComponentHeroSubtitle , MyComponentTitle , MyComponentTextP } = Components();
+  const { language } = useSelector((state) => state.mode)
   return (
     <section
       className="section hero has-after has-bg-image"
@@ -15,14 +17,13 @@ export default function Hero() {
       <div className="container">
         <div className="hero-content">
           <MyComponentHeroSubtitle className="hero-subtitle">
-            <strong className="strong">The Best</strong>Fitness Club
+            <strong className="strong">{language === 'en' ? "The Best" : 'الافضل'}</strong>{language === 'en' ? "Fitness Club" : 'نادي اللياقة البدنية'}
           </MyComponentHeroSubtitle>
 
-          <MyComponentTitle className="h1 hero-title">Work Hard To Get Better Life</MyComponentTitle>
+          <MyComponentTitle style={{textAlign:language === 'ar' &&'right'}} className="h1 hero-title">{language === 'en' ? "Work Hard To Get Better Life" : 'العمل الجاد للحصول على حياة أفضل'}</MyComponentTitle>
 
-          <MyComponentTextP className="section-text">
-            Duis mollis felis quis libero dictum vehicula. Duis dictum lorem mi,
-            a faucibus nisi eleifend eu.
+          <MyComponentTextP style={{textAlign:language === 'ar' &&'right'}} className="section-text">
+          {language === 'ar' ? 'ابدأ رحلتك نحو القوة واللياقة اليوم، فكل خطوة تخطوها تقربك من النسخة الأفضل من نفسك!' : 'Start your journey to strength and fitness today, every step you take brings you closer to the best version of yourself!'}
           </MyComponentTextP>
 
           <button className="btn btn-primary">

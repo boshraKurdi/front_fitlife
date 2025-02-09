@@ -31,6 +31,7 @@
     transform: translateX(5px);
     transition: 0.5s;
     font-size: 2.3rem;
+    margin:0 1rem;
 }
 .btn_start:hover svg{
     transform: translateX(10px);
@@ -71,6 +72,7 @@
     left: 0;
     bottom: 0;
     height: 4px;
+    right: 0;
     width: 80px;
     background: var(--color-pu);
 }
@@ -123,7 +125,7 @@
 .product-detail ul li svg{
     color: var(--color-pu);
     font-size: 2.5rem;
-    margin-right: 1rem;
+    margin:0 1rem;
 }
 .product-detail ul li span{
     font-weight: 400;

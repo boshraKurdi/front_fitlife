@@ -1,7 +1,10 @@
+import { useSelector } from "react-redux";
 import { Goal_3 } from "../../../../index";
 import Components from "../../../../Style/Components/Components";
 export default function Content({ goal }) {
   const { MyComponentHeroSubtitleH3 } = Components();
+  
+  const { language } = useSelector((state) => state.mode)
   return (
     <li className="scrollbar-item">
       <div className="class-card">
@@ -29,12 +32,12 @@ export default function Content({ goal }) {
 
             <MyComponentHeroSubtitleH3 className="h3">
               <a href={goal && "/goalDetails/"+goal.id} className="card-title">
-                {goal && goal.title}
+                {goal && (language ==='ar' ? goal.title_ar : goal.title)}
               </a>
             </MyComponentHeroSubtitleH3>
           </div>
 
-          <p className="card-text">{goal && goal.description}</p>
+          <p className="card-text">{goal && (language ==='ar' ?goal.description_ar :goal.description)}</p>
 
           {/* <Link style={{background: 'var(--coquelicot)' , padding: '1.2rem' ,fontSize: '1.2rem' , position: 'absolute'}} className="btn" to={goal && "/goalDetails/"+goal.id}>Show Details</Link> */}
         </div>

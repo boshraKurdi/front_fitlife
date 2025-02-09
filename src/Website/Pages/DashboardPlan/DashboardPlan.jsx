@@ -12,7 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import BarChart from "../../Components/Chart/BarChart";
 export default function DashboardPlan() {
-  const { value } = useSelector((state) => state.mode);
+  const { value , language } = useSelector((state) => state.mode);
   const { id , week , day } = useParams();
   const [type , setType] = useState({one:'weekly' , two:week})
   const dispatch = useDispatch();
@@ -21,10 +21,8 @@ export default function DashboardPlan() {
     dispatch(ActShow({id:id , data:type}))
       .unwrap()
       .catch(() => {
-        console.log("error");
       });
   }, [dispatch, id , type ]);
-  console.log(myplan?.arrDay)
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -42,10 +40,10 @@ export default function DashboardPlan() {
               <div className="headtittle">
                 <div>
                   <span className="greeeting">
-                    {myplan?.title}
+                    {language === 'ar' ? myplan?.title_ar : myplan?.title}
                   </span>
                   <h2 style={{ display: "flex", alignItems: "center" }}>
-                    my progress
+                    {language === 'ar' ? "تقدمي" : "my progress"}
                   </h2>
                 </div>
               </div>
@@ -57,9 +55,9 @@ export default function DashboardPlan() {
                 >
                   <div className="col">
                     <div className="balance-card">
-                      <h3 className="cardtittle">Total progress</h3>
+                      <h3 className="cardtittle">{language === 'ar' ? "اجمالي تقدمي" : "Total progress"}</h3>
                       <div style={{ display: "flex", alignItems: "center" }}>
-                        <h2 className="balance">21 exercises</h2>
+                        <h2 className="balance">{language === 'ar' ? "21 تمرين" : "21 exercises"}</h2>
                         <Cycle num={myplan?.totalRate} />
                       </div>
                     </div>
@@ -67,18 +65,18 @@ export default function DashboardPlan() {
 
                   <div className="col">
                     <div className="total-invoice">
-                      <h3 className="cardtittle">Daily progress</h3>
+                      <h3 className="cardtittle">{language === 'ar' ? "التقدم اليومي" : "Daily progress"}</h3>
                       <div style={{ display: "flex", alignItems: "center" }}>
-                        <h2 className="balance">{day} day</h2>
+                        <h2 className="balance">{day} {language === 'ar' ? "يوم" : "day"}</h2>
                         <Cycle num={myplan?.totalRateDay} />
                       </div>
                     </div>
                   </div>
                   <div className="col">
                     <div className="paid-invoice">
-                      <h3 className="cardtittle">Weekly progress</h3>
+                      <h3 className="cardtittle">{language === 'ar' ? "التقدم الاسبوعي" : "Weekly progress"}</h3>
                       <div style={{ display: "flex", alignItems: "center" }}>
-                        <h2 className="balance">{week === '1' ? 'first' : 'second'} week</h2>
+                        <h2 className="balance">{week === '1' ? 'first' : 'second'} {language === 'ar' ? "اسبوع" : "week"}</h2>
                         <Cycle num={myplan?.totalRateWeekOne} />
                       </div>
                     </div>
@@ -91,7 +89,7 @@ export default function DashboardPlan() {
                   <div style={{ width: "97%" }} className="col">
                     <div className="latest-activity">
                       <div style={{display:'flex' , alignItems:'center' , justifyContent:'space-between'}}>
-                        <h3 className="cardtittle">Latest activity plan</h3>
+                        <h3 className="cardtittle">{language === 'ar' ? "التقدم اليومي" : "Daily progress plan"}</h3>
                         <Button
                         className="btn_options"
                           id="demo-positioned-button"
@@ -131,6 +129,16 @@ export default function DashboardPlan() {
                       </div>
                       <Box height="250px" m="-20px 0 0 0">
                         <BarChart data={myplan?.arrDay}/>
+                      </Box>
+                    </div>
+                  </div>
+                  <div style={{ width: "97%" }} className="col">
+                    <div className="latest-activity">
+                      <div style={{display:'flex' , alignItems:'center' , justifyContent:'space-between'}}>
+                        <h3 className="cardtittle">{language === 'ar' ? "حرق السعرات الحرارية كل يوم" : "Burn calories every day"}</h3>
+                      </div>
+                      <Box height="250px" m="-20px 0 0 0">
+                        <BarChart data={myplan?.arrCal}/>
                       </Box>
                     </div>
                   </div>

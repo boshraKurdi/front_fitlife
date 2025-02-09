@@ -10,12 +10,11 @@ import { useEffect } from "react";
 import Swal from "sweetalert2";
 import { ActShow } from "../../../Redux/Exercise/ExerciseSlice";
 import { useNavigate, useParams } from "react-router-dom";
-import Time from "./Time/Time";
 
 export default function ExerciseDetails() {
-  const { value } = useSelector((state) => state.mode);
   const dispatch = useDispatch();
-  const { id, plan_id } = useParams();
+  const { id } = useParams();
+  const { value , language } = useSelector((state) => state.mode);
   const { loadingShow, error, exercise } = useSelector(
     (state) => state.exercise
   );
@@ -30,37 +29,26 @@ export default function ExerciseDetails() {
           <section className="two-col-sec section">
             <div className="container">
               <div className="details_food_row align-items-center">
-                <div className="col-lg-5" style={{ marginRight: "2rem" }}>
-                  <div
-                    style={{ display: "flex", justifyContent: "center" }}
-                    className="sec-img mt-5"
-                  >
-                    <img
-                      src={exercise?.media && exercise?.media[0].original_url}
-                      alt=""
-                    />
-                  </div>
-                </div>
                 <div className="col-lg-7">
                   <div className="sec-text">
-                    <h2 className="xxl-title">{exercise?.title}</h2>
-                    <p>{exercise?.description}</p>
+                    <h2 className="xxl-title">{language === 'ar' ? exercise?.title_ar : exercise?.title}</h2>
+                    <p>{language === 'ar' ? exercise?.description_ar: exercise?.description}</p>
                   </div>
                   <ul>
                 <li>
                   <CheckCircleIcon />
-                  calories: <span>{exercise?.calories}</span>
+                  {language === 'ar' ? "السعرات الحرارية" : "calories"}: <span>{exercise?.calories}</span>
                 </li>
                 <li>
                   <CheckCircleIcon />
-                  counter:{" "}
+                  {language === 'ar' ? "العداد" : "counter"}:{" "}
                   <span>
                     {exercise?.counter}
                   </span>
                 </li>
                 <li>
                   <CheckCircleIcon />
-                  duration: <span>{exercise?.duration}</span>
+                  {language === 'ar' ? "المدة" : "duration"}: <span>{exercise?.duration}</span>
                 </li>
               </ul>
                   {/* <div className="sec_info">
@@ -101,8 +89,19 @@ export default function ExerciseDetails() {
                       })
                     }
                   >
-                    start now
+                    {language === 'ar' ? "ابدا الان" : "start now"}
                   </button>
+                </div>
+                <div className="col-lg-5" style={{ marginRight: "2rem" }}>
+                  <div
+                    style={{ display: "flex", justifyContent: "center" }}
+                    className="sec-img mt-5"
+                  >
+                    <img
+                      src={exercise?.media && exercise?.media[0].original_url}
+                      alt=""
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -111,7 +110,7 @@ export default function ExerciseDetails() {
       </div>
       <div id="page-wrapper">
         <div className="container">
-          <Heading title={"Steps"} subTitle={"Steps for exerice"} />
+          <Heading title={language === 'ar' ? "الخطوات" : "Steps"} subTitle={language === 'ar' ? "خطوات التمرين" : "Steps for exerice"} />
           <section
             style={{
               paddingBottom: "100px",
@@ -135,7 +134,7 @@ export default function ExerciseDetails() {
             id="two"
             className="style2"
           >
-            <Heading title={"video"} subTitle={"video for exerice"} />
+            <Heading title={language === 'ar' ? "video" : 'فيديو'} subTitle={language === 'ar' ? "فيديو توضيحي لاجل التمرين" :"video for exerice"} />
             <span className="image fit main">
               <video
                 style={{ width: "100%", height: "100%" }}

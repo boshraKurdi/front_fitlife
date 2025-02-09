@@ -4,10 +4,12 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import { useDispatch, useSelector } from "react-redux";
-import { SetMode } from "../../../Redux/Mode/ModeSlice";
+import { SetLanguage, SetMode } from "../../../Redux/Mode/ModeSlice";
+import TranslateIcon from '@mui/icons-material/Translate';
 import Components from "../../Style/Components/Components";
 import { IconButton, useTheme } from "@mui/material";
 import Profile from "../../Components/Profile/Profile";
+
 
 import { useState } from "react";
 export default function Header() {
@@ -16,7 +18,7 @@ export default function Header() {
   const { MyComponentHeader} = Components();
   const dispatch = useDispatch();
   // change mode 
-  const { value } = useSelector((state) => state.mode)
+  const { value , language } = useSelector((state) => state.mode)
   const { token } = useSelector((state) => state.auth)
   function HandelNav(){
     setOpen(prev => !prev);
@@ -36,25 +38,25 @@ export default function Header() {
           <ul className="navbar-list">
           <li onClick={()=>{setOpen(false)}}>
               <a href="/#home" onClick={()=>{setActiveLink('home')}} className={activeLink === 'home' ? `navbar-link ${value} active` : `navbar-link ${value}`}>
-                Home
+                {language ==="ar" ? "الصفحة الرئيسية" : "Home"}
               </a>{" "}
             </li>
 
             <li onClick={()=>{setOpen(false)}}>
               <a href="/#about" onClick={()=>{setActiveLink('about')}} className={activeLink === 'about' ? `navbar-link ${value} active` : `navbar-link ${value}`}>
-                About Us
+                {language ==="ar" ? "حول الموقع" : "About Us"}
               </a>{" "}
             </li>
 
             <li onClick={()=>{setOpen(false)}}>
               <a href="/#goal" onClick={()=>{setActiveLink('goal')}} className={activeLink === 'goal' ? `navbar-link ${value} active` : `navbar-link ${value}`}>
-                Goals
+                {language ==="ar" ? "الاهداف" : "Goals"}
               </a>
             </li>
 
             <li onClick={()=>{setOpen(false)}}>
               <a  href="/#contact" onClick={()=>{setActiveLink('contact')}} className={activeLink === 'contact' ? `navbar-link ${value} active` : `navbar-link ${value}`}>
-                Contact Us
+                {language ==="ar" ? "تواصل معنا" : "Contact Us"}
               </a>
             </li>
             {/* <li onClick={()=>{setOpen(false)}}>
@@ -62,6 +64,17 @@ export default function Header() {
                 Login
               </Link>
             </li> */}
+              <li onClick={()=>{setOpen(false)}}>
+           
+           <>
+          
+           <IconButton onClick={() => dispatch(SetLanguage())} >
+             <TranslateIcon style={{fontSize:'2.2rem',cursor:'pointer'}} value={language}/> {language}
+             </IconButton>
+             
+             </>
+           
+           </li>
             <li onClick={()=>{setOpen(false)}}>
            
             <>
@@ -81,7 +94,7 @@ export default function Header() {
           </ul>
         </nav>
         {token ? <Profile /> : <Link to="/login" className="btn btn-secondary">
-          Join Now
+          {language ==="ar" ? "انضم الأن" : "Join Now"}
         </Link>}
         <button className="nav-open-btn" onClick={HandelNav}>
           <span className="line"></span>

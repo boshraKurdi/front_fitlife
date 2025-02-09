@@ -9,6 +9,7 @@ import LottieFiles from "../../Loading/LottieLoading/LottieFiles";
 
 export default function Service() {
   const dispatch = useDispatch();
+  const { language } = useSelector((state) => state.mode);
   const { services, loading, error } = useSelector((state) => state.service);
   useEffect(() => {
     dispatch(ActIndex());
@@ -19,7 +20,7 @@ export default function Service() {
   return (
     <section className="section popular" id="className">
       <div className="container">
-        <Heading title='Our Service' subTitle='List of paid services' />
+        <Heading title={language === 'ar' ? 'خدماتنا' : 'Our Service'} subTitle={language === 'ar' ? 'قائمة الخدمات المدفوعة' : 'List of paid services'} />
         <ul>
         <SkeletonLoading loading={loading} error={error} type="goal">
           {services.length > 0 ? (

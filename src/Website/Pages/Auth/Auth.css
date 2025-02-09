@@ -81,6 +81,7 @@ img{
   padding: 1.3rem 1rem;
   border-radius: 1rem;
   text-align: center;
+  right: 0 !important;
   box-shadow: 0 8px 20px rgba(35,0,77,.2);
   animation-duration: .4s;
   animation-name: animate-login;
@@ -409,6 +410,7 @@ label:last-child span {
 
   .login__img img{
     width: 390px;
+    margin: 0 auto;
     margin-top: 0;
   }
 

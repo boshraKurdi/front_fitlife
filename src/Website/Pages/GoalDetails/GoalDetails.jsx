@@ -16,9 +16,10 @@ const GoalDetails = () => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const nav = useNavigate();
+  const { language } = useSelector((state) => state.mode);
 
   const { goal, error, loading } = useSelector((state) => state.goal);
-  const { loadingStore , message , type } = useSelector((state) => state.myGoal);
+  const { loadingStore, message, type } = useSelector((state) => state.myGoal);
   const { token } = useSelector((state) => state.auth);
   const { id } = useParams();
   useEffect(() => {
@@ -27,12 +28,12 @@ const GoalDetails = () => {
       dispatch(GoalCleanUp());
     };
   }, [dispatch, id]);
-    useEffect(() => {
-                if (message) {
-                  enqueueSnackbar(`${message}`, { variant: `${type}` });
-                  dispatch(ResetMessages()); 
-                }
-              }, [message, type, dispatch, enqueueSnackbar]);
+  useEffect(() => {
+    if (message) {
+      enqueueSnackbar(`${message}`, { variant: `${type}` });
+      dispatch(ResetMessages());
+    }
+  }, [message, type, dispatch, enqueueSnackbar]);
   return (
     <>
       <div className="card top">
@@ -61,64 +62,70 @@ const GoalDetails = () => {
           </div>
           <div className="product-content">
             <MyComponentTitle className="product-title">
-              Goal Details
+              {language === "ar" ? "تفاصيل الهدف" : "Goal Details"}
             </MyComponentTitle>
             <a href="index" className="product-link">
-              goals in fitlife
+              {language === "ar" ? "الهداف في موقعنا" : "goals in fitlife"}
             </a>
 
             <div className="product-detail">
-              <h1 style={{ padding: "1rem 0" }}>about this goal: </h1>
-              <p>{goal && goal.description}</p>
+              <h1 style={{ padding: "1rem 0" }}>
+                {language === "ar" ? "حول هذا الهدف" : "about this goal"}:{" "}
+              </h1>
+              <p>
+                {goal &&
+                  (language === "ar" ? goal.description_ar : goal.description)}
+              </p>
               <ul>
                 <li>
                   <CheckCircleIcon />
-                  goal: <span>{goal && goal.title}</span>
-                </li>
-                <li>
-                  <CheckCircleIcon />
-                  calories:{" "}
+                  {language === "ar" ? "لهدف " : "goal "}:{" "}
                   <span>
-                    {goal && goal.calories_min + " to " + goal.calories_max}
+                    {goal && (language === "ar" ? goal.title_ar : goal.title)}
                   </span>
                 </li>
                 <li>
                   <CheckCircleIcon />
-                  duration: <span>{goal && goal.duration}</span>
+                  {language === "ar" ? "السعرات الحرارية" : "calories"}:{" "}
+                  <span>
+                    {goal && goal.calories_min + " .. " + goal.calories_max}
+                  </span>
+                </li>
+                <li>
+                  <CheckCircleIcon />
+                  {language === "ar" ? "المدة" : "duration"}:{" "}
+                  <span>{goal && goal.duration}</span>
                 </li>
               </ul>
               {/* {token && goal?.count === 0 ? (
                 "you start"
               ) : ( */}
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    !token
-                      ? enqueueSnackbar(`please login!`, { variant: "error" })
-                      : dispatch(ActStore(goal && goal.id))
-                          .unwrap()
-                          .then(() => {
-                            nav("/user");
-                          
-                          })
-                          .catch(() => {
-                          
-                          });
-                  }}
-                  className="btn_start"
-                  disabled={
-                    (token && goal?.countAll) || loadingStore === "pending"
-                      ? true
-                      : false
-                  }
-                >
-                  Start Goal{" "}
-                  {loadingStore === "pending" ? (
-                    <ButtonLoading />
-                  ) : (
-                    <KeyboardDoubleArrowRightIcon />
-                  )}
-                </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  !token
+                    ? enqueueSnackbar(`please login!`, { variant: "error" })
+                    : dispatch(ActStore(goal && goal.id))
+                        .unwrap()
+                        .then(() => {
+                          nav("/user");
+                        })
+                        .catch(() => {});
+                }}
+                className="btn_start"
+                disabled={
+                  (token && goal?.countAll) || loadingStore === "pending"
+                    ? true
+                    : false
+                }
+              >
+                {language === "ar" ? " ابدا الان  " : "Start Now"}{" "}
+                {loadingStore === "pending" ? (
+                  <ButtonLoading />
+                ) : (
+                  <KeyboardDoubleArrowRightIcon />
+                )}
+              </button>
               {/* )} */}
             </div>
           </div>

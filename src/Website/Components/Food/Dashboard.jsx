@@ -7,6 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { ActStore } from "../../../Redux/Target/TargetSlice";
 export default function Dashboard({ meals , id , open }) {
   const dispatch = useDispatch()
+  const { language } = useSelector((state) => state.mode)
   const [Categories, setCategories] = useState(0);
   const { enqueueSnackbar } = useSnackbar();
   const { value } = useSelector((state) => state.mode);
@@ -57,8 +58,8 @@ export default function Dashboard({ meals , id , open }) {
         <CloseIcon onClick={handleDelete(data)} className="icon_dashboard" />
         <img className="highlight-img" src={data.media[0].original_url} alt="none" />
         <div className="highlight-desc">
-          <h4>{data.title}</h4>
-          <p>{data.calories + " calories"}</p>
+          <h4>{language === 'ar' ? data.title_ar : data.title}</h4>
+          <p>{data.calories + (language === 'ar' ? "سعؤة حرارية" : " calories")}</p>
         </div>
       </div>
       }
@@ -69,9 +70,9 @@ export default function Dashboard({ meals , id , open }) {
     <>
       <div className="main-highlight">
         <div style={{display:'flex' , alignItems:'center' , justifyContent:'space-between'}} className="main-header">
-          <h2 className="main-title">Recommendations</h2>
+          <h2 className="main-title">{language === 'ar' ? "التوصيات" : "Recommendations"}</h2>
           <div className="avg" style={{display:'flex' , alignItems:'center'}}>
-            <p>totle calories: {totalCalories}</p>
+            <p>{language === 'ar' ? "مجموع السعرات الحرارية" : "totle calories"}: {totalCalories}</p>
           <button onClick={()=>{
             dispatch(ActStore({calories:calories , id:id , check:check}))
             .unwrap()
@@ -81,7 +82,7 @@ export default function Dashboard({ meals , id , open }) {
             .catch(()=>{
               enqueueSnackbar(`try agen!`, { variant: `error`});
             })
-          }} className='save_food' disabled={loading === 'pending' ? true : false}>{loading === 'pending' ? 'loading...' : "Save"}</button>
+          }} className='save_food' disabled={loading === 'pending' ? true : false}>{loading === 'pending' ? (language === 'ar' ? "انتظار..." : 'loading...') : (language === 'ar' ? "حفظ" : "Save")}</button>
           </div>
         </div>
         <div className="highlight-wrapper">{newData}</div>

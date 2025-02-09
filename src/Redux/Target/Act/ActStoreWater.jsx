@@ -4,9 +4,9 @@ const ActStoreWater = createAsyncThunk(
     'Target/ActStoreWater',
     async (data, thunkAPI) => {
         const { rejectWithValue , getState } = thunkAPI;
-        const { auth } = getState()
+        const { auth , mode } = getState()
         try {
-            const response = await axios.post(`target/storeWater` ,{water:data} , {
+            const response = await axios.post(`target/storeWater?lang=${mode.language}` ,{water:data} , {
                 headers: {
                   Authorization: 'Bearer ' + auth.token
               }

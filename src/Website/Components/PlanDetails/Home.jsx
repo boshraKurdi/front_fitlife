@@ -4,11 +4,11 @@ import Components from "../../Style/Components/Components";
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import SkeletonLoading from "../Loading/SkeletonLoading/SkeletonLoading";
 import { useSelector } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Home = ({ myplan , loading , error , data }) => {
     const { MyComponentTitle } = Components()
-    const { value } = useSelector((state) => state.mode);
+    const { value , language } = useSelector((state) => state.mode);
   return (
     <>
     <SkeletonLoading loading={loading} error={error} type="detailsGoal">
@@ -21,31 +21,31 @@ const Home = ({ myplan , loading , error , data }) => {
         </div>
       </div>
       <div className="product-content">
-        <MyComponentTitle className="product-title">myPlan Details</MyComponentTitle>
+        <MyComponentTitle className="product-title">{language === 'ar' ? "تفاصيل الخطة" : "myPlan Details"}</MyComponentTitle>
         <a href="index" className="product-link">
           myPlans in fitlife
         </a>
 
         <div className="product-detail">
-          <h1 style={{padding:'1rem 0'}}>about this myPlan: </h1>
-          <p>{myplan?.plan && myplan.plan.description}</p>
+          <h1 style={{padding:'1rem 0'}}>{language === 'ar' ? "حول هذه الخطة" : "about this myPlan"}: </h1>
+          <p>{myplan?.plan && (language === 'ar' ? myplan.plan.description_ar : myplan.plan.description)}</p>
           <ul>
             <li>
               <CheckCircleIcon />
-              myplan: <span>{myplan?.title}</span>
+              {language === 'ar' ? "الخطة" : "myplan"}: <span>{language === 'ar' ? myplan?.title_ar : myplan?.title}</span>
             </li>
             <li>
               <CheckCircleIcon />
-              muscle: <span>{myplan.muscle}</span>
+              {language === 'ar' ? "العضلة المستهدفة" : "muscle"}: <span>{language === 'ar' ? myplan.muscle_ar : myplan.muscle}</span>
             </li>
             <li>
               <CheckCircleIcon />
-              duration: <span>{myplan?.duration} week</span>
+              {language === 'ar' ? "المدة" : "duration"}: <span>{myplan?.duration} {language === 'ar' ? "اسبوع" : "week"}</span>
             </li>
             <li>
             <div style={{width: '100%'}} className="card-progress">
               <div className="progress-wrapper">
-                <p style={{color: value === 'dark' ? '#fff' : '#000'}} className="progress-label">Class Full</p>
+                <p style={{color: value === 'dark' ? '#fff' : '#000'}} className="progress-label">{language === 'ar' ? "نسبة تقدمك في الخطة" : "Your progress on the plan"}</p>
 
                 <span style={{color: value === 'dark' ? '#fff' : '#000'}} className="progress-value">{(myplan?.totalRate ? myplan?.totalRate : 0)+'%'}</span>
               </div>
@@ -59,7 +59,7 @@ const Home = ({ myplan , loading , error , data }) => {
             </div>
             </li>
           </ul>
-          {data.day ? <NavLink to={`dashboard/${data.week}/${data.day}`} className='btn_start'>show details <KeyboardDoubleArrowRightIcon/></NavLink> : ''}
+          {data.day ? <NavLink to={`dashboard/${data.week}/${data.day}`} className='btn_start'>{language === 'ar' ? "عرض التفاصيل" : "show details"} <KeyboardDoubleArrowRightIcon/></NavLink> : ''}
         </div>
       </div>
     </div>

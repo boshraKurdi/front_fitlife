@@ -2,6 +2,7 @@ import "./Scheduling.css";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 export default function Scheduling({
   setBox,
   state,
@@ -21,19 +22,19 @@ export default function Scheduling({
     friday: true,
     saturday: true,
   });
-  console.log(check)
+  const { language } = useSelector((state) => state.mode)
   return (
     <form
       style={{ bottom: "1.5rem" }}
       className="d login__create login__create_address"
       id="login-up"
     >
-      <h1 className="login__title">Complete registration</h1>
+      <h1 className="login__title">{language === 'ar' ? 'اكمال عملية الاشتراك' : "Complete registration"}</h1>
       <div className="box_flex">
         <div className="box w-100">
           <div style={{ display: "block" }} className="login__box">
             <p className="d_p">
-              Choose the days you want to exercise at least three days🤓💪🏻
+              {language === 'ar' ? "اختر الأيام التي تريد ممارسة الرياضة فيها على الأقل ثلاثة أيام🤓💪🏻": "Choose the days you want to exercise at least three days🤓💪🏻"}
             </p>
             <div className="days">
               <div className="day">
@@ -47,7 +48,7 @@ export default function Scheduling({
                   }}
                   className="login__input"
                 />
-                <label htmlFor="sunday">sunday</label>
+                <label htmlFor="sunday">{language === 'ar' ? 'الاحد':'sunday'}</label>
               </div>
               <div className="day">
                 <input
@@ -60,7 +61,7 @@ export default function Scheduling({
                   }}
                   className="login__input"
                 />
-                <label htmlFor="monday">monday</label>
+                <label htmlFor="monday">{language === 'ar' ? "الاثنين" : "monday"}</label>
               </div>
               <div className="day">
                 <input
@@ -73,7 +74,7 @@ export default function Scheduling({
                   }}
                   className="login__input"
                 />
-                <label htmlFor="tuesday">tuesday</label>
+                <label htmlFor="tuesday">{language === 'ar' ? 'الثلاثاء' :'tuesday'}</label>
               </div>
               <div className="day">
                 <input
@@ -86,7 +87,7 @@ export default function Scheduling({
                   }}
                   className="login__input"
                 />
-                <label htmlFor="wednesday">wednesday</label>
+                <label htmlFor="wednesday">{language === 'ar' ? "الاربعاء" : "wednesday"}</label>
               </div>
               <div className="day">
                 <input
@@ -99,7 +100,7 @@ export default function Scheduling({
                   }}
                   className="login__input"
                 />
-                <label htmlFor="thrusday">thrusday</label>
+                <label htmlFor="thrusday">{language === 'ar' ? "الخميس" : "thrusday"}</label>
               </div>
               <div className="day">
                 <input
@@ -112,7 +113,7 @@ export default function Scheduling({
                   }}
                   className="login__input"
                 />
-                <label htmlFor="friday">friday</label>
+                <label htmlFor="friday">{language === 'ar' ? "الجمعة": "friday"}</label>
               </div>
               <div className="day">
                 <input
@@ -125,7 +126,7 @@ export default function Scheduling({
                   name="days"
                   className="login__input"
                 />
-                <label htmlFor="saturday">saturday</label>
+                <label htmlFor="saturday">{language === 'ar' ? 'السبت': 'saturday'}</label>
               </div>
             </div>
           </div>
@@ -141,7 +142,7 @@ export default function Scheduling({
           }}
         >
           {" "}
-          <KeyboardDoubleArrowLeftIcon /> Next
+          <KeyboardDoubleArrowLeftIcon /> {language === 'ar' ?  'التالي': 'Next'}
         </button>
         <button
           onClick={(e) => {
@@ -150,7 +151,7 @@ export default function Scheduling({
           }}
           className="login__button back"
         >
-          Back <KeyboardDoubleArrowRightIcon />
+          {language === 'ar' ? 'العودة' : 'Back'} <KeyboardDoubleArrowRightIcon />
         </button>
       </div>
     </form>

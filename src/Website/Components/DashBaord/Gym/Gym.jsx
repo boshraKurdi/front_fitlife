@@ -7,7 +7,7 @@ import SwiperComponent from "../../Swiper/SwiperComponent";
 import LottieFiles from "../../Loading/LottieLoading/LottieFiles";
 import Heading from "../../Heading/Heading";
 const Gym = () => {
-  console.log("Myplan component");
+  const { language } = useSelector((state) => state.mode)
   const dispatch = useDispatch();
   const { gyms, loading, error } = useSelector((state) => state.gym);
   useEffect(() => {
@@ -22,7 +22,7 @@ const Gym = () => {
   return (
     <section className="section blog" id="blog" aria-label="blog">
       <div className="container" style={{ position: "relative" }}>
-        <Heading title="Gym" subTitle='The closest Gym' />
+        <Heading title={language === 'ar' ? "نوادي رياضية" : "Gym"} subTitle={language === 'ar' ? "النوادي الرياضية الاقرب" : 'The closest Gym'} />
         <ul className="blog-list has-scrollbar">
           <SkeletonLoading loading={loading} error={error} type="plan">
             {gyms.length > 0 ? (

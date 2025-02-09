@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import Components from "../../../../Style/Components/Components";
+import { useSelector } from "react-redux";
 
 const Content = ({ plan }) => {
   const { MyComponentHeroSubtitleH3 } = Components();
+  const { language } = useSelector((state) => state.mode)
   return (
     <>
       <li className="scrollbar-item">
@@ -26,12 +28,12 @@ const Content = ({ plan }) => {
                   to={`/planDetails/${plan.id}`}
                   className="card-title"
                 >
-                  {plan?.title}
+                  {language === 'ar' ? plan?.title_ar : plan?.title}
                 </Link>
               </MyComponentHeroSubtitleH3>
             </div>
 
-            <p className="card-text">{plan.description}</p>
+            <p className="card-text">{language === 'ar' ? plan?.description_ar : plan?.description}</p>
 
             <div className="card-progress">
               <div className="progress-wrapper">
