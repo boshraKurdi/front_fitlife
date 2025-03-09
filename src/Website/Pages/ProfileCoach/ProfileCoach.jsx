@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { ActShow } from "../../../Redux/User/UserSlice";
 import SkeletonLoading from "../../Components/Loading/SkeletonLoading/SkeletonLoading";
 export default function ProfileCoach() {
-    const { value } = useSelector((state) => state.mode) 
+    const { value , language } = useSelector((state) => state.mode) 
     const { user , loading , error } = useSelector((state) => state.user)
     const { id } = useParams()
     const dispatch = useDispatch();
@@ -21,16 +21,16 @@ export default function ProfileCoach() {
     <SkeletonLoading loading={loading} error={error} type="detailsGoal">
     <div className="about_section">
       <div className="about_coach">
-        <img src={user.media && user.media[0].original_url} alt="none" className="about_img" />
+       
         <div className="about_text">
-          <h1>About {user?.name}</h1>
+          <h1>{language === 'en' ? "About" : 'حول'} {user?.name}</h1>
           <p className="p_profile_coach">
             {user?.description}
           </p>
           <div className="skill">
         <div className={`bar ${value}`}>
           <div className="text">
-            <p>Performance Analysis</p>
+            <p>{language === 'en' ? "Performance Analysis" : "تحليل الاداء"}</p>
             <p>{user.analysis}%</p>
           </div>
           <div className="progress">
@@ -39,7 +39,7 @@ export default function ProfileCoach() {
         </div>
         <div className={`bar ${value}`}>
           <div className="text">
-            <p>Communication and relationship</p>
+            <p>{language === 'en' ? "Communication and relationship" : "التواصل والعلاقات الاجتماعية"}</p>
             <p>{user?.communication}%</p>
           </div>
           <div className="progress">
@@ -48,7 +48,7 @@ export default function ProfileCoach() {
         </div>
         <div className={`bar ${value}`}>
           <div className="text">
-            <p>Education and guidance</p>
+            <p>{language === 'en' ? "Education and guidance" : "التعليم والتوجيه"}</p>
             <p>{user?.education}%</p>
           </div>
           <div className="progress">
@@ -57,7 +57,7 @@ export default function ProfileCoach() {
         </div>
         <div className={`bar ${value}`}>
           <div className="text">
-            <p>Professional Development</p>
+            <p>{language === 'en' ? "Professional Development" : "التطوير المهني"}</p>
             <p>{user.development}%</p>
           </div>
           <div className="progress">
@@ -67,10 +67,11 @@ export default function ProfileCoach() {
       </div>
           <div className="buttons">
             <button onClick={HandelChat} className="hire_me">
-              start chat
+              {language === 'en' ? "start chat" : "ابدا المحادثة"}
             </button>
           </div>
         </div>
+        <img src={user.media && user.media[0].original_url} alt="none" className="about_img" />
         
       </div>
 

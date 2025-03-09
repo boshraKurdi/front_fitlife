@@ -143,8 +143,15 @@
     border-radius: 10px;
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 0.5s;
   }
-  
+  .e_service__card:hover{
+    transform: scale(1.07);
+    transition: 0.5s;
+  }
 .section__container {
     max-width: var(--max-width);
     margin: auto;
@@ -185,10 +192,12 @@
 
   }
   .e_service__card span {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 1rem;
-    padding: 10px 20px;
-    font-size: 2rem;
+    width: 60px;
+    height: 60px;
     color: var(--primary-color);
     background-color: var(--primary-color-light);
     border-radius: 100%;
@@ -254,7 +263,7 @@
   .why__grid span {
     width: 150px;
     border-radius: 10px;
-    margin-right: 1rem;
+    margin: 0 1rem;
     height: 75px;
   }
   .why__grid span img{

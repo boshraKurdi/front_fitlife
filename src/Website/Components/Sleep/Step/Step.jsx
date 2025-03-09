@@ -6,7 +6,7 @@ export default function Step(){
         <section className="sleep_steps section container">
         <div className="steps__bg">
             <h2 className="section__title-center steps__title">
-                {language === 'ar' ?`خطوات لبدء مشروعك ${<br />} التخطيط الصحيح`  : `Steps to start your ${<br />} plan off right`}
+                {language === 'ar' ?`خطوات لبدء مشروعك التخطيط الصحيح`  : `Steps to start your plan off right`}
             </h2>
 
             <div className="steps__container grid">

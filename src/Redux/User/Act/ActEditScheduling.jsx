@@ -4,9 +4,9 @@ const ActEditScheduling = createAsyncThunk(
     'User/ActEditScheduling',
     async ({days} , thunkAPI) => {
         const { rejectWithValue , getState } = thunkAPI;
-        const { auth } = getState();
+        const { auth , mode } = getState();
         try {
-            const response = await axios.post(`user/editScheduling` , {days:days} , {
+            const response = await axios.post(`user/editScheduling?lang=${mode.language}` , {days:days} , {
                 headers: {
                   Authorization: "Bearer " + auth.token,
                 },

@@ -89,7 +89,7 @@ export default function Content() {
               <h3 className="cardtittle">{language == 'ar' ? "الوزن الصحي" : "Healthy Weight"}</h3>
               <div style={{ display: "flex", alignItems: "center" , justifyContent:'space-between' }}>
                 <h2 className="balance">{profile?.width}kg / {profile?.height}cm</h2>
-                <span className="bmi"><AssignmentTurnedInIcon/>{profile?.BMI}</span>
+                <span style={{left: language === 'ar' && "18%"}} className="bmi"><AssignmentTurnedInIcon/>{profile?.BMI}</span>
               </div>
             </div>
           </div>
@@ -194,7 +194,7 @@ export default function Content() {
               <div className="pather_day_week">
                 <div className="day_week">
                   <CheckCircleIcon className="true" />
-                  <span >{profile?.goal && profile?.goal.title}</span>
+                  <span >{profile?.goal && (language === 'en' ? profile?.goal.title : profile?.goal.title_ar)}</span>
                 </div>
               </div>
             </div>

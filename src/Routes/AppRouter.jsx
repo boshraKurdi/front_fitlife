@@ -41,6 +41,8 @@ import ServiceForm from "../Dashboard/pages/form/ServiceForm";
 import ServiceUpdate from "../Dashboard/pages/update/ServiceUpdate";
 import ServiceIndex from "../Dashboard/data/ServiceIndex";
 import DetailsService from "../Dashboard/pages/details/DetailsService";
+import RequestGoals from "../Dashboard/data/RequestGoals";
+import DetailsUser from "../Dashboard/pages/details/DetailsUser";
 // route website
 // import RequierBack from "../Website/index";
 const regex = /^[0-9]+$/;
@@ -69,6 +71,7 @@ const Main = lazy(() => import("../Website/Pages/Main/Main")),
    Sleep = lazy(()=> import("../Website/Pages/Sleep/Sleep")),
    Workout  = lazy(()=> import("../Website/Pages/Workout/Workout")) ,
    EditScheduling  = lazy(()=> import("../Website/Pages/EditScheduling/EditScheduling")) ,
+   Target  = lazy(()=> import("../Website/Pages/Target/Target")),
   Chat = lazy(()=> import('../Website/Pages/Chat/Chat'));
 const router = createBrowserRouter([
   {
@@ -106,6 +109,10 @@ const router = createBrowserRouter([
           {
             path: 'plan' ,
             element: <Plan />,
+          },
+          {
+            path: 'requestGoals' ,
+            element: <RequestGoals />,
           },
           {
             path: 'service' ,
@@ -171,6 +178,10 @@ const router = createBrowserRouter([
           {
             path: 'plan/DetailsPlan/:id' ,
             element: <DetailsPlan />
+          },
+          {
+            path: 'user/DetailsUser/:id' ,
+            element: <DetailsUser />
           },
           {
             path: 'service/DetailsService/:id' ,
@@ -293,6 +304,10 @@ const router = createBrowserRouter([
       path: 'myProfile',
       element: <Suspense fallback={<Loading />}><ProfileUser /></Suspense>,
   },
+  {
+    path: 'target',
+    element: <Suspense fallback={<Loading />}><Target /></Suspense>,
+},
   {
     path: 'sleep',
     element: <Suspense fallback={<Loading />}><Sleep /></Suspense>,

@@ -1,0 +1,33 @@
+.water_target{
+    display: flex;
+    align-items: center;
+}
+.water_target .img{
+    width: 30%;
+}
+.water_target .info{
+    margin:0 2rem;
+}
+.water_target .info h2{
+    font-size: 3rem;
+    margin: 1rem 0px;
+}
+.water_target .info p{
+    font-size: 1.6rem;
+    color: var(--text-light);
+}
+.water_target .info button , .doctors__header button{
+    padding: 1rem 3rem;
+    background: var(--coquelicot);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    margin: 2rem 0 0 0;
+    outline: none;
+    font-size: 1.3rem;
+    color: #fff;
+    font-family: cursive;
+}
+.water_target .info button svg , .doctors__header button svg{
+    margin:0 .5rem;
+}

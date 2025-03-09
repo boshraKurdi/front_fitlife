@@ -11,7 +11,7 @@ export default function Category({Categories , setCategories}){
         // back-menus
         <div className="main-filter">
           <div>
-            <h2 className="main-title-bottom">{language === 'ar' ? `قائمة ${<br />} الفئات` :`Menu ${<br />} Catagory`}</h2>
+            <h2 className="main-title-bottom">{language === 'ar' ? `قائمة الفئات` :`Menu Catagory`}</h2>
           </div>
           <div className="filter-wrapper">
             <div onClick={()=>{

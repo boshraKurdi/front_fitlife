@@ -36,12 +36,10 @@ export default function Water() {
       </div>
       <div className={`water ${value}`}>
         <div className="water_container">
-          <div className="water_img">
-            <Lottie className="water__img" animationData={water1} />
-          </div>
+        
           <div className="water_info">
             <h2>{language === 'ar' ? "اختر كمية شربك للماء" : "Enter Amount Water"}</h2>
-            <p style={{display:'flex' , alignItems:'center'}}>To enjoy a healthy life, you must consume sufficient amounts of water.  <OpacityIcon style={{ color: "#0087ff", fontSize: "1.7rem" }} /></p>
+            <p style={{display:'flex' , alignItems:'center'}}>{language == 'en' ?  "To enjoy a healthy life, you must consume sufficient amounts of water." : "للتمتع بحياة صحية يجب عليك استهلاك كميات كافية من الماء"  }<OpacityIcon style={{ color: "#0087ff", fontSize: "1.7rem" }} /></p>
             <form>
               <label>{language === 'ar' ? "كيمة الماء التي ينبغي ان تشربها" : "The amount of water that you should drink"}💙</label>
               <input
@@ -62,13 +60,13 @@ export default function Water() {
               />
               <div className="add_water">
               <span onClick={()=>{
-                setData(data+1)
+                setData(Number(data)+1)
               }}>1 {language === 'ar' ? "لتر"  : "liter"} <LocalDrinkIcon/></span>
               <span  onClick={()=>{
-                setData(data+2)
+                setData(Number(data)+2)
               }}>2 {language === 'ar' ? "لتر"  : "liter"} <LocalDrinkIcon/></span>
               <span  onClick={()=>{
-                setData(data+3)
+                setData(Number(data)+3)
               }}>3 {language === 'ar' ? "لتر"  : "liter"} <LocalDrinkIcon/></span>
               </div>
               <button
@@ -88,6 +86,9 @@ export default function Water() {
                 <i className="ri-arrow-right-down-line button__icon"></i>
               </button>
             </form>
+          </div>
+          <div className="water_img">
+            <Lottie className="water__img" animationData={water1} />
           </div>
         </div>
       </div>

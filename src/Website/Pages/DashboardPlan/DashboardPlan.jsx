@@ -12,17 +12,17 @@ import MenuItem from "@mui/material/MenuItem";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import BarChart from "../../Components/Chart/BarChart";
 export default function DashboardPlan() {
-  const { value , language } = useSelector((state) => state.mode);
+  const { value , language , data } = useSelector((state) => state.mode);
   const { id , week , day } = useParams();
   const [type , setType] = useState({one:'weekly' , two:week})
   const dispatch = useDispatch();
   const { myplan, error, loading } = useSelector((state) => state.myPlan);
   useEffect(() => {
-    dispatch(ActShow({id:id , data:type}))
+    dispatch(ActShow({id:id , day:data?.day , week:data?.week , data:type}))
       .unwrap()
       .catch(() => {
       });
-  }, [dispatch, id , type ]);
+  }, [dispatch, id , type , data ]);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {

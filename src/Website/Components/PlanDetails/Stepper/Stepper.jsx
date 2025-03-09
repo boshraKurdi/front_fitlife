@@ -4,7 +4,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import {  useEffect } from "react";
 import {SetData} from '../../../../Redux/Mode/ModeSlice'
 const Stepper = ({ indexOfToday }) => {
-  const { value } = useSelector((state) => state.mode);
+  const { value , language } = useSelector((state) => state.mode);
   const dispatch = useDispatch();
   useEffect(() => {
     switch (indexOfToday) {
@@ -58,7 +58,7 @@ const Stepper = ({ indexOfToday }) => {
   return (
     <div className="timeline">
       <div className="timeline_container right_container">
-        <span className={`num_img ${value}`}>1</span>
+        <span style={{right: language === 'ar' && '10px'}} className={`num_img ${value}`}>1</span>
         <div className={`text_body ${value}`}>
           <button
             className={
@@ -130,7 +130,7 @@ const Stepper = ({ indexOfToday }) => {
         </div>
       </div>
       <div className="timeline_container right_container">
-        <span className={`num_img ${value}`}>2</span>
+        <span style={{right: language === 'ar' && '10px'}} className={`num_img ${value}`}>2</span>
         <div className={`text_body ${value}`}>
           <button
             className={

@@ -64,7 +64,7 @@ const GoalUpdate = () => {
                 helperText={touched.title && errors.title}
                 sx={{ gridColumn: "span 2" }}
                 InputProps={{
-                  sx: { fontSize: "1.5rem" },
+                  sx: { fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' },
                 }}
                 InputLabelProps={{
                   sx: {
@@ -89,7 +89,7 @@ const GoalUpdate = () => {
                 helperText={touched.title_ar && errors.title_ar}
                 sx={{ gridColumn: "span 2" }}
                 InputProps={{
-                  sx: { fontSize: "1.5rem" },
+                  sx: { fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' },
                 }}
                 InputLabelProps={{
                   sx: {
@@ -102,8 +102,9 @@ const GoalUpdate = () => {
                 }}
               />
               <TextField
+                id="filled-textarea"
                 variant="filled"
-                type="text"
+                multiline
                 label="Description"
                 disabled={loadingShow === "pending" ? true : false}
                 onBlur={handleBlur}
@@ -114,7 +115,7 @@ const GoalUpdate = () => {
                 helperText={touched.description && errors.description}
                 sx={{ gridColumn: "span 2" }}
                 InputProps={{
-                  sx: { fontSize: "1.5rem" },
+                  sx: { fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' },
                 }}
                 InputLabelProps={{
                   sx: {
@@ -129,6 +130,7 @@ const GoalUpdate = () => {
                <TextField
                 variant="filled"
                 type="text"
+                multiline
                 label="Description AR"
                 disabled={loadingShow === "pending" ? true : false}
                 onBlur={handleBlur}
@@ -139,7 +141,7 @@ const GoalUpdate = () => {
                 helperText={touched.description_ar && errors.description_ar}
                 sx={{ gridColumn: "span 2" }}
                 InputProps={{
-                  sx: { fontSize: "1.5rem" },
+                  sx: { fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' },
                 }}
                 InputLabelProps={{
                   sx: {
@@ -164,7 +166,7 @@ const GoalUpdate = () => {
                 helperText={touched.calories_min && errors.calories_min}
                 sx={{ gridColumn: "span 2" }}
                 InputProps={{
-                  sx: { fontSize: "1.5rem" },
+                  sx: { fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' },
                 }}
                 InputLabelProps={{
                   sx: {
@@ -189,7 +191,7 @@ const GoalUpdate = () => {
                 helperText={touched.calories_max && errors.calories_max}
                 sx={{ gridColumn: "span 2" }}
                 InputProps={{
-                  sx: { fontSize: "1.5rem" },
+                  sx: { fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' },
                 }}
                 InputLabelProps={{
                   sx: {
@@ -214,7 +216,7 @@ const GoalUpdate = () => {
                 helperText={touched.duration && errors.duration}
                 sx={{ gridColumn: "span 2" }}
                 InputProps={{
-                  sx: { fontSize: "1.5rem" },
+                  sx: { fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' },
                 }}
                 InputLabelProps={{
                   sx: {
@@ -228,39 +230,39 @@ const GoalUpdate = () => {
               />
 
               <Select
-                name="PlanLevel"
-                value={values.PlanLevel}
+                name="Plan"
+                value={values.Plan}
                 variant="filled"
                 disabled={loadingShow === "pending" ? true : false}
                 onChange={handleChange}
-                error={!!touched.PlanLevel && !!errors.PlanLevel}
-                helperText={touched.PlanLevel && errors.PlanLevel}
+                error={!!touched.Plan && !!errors.Plan}
+                helperText={touched.Plan && errors.Plan}
                 sx={{ gridColumn: "span 2", fontSize: "1.6rem" }}
                 MenuProps={MenuProps}
               >
                 {loading === "pending" ? (
                   <MenuItem value="0">loading...</MenuItem>
                 ) : (
-                  plans.map((e) => {
+                  plans?.map((e) => {
                     return (
                       <MenuItem
-                        sx={{ fontSize: "1.5rem" }}
+                        sx={{ fontSize: "1.3rem" , lineHeight:'1.5' }}
                         onClick={() => {
                           setChipData((prevChipData) => [
                             ...prevChipData,
-                            { key: e.id, label: e.plan?.title },
+                            { key: e.id, label: e?.title },
                           ]);
                         }}
                         key={e.id}
                         value={e.id}
                       >
-                        {e.plan?.title}
+                        {e?.title}
                       </MenuItem>
                     );
                   })
                 )}
               </Select>
-              {(newData.length > 0) && (
+              {(newData?.length > 0) && (
                 <Paper
 
                   sx={{
@@ -279,7 +281,7 @@ const GoalUpdate = () => {
               )}
               <div className="uploadfile" style={{ border: '2px dashed #ccc' ,gridColumn: "span 4" , display:'flex' , alignItems:'center' }}>
                 {preview && <img style={{width:'25%' , marginRight:'1rem'}} src={preview} alt="none" />}
-                <label htmlFor="file" class="labelFile">
+                <label htmlFor="file" className="labelFile">
                   <span>
                     <CloudUploadIcon />
                   </span>

@@ -3,10 +3,11 @@ import Header from "../components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { ActIndex } from "../../Redux/Dashboard/User/UserSlice";
-import EditIcon from '@mui/icons-material/Edit';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import Table from "../components/Table";
+import { useNavigate } from "react-router-dom";
 const UserIndex = () => {
+  const nav = useNavigate()
   const columns = [
     { field: "id", headerName: "ID" },
     {
@@ -34,25 +35,15 @@ const UserIndex = () => {
       field: "event",
       headerName: "event",
       flex: 1,
-      renderCell: (params) => (
+      renderCell: (users) => (
         <strong>
         <IconButton
           className="iconButton"
           variant="contained"
           size="small"
-          style={{background: 'green' , padding: '5px' , borderRadius: '8px'  }}
-          tabIndex={params.hasFocus ? 0 : -1}
-        >
-         <EditIcon sx={{color:'#fff'}} className="update" />
-        </IconButton >
-        <IconButton
-          className="iconButton"
-          variant="contained"
-          size="small"
           style={{ marginLeft: 16 , background: '#aaa' , padding: '5px' , borderRadius: '8px' }}
-          tabIndex={params.hasFocus ? 0 : -1}
         >
-         <FolderOpenIcon sx={{color:'#fff'}} className="open" />
+         <FolderOpenIcon sx={{color:'#fff'}} className="open"  onClick={() => {nav('DetailsUser/'+users.id)}} />
         </IconButton>
       </strong>
       ),

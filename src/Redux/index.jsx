@@ -20,6 +20,8 @@ import Dcategory from './Dashboard/Category/CategorySlice';
 import Dmeal from './Dashboard/Meal/MealSlice';
 import target from './Target/TargetSlice';
 import Dservice from './Dashboard/Service/ServiceSlice';
+import Duser from './Dashboard/User/UserSlice';
+import admin from './Dashboard/Admin/AdminSlice';
 
 import {
   persistStore,
@@ -72,7 +74,9 @@ const rootReducer = combineReducers({
   Dmeal ,
   Dcategory ,
   Dservice ,
-  target
+  target ,
+  admin , 
+  Duser
 })
  const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 

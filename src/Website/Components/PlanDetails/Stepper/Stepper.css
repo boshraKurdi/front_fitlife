@@ -58,6 +58,7 @@
     background: linear-gradient(45.21deg, #aa367c9e -5.91%, #4a2fbda1 111.58%);
     top: 0;
     left: 5%;
+    right: 0;
     margin-left: -3px;
     z-index: -1;
 }

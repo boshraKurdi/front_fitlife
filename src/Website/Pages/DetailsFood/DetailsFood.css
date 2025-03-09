@@ -13,6 +13,7 @@
   }
   .viewport .sec-img img{
     max-height: 400px;
+    margin: auto;
   }
   .viewport .sec_info{
     display: flex;
@@ -270,11 +271,11 @@
   }
   .testimonials-img {
     position: relative;
+    margin: 0 2rem;
   }
   
   .testimonials-img img {
     width: 100%;
-    margin-right: 2rem;
     max-width: initial;
   }
   .viewport.light .testimonials-box{
@@ -323,7 +324,7 @@
     width: 45%;
   }
   .col-lg-5 {
-    width: 35%;
+    width: 40%;
   }
   
   .testimonials-box-text .h3-title {

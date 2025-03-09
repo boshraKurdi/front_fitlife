@@ -12,6 +12,9 @@ const initialState = {
   profile:{},
   coachs: [] ,
   user: {} ,
+  datauser: {},
+  message: "",
+  type: "",
   loading: 'idle',
   error:null
 }
@@ -23,6 +26,9 @@ export const userSlice = createSlice({
     CleanUp: (state) => {
         state.users = [] 
     } ,
+    ResetMessages:(state) =>{
+      state.message = ''
+    }
   } ,
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
@@ -106,6 +112,9 @@ export const userSlice = createSlice({
     })
     builder.addCase(ActEditProfile.fulfilled , (state , action) => {
       state.loading = 'succeeded' 
+      state.datauser = action.payload.data
+      state.message = action.payload.message
+      state.type = action.payload.type
     })
     builder.addCase(ActEditProfile.rejected , (state , action) => {
       state.loading = 'failed' 
@@ -118,8 +127,11 @@ export const userSlice = createSlice({
       state.loading = 'pending' 
       state.error = null
     })
-    builder.addCase(ActEditScheduling.fulfilled , (state ) => {
+    builder.addCase(ActEditScheduling.fulfilled , (state , action ) => {
       state.loading = 'succeeded' 
+      state.datauser = action.payload.data
+      state.message = action.payload.message
+      state.type = action.payload.type
     })
     builder.addCase(ActEditScheduling.rejected , (state , action) => {
       state.loading = 'failed' 
@@ -132,5 +144,5 @@ export const userSlice = createSlice({
 })
 // Action creators are generated for each case reducer function
 export { ActIndex , ActGetCoach , ActShow, ActProfile ,  ActDeleteAccount , ActEditProfile , ActEditScheduling} 
-export const { CleanUp , GoalCleanUp } = userSlice.actions
+export const { CleanUp ,ResetMessages } = userSlice.actions
 export default userSlice.reducer

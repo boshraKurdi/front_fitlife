@@ -8,13 +8,9 @@ export default function Information({meal}) {
       <div className="sec-wp">
         <div className="container">
 
-          <Heading title={"Meal information"} subTitle={'What our Meal about us Meal'} />
+          <Heading title={language === 'en' ? "Meal information" : 'معلومات الوجبة'} subTitle={language === 'en' ? 'What our Meal about us Meal' : 'ما هي وجبتنا'} />
           <div className="details_food_row">
-            <div className="col-lg-5" style={{ marginRight: "2rem" }}>
-              <div className="testimonials-img">
-                <img src={Img1} alt="" />
-              </div>
-            </div>
+           
             <div className="col-lg-7">
               <div className="details_food_row" style={{ flexWrap: "wrap" }}>
                 <div className="col-sm-12">
@@ -38,6 +34,11 @@ export default function Information({meal}) {
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div className="col-lg-5" style={{ marginRight: "2rem" }}>
+              <div className="testimonials-img">
+                <img src={Img1} alt="" />
               </div>
             </div>
           </div>

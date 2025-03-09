@@ -18,6 +18,7 @@ export default function Workout(){
     const { id , plan_id  } = useParams()
     const { loadingShow , error , exercise } = useSelector((state) => state.exercise);
     const { loadingE , message , type  } = useSelector((state) => state.target);
+    const { language , data   } = useSelector((state) => state.mode)
     const [seconds, setSeconds] = useState(exercise?.duration);
   useEffect(()=>{
     dispatch(ActShow(id))
@@ -48,7 +49,7 @@ export default function Workout(){
         confirmButtonText: "go to page"
       }).then((result) => {
         if (result.isConfirmed) {
-            dispatch(ActStoreE({calories:exercise?.calories , id:plan_id , check:id}))
+          data.day ? dispatch(ActStoreE({calories:exercise?.calories , id:plan_id , check:id}))
             .unwrap()
                   .then(()=>{
                     nav(`/exerciseDetails/${id}/${plan_id}`)
@@ -56,6 +57,8 @@ export default function Workout(){
                   .catch(()=>{
                     nav(`/exerciseDetails/${id}/${plan_id}`)
                   })
+                  :
+            nav(`/exerciseDetails/${id}/${plan_id}`)
       }
       });
       setIsActive(false); 
@@ -77,9 +80,9 @@ export default function Workout(){
           <Heading title="Workout" subTitle=''/>
           <div className='workout_container'>
           <Lottie style={{width:'400px' ,marginRight:'auto'}} className='home__img' animationData={Work1} />
-          <div className='wrokout_info'>
-            <h2>{exercise?.title}</h2>
-            <p>{exercise?.description}</p>
+          <div style={{margin:"0 1rem"}} className='wrokout_info'>
+            <h2>{language === 'en' ? exercise?.title :  exercise?.title_ar}</h2>
+            <p>{language === 'en' ? exercise?.description : exercise?.description_ar}</p>
             <div className='ws'>
             <span>{seconds} s</span>
             <span className={isActive && 'active'}  onClick={()=>{

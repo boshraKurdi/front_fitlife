@@ -1,14 +1,27 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "../DashboardPlan/DashboardPlan.css";
 import TextField from "@mui/material/TextField";
 import EditIcon from "@mui/icons-material/Edit";
 import UseEditProfile from "../../Hooks/UseEditProfile";
 import ButtonLoading from "../../Components/Loading/ButtonLoading/ButtonLoading";
+import { useEffect } from "react";
+import { useSnackbar } from 'notistack';
+import { ResetMessages } from "../../../Redux/User/UserSlice";
 export default function EditProfile() {
+  const { enqueueSnackbar } = useSnackbar();
+
   const { value } = useSelector((state) => state.mode);
   const { user } = useSelector((state) => state.auth);
+  const { message , type , data } = useSelector((state) => state.user);
   const { register, handleSubmit, onSubmit, errors, loading } =
     UseEditProfile();
+    const dispatch = useDispatch()
+       useEffect(() => {
+              if (message) {
+                enqueueSnackbar(`${message}`, { variant: `${type}` });
+                dispatch(ResetMessages());
+              }
+            }, [message, type, dispatch, enqueueSnackbar , data]);
   return (
     <div style={{ marginTop: "10rem" }} className={`profile ${value}`}>
       <div className="container_profile">

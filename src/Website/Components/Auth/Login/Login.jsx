@@ -34,7 +34,7 @@ export default function Login({ ChangeSetting }) {
       </div>
       <p className="error">{errors.password?.message}</p>
       <span className="login__forgot">{language === 'ar' ? "هل نسيت كلمة السر؟" :"Forgot password?"}</span>
-      <button className="login__button" disabled={(loading === 'pending') ? true : false}>{loading === 'pending' ? <ButtonLoading /> : 'Sign In'}</button>
+      <button className="login__button" disabled={(loading === 'pending') ? true : false}>{loading === 'pending' ? <ButtonLoading /> : (language ==="ar" ? "تسجيل الدخول" :'Sign In')}</button>
       <div className="social-message">
         <div className="line"></div>
         <p className="message">{language === 'ar' ? "تسجيل الدخول باستخدام حسابات التواصل الاجتماعي" : "Login with social accounts"}</p>

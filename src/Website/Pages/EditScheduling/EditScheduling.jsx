@@ -1,18 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import imgAuth from '../../../img/img-login.svg'
 import { useSnackbar } from 'notistack';
 import '../../Components/Information/Scheduling/Scheduling.css'
 import '../Auth/Auth.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { ActEditScheduling } from '../../../Redux/User/UserSlice'
+import { ActEditScheduling, ResetMessages } from '../../../Redux/User/UserSlice'
 import ButtonLoading from '../../Components/Loading/ButtonLoading/ButtonLoading';
 import { useNavigate } from 'react-router-dom';
 import { SetAuth } from '../../../Redux/Auth/AuthSlice';
 export default function EditScheduling(){
       const { enqueueSnackbar } = useSnackbar();
       const nav = useNavigate()
-      const { loading } = useSelector((state) => state.user)
+      const { loading , message , type } = useSelector((state) => state.user)
       const { user } = useSelector((state) => state.auth);
+      const { language } = useSelector((state) => state.mode);
       let days = JSON.parse(user.days)
     const [check , setCheck] = useState({
         sunday: days.sunday,
@@ -23,8 +24,13 @@ export default function EditScheduling(){
         friday: days.friday,
         saturday: days.saturday,
       })
-      console.log(check)
       const dispatch = useDispatch();
+       useEffect(() => {
+          if (message) {
+            enqueueSnackbar(`${message}`, { variant: `${type}` });
+            dispatch(ResetMessages());
+          }
+        }, [message, type, dispatch, enqueueSnackbar]);
     return(
          <div className="login">
                 <div className="login__content">
@@ -37,12 +43,12 @@ export default function EditScheduling(){
       className="d login__create login__create_address"
       id="login-up"
     >
-      <h1 className="login__title">Complete registration</h1>
+      <h1 className="login__title">{language === 'en' ? "Edit Scheduling" : "تعديل جدولي"}</h1>
       <div className="box_flex">
         <div className="box w-100">
           <div style={{ display: "block" }} className="login__box">
-            <p className="d_p">
-              edit the days you want to exercise at least three days🤓💪🏻
+            <p style={{color:"var(--fc-button-bg-color)"}} className="d_p">
+              {language === 'en' ? "edit the days you want to exercise at least three days":"قم بتعديل الأيام التي تريد ممارسة الرياضة فيها لمدة ثلاثة أيام على الأقل"}🤓💪🏻
             </p>
             <div className="days">
               <div className="day">
@@ -56,7 +62,7 @@ export default function EditScheduling(){
                   }}
                   className="login__input"
                 />
-                <label htmlFor="sunday">sunday</label>
+                <label htmlFor="sunday">{language === 'en' ? "sunday" :"احد"}</label>
               </div>
               <div className="day">
                 <input
@@ -69,7 +75,7 @@ export default function EditScheduling(){
                   }}
                   className="login__input"
                 />
-                <label htmlFor="monday">monday</label>
+                <label htmlFor="monday">{language === 'en' ? "monday" :"اثنين"}</label>
               </div>
               <div className="day">
                 <input
@@ -82,7 +88,7 @@ export default function EditScheduling(){
                   }}
                   className="login__input"
                 />
-                <label htmlFor="tuesday">tuesday</label>
+                <label htmlFor="tuesday">{language === 'en' ? "tuesday" : "ثلاثاء"}</label>
               </div>
               <div className="day">
                 <input
@@ -95,7 +101,7 @@ export default function EditScheduling(){
                   }}
                   className="login__input"
                 />
-                <label htmlFor="wednesday">wednesday</label>
+                <label htmlFor="wednesday">{language === 'en' ? "wednesday" :"اربعاء"}</label>
               </div>
               <div className="day">
                 <input
@@ -108,7 +114,7 @@ export default function EditScheduling(){
                   }}
                   className="login__input"
                 />
-                <label htmlFor="thrusday">thrusday</label>
+                <label htmlFor="thrusday">{language === 'en' ? "thrusday" :"خميس"}</label>
               </div>
               <div className="day">
                 <input
@@ -121,7 +127,7 @@ export default function EditScheduling(){
                   }}
                   className="login__input"
                 />
-                <label htmlFor="friday">friday</label>
+                <label htmlFor="friday">{language === 'en' ? "friday" : "جمعة"}</label>
               </div>
               <div className="day">
                 <input
@@ -134,7 +140,7 @@ export default function EditScheduling(){
                   name="days"
                   className="login__input"
                 />
-                <label htmlFor="saturday">saturday</label>
+                <label htmlFor="saturday">{language === 'en' ? "saturday" : "سبت"}</label>
               </div>
             </div>
           </div>
@@ -148,18 +154,16 @@ export default function EditScheduling(){
           onClick={(e) => {
             e.preventDefault();
             dispatch(ActEditScheduling({days:`{"sunday": ${check.sunday},"tuesday": ${check.tuesday},"monday": ${check.monday},"wednesday": ${check.wednesday},"thrusday": ${check.thrusday},"friday": ${check.friday},"saturday": ${check.saturday}}`})).unwrap().then((data)=>{
-                enqueueSnackbar(`update your scheduling. 😎`, { variant: `success`});
                 dispatch(SetAuth(data.data));
                 nav('/myProfile')
 
             }).catch(()=>{
-                enqueueSnackbar(`faild update your scheduling , plaese try agen`, { variant: `error`});
                 nav('/myProfile')
             })
           }}
         >
           {" "}
-        Save {loading === 'pending' ? <ButtonLoading /> : ''}
+        {language === 'en' ? "Save" : "حفظ"} {loading === 'pending' ? <ButtonLoading /> : ''}
         </button>
       </div>
     </form>

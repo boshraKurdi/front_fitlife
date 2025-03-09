@@ -2,13 +2,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useSnackbar } from 'notistack';
 import EditProfileScema from "../Validation/EditProfileScema";
 import { ActEditProfile } from "../../Redux/User/UserSlice";
 import { SetAuth } from "../../Redux/Auth/AuthSlice";
 const UseEditProfile = () => {
   const nav = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
      // call dispatch
   const dispatch = useDispatch();
   const { error , loading  } = useSelector((state) => state.user)
@@ -23,12 +21,12 @@ const UseEditProfile = () => {
 });
 // submit form login
 const onSubmit = async (data) => {
-    dispatch(SetAuth(data))
-  const promise = dispatch(ActEditProfile(data)).unwrap().then(()=>{
+  const promise = dispatch(ActEditProfile(data)).unwrap().then((data)=>{
+    dispatch(SetAuth(data.data))
     nav('/myProfile' , {replace: true})
-    enqueueSnackbar(`Edit Profile successfully!`, { variant: "success" });
+   
     }).catch(()=>{
-      enqueueSnackbar(`Edit Profile Faild!`, { variant: "error" });
+      
     })
     return () => {
     promise.abort();

@@ -47,7 +47,7 @@ const GoalForm = () => {
     formData.append("description_ar", values.description_ar);
     formData.append("duration", values.duration);
     chipData.forEach(element => {
-      formData.append("PlanLevel[]", element.key);
+      formData.append("Plan[]", element.key);
     });
     formData.append("calories_max", values.calories_max);
     formData.append("calories_min", values.calories_min);
@@ -91,11 +91,11 @@ const GoalForm = () => {
       chips.filter((chip) => chip.key !== chipToDelete.key)
     );
   };
-  const newData = chipData.map((data) => {
+  const newData = chipData?.map((data) => {
     return (
       <ListItem key={data.key}>
         <Chip
-          sx={{ fontSize: "1.5rem" }}
+          sx={{ fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' }}
           label={data.label}
           onDelete={handleDelete(data)}
         />
@@ -141,7 +141,7 @@ const GoalForm = () => {
                 helperText={touched.title && errors.title}
                 sx={{ gridColumn: "span 2" }}
                 InputProps={{
-                  sx: { fontSize: "1.5rem" },
+                  sx: { fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' },
                 }}
                 InputLabelProps={{
                   sx: {
@@ -166,7 +166,7 @@ const GoalForm = () => {
                 helperText={touched.title_ar && errors.title_ar}
                 sx={{ gridColumn: "span 2" }}
                 InputProps={{
-                  sx: { fontSize: "1.5rem" },
+                  sx: { fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' },
                 }}
                 InputLabelProps={{
                   sx: {
@@ -191,7 +191,7 @@ const GoalForm = () => {
                 helperText={touched.description && errors.description}
                 sx={{ gridColumn: "span 2" }}
                 InputProps={{
-                  sx: { fontSize: "1.5rem" },
+                  sx: { fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' },
                 }}
                 InputLabelProps={{
                   sx: {
@@ -216,7 +216,7 @@ const GoalForm = () => {
                 helperText={touched.description_ar && errors.description_ar}
                 sx={{ gridColumn: "span 2" }}
                 InputProps={{
-                  sx: { fontSize: "1.5rem" },
+                  sx: { fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' },
                 }}
                 InputLabelProps={{
                   sx: {
@@ -241,7 +241,7 @@ const GoalForm = () => {
                 helperText={touched.calories_min && errors.calories_min}
                 sx={{ gridColumn: "span 2" }}
                 InputProps={{
-                  sx: { fontSize: "1.5rem" },
+                  sx: { fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' },
                 }}
                 InputLabelProps={{
                   sx: {
@@ -266,7 +266,7 @@ const GoalForm = () => {
                 helperText={touched.calories_max && errors.calories_max}
                 sx={{ gridColumn: "span 2" }}
                 InputProps={{
-                  sx: { fontSize: "1.5rem" },
+                  sx: { fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' },
                 }}
                 InputLabelProps={{
                   sx: {
@@ -291,7 +291,7 @@ const GoalForm = () => {
                 helperText={touched.duration && errors.duration}
                 sx={{ gridColumn: "span 2" }}
                 InputProps={{
-                  sx: { fontSize: "1.5rem" },
+                  sx: { fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' },
                 }}
                 InputLabelProps={{
                   sx: {
@@ -306,12 +306,12 @@ const GoalForm = () => {
 
               <Select
               
-                name="PlanLevel"
-                value={values.levels}
+                name="Plan"
+                value={values.Plan}
                 variant="filled"
                 onChange={handleChange}
-                error={!!touched.muscle && !!errors.muscle}
-                helperText={touched.muscle && errors.muscle}
+                error={!!touched.Plan && !!errors.Plan}
+                helperText={touched.Plan && errors.Plan}
                 sx={{ gridColumn: "span 2", fontSize: "1.6rem" }}
                 MenuProps={MenuProps}
               >
@@ -320,17 +320,17 @@ const GoalForm = () => {
                   : plans.map((e) => {
                       return (
                         <MenuItem
-                          sx={{ fontSize: "1.5rem" }}
+                          sx={{ fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' }}
                           onClick={() => {
                             setChipData((prevChipData) => [
                               ...prevChipData,
-                              { key: e.id, label: e.plan?.title },
+                              { key: e.id, label: e?.title },
                             ]);
                           }}
                           key={e.id}
                           value={e.id}
                         >
-                          {e.plan?.title}
+                          {e?.title}
                         </MenuItem>
                       );
                     })}

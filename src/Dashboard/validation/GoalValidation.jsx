@@ -11,13 +11,13 @@ export default function GoalValidation(children){
     .string().required("required"),
     calories_max: yup
     .string().required("required"),
-    media: yup.mixed()
-    .required("required upload file!")
-    .test(
-      "fileFormat",
-      "please select file (jpg, jpeg, png)",
-      (value) => value && ["image/jpg", "image/jpeg", "image/png"].includes(value.type)
-    )
+    // media: yup.mixed()
+    // .required("required upload file!")
+    // .test(
+    //   "fileFormat",
+    //   "please select file (jpg, jpeg, png)",
+    //   (value) => value && ["image/jpg", "image/jpeg", "image/png"].includes(value.type)
+    // )
 });
 const initialValues = {
     title: children ? children.goal.title: '',
@@ -27,7 +27,7 @@ const initialValues = {
     duration: children ? children.goal.duration: '',
     calories_min:children ? children.goal.calories_min: '',
     calories_max:children ? children.goal.calories_max: '',
-    PlanLevel: '',
+    Plan: '',
     media: '' ,
 };
 return {checkoutSchema , initialValues }

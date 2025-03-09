@@ -3,10 +3,13 @@ import ActStore from './Act/ActStore'
 import ActStoreE from './Act/ActStoreE'
 import ActStoreSleep from './Act/ActStoreSleep'
 import ActStoreWater from './Act/ActStoreWater'
+import ActProgress from './Act/Actprogress'
+import ActAddDay from './Act/ActAddDay'
 
 
 const initialState = {
   target: [] ,
+  progress: [],
   date: '' ,
   type: '',
   message:'',
@@ -94,11 +97,40 @@ export const targetSlice = createSlice({
         state.error = action.payload 
       }
     })
+    //get progress
+    builder.addCase(ActProgress.pending , (state) => {
+      state.loading = 'pending' 
+      state.error = null
+    })
+    builder.addCase(ActProgress.fulfilled , (state , action) => {
+      state.loading = 'succeeded' 
+      state.progress = action.payload.data
+    })
+    builder.addCase(ActProgress.rejected , (state , action) => {
+      state.loading = 'failed' 
+      if (action.payload && typeof action.payload === 'string') {
+        state.error = action.payload 
+      }
+    })
+    //add day
+    builder.addCase(ActAddDay.pending , (state) => {
+      state.loading = 'pending' 
+      state.error = null
+    })
+    builder.addCase(ActAddDay.fulfilled , (state) => {
+      state.loading = 'succeeded' 
+    })
+    builder.addCase(ActAddDay.rejected , (state , action) => {
+      state.loading = 'failed' 
+      if (action.payload && typeof action.payload === 'string') {
+        state.error = action.payload 
+      }
+    })
 
    }
    
 })
 // Action creators are generated for each case reducer function
-export { ActStore , ActStoreE , ActStoreSleep , ActStoreWater } 
+export { ActStore , ActStoreE , ActStoreSleep , ActStoreWater ,ActProgress , ActAddDay } 
 export const { CleanUp , ResetMessages } = targetSlice.actions
 export default targetSlice.reducer

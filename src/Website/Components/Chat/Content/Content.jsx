@@ -77,7 +77,7 @@ export default function Content({ id }) {
             {newData}
           </div>
           <div></div>
-          {message === '' ?
+      
           <div className="message-box">
             <form style={{ display: "flex", alignItems: "center" }}>
               <div className="message-content">
@@ -109,9 +109,7 @@ export default function Content({ id }) {
                 <SendIcon />
               </button>
             </form>
-          </div>:
-            <p style={{color:'#000' ,background: "#fff" , padding: "1rem" , borderRadius: "8px"}} className="message-box">{message}</p>
-}
+          </div>
         </>
       )}
     </>

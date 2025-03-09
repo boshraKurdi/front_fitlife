@@ -22,10 +22,24 @@
     font-size: 14px;
     flex-wrap: wrap;
     width: 400px;
-    display: flex
-;
+    display: flex;
     align-items: center;
     justify-content: center;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.text_body:hover
+{
+    transform: scale(1.03);   
+}
+.text_body img{
+    width: 20%;
+    border-radius: 16%;
+    margin: 0 1rem;
+}
+.text_body p{
+    flex: 1;
 }
 .text_body h2{
     font-weight: bold;
@@ -41,14 +55,14 @@
 {
     left: 5%;
 }
-.timeline_container img{
+/* .timeline_container img{
     position: absolute;
     width: 40px;
     border-radius: 50%;
     right: -20px;
     top: 32px;
     z-index: 100;
-}
+} */
 
 .timeline::after{
     content: "";
@@ -57,6 +71,7 @@
     height: 100%;
     background: linear-gradient(45.21deg, #aa367c9e -5.91%, #4a2fbda1 111.58%);
     top: 0;
+    right: 0;
     left: 5%;
     margin-left: -3px;
     z-index: -1;

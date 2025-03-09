@@ -40,9 +40,9 @@ export default function SignUp({ ChangeSetting }) {
               className="login__input"
               onBlur={EmailOnBlurHandeler}
             />
-            {status === 'checking' && <div style={{left: language === 'ar' && "11px"}} className="loader_check_email"></div>}
-            {status === 'av' && <CheckIcon  style={{left: language === 'ar' && "11px"}} className="true_check_email" />}
-            {status === 'notAv' && <CloseIcon  style={{left: language === 'ar' && "11px"}} className="close_check_email" />}
+            {status === 'checking' && <div style={{left: language === 'ar' && "11px" , right:language === 'ar' &&"90%"}} className="loader_check_email"></div>}
+            {status === 'av' && <CheckIcon  style={{left: language === 'ar' && "11px" , right:language === 'ar' &&"90%"}} className="true_check_email" />}
+            {status === 'notAv' && <CloseIcon  style={{left: language === 'ar' && "11px" , right:language === 'ar' &&"90%"}} className="close_check_email" />}
           </div>
           <p className="error">{errors.email ? errors.email.message : (status === 'notAv' ? 'the email has already exit' : (status === 'failed' && 'error netWork Please Try Agen!'))}</p>
         </div>
@@ -73,7 +73,7 @@ export default function SignUp({ ChangeSetting }) {
           <p className="error">{errors.confirm?.message}</p>
         </div>
       </div>
-      <button className="login__button" disabled={(loading === 'pending' || status === 'checking') ? true : false}>{loading === 'pending' ? <ButtonLoading /> : 'Sign Up'}</button>
+      <button className="login__button" disabled={(loading === 'pending' || status === 'checking') ? true : false}>{loading === 'pending' ? <ButtonLoading /> : (language ==="ar" ? "اشتراك" :'Sign Up')}</button>
       <div className="social-message">
         <div className="line"></div>
         <p className="message">{language === 'ar' ? "تسجيل الدخول باستخدام حسابات التواصل الاجتماعي" : "Login with social accounts"}</p>

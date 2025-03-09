@@ -23,9 +23,9 @@ export default function UseUpdateGoal() {
   const [chipData, setChipData] = useState([
   ]);
   useEffect(() => {
-    const newChipData = goal?.plan_level && goal.plan_level.map((e) => ({
+    const newChipData = goal?.plan && goal?.plan?.map((e) => ({
       key: e.id,
-      label: e.plan?.title+' '+e.level?.title,
+      label: e?.title+' '+e?.title,
     }));
     
     setChipData(newChipData);
@@ -42,13 +42,14 @@ export default function UseUpdateGoal() {
 
   const handleFormSubmit = (values) => {
     const formData = new FormData();
+    console.log(values)
     formData.append("title", values.title);
     formData.append("description", values.description);
     formData.append("title_ar", values.title_ar);
     formData.append("description_ar", values.description_ar);
     formData.append("duration", values.duration);
     chipData.forEach((element) => {
-      formData.append("PlanLevel[]", element.key);
+      formData.append("Plan[]", element.key);
     });
     formData.append("calories_min", values.calories_min);
     formData.append("calories_max", values.calories_max);
@@ -91,7 +92,8 @@ export default function UseUpdateGoal() {
       chips.filter((chip) => chip.key !== chipToDelete.key)
     );
   };
-  const newData = chipData.map((data) => {
+  console.log(chipData)
+  const newData = chipData?.map((data) => {
     return (
       <ListItem key={data.key}>
         <Chip

@@ -19,7 +19,7 @@ const DetailsGoal = () => {
   const {goal , loadingShow } = UseDetalisGoal()
   const newData = goal?.plan_level ? goal.plan_level?.map((data) => {
     return(
-      <CardContentDetails  title={data.plan.title} description={data.plan.description} img={data.plan.media && data.plan.media[0]?.original_url} />
+      <CardContentDetails key={data.id}  title={data.plan.title} description={data.plan.description} img={data.plan.media && data.plan.media[0]?.original_url} />
     )
   }) : ''
   return (
@@ -42,7 +42,7 @@ const DetailsGoal = () => {
                 borderRadius: "30px",
                 margin: 'auto'
               }}
-              image={goal.media && goal.media[0].original_url}
+              image={goal.media && goal?.media[0]?.original_url}
               title="green iguana"
             />
             <CardContent sx={{ flex: "1", display: "flex", flexWrap: "wrap",  [theme.breakpoints.down('lg')]: {

@@ -17,9 +17,9 @@ export default function List({ calories , setCalories , check , setCheck , chipD
           />
           <div className="detail-desc">
             <div className="detail-name">
-              <h4 onClick={()=>{nav('/mealDetails/'+data?.id)}}>{data?.title}</h4>
-              <p className="detail-sub">{data?.description}</p>
-              <p className="price">{data.calories + " calories"}</p>
+              <h4 onClick={()=>{nav('/mealDetails/'+data?.id)}}>{language === 'en' ? data?.title : data?.title_ar}</h4>
+              <p className="detail-sub">{language === 'en' ? data?.description : data?.description_ar}</p>
+              <p className="price">{data.calories + (language === 'en' ? " calories" : ' سعرة حرارية')}</p>
             </div>
           </div>
           <button

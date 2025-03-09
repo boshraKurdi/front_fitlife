@@ -11,7 +11,7 @@ import Heading from "../../Heading/Heading";
 const MyGoal = () => {
   const dispatch = useDispatch();
   const { language } = useSelector((state) => state.mode)
-  const { myGoals, loading, error , message } = useSelector((state) => state.myGoal);
+  const { myGoals, loading, error , alret } = useSelector((state) => state.myGoal);
   useEffect(() => {
     dispatch(ActGetMyGoal());
     return () => {
@@ -37,7 +37,7 @@ const MyGoal = () => {
             {(myGoals.length > 0) ? (
               <SwiperComponent data={newMyGoal} />
             ) : (
-              <LottieFiles message={message} type="goal" />
+              <LottieFiles message={alret} type="goal" />
             )}
           </SkeletonLoading>
         </ul>

@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Table from "../components/Table";
 import AddIcon from "@mui/icons-material/Add";
 import Swal from 'sweetalert2'
-const GoalIndex = memo(() => {
+const GoalIndex = () => {
   const nav = useNavigate()
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -140,6 +140,6 @@ const GoalIndex = memo(() => {
       <Table data={goals} columns={columns} loading={loading} />
     </Box>
   );
-});
+};
 
 export default GoalIndex;

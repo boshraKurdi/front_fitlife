@@ -6,7 +6,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 let i = 0;
 const SwiperComponent = ({ data }) => {
-  const newData = data.map((d)=>{
+  const newData = data?.map((d)=>{
     return(
       <SwiperSlide key={i++}>
       {d}

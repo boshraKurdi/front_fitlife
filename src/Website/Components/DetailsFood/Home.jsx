@@ -6,11 +6,7 @@ export default function Home({meal}) {
     <section className="two-col-sec section">
       <div className="container">
         <div className="details_food_row align-items-center">
-          <div className="col-lg-5" style={{ marginRight: "2rem" }}>
-            <div className="sec-img mt-5">
-              <img src={meal?.media && meal.media[0].original_url} alt="" />
-            </div>
-          </div>
+        
           <div className="col-lg-7">
             <div className="sec-text">
               <h2 className="xxl-title">{language === 'ar' ?  meal?.title_ar : meal?.title}</h2>
@@ -24,6 +20,11 @@ export default function Home({meal}) {
               <span><CheckCircleIcon style={{fontSize:'2.1rem' ,  marginRight:'.5rem'}} /> {meal?.fats} {language === 'ar' ? "دهون" : "fats"}</span>
               <span><CheckCircleIcon style={{fontSize:'2.1rem' ,  marginRight:'.5rem'}} />{meal?.proteins} {language === 'ar' ? "بروتينات" : "proteins"}</span>
               <span><CheckCircleIcon style={{fontSize:'2.1rem' ,  marginRight:'.5rem'}} />{meal?.category?.title} {language === 'ar' ? "صنف" : "category"}</span>
+            </div>
+          </div>
+          <div className="col-lg-5" style={{ marginRight: "2rem" }}>
+            <div className="sec-img mt-5">
+              <img src={meal?.media && meal.media[0].original_url} alt="" />
             </div>
           </div>
         </div>

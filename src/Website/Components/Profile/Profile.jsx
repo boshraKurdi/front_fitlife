@@ -102,20 +102,20 @@ export default function Profile() {
           myGoals.length > 0 &&
           <> */}
         <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
-          <NavLink style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/user'>
-            <Avatar><Home style={{fontSize: '2rem'}} /></Avatar> {language === 'ar' ? "خططي" : "My Plans"}
+          <NavLink style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/target'>
+            <Avatar><Home style={{fontSize: '2rem'}} /></Avatar> {language === 'ar' ? "هدفي" : "My Goal"}
           </NavLink>
         </MenuItem>
-        <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
+        {/* <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
          <NavLink style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/food/1'>
             <Avatar><RestaurantMenuIcon style={{fontSize: '2rem'}} /></Avatar> {language === 'ar' ? "قائمة الطعام" : "My Menu"}
           </NavLink>
-        </MenuItem>
-        <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
+        </MenuItem> */}
+        {/* <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
          <NavLink style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/sleep'>
             <Avatar><BedtimeIcon style={{fontSize: '2rem'}} /></Avatar>{language === 'ar' ? "النوم" :"Sleep"}
           </NavLink>
-        </MenuItem>
+        </MenuItem> */}
         {/* </>
          } */}
         <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
