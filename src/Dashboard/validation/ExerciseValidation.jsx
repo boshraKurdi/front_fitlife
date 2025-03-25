@@ -1,5 +1,6 @@
+import { useState } from "react";
 import * as yup from "yup";
-export default function ExerciseValidation(children){
+export default function ExerciseValidation(){
 
   const checkoutSchema = yup.object().shape({
     title: yup.string().required("required"),
@@ -14,17 +15,17 @@ export default function ExerciseValidation(children){
     type: yup
     .string().required("required"),
 });
-const initialValues = {
-    title: children ? children.exercise.title: '',
-    title_ar: children ? children.exercise.title_ar: '',
-    description: children ? children.exercise.description: '',
-    description_ar: children ? children.exercise.description_ar: '',
-    duration: children ? children.exercise.duration: '',
-    calories:children ? children.exercise.calories: '',
-    counter:children ? children.exercise.counter: '',
-    type:children ? children.exercise.type: 'feminine',
+const [initialValues, setInitialValues]  = useState({
+    title: '',
+    title_ar: '',
+    description: '',
+    description_ar:'',
+    duration:'',
+    calories:'',
+    counter:'',
+    type:'feminine',
     steps:'',
     media: '' ,
-};
-return {checkoutSchema , initialValues }
+});
+return {checkoutSchema , initialValues ,setInitialValues }
 }

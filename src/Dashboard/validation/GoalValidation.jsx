@@ -1,5 +1,6 @@
+import { useState } from "react";
 import * as yup from "yup";
-export default function GoalValidation(children){
+export default function GoalValidation(){
 
   const checkoutSchema = yup.object().shape({
     title: yup.string().required("required"),
@@ -19,16 +20,16 @@ export default function GoalValidation(children){
     //   (value) => value && ["image/jpg", "image/jpeg", "image/png"].includes(value.type)
     // )
 });
-const initialValues = {
-    title: children ? children.goal.title: '',
-    title_ar: children ? children.goal.title_ar: '',
-    description: children ? children.goal.description: '',
-    description_ar: children ? children.goal.description_ar: '',
-    duration: children ? children.goal.duration: '',
-    calories_min:children ? children.goal.calories_min: '',
-    calories_max:children ? children.goal.calories_max: '',
+const  [initialValues, setInitialValues] = useState({
+    title: '',
+    title_ar:'',
+    description: '',
+    description_ar: '',
+    duration:'',
+    calories_min:'',
+    calories_max:'',
     Plan: '',
     media: '' ,
-};
-return {checkoutSchema , initialValues }
+});
+return {checkoutSchema , initialValues , setInitialValues }
 }

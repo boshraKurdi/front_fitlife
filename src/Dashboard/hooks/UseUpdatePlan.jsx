@@ -13,7 +13,7 @@ export default function UseUpdatePlan() {
   const { value } = useSelector((state) => state.mode);
   const { loadingStore, error } = useSelector((state) => state.Dplan);
   const { plan, loadingShow } = useSelector((state) => state.Dplan);
-  const { checkoutSchema, initialValues } = PlanValidation({
+  const { checkoutSchema, initialValues , setInitialValues } = PlanValidation({
     plan,
     loadingShow,
   });
@@ -28,6 +28,22 @@ export default function UseUpdatePlan() {
       },
     },
   };
+  useEffect(()=>{
+    setInitialValues({...initialValues , 
+      title: plan.title,
+    title_ar: plan.title_ar,
+    description: plan.description,
+    description_ar: plan.description_ar,
+    duration: plan.duration,
+    muscle: plan.muscle,
+    muscle_ar: plan.muscle_ar,
+    type: plan.type,
+    water: plan.water,
+    sleep: plan.sleep,
+    type_ar: plan.type_ar,
+      media: ''
+    });
+  } , [id])
   const [preview, setPreview] = useState(plan?.media && plan?.media[0]?.original_url);
 
   const handleImageChange = (event, setFieldValue) => {

@@ -1,5 +1,6 @@
+import { useState } from "react";
 import * as yup from "yup";
-export default function PlanValidation(children){
+export default function PlanValidation(){
 //     const phoneRegExp =
 //   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
@@ -14,19 +15,19 @@ export default function PlanValidation(children){
     // type: yup.string().required("required"),
     // type_ar: yup.string().required("required"),
 });
-const initialValues = {
-    title: children ? children.plan.title: '',
-    title_ar: children ? children.plan.title_ar: '',
-    description: children ? children.plan.description: '',
-    description_ar: children ? children.plan.description_ar: '',
-    duration: children ? children.plan.duration: '',
-    muscle: children ? children.plan.muscle: '',
-    muscle_ar: children ? children.plan.muscle_ar: '',
-    type: children ? children.plan.type: '',
-    water: children ? children.plan.water: 0,
-    sleep: children ? children.plan.sleep: 0,
-    type_ar: children ? children.plan.type_ar: '',
+const [initialValues, setInitialValues] = useState({
+    title: '',
+    title_ar: '',
+    description: '',
+    description_ar: '',
+    duration:  '',
+    muscle: '',
+    muscle_ar:'',
+    type: '',
+    water: 0,
+    sleep:  0,
+    type_ar: '',
     media: ''
-};
-return {checkoutSchema , initialValues }
+});
+return {checkoutSchema , initialValues , setInitialValues }
 }

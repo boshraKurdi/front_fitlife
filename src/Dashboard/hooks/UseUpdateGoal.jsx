@@ -16,17 +16,28 @@ export default function UseUpdateGoal() {
   const { value } = useSelector((state) => state.mode);
   const { loadingStore, error } = useSelector((state) => state.Dgoal);
   const { goal, loadingShow } = UseDetalisGoal();
-  const { checkoutSchema, initialValues } = GoalValidation({
+  const { checkoutSchema, initialValues ,setInitialValues } = GoalValidation({
     goal,
     loadingShow,
   });
   const [chipData, setChipData] = useState([
   ]);
   useEffect(() => {
+    setInitialValues({...initialValues , 
+      title: goal.title ,
+    title_ar: goal.title_ar,
+    description: goal.description,
+    description_ar: goal.description_ar,
+    duration: goal.duration,
+    calories_min:goal.calories_min,
+    calories_max:goal.calories_max,
+    Plan:'',
+    media: '' ,
+    });
     const newChipData = goal?.plan && goal?.plan?.map((e) => ({
       key: e.id,
       label: e?.title+' '+e?.title,
-    }));
+    }), [id]);
     
     setChipData(newChipData);
   }, [goal]);

@@ -15,7 +15,7 @@ export default function UseUpdateMeal() {
   const { value } = useSelector((state) => state.mode);
   const { loadingStore, error } = useSelector((state) => state.Dmeal);
   const { meal, loadingShow } = UseDetalisMeal();
-  const { checkoutSchema, initialValues } = MealValidation({
+  const { checkoutSchema, initialValues ,setInitialValues } = MealValidation({
     meal,
     loadingShow,
   });
@@ -30,6 +30,23 @@ export default function UseUpdateMeal() {
     updatedSteps[index].media_ingredients = file;
     setStepsData(updatedSteps);
   };
+  useEffect(()=>{
+    setInitialValues({...initialValues , 
+      title: meal.title,
+      title_ar: meal.title_ar,
+      description: meal.description,
+      description_ar: meal.description_ar,
+      calories:meal.calories,
+      fats:meal.fats,
+      carbohydrates:meal.carbohydrates,
+      proteins:meal.proteins,
+      prepare:meal.prepare,
+      prepare_ar:meal.prepare_ar,
+      category_id:meal.category_id,
+      ingredients: '',
+      media: '' ,
+    });
+  } , [id] )
   useEffect(() => {
     if (meal?.ingredients) {
       const formattedSteps = meal.ingredients.map((step) => ({

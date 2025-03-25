@@ -14,7 +14,7 @@ export default function UseUpdateExercise() {
   const { value } = useSelector((state) => state.mode);
   const { loadingStore, error } = useSelector((state) => state.Dexercise);
   const { exercise, loadingShow } = UseDetailsExercise();
-  const { checkoutSchema, initialValues } = ExerciseValidation({
+  const { checkoutSchema, initialValues , setInitialValues } = ExerciseValidation({
     exercise,
     loadingShow,
   });
@@ -28,6 +28,20 @@ export default function UseUpdateExercise() {
       },
     },
   };
+  useEffect(()=>{
+    setInitialValues({...initialValues , 
+      title: exercise.title,
+      title_ar: exercise.title_ar,
+      description: exercise.description,
+      description_ar: exercise.description_ar,
+      duration: exercise.duration,
+      calories:exercise.calories,
+      counter:exercise.counter,
+      type:exercise.type,
+      steps:'',
+      media :"",
+    });
+  }, [id])
   
    const [stepsCount, setStepsCount] = useState(exercise?.steps?.length);
     const [stepsData, setStepsData] = useState([]);

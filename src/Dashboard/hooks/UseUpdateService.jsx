@@ -5,6 +5,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { ActUpdate } from "../../Redux/Dashboard/Service/ServiceSlice";
 import { useSnackbar } from "notistack";
 import UseDetalisService from "./UseDetailsService";
+import { useEffect } from "react";
 export default function UseUpdateService() {
   const { enqueueSnackbar } = useSnackbar();
   const nav = useNavigate();
@@ -13,11 +14,17 @@ export default function UseUpdateService() {
   const { value } = useSelector((state) => state.mode);
   const { loadingStore, error } = useSelector((state) => state.Dservice);
   const { service, loadingShow } = UseDetalisService();
-  const { checkoutSchema, initialValues } = ServiceValidation({
+  const { checkoutSchema, initialValues , setInitialValues } = ServiceValidation({
     service,
     loadingShow,
   });
-  
+  useEffect(()=>{
+      setInitialValues({...initialValues , 
+        service: service?.service,
+    price: service?.price,
+    duration: service?.duration,
+      });
+    }, [id])
   const isNonMobile = useMediaQuery("(min-width:600px)");
  
 

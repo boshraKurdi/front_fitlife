@@ -17,17 +17,28 @@ export default function UseUpdateGym() {
   const { sections , loading , error } = useSelector((state) => state.Dsection);
   const { loadingStore  } = useSelector((state) => state.Dgym);
   const { gym, loadingShow } = UseDetalisGym();
-  const { checkoutSchema, initialValues } = GymValidation({
+  const { checkoutSchema, initialValues , setInitialValues } = GymValidation({
     gym,
     loadingShow,
   });
   const [chipData, setChipData] = useState([
   ]);
   useEffect(() => {
+    setInitialValues({...initialValues , 
+      name: gym.name,
+    description: gym.description,
+    description_ar: gym.description_ar,
+    open: gym.open,
+    close: gym.close,
+    price: gym.price ,
+    address: gym.address ,
+    type: gym.type ,
+    media: null
+    });
     const newChipData = gym?.section && gym.section?.map((e) => ({
       key: e.id,
       label: e?.title
-    }));
+    }), [id]);
     
     setChipData(newChipData);
   }, [gym]);
@@ -62,7 +73,7 @@ export default function UseUpdateGym() {
         nav("/dashboard");
         enqueueSnackbar(`Update Gym successfully!`, { variant: "success" });
       })
-      .catch((error) => {
+      .catch(() => {
         enqueueSnackbar(`Update Gym  faild!`, { variant: "error" });
       });
   };
