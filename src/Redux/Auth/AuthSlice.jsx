@@ -4,10 +4,14 @@ import ActAuthSignUp from './Act/ActAuthSignUp'
 import ActAuthUpdate from './Act/ActAuthUpdate'
 import ActAuthLogout from './Act/ActAuthLogout'
 import ActGetUser from './Act/ActGetUser'
+import ActAuthLoginPanel from './Act/ActAuthLoginPanel'
 const initialState = {
   user: {name:null , id:null} ,
+  admin:{},
   type: null ,
   token: null ,
+  tokenAdmin:null,
+  message:"",
   loading: 'idle',
   error:null
 }
@@ -28,6 +32,9 @@ export const authSlice = createSlice({
     } ,
     SetAuth: (state , action) =>{
       state.user = action.payload
+    },
+    SetPanel: (state , action) =>{
+      state.admin = action.payload
     }
   } ,
   extraReducers: (builder) => {
@@ -59,6 +66,24 @@ export const authSlice = createSlice({
 
     })
     builder.addCase(ActAuthLogin.rejected , (state , action) => {
+      state.loading = 'failed' 
+      if (action.payload && typeof action.payload === 'string') {
+        state.error = action.payload 
+      }
+    })
+    //login panel
+    builder.addCase(ActAuthLoginPanel.pending , (state) => {
+      state.loading = 'pending' 
+      state.error = null
+    })
+    builder.addCase(ActAuthLoginPanel.fulfilled , (state , action) => {
+      state.loading = 'succeeded' 
+      state.admin = action.payload.user
+      state.tokenAdmin = action.payload.authorisation.token
+      state.message = action.payload.message
+
+    })
+    builder.addCase(ActAuthLoginPanel.rejected , (state , action) => {
       state.loading = 'failed' 
       if (action.payload && typeof action.payload === 'string') {
         state.error = action.payload 
@@ -111,6 +136,6 @@ export const authSlice = createSlice({
   },
 })
 // Action creators are generated for each case reducer function
-export { ActAuthSignUp , ActAuthLogin , ActAuthUpdate , ActAuthLogout , ActGetUser }
-export const { CleanUp , SetAuth ,LogOut } = authSlice.actions
+export { ActAuthSignUp , ActAuthLogin , ActAuthUpdate , ActAuthLogout , ActGetUser , ActAuthLoginPanel }
+export const { CleanUp , SetAuth ,LogOut , SetPanel } = authSlice.actions
 export default authSlice.reducer

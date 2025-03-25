@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import UseGetAddress from "./UseGetAddress";
 import { useDispatch, useSelector } from "react-redux";
-import { ActAuthUpdate } from "../../Redux/Auth/AuthSlice";
+import { ActAuthUpdate, SetAuth } from "../../Redux/Auth/AuthSlice";
 import { useSnackbar } from 'notistack';
 export default function UseInformation({setBox, state, setState, form, setForm}){
     const dispatch = useDispatch();
@@ -36,9 +36,10 @@ export default function UseInformation({setBox, state, setState, form, setForm})
       }
       
       if (!flag) {
-        const promise = dispatch(ActAuthUpdate(form)).unwrap().then(()=>{
+        const promise = dispatch(ActAuthUpdate(form)).unwrap().then((data)=>{
          nav("/");
           enqueueSnackbar('Hello in our website fitlife!', { variant: "success" });
+          dispatch(SetAuth(data.data))
         }).catch(()=>{})
         return () => {
           promise.abort();

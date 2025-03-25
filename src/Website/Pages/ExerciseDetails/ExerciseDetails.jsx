@@ -29,6 +29,17 @@ export default function ExerciseDetails() {
           <section className="two-col-sec section">
             <div className="container">
               <div className="details_food_row align-items-center">
+              <div className="col-lg-5" style={{ marginRight: "2rem" }}>
+                  <div
+                    style={{ display: "flex", justifyContent: "center" }}
+                    className="sec-img mt-5"
+                  >
+                    <img
+                      src={exercise?.media && exercise?.media[0]?.original_url}
+                      alt=""
+                    />
+                  </div>
+                </div>
                 <div className="col-lg-7">
                   <div className="sec-text">
                     <h2 className="xxl-title">{language === 'ar' ? exercise?.title_ar : exercise?.title}</h2>
@@ -92,17 +103,7 @@ export default function ExerciseDetails() {
                     {language === 'ar' ? "ابدا الان" : "start now"}
                   </button>
                 </div>
-                <div className="col-lg-5" style={{ marginRight: "2rem" }}>
-                  <div
-                    style={{ display: "flex", justifyContent: "center" }}
-                    className="sec-img mt-5"
-                  >
-                    <img
-                      src={exercise?.media && exercise?.media[0].original_url}
-                      alt=""
-                    />
-                  </div>
-                </div>
+               
               </div>
             </div>
           </section>
@@ -142,8 +143,8 @@ export default function ExerciseDetails() {
                 controls
               >
                 <source
-                  src={exercise?.media && exercise?.media[1].original_url}
-                  type={exercise?.media && exercise?.media[1].mime_type}
+                  src={exercise?.media && exercise?.media[1]?.original_url}
+                  type={exercise?.media && exercise?.media[1]?.mime_type}
                 />
               </video>
             </span>

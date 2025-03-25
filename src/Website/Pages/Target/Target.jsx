@@ -11,35 +11,52 @@ import Exercise from "../../Components/Target/Exercise/Exercise";
 import LastExercises from "../../Components/Target/LastExercises/LastExercises";
 import Meals from "../../Components/Target/Meals/Meals";
 import Swal from "sweetalert2";
+import { format } from "date-fns";
+import { SetHoliday } from "../../../Redux/Mode/ModeSlice";
 
 export default function Target() {
   const dispatch = useDispatch();
   const { progress, error, loading } = useSelector((state) => state.target);
-  const { data , language } = useSelector((state) => state.mode);
+  const { data } = useSelector((state) => state.mode);
+  const today = format(new Date(), "yyyy-MM-dd");
+  const { user } = useSelector((state) => state.auth)
+  console.log(user)
   useEffect(() => {
     dispatch(ActProgress({ day: data.day, week: data.week }))
       .unwrap()
       .catch(() => {
         console.log("error");
       });
+     
   }, [dispatch, data]);
-  useEffect(() => {
-    if (data.day === 0) {
-      Swal.fire({
-        title:"مدة الهدف الخاص بك قد انتهى هل تريد تمديد فترة الهدف ام تريد ان تبدا بهدف اخر ",
-        showDenyButton: true,
-        confirmButtonText: "تمديد الفترة",
-        denyButtonText: `عدم التمديد`,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire("Saved!", "", "success");
-          dispatch(ActAddDay()).unwrap.then().catch()
-        } else if (result.isDenied) {
-          Swal.fire("Changes are not saved", "", "info");
+  useEffect(()=>{
+    progress[0] && progress[0]?.date?.map((e) => {
+      if (format(e.date, "yyyy-MM-dd") === today) {
+        if (e.is_holiday) {
+          dispatch(SetHoliday(1));
+        }else{
+          dispatch(SetHoliday(0));
         }
-      });
-    }
-  }, [data.day]);
+      }
+    });
+  } , [dispatch , progress])
+  // useEffect(() => {
+  //   if (data.day === 0) {
+  //     Swal.fire({
+  //       title:"مدة الهدف الخاص بك قد انتهى هل تريد تمديد فترة الهدف ام تريد ان تبدا بهدف اخر ",
+  //       showDenyButton: true,
+  //       confirmButtonText: "تمديد الفترة",
+  //       denyButtonText: `عدم التمديد`,
+  //     }).then((result) => {
+  //       if (result.isConfirmed) {
+  //         Swal.fire("Saved!", "", "success");
+  //         dispatch(ActAddDay()).unwrap.then().catch()
+  //       } else if (result.isDenied) {
+  //         Swal.fire("Changes are not saved", "", "info");
+  //       }
+  //     });
+  //   }
+  // }, [data.day]);
 
   return (
     <>

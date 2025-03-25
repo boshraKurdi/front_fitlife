@@ -16,17 +16,6 @@ export default function Information({meal}) {
                 <div className="col-sm-12">
                   <div className="testimonials-box">
                     <div className="testimonials-box-text">
-                      <h3 className="h3-title">{language === 'ar' ? "مكونات الوجبة" : "Ingredients"}</h3>
-                      <p>
-                        {language === 'ar' ? meal?.components_ar : meal?.components}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-sm-12">
-                  <div className="testimonials-box">
-                    <div className="testimonials-box-text">
                       <h3 className="h3-title">{language === 'ar' ? "طريقة التحضير" : "Resipe"}</h3>
                       <p>
                       {language === 'ar' ? meal?.prepare_ar : meal?.prepare}

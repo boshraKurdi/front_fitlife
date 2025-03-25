@@ -76,8 +76,8 @@ export default function DashboardPlan() {
                     <div className="paid-invoice">
                       <h3 className="cardtittle">{language === 'ar' ? "التقدم الاسبوعي" : "Weekly progress"}</h3>
                       <div style={{ display: "flex", alignItems: "center" }}>
-                        <h2 className="balance">{week === '1' ? 'first' : 'second'} {language === 'ar' ? "اسبوع" : "week"}</h2>
-                        <Cycle num={myplan?.totalRateWeekOne} />
+                        <h2 className="balance">{week} {language === 'ar' ? "اسبوع" : "week"}</h2>
+                        <Cycle num={myplan?.totalRateWeekOne[week-1]?.rate} />
                       </div>
                     </div>
                   </div>

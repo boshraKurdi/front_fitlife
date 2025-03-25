@@ -19,7 +19,8 @@
 .workout_container .wrokout_info p{
     color: var(--sonic-silver);
     margin-bottom: 3rem;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
     font-family: cursive;
 }
 .workout_container .wrokout_info  span{

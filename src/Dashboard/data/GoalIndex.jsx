@@ -2,7 +2,7 @@ import { Box, IconButton, Tooltip, Button, useTheme } from "@mui/material";
 import Header from "../components/Header";
 import { tokens } from "../theme";
 import { useDispatch, useSelector } from "react-redux";
-import { memo, useCallback, useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { ActDestroy, ActIndex } from "../../Redux/Dashboard/Goal/GoalSlice";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";

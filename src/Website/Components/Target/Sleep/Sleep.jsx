@@ -9,7 +9,6 @@ import SkeletonLoading from "../../Loading/SkeletonLoading/SkeletonLoading";
 
 export default function Sleep({ progress, error, loading }) {
   const { language } = useSelector((state) => state.mode);
-  console.log(progress[0]?.sleep[0]?.sleep)
   const nav = useNavigate();
   return (
     <SkeletonLoading loading={loading} error={error} type="detailsGoal">
@@ -30,13 +29,14 @@ export default function Sleep({ progress, error, loading }) {
           </div>
         </div>
         {
+        progress[0]?.sleep &&( 
         !progress[0]?.sleep[0]?.targets?.length ? (
             <div className="water_target">
             <div className="img">
               <Lottie className="home__img" animationData={Alarm} />
             </div>
             <div className="info">
-              <h2>{language === 'en' ? "You didn't sleep at all today" : "لم تنم اليوم أبداً"}😭</h2>
+              <h2>{language === 'en' ? "Give your body and mind the rest they need." : "امنح جسمك وعقلك الراحة التي يحتاجانها"}😉</h2>
               <p>
                {language === 'en' ? "Don't give up! Every moment is a new opportunity. Try to get some rest now, sleep is the key to your health and energy!" : "لا تيأس! كل لحظة هي فرصة جديدة. حاول أن تأخذ قسطًا من الراحة الآن، فالنوم هو المفتاح لصحتك وطاقتك!"}
               </p>
@@ -83,7 +83,9 @@ export default function Sleep({ progress, error, loading }) {
               </button>
             </div>
           </div>
+        )
         )}
+      
       </section>
     </SkeletonLoading>
   );

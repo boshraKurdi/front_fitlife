@@ -12,7 +12,7 @@ export default function CardContentDetails({img = '' , title = '' , description 
   const colors = tokens(theme.palette.mode)
   return (
     <Card sx={{ width: 300 , height:'auto' , minHeight:'150px' , margin:'auto' , background:colors.primary[900]  }}>
-      <CardActionArea>
+      <CardActionArea sx={{minHeight: "330px"}}>
        {img && <CardMedia
           component="img"
           sx={{width:'100%' , height:'170px' , objectFit: 'contain'}}

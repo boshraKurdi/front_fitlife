@@ -293,7 +293,7 @@
 }
 .viewport .blog-box p{
   font-size: 14px; 
-  line-height: 30px; 
+  margin: 1rem 0;
      color: #666;
 }
   .testimonials-box {
@@ -374,7 +374,7 @@
   }
   .blog-date {
     padding: 5px 15px;
-    background: #f8f9fa;
+    background: var(--fc-border-color);
     display: inline-block;
     border-radius: 8px;
     font-size: 14px;

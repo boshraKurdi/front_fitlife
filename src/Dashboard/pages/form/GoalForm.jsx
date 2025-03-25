@@ -65,7 +65,7 @@ const GoalForm = () => {
     
       const handleImageChange = (event, setFieldValue) => {
         const file = event.currentTarget.files[0];
-        setFieldValue("image", file);
+        setFieldValue("media", file);
     
         // إنشاء معاينة للصورة
         if (file) {
@@ -314,6 +314,13 @@ const GoalForm = () => {
                 helperText={touched.Plan && errors.Plan}
                 sx={{ gridColumn: "span 2", fontSize: "1.6rem" }}
                 MenuProps={MenuProps}
+                displayEmpty
+                renderValue={(selected) => {
+                  if (!selected) {
+                    return <em style={{ color: "#aaa" }}>Plan</em>;
+                  }
+                  return selected;
+                }}
               >
                 {loading === 'pending'
                   ? <MenuItem value="0">loading...</MenuItem>
@@ -353,7 +360,7 @@ const GoalForm = () => {
               )}
                <div className="uploadfile" style={{ border: '2px dashed #ccc' ,gridColumn: "span 4" , display:'flex' , alignItems:'center' }}>
                 {preview && <img style={{width:'25%' , marginRight:'1rem'}} src={preview} alt="none" />}
-                <label htmlFor="file" class="labelFile">
+                <label htmlFor="file" className="labelFile">
                   <span>
                     <CloudUploadIcon />
                   </span>

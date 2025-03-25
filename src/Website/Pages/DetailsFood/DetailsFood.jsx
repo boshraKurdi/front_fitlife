@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { ActShow } from "../../../Redux/Meal/MealSlice";
 import SkeletonLoading from "../../Components/Loading/SkeletonLoading/SkeletonLoading";
+import Ingredients from "../../Components/DetailsFood/Ingredients";
 export default function DetailsFood() {
     const { value } = useSelector((state) => state.mode) 
     const { id } = useParams();
@@ -21,6 +22,7 @@ export default function DetailsFood() {
       <div id="js-scroll-content">
         <Home meal={meal} />
         <Information meal={meal} />
+        <Ingredients loading={loadingShow} error={error} data={meal}/>
         <OtherFood meal={meal} loading={loadingShow} error={error} />
       </div>
     </div>

@@ -1,24 +1,31 @@
-import { Box, Button, TextField, Select, MenuItem, Paper } from "@mui/material";
+import { Box, Button, MenuItem, Select, TextField } from "@mui/material";
 import { Form, Formik } from "formik";
 import Header from "../../components/Header";
 import EditIcon from "@mui/icons-material/Edit";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import Loading from "../../components/loading/Loading";
 import UseUpdatePlan from "../../hooks/UseUpdatePlan";
+import CustomizedAccordions from "../../components/customizedAccordions/CustomizedAccordions";
 const PlanUpdate = () => {
   const {
+    loadingShow,
+    check,
+    setCheck,
+    MenuProps,
     isNonMobile,
     value,
-    handleImageChange,
+    exercises,
+    meals,
+    type,
+    time,
+    setTime,
+    type_ar,
+    chipData,
     setChipData,
+    handleImageChange,
+    preview,
     handleFormSubmit,
-    loadingStore,
-    error,
-    loadingShow,
-    newData,
     checkoutSchema,
     initialValues,
-    preview,
   } = UseUpdatePlan();
   return (
     <Box m="20px">
@@ -152,65 +159,18 @@ const PlanUpdate = () => {
               <TextField
                 variant="filled"
                 type="text"
-                label="Muscle"
-                disabled={loadingShow === "pending" ? true : false}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.muscle}
-                name="muscle"
-                error={!!touched.muscle && !!errors.muscle}
-                helperText={touched.muscle && errors.muscle}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
-              />
-              <TextField
-                variant="filled"
-                type="text"
-                label="Muscle AR"
-                disabled={loadingShow === "pending" ? true : false}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.muscle_ar}
-                name="muscle_ar"
-                error={!!touched.muscle_ar && !!errors.muscle_ar}
-                helperText={touched.muscle_ar && errors.muscle}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
-              />
-              <TextField
-                variant="filled"
-                type="text"
                 label="Duration"
                 disabled={loadingShow === "pending" ? true : false}
-                onBlur={handleBlur}
+                onBlur={() => {
+                  setTime(values.duration);
+                  handleBlur;
+                }}
                 onChange={handleChange}
                 value={values.duration}
                 name="duration"
                 error={!!touched.duration && !!errors.duration}
                 helperText={touched.duration && errors.duration}
-                sx={{ gridColumn: "span 2" }}
+                sx={{ gridColumn: "span 4" }}
                 InputProps={{
                   sx: { fontSize: "1.5rem" },
                 }}
@@ -224,75 +184,224 @@ const PlanUpdate = () => {
                   },
                 }}
               />
+
               <Select
-                fullWidth
-                name="levels"
-                disabled={loadingShow === "pending" ? true : false}
-                value={values.levels}
-                label={"levels"}
+                name="type"
+                value={check.name}
                 variant="filled"
                 onChange={handleChange}
-                onBlur={handleBlur}
-                error={!!touched.levels && !!errors.levels}
-                helperText={touched.levels && errors.levels}
+                error={!!touched.type && !!errors.type}
+                helperText={touched.type && errors.type}
                 sx={{ gridColumn: "span 2", fontSize: "1.6rem" }}
+                MenuProps={MenuProps}
+                displayEmpty
+                renderValue={(selected) => {
+                  if (!selected) {
+                    return <em style={{ color: "#aaa" }}>Type</em>;
+                  }
+                  return selected;
+                }}
               >
-                <MenuItem
-                  onClick={() => {
-                    setChipData((prevChipData) => [
-                      ...prevChipData,
-                      { key: 0, label: "weak" },
-                    ]);
-                  }}
-                  sx={{ fontSize: "1.5rem" }}
-                  value={"1"}
-                >
-                  weak
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    setChipData((prevChipData) => [
-                      ...prevChipData,
-                      { key: 1, label: "middle" },
-                    ]);
-                  }}
-                  sx={{ fontSize: "1.5rem" }}
-                  value={"2"}
-                >
-                  middle
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    setChipData((prevChipData) => [
-                      ...prevChipData,
-                      { key: 2, label: "strong" },
-                    ]);
-                  }}
-                  sx={{ fontSize: "1.5rem" }}
-                  value={"3"}
-                >
-                  strong
-                </MenuItem>
+                {type?.map((e, index) => {
+                  return (
+                    <MenuItem
+                      sx={{
+                        fontSize: "1.2rem",
+                        fontFamily: "system-ui",
+                        lineHeight: "1.5",
+                      }}
+                      onClick={() => {
+                        setCheck({
+                          ...check,
+                          name: e.name,
+                          name_ar: type_ar[index].name,
+                        });
+                      }}
+                      key={index}
+                      value={e.name}
+                    >
+                      {e.name}
+                    </MenuItem>
+                  );
+                })}
               </Select>
-              {newData.length > 0 && (
-                <Paper
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    flexWrap: "wrap",
-                    listStyle: "none",
-                    gridColumn: "span 4",
-                    p: 0.5,
-                    m: 0,
+              <Select
+                name="type_ar"
+                value={check.name_ar}
+                variant="filled"
+                onChange={handleChange}
+                error={!!touched.type_ar && !!errors.type_ar}
+                helperText={touched.type_ar && errors.type_ar}
+                sx={{ gridColumn: "span 2", fontSize: "1.6rem" }}
+                MenuProps={MenuProps}
+                displayEmpty
+                renderValue={(selected) => {
+                  if (!selected) {
+                    return <em style={{ color: "#aaa" }}>Type Ar</em>;
+                  }
+                  return selected;
+                }}
+              >
+                {type_ar?.map((e, index) => {
+                  return (
+                    <MenuItem
+                      sx={{
+                        fontSize: "1.2rem",
+                        fontFamily: "system-ui",
+                        lineHeight: "1.5",
+                      }}
+                      onClick={() => {
+                        setCheck({
+                          ...check,
+                          name: type[index].name,
+                          name_ar: e.name,
+                        });
+                      }}
+                      key={index}
+                      value={e.name}
+                    >
+                      {e.name}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+              {check.name == "water" ? (
+                <TextField
+                  variant="filled"
+                  type="text"
+                  label="Water"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.water}
+                  name="water"
+                  error={!!touched.water && !!errors.water}
+                  helperText={touched.water && errors.water}
+                  sx={{ gridColumn: "span 4" }}
+                  InputProps={{
+                    sx: { fontSize: "1.5rem" },
                   }}
-                  component="ul"
-                >
-                  {loadingShow === "pending" ? "loading..." : newData}
-                </Paper>
+                  InputLabelProps={{
+                    sx: {
+                      fontSize: "1.6rem",
+                      color: value === "dark" ? "#fff" : "#000",
+                      "&.Mui-focused": {
+                        color: value === "dark" ? "#fff" : "#000",
+                      },
+                    },
+                  }}
+                />
+              ) : check.name == "sleep" ? (
+                <TextField
+                  variant="filled"
+                  type="text"
+                  label="Sleep"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.water}
+                  name="sleep"
+                  error={!!touched.sleep && !!errors.sleep}
+                  helperText={touched.sleep && errors.sleep}
+                  sx={{ gridColumn: "span 4" }}
+                  InputProps={{
+                    sx: { fontSize: "1.5rem" },
+                  }}
+                  InputLabelProps={{
+                    sx: {
+                      fontSize: "1.6rem",
+                      color: value === "dark" ? "#fff" : "#000",
+                      "&.Mui-focused": {
+                        color: value === "dark" ? "#fff" : "#000",
+                      },
+                    },
+                  }}
+                />
+              ) : check.name == "food" ? (
+                <CustomizedAccordions
+                  setChipData={setChipData}
+                  chipData={chipData}
+                  time={time}
+                  data={meals}
+                  title="meals"
+                />
+              ) : check.name != "" ? (
+                <>
+                  <TextField
+                    variant="filled"
+                    type="text"
+                    label="Muscle"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.muscle}
+                    name="muscle"
+                    error={!!touched.muscle && !!errors.muscle}
+                    helperText={touched.muscle && errors.muscle}
+                    sx={{ gridColumn: "span 2" }}
+                    InputProps={{
+                      sx: { fontSize: "1.5rem" },
+                    }}
+                    InputLabelProps={{
+                      sx: {
+                        fontSize: "1.6rem",
+                        color: value === "dark" ? "#fff" : "#000",
+                        "&.Mui-focused": {
+                          color: value === "dark" ? "#fff" : "#000",
+                        },
+                      },
+                    }}
+                  />
+                  <TextField
+                    variant="filled"
+                    type="text"
+                    label="Muscle Ar"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.muscle_ar}
+                    name="muscle_ar"
+                    error={!!touched.muscle_ar && !!errors.muscle_ar}
+                    helperText={touched.muscle_ar && errors.muscle_ar}
+                    sx={{ gridColumn: "span 2" }}
+                    InputProps={{
+                      sx: { fontSize: "1.5rem" },
+                    }}
+                    InputLabelProps={{
+                      sx: {
+                        fontSize: "1.6rem",
+                        color: value === "dark" ? "#fff" : "#000",
+                        "&.Mui-focused": {
+                          color: value === "dark" ? "#fff" : "#000",
+                        },
+                      },
+                    }}
+                  />
+                  <CustomizedAccordions
+                    setChipData={setChipData}
+                    chipData={chipData}
+                    time={time}
+                    data={exercises}
+                    title="exercises"
+                  />
+                </>
+              ) : (
+                ""
               )}
-              <div className="uploadfile" style={{ border: '2px dashed #ccc' ,gridColumn: "span 4" , display:'flex' , alignItems:'center' }}>
-                {preview && <img style={{width:'25%' , marginRight:'1rem'}} src={preview} alt="none" />}
-                <label htmlFor="file" class="labelFile">
+
+              <div
+                className="uploadfile"
+                style={{
+                  border: "2px dashed #ccc",
+                  gridColumn: "span 4",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                {preview && (
+                  <img
+                    style={{ width: "25%", marginRight: "1rem" }}
+                    src={preview}
+                    alt="none"
+                  />
+                )}
+                <label htmlFor="file" className="labelFile">
                   <span>
                     <CloudUploadIcon />
                   </span>
@@ -301,22 +410,16 @@ const PlanUpdate = () => {
                   </p>
                 </label>
                 <input
-                  variant="filled"
                   id="file"
                   type="file"
                   label="media"
                   onChange={(event) => handleImageChange(event, setFieldValue)}
                   name="media"
-                  sx={{ gridColumn: "span 4" }}
+                  style={{ gridColumn: "span 4" }}
                 />
               </div>
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Loading
-                loading={loadingStore}
-                loadingShow={loadingShow}
-                error={error}
-              >
                 <Button
                   className={value === "dark" ? "newR dark" : "newR light"}
                   sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}
@@ -326,7 +429,6 @@ const PlanUpdate = () => {
                 >
                   Update Plan <EditIcon sx={{ ml: "1rem" }} />
                 </Button>
-              </Loading>
             </Box>
           </Form>
         )}

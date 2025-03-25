@@ -38,6 +38,28 @@ const GoalDetails = () => {
     <>
       <SkeletonLoading loading={loading} error={error} type="detailsGoal">
         <div className="card top">
+        <div className="product-imgs">
+            <div
+              style={{ justifyContent: "center", display: "flex" }}
+              className="img-display"
+            >
+              <div
+                style={{ width: "100%" }}
+                className="img-showcase"
+              >
+                <img
+                  style={{
+                    borderRadius: "50%",
+                    width: "75%",
+                    minWidth: "400px",
+                    objectFit: "contain",
+                  }}
+                  src={goal.media && goal.media[0]?.original_url}
+                  alt="shoe"
+                />
+              </div>
+            </div>
+          </div>
           <div className="product-content">
             <MyComponentTitle className="product-title">
               {language === "ar" ? "تفاصيل الهدف" : "Goal Details"}
@@ -107,28 +129,7 @@ const GoalDetails = () => {
               {/* )} */}
             </div>
           </div>
-          <div className="product-imgs">
-            <div
-              style={{ justifyContent: "center", display: "flex" }}
-              className="img-display"
-            >
-              <div
-                style={{ width: "100%" }}
-                className="img-showcase"
-              >
-                <img
-                  style={{
-                    borderRadius: "50%",
-                    width: "75%",
-                    minWidth: "400px",
-                    objectFit: "contain",
-                  }}
-                  src={goal.media && goal.media[0]?.original_url}
-                  alt="shoe"
-                />
-              </div>
-            </div>
-          </div>
+         
           {/* <PlanForGoal plan={goal.plan && goal?.plan} /> */}
         </div>
       </SkeletonLoading>

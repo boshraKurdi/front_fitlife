@@ -37,7 +37,7 @@ const Content = ({ plan }) => {
 
             <div className="card-progress">
               <div className="progress-wrapper">
-                <p className="progress-label">Class Full</p>
+                <p className="progress-label">{language === 'en' ? "Progress on the plan" : "تقدمي في الخطة"}</p>
 
                 <span className="progress-value">
                   {plan?.totalRate + "%"}

@@ -16,7 +16,53 @@
 .newR:hover{
     opacity: 0.8;
 }
+.width{
+    width: 250px;
+}
+.ll.dark , .linkA.dash.dark{
+    background: #1F2A40;
+    color: rgb(224, 224, 224);
+    border-radius: 9px;
+    box-shadow: 2px 2px 5px #00000061;
+}
+.ll.light , .linkA.dash.light{
+    background: #f2f0f0;
+    color: rgb(20, 20, 20);
+    border-radius: 9px;
+    box-shadow: 2px 2px 5px #ccc;
+}
+.linkA.dash{
+    padding: 0;
+    margin: 0 2rem;
+    display: flex
+;
+    width: 91%;
+}
+.ll {
+    padding: 1.5rem 3rem;
+    font-size: 1.5rem;
+    outline: 0;
 
+}
+.de{
+    background: #891e1e;
+    color: #fff;
+    margin: auto;
+    border-radius: 9px;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    padding: 1rem;
+    font-family: cursive;
+}
+.linkA a{
+    border-radius:9px !important;
+    outline: 0;
+}
+.linkA a:hover{
+    background-color: transparent !important;
+    transform: translateX(10px) ;
+    transition: 0.5s;
+}
 .newR{
     background: #70d8bd !important;
     font-size: 1.2rem !important;

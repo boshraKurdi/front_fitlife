@@ -80,7 +80,7 @@ export default function Workout(){
           <Heading title="Workout" subTitle=''/>
           <div className='workout_container'>
           <Lottie style={{width:'400px' ,marginRight:'auto'}} className='home__img' animationData={Work1} />
-          <div style={{margin:"0 1rem"}} className='wrokout_info'>
+          <div style={{margin:"0 4rem"}} className='wrokout_info'>
             <h2>{language === 'en' ? exercise?.title :  exercise?.title_ar}</h2>
             <p>{language === 'en' ? exercise?.description : exercise?.description_ar}</p>
             <div className='ws'>

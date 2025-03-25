@@ -2,13 +2,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { ActExerciseIndex } from "../../../Redux/Plan/PlanSlice";
 import { format } from "date-fns";
-import Lottie from "lottie-react";
+// import Lottie from "lottie-react";
 import Stepper from "./Stepper/Stepper";
-import Lsleep from "../../../lottiefiles/sleep2.json";
+// import Lsleep from "../../../lottiefiles/sleep2.json";
 import { useNavigate } from "react-router-dom";
 import FileDownloadDoneIcon from "@mui/icons-material/FileDownloadDone";
 const Exercises = ({ data, myplan, id }) => {
-  const { value, language } = useSelector((state) => state.mode);
+  const { value, language , is_holiday } = useSelector((state) => state.mode);
   const { user } = useSelector((state) => state.auth);
   const nav = useNavigate();
   const [butt, setButt] = useState(`${user.gender}`);
@@ -20,6 +20,7 @@ const Exercises = ({ data, myplan, id }) => {
     myplan?.date?.findIndex(
       (date) => format(date.date, "yyyy-MM-dd") === today
     );
+console.log(is_holiday)
   useEffect(() => {
     dispatch(ActExerciseIndex({ data: data, id: id }))
       .unwrap()
@@ -30,7 +31,7 @@ const Exercises = ({ data, myplan, id }) => {
   const filteredExercise = butt
     ? exercises?.exercise?.filter((data) => data?.type === butt)
     : filteredExercise;
-  const newData = data.day
+  const newData = !is_holiday
     ? filteredExercise?.map((data) => {
         return (
           <>
@@ -140,7 +141,7 @@ const Exercises = ({ data, myplan, id }) => {
                 ? "كل يوم من أيام الأسبوع له تمارينه الخاصة التي تمت دراستها بعناية لتحقيق اللياقة البدنية"
                 : "Each day of the week has its own exercises that have been carefully studied to achieve physical fitness"}
             </p>
-            {data.day ?
+            {!is_holiday ?
             <div className="type_exe">
               <button
                 onClick={() => {

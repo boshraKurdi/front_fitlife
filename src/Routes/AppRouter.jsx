@@ -43,6 +43,11 @@ import ServiceIndex from "../Dashboard/data/ServiceIndex";
 import DetailsService from "../Dashboard/pages/details/DetailsService";
 import RequestGoals from "../Dashboard/data/RequestGoals";
 import DetailsUser from "../Dashboard/pages/details/DetailsUser";
+import Category from "../Dashboard/data/Category";
+import CategoryForm from "../Dashboard/pages/form/CategoryForm";
+import CategoryUpdate from "../Dashboard/pages/update/CategoryUpdate";
+import Login from "../Dashboard/pages/login/Login";
+import RequierAuthPanel from "../Auth/RequierAuthPanel";
 // route website
 // import RequierBack from "../Website/index";
 const regex = /^[0-9]+$/;
@@ -83,150 +88,172 @@ const router = createBrowserRouter([
         element:  <MainDashboard /> ,
         children:[
           {
-            index:true ,
-            element : <Dashboard />
+            path:'loginPanel' ,
+            element : <Login />
           },
           {
-            path: 'user' ,
-            element: <UserIndex />
+            element:  <Suspense fallback={<Loading />}><RequierAuthPanel /></Suspense>,
+            children: [
+              {
+                index:true ,
+                element : <Dashboard />
+              },
+              {
+                path: 'user' ,
+                element: <UserIndex />
+              },
+              {
+                path: 'category' ,
+                element: <Category />
+              },
+              {
+                path: 'meal' ,
+                element: <Meal />
+              },
+              {
+                path: 'goal' ,
+                element: <GoalIndex />,
+              },
+              {
+                path: 'gym' ,
+                element: <GymIndex />,
+              },
+              {
+                path: 'exercise' ,
+                element: <Exercise />,
+              },
+              {
+                path: 'plan' ,
+                element: <Plan />,
+              },
+              {
+                path: 'requestGoals' ,
+                element: <RequestGoals />,
+              },
+              {
+                path: 'service' ,
+                element: <ServiceIndex />,
+              },
+              {
+                path: 'goal/plan/:id',
+                element: <PlanIndex />
+              },
+              {
+                path: 'goal/update/:id',
+                element: <GoalUpdate />
+              },
+              {
+                path: 'meal/update/:id',
+                element: <MealUpdate />
+              },
+              {
+                path: 'goal/plan/:id/exercises/:id',
+                element: <ExerciseIndex />
+              },
+              {
+                path: 'plan/update/:id',
+                element: <PlanUpdate />
+              },
+              {
+                path: 'exercise/update/:id',
+                element: <ExerciseUpdate />
+              },
+              {
+                path: 'service/update/:id',
+                element: <ServiceUpdate />
+              },
+              {
+                path: 'gym/update/:id',
+                element: <GymUpdate />
+              },
+              {
+                path: 'category/update/:id',
+                element: <CategoryUpdate />
+              },
+              
+              {
+                path: 'PlanForm' ,
+                element: <PlanForm />
+              },
+              {
+                path: 'CategoryForm' ,
+                element: <CategoryForm />
+              },
+              {
+                path: 'MealForm' ,
+                element: <MealForm />
+              },
+              {
+                path: 'ServiceForm' ,
+                element: <ServiceForm />
+              },
+              {
+                path: 'GoalForm' ,
+                element: <GoalForm />
+              },
+              {
+                path: 'ExerciseForm' ,
+                element: <ExerciseForm />
+              },
+              {
+                path: 'GymForm' ,
+                element: <GymForm />
+              },
+              {
+                path: 'plan/DetailsPlan/:id' ,
+                element: <DetailsPlan />
+              },
+              {
+                path: 'user/DetailsUser/:id' ,
+                element: <DetailsUser />
+              },
+              {
+                path: 'service/DetailsService/:id' ,
+                element: <DetailsService />
+              },
+              {
+                path: 'meal/DetailsMeal/:id' ,
+                element: <DetailsMeal />
+              },
+              {
+                path: 'exercise/DetailsExercise/:id' ,
+                element: <DetailsExercise />
+              },
+              {
+                path: 'gym/DetailsGym/:id' ,
+                element: <DetailsGym />
+              },
+              {
+                path: 'goal/DetailsGoal/:id' ,
+                element: <DetailsGoal />
+              },
+              {
+                path: 'bar' ,
+                element: <Bar />
+              },
+              {
+                path: 'pie' ,
+                element: <Pie />
+              },
+              {
+                path: 'line' ,
+                element: <Line />
+              },
+              {
+                path: 'faq' ,
+                element: <FAQ />
+              },
+              {
+                path: 'calendar' ,
+                element: <Calendar />
+              },
+              {
+                path: 'geography' ,
+                element: <Geography />
+              },
+            ]
           },
-          {
-            path: 'meal' ,
-            element: <Meal />
-          },
-          {
-            path: 'goal' ,
-            element: <GoalIndex />,
-          },
-          {
-            path: 'gym' ,
-            element: <GymIndex />,
-          },
-          {
-            path: 'exercise' ,
-            element: <Exercise />,
-          },
-          {
-            path: 'plan' ,
-            element: <Plan />,
-          },
-          {
-            path: 'requestGoals' ,
-            element: <RequestGoals />,
-          },
-          {
-            path: 'service' ,
-            element: <ServiceIndex />,
-          },
-          {
-            path: 'goal/plan/:id',
-            element: <PlanIndex />
-          },
-          {
-            path: 'goal/update/:id',
-            element: <GoalUpdate />
-          },
-          {
-            path: 'meal/update/:id',
-            element: <MealUpdate />
-          },
-          {
-            path: 'goal/plan/:id/exercises/:id',
-            element: <ExerciseIndex />
-          },
-          {
-            path: 'plan/update/:id',
-            element: <PlanUpdate />
-          },
-          {
-            path: 'exercise/update/:id',
-            element: <ExerciseUpdate />
-          },
-          {
-            path: 'service/update/:id',
-            element: <ServiceUpdate />
-          },
-          {
-            path: 'gym/update/:id',
-            element: <GymUpdate />
-          },
-          
-          {
-            path: 'PlanForm' ,
-            element: <PlanForm />
-          },
-          {
-            path: 'MealForm' ,
-            element: <MealForm />
-          },
-          {
-            path: 'ServiceForm' ,
-            element: <ServiceForm />
-          },
-          {
-            path: 'GoalForm' ,
-            element: <GoalForm />
-          },
-          {
-            path: 'ExerciseForm' ,
-            element: <ExerciseForm />
-          },
-          {
-            path: 'GymForm' ,
-            element: <GymForm />
-          },
-          {
-            path: 'plan/DetailsPlan/:id' ,
-            element: <DetailsPlan />
-          },
-          {
-            path: 'user/DetailsUser/:id' ,
-            element: <DetailsUser />
-          },
-          {
-            path: 'service/DetailsService/:id' ,
-            element: <DetailsService />
-          },
-          {
-            path: 'meal/DetailsMeal/:id' ,
-            element: <DetailsMeal />
-          },
-          {
-            path: 'exercise/DetailsExercise/:id' ,
-            element: <DetailsExercise />
-          },
-          {
-            path: 'gym/DetailsGym/:id' ,
-            element: <DetailsGym />
-          },
-          {
-            path: 'goal/DetailsGoal/:id' ,
-            element: <DetailsGoal />
-          },
-          {
-            path: 'bar' ,
-            element: <Bar />
-          },
-          {
-            path: 'pie' ,
-            element: <Pie />
-          },
-          {
-            path: 'line' ,
-            element: <Line />
-          },
-          {
-            path: 'faq' ,
-            element: <FAQ />
-          },
-          {
-            path: 'calendar' ,
-            element: <Calendar />
-          },
-          {
-            path: 'geography' ,
-            element: <Geography />
-          },
+              
         ]
   },
   {
@@ -238,16 +265,13 @@ const router = createBrowserRouter([
         index: true,
         element:  <Suspense fallback={<Loading />}><Home /></Suspense>,
       },
-      // {
-      //   element:  <Suspense fallback={<Loading />}><RequierBack /></Suspense>,
-      //   children: [
+     
           {
             index: true,
             path: "login",
             element:  <Suspense fallback={<Loading />}><Auth /></Suspense>,
           },
-      //   ],
-      // },
+   
       {
           path: 'goalDetails/:id',
           element: <Suspense fallback={<Loading />}><GoalDetails /></Suspense>,
@@ -447,7 +471,8 @@ export default function AppRouter() {
               contrastText: "#000",
               title: "#000",
               secondy: "hsl(210, 26%, 11%, 0.5)",
-              thred: "hsl(294.74deg 16.89% 62.04%)"
+              thred: "hsl(294.74deg 16.89% 62.04%)",
+               shadow: "rgba(0,0,0,0.1)"
             },
           }
         : {
@@ -462,7 +487,8 @@ export default function AppRouter() {
               contrastText: "hsl(214, 15%, 62%)",
               title: "#fff",
               secondy: "hsl(0, 0%, 100%, 0.1)",
-              thred: "hsl(294.74deg 16.89% 62.04%)"
+              thred: "hsl(294.74deg 16.89% 62.04%)" ,
+              shadow: "rgba(0,0,0,0)"
             },
           }),
     },

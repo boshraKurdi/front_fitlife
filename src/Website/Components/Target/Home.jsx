@@ -15,7 +15,7 @@ export default function Home({progress , error , loading}){
           <div className="product-imgs">
           <div style={{justifyContent:'center' , display:'flex'}} className="img-display">
                 <div style={{width:'100%' , height:'400px'}} className="img-showcase">
-                  <img style={{borderRadius:'50%' , width:'75%', minWidth:'400px' , objectFit:'contain'}} src={progress[0]?.myGoal.media && progress[0]?.myGoal.media[0]?.original_url} alt="shoe" />
+                  <img style={{borderRadius:'50%' , width:'75%', minWidth:'400px' , objectFit:'contain'}} src={progress[0]?.myGoal && progress[0]?.myGoal.media[0]?.original_url} alt="shoe" />
               </div>
             </div>
           </div>
@@ -31,11 +31,11 @@ export default function Home({progress , error , loading}){
               <ul>
                 <li>
                   <CheckCircleIcon />
-                  {language === 'ar' ? "اسم الهدف" : "goal title"}: <span>{language === 'ar' ? progress[0]?.myGoal?.title_ar : progress[0]?.myGoal.title}</span>
+                  {progress[0]?.myGoal && (language === 'ar' ? "اسم الهدف" : "goal title")}: <span>{progress[0]?.myGoal && (language === 'ar' ? progress[0]?.myGoal?.title_ar : progress[0]?.myGoal.title)}</span>
                 </li>
                 <li>
                   <CheckCircleIcon />
-                  {language === 'ar' ? "حرق السعرات " : "calroies"}: <span>{progress[0]?.myGoal.calories_max + '..' + progress[0]?.myGoal.calories_min}</span>
+                  {language === 'ar' ? "حرق السعرات " : "calroies"}: <span>{progress[0]?.myGoal && (progress[0]?.myGoal?.calories_max )+ '..' + progress[0]?.myGoal?.calories_min}</span>
                 </li>
                 <li>
                   <CheckCircleIcon />

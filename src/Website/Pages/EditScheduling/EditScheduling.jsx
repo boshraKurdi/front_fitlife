@@ -14,7 +14,7 @@ export default function EditScheduling(){
       const { loading , message , type } = useSelector((state) => state.user)
       const { user } = useSelector((state) => state.auth);
       const { language } = useSelector((state) => state.mode);
-      let days = JSON.parse(user.days)
+      let days = typeof user?.days === 'string' ? JSON.parse(user?.days) :user?.days
     const [check , setCheck] = useState({
         sunday: days.sunday,
         tuesday: days.tuesday,

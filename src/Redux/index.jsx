@@ -22,6 +22,7 @@ import target from './Target/TargetSlice';
 import Dservice from './Dashboard/Service/ServiceSlice';
 import Duser from './Dashboard/User/UserSlice';
 import admin from './Dashboard/Admin/AdminSlice';
+import ingredient from './Dashboard/Ingredient/IngredientsSlice';
 
 import {
   persistStore,
@@ -44,7 +45,7 @@ const authPersistConfig = {
   key: 'auth',
   version: 1,
   storage,
-  whiteList: ['user' , 'token']
+  whiteList: ['user' , 'token' , 'admin' ,'tokenAdmin']
 }
 const modePersistConfig = {
   key: 'mode',
@@ -76,7 +77,8 @@ const rootReducer = combineReducers({
   Dservice ,
   target ,
   admin , 
-  Duser
+  Duser ,
+  ingredient
 })
  const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 

@@ -5,11 +5,9 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import { useDispatch, useSelector } from "react-redux";
 import { SetLanguage, SetMode } from "../../../Redux/Mode/ModeSlice";
-import TranslateIcon from "@mui/icons-material/Translate";
 import Components from "../../Style/Components/Components";
 import { IconButton, useTheme } from "@mui/material";
 import Profile from "../../Components/Profile/Profile";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 

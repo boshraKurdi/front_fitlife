@@ -1,14 +1,13 @@
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import NotificationsPausedIcon from "@mui/icons-material/NotificationsPaused";
 import Lottie from "lottie-react";
+import SleepL from '../../../../lottiefiles/sleep2.json'
 import "../Water/Water.css";
 import Alarm from "../../../../lottiefiles/alarm.json";
 import SkeletonLoading from "../../Loading/SkeletonLoading/SkeletonLoading";
 
 export default function Exercise({ progress, error, loading }) {
-  const { language } = useSelector((state) => state.mode);
-  const nav = useNavigate();
+  const { language , data , is_holiday} = useSelector((state) => state.mode);
   return (
     <SkeletonLoading loading={loading} error={error} type="detailsGoal">
       <section
@@ -30,6 +29,7 @@ export default function Exercise({ progress, error, loading }) {
           </div>
         </div>
         {
+          !is_holiday ?
           progress[0]?.myGoal?.exercise ?
         <div className="water_target">
           <div className="img">
@@ -71,7 +71,27 @@ export default function Exercise({ progress, error, loading }) {
             go to exrcise <NotificationsPausedIcon />
           </button>
         </div>
+       
       </div>
+       : 
+       <div className="water_target">
+        <div className="img">
+          <Lottie className="home__img" animationData={SleepL} />
+        </div>
+        <div className="info">
+          <h2>
+            {language === "en"
+              ? "Happy Holidays"
+              : "عطلة سعيدة"}
+              🥳
+          </h2>
+          <p>
+            {language === "en"
+              ? "Use your day off to recharge your energy and recharge your creativity. Every moment you take care of yourself leads you to greater accomplishments. Make this day an opportunity to relax and reflect on your dreams!"
+              : "استغل يوم عطلتك لتجديد طاقتك وإعادة شحن إبداعك، فكل لحظة تعتني فيها بنفسك تقودك نحو إنجازات أكبر. اجعل من هذا اليوم فرصة للاسترخاء والتفكير في أحلامك!"}
+          </p>
+        </div>
+        </div>
 }
       </section>
     </SkeletonLoading>

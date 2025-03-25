@@ -1,4 +1,3 @@
-import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Header from "../../components/Header";
@@ -31,6 +30,7 @@ const DetailsService = () => {
               <Box m="15px">
                 <TextField
                   id="outlined-read-only-input"
+                    className="width"
                   label="Service"
                   defaultValue={service?.service}
                   sx={{ height: "80px" }}
@@ -57,6 +57,7 @@ const DetailsService = () => {
                 <TextField
                   id="outlined-read-only-input"
                   label="Price"
+                    className="width"
                   sx={{ height: "80px" }}
                   defaultValue={service?.price}
                   multiline
@@ -81,6 +82,7 @@ const DetailsService = () => {
                 <TextField
                   id="outlined-read-only-input"
                   label="Duration"
+                    className="width"
                   sx={{ height: "80px" }}
                   defaultValue={service?.duration}
                   multiline

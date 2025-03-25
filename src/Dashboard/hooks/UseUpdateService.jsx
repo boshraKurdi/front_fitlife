@@ -33,7 +33,7 @@ export default function UseUpdateService() {
         nav("/dashboard");
         enqueueSnackbar(`Update Service successfully!`, { variant: "success" });
       })
-      .catch((error) => {
+      .catch(() => {
         enqueueSnackbar(`Update Service  faild!`, { variant: "error" });
       });
   };

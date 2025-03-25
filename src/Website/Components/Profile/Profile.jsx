@@ -11,19 +11,17 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 // import PersonAdd from '@mui/icons-material/PersonAdd';
 // import Settings from '@mui/icons-material/Settings';
-import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import Logout from '@mui/icons-material/Logout';
 import { useDispatch, useSelector } from 'react-redux';
 import { ActAuthLogout } from '../../../Redux/Auth/AuthSlice';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import ButtonLoading from '../Loading/ButtonLoading/ButtonLoading';
 import { NavLink, useNavigate } from 'react-router-dom';
-import BedtimeIcon from '@mui/icons-material/Bedtime';
 // import { useEffect } from 'react';
 // import { ActGetMyGoal } from '../../../Redux/MyGaol/MyGoalSlice';
 export default function Profile() {
   const dispatch = useDispatch();
-  const { language } = useSelector((state) => state.mode)
+  const { language , is_holiday } = useSelector((state) => state.mode)
   const { loading , error } = useSelector((state) => state.auth);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -101,11 +99,14 @@ export default function Profile() {
         {/* {
           myGoals.length > 0 &&
           <> */}
+          {
+            is_holiday != -1 ?
         <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
           <NavLink style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/target'>
             <Avatar><Home style={{fontSize: '2rem'}} /></Avatar> {language === 'ar' ? "هدفي" : "My Goal"}
           </NavLink>
         </MenuItem>
+:""}
         {/* <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
          <NavLink style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/food/1'>
             <Avatar><RestaurantMenuIcon style={{fontSize: '2rem'}} /></Avatar> {language === 'ar' ? "قائمة الطعام" : "My Menu"}

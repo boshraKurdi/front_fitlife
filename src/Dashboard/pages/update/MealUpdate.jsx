@@ -8,19 +8,33 @@ import UseUpdateMeal from "../../hooks/UseUpdateMeal";
 const MealUpdate = () => {
   const {
     loadingShow,
-    MenuProps,
     isNonMobile,
     value,
-    loading ,
+    handleDeleteStep,
     categories,
+    stepsData,
+    setStepsData,
+    handleStepsCountChange,
+    stepsCount,
+    loading,
     handleImageChange,
+    handleStepImageChange ,
     handleFormSubmit,
     loadingStore,
     error,
     checkoutSchema,
     initialValues,
-    preview
+    preview,
   } = UseUpdateMeal();
+  console.log(stepsData)
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: "150px",
+        width: 250,
+      },
+    },
+  };
 
 
   return (
@@ -227,7 +241,6 @@ const MealUpdate = () => {
                 }}
               />
               <TextField
-                disabled={loadingShow === "pending" ? true : false}
                 variant="filled"
                 type="text"
                 label="Prepare"
@@ -251,14 +264,13 @@ const MealUpdate = () => {
                   },
                 }}
               />
-                <TextField
-                disabled={loadingShow === "pending" ? true : false}
+              <TextField
                 variant="filled"
                 type="text"
                 label="Prepare AR"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.prepare}
+                value={values.prepare_ar}
                 name="prepare_ar"
                 error={!!touched.prepare_ar && !!errors.prepare_ar}
                 helperText={touched.prepare_ar && errors.prepare_ar}
@@ -280,12 +292,18 @@ const MealUpdate = () => {
                 name="category_id"
                 value={values.category_id}
                 variant="filled"
-                disabled={loadingShow === "pending" ? true : false}
                 onChange={handleChange}
                 error={!!touched.category_id && !!errors.category_id}
                 helperText={touched.category_id && errors.category_id}
                 sx={{ gridColumn: "span 2", fontSize: "1.6rem" }}
                 MenuProps={MenuProps}
+                displayEmpty
+                renderValue={(selected) => {
+                  if (!selected) {
+                    return <em style={{ color: "#aaa" }}>Category</em>;
+                  }
+                  return selected;
+                }}
               >
                 {loading === "pending" ? (
                   <MenuItem value="0">loading...</MenuItem>
@@ -294,6 +312,7 @@ const MealUpdate = () => {
                     return (
                       <MenuItem
                         sx={{ fontSize: "1.5rem" }}
+                        onClick={() => {}}
                         key={e.id}
                         value={e.id}
                       >
@@ -303,10 +322,168 @@ const MealUpdate = () => {
                   })
                 )}
               </Select>
+              <TextField
+                variant="filled"
+                type="text"
+                label="Proteins"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.proteins}
+                name="proteins"
+                error={!!touched.proteins && !!errors.proteins}
+                helperText={touched.proteins && errors.proteins}
+                sx={{ gridColumn: "span 2" }}
+                InputProps={{
+                  sx: { fontSize: "1.5rem" },
+                }}
+                InputLabelProps={{
+                  sx: {
+                    fontSize: "1.6rem",
+                    color: value === "dark" ? "#fff" : "#000",
+                    "&.Mui-focused": {
+                      color: value === "dark" ? "#fff" : "#000",
+                    },
+                  },
+                }}
+              />
+                  <TextField
+                              variant="filled"
+                              type="number"
+                              value={stepsCount}
+                              label="Number of Steps"
+                              onChange={handleStepsCountChange}
+                              sx={{ gridColumn: "span 2" }}
+                              InputProps={{
+                                sx: {
+                                  fontSize: "1.2rem",
+                                  fontFamily: "system-ui",
+                                  lineHeight: "1.5",
+                                },
+                              }}
+                              InputLabelProps={{
+                                sx: {
+                                  fontSize: "1.6rem",
+                                  color: value === "dark" ? "#fff" : "#000",
+                                  "&.Mui-focused": {
+                                    color: value === "dark" ? "#fff" : "#000",
+                                  },
+                                },
+                              }}
+                            />
+              {/* Render Steps */}
+              {stepsData.map((step, index) => (
+                <Box
+                  key={index}
+                  display="flex"
+                  flexDirection="column"
+                  gridColumn="span 4"
+                  p={2}
+                  border="1px solid #ccc"
+                  borderRadius="8px"
+                  mb={2}
+                >
+                  <TextField
+                    variant="filled"
+                    type="text"
+                    label={`Ingredient ${index + 1} Name`}
+                    value={step.name}
+                    onChange={(e) => {
+                      const updatedSteps = [...stepsData];
+                      updatedSteps[index].name = e.target.value;
+                      setStepsData(updatedSteps);
+                    }}
+                    sx={{ mb: 2 }}
+                    InputProps={{
+                      sx: {
+                        fontSize: "1.2rem",
+                        fontFamily: "system-ui",
+                        lineHeight: "1.5",
+                      },
+                    }}
+                    InputLabelProps={{
+                      sx: {
+                        fontSize: "1.4rem",
+                        color: value === "dark" ? "#fff" : "#000",
+                        "&.Mui-focused": {
+                          color: value === "dark" ? "#fff" : "#000",
+                        },
+                      },
+                    }}
+                  />
+                   <TextField
+                    variant="filled"
+                    type="number"
+                    label={`Ingredient ${index + 1} num`}
+                    value={step.num}
+                    onChange={(e) => {
+                      const updatedSteps = [...stepsData];
+                      updatedSteps[index].num = e.target.value;
+                      setStepsData(updatedSteps);
+                    }}
+                    sx={{ mb: 2 }}
+                    InputProps={{
+                      sx: {
+                        fontSize: "1.2rem",
+                        fontFamily: "system-ui",
+                        lineHeight: "1.5",
+                      },
+                    }}
+                    InputLabelProps={{
+                      sx: {
+                        fontSize: "1.4rem",
+                        color: value === "dark" ? "#fff" : "#000",
+                        "&.Mui-focused": {
+                          color: value === "dark" ? "#fff" : "#000",
+                        },
+                      },
+                    }}
+                  />
+                  <TextField
+                    variant="filled"
+                    type="text"
+                    label={`Ingredient ${index + 1} Name Ar`}
+                    value={step.name_ar}
+                    onChange={(e) => {
+                      const updatedSteps = [...stepsData];
+                      updatedSteps[index].name_ar = e.target.value;
+                      setStepsData(updatedSteps);
+                    }}
+                    sx={{ mb: 2 }}
+                    InputProps={{
+                      sx: {
+                        fontSize: "1.2rem",
+                        fontFamily: "system-ui",
+                        lineHeight: "1.5",
+                      },
+                    }}
+                    InputLabelProps={{
+                      sx: {
+                        fontSize: "1.4rem",
+                        color: value === "dark" ? "#fff" : "#000",
+                        "&.Mui-focused": {
+                          color: value === "dark" ? "#fff" : "#000",
+                        },
+                      },
+                    }}
+                  />
+
+                  <input
+                    type="file"
+                    accept="media_ingredients/*"
+                    onChange={(e) =>
+                      handleStepImageChange(e.target.files[0], index)
+                    }
+                    style={{ marginBottom: "10px" }}
+                  />
+                  <button className="de" onClick={() => handleDeleteStep(index)} color="error">delete</button>
+                  
+                </Box>
+              ))}
+
           
               <div className="uploadfile" style={{ border: '2px dashed #ccc' ,gridColumn: "span 4" , display:'flex' , alignItems:'center' }}>
                 {preview && <img style={{width:'25%' , marginRight:'1rem'}} src={preview} alt="none" />}
-                <label htmlFor="file" class="labelFile">
+                <label htmlFor="file" className="labelFile">
                   <span>
                     <CloudUploadIcon />
                   </span>
@@ -315,13 +492,12 @@ const MealUpdate = () => {
                   </p>
                 </label>
                 <input
-                  variant="filled"
                   id="file"
                   type="file"
                   label="media"
                   onChange={(event) => handleImageChange(event, setFieldValue)}
                   name="media"
-                  sx={{ gridColumn: "span 4" }}
+                  style={{ gridColumn: "span 4" }}
                 />
               </div>
             </Box>

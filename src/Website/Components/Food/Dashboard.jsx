@@ -55,11 +55,11 @@ export default function Dashboard({ meals , id , open }) {
       <>
       { meals[0]?.meal?.some(obj => obj.id === data.id)  &&
       <div className={`highlight-card ${value}`}>
-        <CloseIcon onClick={handleDelete(data)} className="icon_dashboard" />
+        <CloseIcon style={{left:language === 'ar' && "10px" ,right:language === 'ar' && "inherit"}} onClick={handleDelete(data)} className="icon_dashboard" />
         <img className="highlight-img" src={data.media[0].original_url} alt="none" />
         <div className="highlight-desc">
           <h4>{language === 'ar' ? data.title_ar : data.title}</h4>
-          <p>{data.calories + (language === 'ar' ? "سعؤة حرارية" : " calories")}</p>
+          <p>{data.calories + (language === 'ar' ? " سعرة حرارية" : " calories")}</p>
         </div>
       </div>
       }

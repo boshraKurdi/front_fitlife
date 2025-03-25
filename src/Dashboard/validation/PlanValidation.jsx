@@ -11,6 +11,8 @@ export default function PlanValidation(children){
     duration: yup.string().required("required"),
     muscle: yup.string().required("required"),
     muscle_ar: yup.string().required("required"),
+    // type: yup.string().required("required"),
+    // type_ar: yup.string().required("required"),
 });
 const initialValues = {
     title: children ? children.plan.title: '',
@@ -20,7 +22,10 @@ const initialValues = {
     duration: children ? children.plan.duration: '',
     muscle: children ? children.plan.muscle: '',
     muscle_ar: children ? children.plan.muscle_ar: '',
-    levels: '' ,
+    type: children ? children.plan.type: '',
+    water: children ? children.plan.water: 0,
+    sleep: children ? children.plan.sleep: 0,
+    type_ar: children ? children.plan.type_ar: '',
     media: ''
 };
 return {checkoutSchema , initialValues }

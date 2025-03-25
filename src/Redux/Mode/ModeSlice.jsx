@@ -3,6 +3,7 @@ const initialState = {
   value: "light",
   open: false,
   type: "success",
+  is_holiday: 0,
   message: null,
   data:{day:1,week:1} ,
   data_meal:{day:1,week:1} , 
@@ -30,11 +31,14 @@ export const modeSlice = createSlice({
       state.data_meal.week = action.payload.week
     }
     ,
+    SetHoliday : (state , action )=>{
+      state.is_holiday = action.payload
+     },
     SetLanguage : (state )=>{
      state.language = state.language === 'en' ? 'ar' : 'en'
     }
   },
 });
 // Action creators are generated for each case reducer function
-export const { SetMode, SetOpen , SetData , SetDataMeal , SetLanguage} = modeSlice.actions;
+export const { SetMode, SetOpen , SetData , SetDataMeal , SetLanguage , SetHoliday} = modeSlice.actions;
 export default modeSlice.reducer;

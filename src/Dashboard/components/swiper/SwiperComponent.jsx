@@ -17,7 +17,7 @@ const SwiperComponent = ({ data }) => {
     <Swiper
       modules={[Navigation, Pagination, Scrollbar, A11y]}
       navigation
-      loop={data.length > 2}
+      loop={false}
       spaceBetween={20}
       breakpoints={{
         320: {

@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Paper } from "@mui/material";
+import { Box, Button, TextField, MenuItem, Select } from "@mui/material";
 import { Form, Formik } from "formik";
 import Header from "../../components/Header";
 import EditIcon from "@mui/icons-material/Edit";
@@ -7,21 +7,24 @@ import Loading from "../../components/loading/Loading";
 import UseUpdateExercise from "../../hooks/UseUpdateExercise";
 const ExerciseUpdate = () => {
   const {
-    exercise,
     loadingShow,
-    setChipData,
+    MenuProps,
+    handleStepImageChange,
     isNonMobile,
+    handleStepsCountChange,
     value,
-    newData,
+    handleDeleteStep,
     handleImageChange,
     handleFormSubmit,
     loadingStore,
     error,
+    setStepsData ,
+    stepsData,
     checkoutSchema,
     initialValues,
-    preview
+    preview,
+    stepsCount
   } = UseUpdateExercise();
-  let index = exercise.steps ? exercise.steps.length : 1;
 
   return (
     <Box m="20px">
@@ -226,30 +229,19 @@ const ExerciseUpdate = () => {
                   },
                 }}
               />
-              <TextField
-                disabled={loadingShow === "pending" ? true : false}
+             <TextField
                 variant="filled"
-                type="text"
-                label="Steps"
-                onChange={handleChange}
-                onBlur={(e) => {
-                  setChipData((prevChipData) => [
-                    ...prevChipData,
-                    {
-                      key: index++,
-                      content: e.target.value,
-                      content_ar: e.target.value,
-                    },
-                  ]);
-                  values.steps = "";
-                }}
-                value={values.steps}
-                name="steps"
-                error={!!touched.steps && !!errors.steps}
-                helperText={touched.steps && errors.steps}
+                type="number"
+                value={stepsCount}
+                label="Number of Steps"
+                onChange={handleStepsCountChange}
                 sx={{ gridColumn: "span 2" }}
                 InputProps={{
-                  sx: { fontSize: "1.5rem" },
+                  sx: {
+                    fontSize: "1.2rem",
+                    fontFamily: "system-ui",
+                    lineHeight: "1.5",
+                  },
                 }}
                 InputLabelProps={{
                   sx: {
@@ -262,25 +254,127 @@ const ExerciseUpdate = () => {
                 }}
               />
 
-              {newData.length > 0 && (
-                <Paper
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    flexWrap: "wrap",
-                    listStyle: "none",
-                    gridColumn: "span 4",
-                    p: 0.5,
-                    m: 0,
-                  }}
-                  component="ul"
+              {/* Render Steps */}
+              {stepsData.map((step, index) => (
+                <Box
+                  key={index}
+                  display="flex"
+                  flexDirection="column"
+                  gridColumn="span 4"
+                  p={2}
+                  border="1px solid #ccc"
+                  borderRadius="8px"
+                  mb={2}
                 >
-                  {newData}
-                </Paper>
-              )}
+                  <TextField
+                    variant="filled"
+                    type="text"
+                    label={`Step ${index + 1} Content`}
+                    value={step.content}
+                    onChange={(e) => {
+                      const updatedSteps = [...stepsData];
+                      updatedSteps[index].content = e.target.value;
+                      setStepsData(updatedSteps);
+                    }}
+                    sx={{ mb: 2 }}
+                    InputProps={{
+                      sx: {
+                        fontSize: "1.2rem",
+                        fontFamily: "system-ui",
+                        lineHeight: "1.5",
+                      },
+                    }}
+                    InputLabelProps={{
+                      sx: {
+                        fontSize: "1.4rem",
+                        color: value === "dark" ? "#fff" : "#000",
+                        "&.Mui-focused": {
+                          color: value === "dark" ? "#fff" : "#000",
+                        },
+                      },
+                    }}
+                  />
+                  <TextField
+                    variant="filled"
+                    type="text"
+                    label={`Step ${index + 1} Content Ar`}
+                    value={step.content_ar}
+                    onChange={(e) => {
+                      const updatedSteps = [...stepsData];
+                      updatedSteps[index].content_ar = e.target.value;
+                      setStepsData(updatedSteps);
+                    }}
+                    sx={{ mb: 2 }}
+                    InputProps={{
+                      sx: {
+                        fontSize: "1.2rem",
+                        fontFamily: "system-ui",
+                        lineHeight: "1.5",
+                      },
+                    }}
+                    InputLabelProps={{
+                      sx: {
+                        fontSize: "1.4rem",
+                        color: value === "dark" ? "#fff" : "#000",
+                        "&.Mui-focused": {
+                          color: value === "dark" ? "#fff" : "#000",
+                        },
+                      },
+                    }}
+                  />
+
+                  <input
+                    type="file"
+                    accept="media_steps/*"
+                    onChange={(e) =>
+                      handleStepImageChange(e.target.files[0], index)
+                    }
+                    style={{ marginBottom: "10px" }}
+                  />
+                   <button className="de"  onClick={() => handleDeleteStep(index)} color="error">delete</button>
+                </Box>
+              ))}
+              <Select
+                name="type"
+                value={values.type}
+                variant="filled"
+                onChange={
+                handleChange
+                }
+                error={!!touched.type && !!errors.type}
+                helperText={touched.type && errors.type}
+                sx={{ gridColumn: "span 4", fontSize: "1.6rem" }}
+                MenuProps={MenuProps}
+                displayEmpty
+                renderValue={(selected) => {
+                  if (!selected) {
+                    return <em style={{ color: "#aaa" }}>Gender</em>;
+                  }
+                  return selected;
+                }}
+              >
+                <MenuItem
+                  sx={{
+                    fontSize: "1.2rem",
+                    fontFamily: "system-ui",
+                    lineHeight: "1.5",
+                  }}
+                  key={1}
+                  value={"male"}
+                >male</MenuItem>
+                <MenuItem
+                  sx={{
+                    fontSize: "1.2rem",
+                    fontFamily: "system-ui",
+                    lineHeight: "1.5",
+                  }}
+                  key={2}
+                  value={"feminine"}
+                >feminine</MenuItem>
+              </Select>
               <div className="uploadfile" style={{ border: '2px dashed #ccc' ,gridColumn: "span 4" , display:'flex' , alignItems:'center' }}>
                 {preview && <img style={{width:'25%' , marginRight:'1rem'}} src={preview} alt="none" />}
-                <label htmlFor="file" class="labelFile">
+                <label htmlFor="file" className="labelFile">
                   <span>
                     <CloudUploadIcon />
                   </span>
@@ -289,13 +383,12 @@ const ExerciseUpdate = () => {
                   </p>
                 </label>
                 <input
-                  variant="filled"
                   id="file"
                   type="file"
                   label="media"
                   onChange={(event) => handleImageChange(event, setFieldValue)}
                   name="media"
-                  sx={{ gridColumn: "span 4" }}
+                  style={{ gridColumn: "span 4" }}
                 />
               </div>
             </Box>

@@ -13,6 +13,12 @@ const Components = () =>{
         color: "#fff",
         backgroundColor: theme.palette.primary.main,
       }));
+      const MyComponentHeaderPanel = styled("header")(({ theme }) => ({
+        color: "#fff",
+        backgroundColor: theme.palette.primary.main,
+        boxShadow:`5px 5px 5px ${theme.palette.primary.shadow}`
+      }));
+      
       const MyComponentDivHeader = styled("div")(({ theme }) => ({
         backgroundColor: theme.palette.primary.main,
       }));
@@ -25,6 +31,6 @@ const Components = () =>{
       const MyComponentContainerLoader = styled("div")(({ theme }) => ({
         background: theme.palette.primary.bg,
       }));
-    return { MyComponentDivHeader , MyComponentContainerLoader , MyComponentHeroSubtitleH3 , MyComponentHeroSubtitle , MyComponentHeader , MyComponentTitle , MyComponentTextP , MyComponentHeroSubtitleA }  
+    return { MyComponentDivHeader , MyComponentHeaderPanel , MyComponentContainerLoader , MyComponentHeroSubtitleH3 , MyComponentHeroSubtitle , MyComponentHeader , MyComponentTitle , MyComponentTextP , MyComponentHeroSubtitleA }  
 }
 export default Components

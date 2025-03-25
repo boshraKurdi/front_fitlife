@@ -171,6 +171,7 @@
   }
   .why__grid .exed{
     cursor: pointer;
+    flex: 1;
   }
   /* .why__grid .exed:hover{
     background: var(--fc-button-active-bg-color);
@@ -252,22 +253,35 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 2rem;
   }
   .why__grid .dd{
     display: flex;
+    border-bottom: 1px solid var(--coquelicot_20);
     align-items: center;
+    padding: 1rem 0;
     justify-content: center;
+  }
+  .why__grid .dd:hover{
+    background: var(--coquelicot_10);
+  }
+  .happy{
+    line-height: 1.6;
+    color: var(--fc-neutral-text-color);
+    padding: 1rem 0;
+  }
+  .happy.q{
+    border-bottom: 1px solid;
   }
   
   .why__grid span {
-    width: 150px;
-    border-radius: 10px;
+    width: 75px;
+    border-radius: 50%;
     margin: 0 1rem;
     height: 75px;
   }
   .why__grid span img{
     height: 100%;
+    border-radius: 50%;
     width: 100%;
   }
   .btn_start{

@@ -19,7 +19,9 @@ const DetailsGym = () => {
   const {gym , loadingShow } = UseDetalisGym()
   const newData = gym.section ? gym.section.map((data) => {
     return(
+      <>
       <CardContentDetails  title={data.title} description={data.description} img={data.media && data.media[0]?.original_url} />
+      </>
     )
   } ) :''
   return (
@@ -52,6 +54,7 @@ const DetailsGym = () => {
                 <TextField
                   id="outlined-read-only-input"
                   label="Name"
+                   className="width"
                   defaultValue={gym?.name}
                   sx={{ height: "80px" }}
                   slotProps={{
@@ -77,6 +80,7 @@ const DetailsGym = () => {
                 <TextField
                   id="outlined-read-only-input"
                   label="Description"
+                   className="width"
                   sx={{ height: "80px" }}
                   defaultValue={gym?.description}
                   multiline
@@ -101,6 +105,7 @@ const DetailsGym = () => {
                 <TextField
                   id="outlined-read-only-input"
                   label="Price"
+                   className="width"
                   sx={{ fontSize: "2rem", height: "80px" }}
                   defaultValue={gym?.price}
                 InputLabelProps={{
@@ -123,6 +128,7 @@ const DetailsGym = () => {
                 <TextField
                   id="outlined-read-only-input"
                   label="Open"
+                   className="width"
                   sx={{ fontSize: "2rem", height: "80px" }}
                   defaultValue={gym?.open}
                 InputLabelProps={{
@@ -145,6 +151,7 @@ const DetailsGym = () => {
                 <TextField
                   id="outlined-read-only-input"
                   label="Close"
+                   className="width"
                   sx={{ fontSize: "2rem", height: "80px" }}
                   defaultValue={gym?.close}
                 InputLabelProps={{
@@ -167,6 +174,7 @@ const DetailsGym = () => {
                 <TextField
                   id="outlined-read-only-input"
                   label="Type"
+                   className="width"
                   sx={{ fontSize: "2rem", height: "80px" }}
                   defaultValue={gym?.type}
                 InputLabelProps={{
@@ -189,6 +197,7 @@ const DetailsGym = () => {
                 <TextField
                   id="outlined-read-only-input"
                   label="Address"
+                   className="width"
                   sx={{ fontSize: "2rem", height: "80px" }}
                   defaultValue={gym?.address}
                 InputLabelProps={{

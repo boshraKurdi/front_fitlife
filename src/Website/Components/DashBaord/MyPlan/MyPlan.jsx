@@ -6,7 +6,7 @@ import SwiperComponent from "../../Swiper/SwiperComponent";
 const MyPlan = () => {
   const dispatch = useDispatch();
   const { myGoals } = useSelector((state) => state.myGoal);
-  const { myPlans } = useSelector((state) => state.myPlan);
+  const { myPlans , loading } = useSelector((state) => state.myPlan);
   const { language } = useSelector((state) => state.mode)
   useEffect(() => {
     dispatch(ActIndex());
@@ -21,7 +21,8 @@ const MyPlan = () => {
         });
         return (
           <>
-            {plans.length > 0 && (
+          {loading !== 'pending' ?
+            plans.length > 0 && (
               <section key={plans.id} className=" " id="blog" aria-label="blog">
                 <div className="container" style={{ position: "relative" }}>
                   <h2
@@ -38,11 +39,13 @@ const MyPlan = () => {
                   </ul>
                 </div>
               </section>
-            )}
+               
+            )
+            :"loading" }
           </>
         );
       })
     : "";
-  return newRecorde;
+  return  newRecorde;
 };
 export default MyPlan;

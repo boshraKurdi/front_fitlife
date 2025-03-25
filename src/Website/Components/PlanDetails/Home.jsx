@@ -8,8 +8,7 @@ import { NavLink } from "react-router-dom";
 
 const Home = ({ myplan, loading, error, data }) => {
   const { MyComponentTitle } = Components();
-  const { value, language } = useSelector((state) => state.mode);
-  console.log(error)
+  const { value, language , is_holiday } = useSelector((state) => state.mode);
   return (
     <>
       
@@ -110,7 +109,7 @@ const Home = ({ myplan, loading, error, data }) => {
                   </div>
                 </li>
               </ul>
-              {data.day ? (
+              {!is_holiday ? (
                 <NavLink
                   to={`dashboard/${data.week}/${data.day}`}
                   className="btn_start"

@@ -1,7 +1,6 @@
 import './PlanDetails.css'
 import Exercises from '../../Components/PlanDetails/Exercises'
 import Home from '../../Components/PlanDetails/Home'
-import LastExercises from '../../Components/PlanDetails/LastExercises'
 import Tips from '../../Components/PlanDetails/Tips'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'

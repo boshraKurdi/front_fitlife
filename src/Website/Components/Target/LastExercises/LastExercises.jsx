@@ -3,9 +3,9 @@ import SwiperComponent from "../../Swiper/SwiperComponent";
 import { useNavigate } from "react-router-dom";
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 export default function LastExercises({ progress, error, loading }) {
-  const { value, language } = useSelector((state) => state.mode);
+  const { value, language , data ,is_holiday } = useSelector((state) => state.mode);
   const nav = useNavigate();
-  const newData = progress[0]?.plans?.length
+  const newData = (progress[0]?.plans?.length && !is_holiday)
     ? progress[0]?.plans?.map((data) => {
         const newE = data?.exercise?.map((d) => {
           return (

@@ -30,13 +30,14 @@ export default function Water({ progress, error, loading }) {
           </div>
         </div>
         {
+          progress[0]?.water &&(
             !progress[0]?.water[0]?.targets?.length ?
             <div className="water_target">
             <div className="img">
               <Lottie className="home__img" animationData={Alarm} />
             </div>
             <div className="info">
-              <h2>{language === 'en' ? "You haven't had any water today." : "لم تشرب اليوم ماء أبداً"}😭</h2>
+              <h2>{language === 'en' ? "Take a moment now to quench your thirst." : " خذ لحظة الآن لتروي عطشكً"}💧</h2>
               <p>
                 {language === 'en' ? "Don't worry! Every new beginning starts with a single step. Start drinking a glass of water now, and you will feel the big difference in your health!" :"لا تقلق! كل بداية جديدة تبدأ بخطوة واحدة. ابدأ بشرب كوب من الماء الآن، وستشعر بالفرق الكبير في صحتك!"}
               </p>
@@ -67,7 +68,7 @@ export default function Water({ progress, error, loading }) {
                 <Lottie className="home__img" animationData={Sad} />
               </div>
               <div className="info">
-                <h2>{language === 'en' ? `it is ${progress[0]?.water[0]?.targets[0]?.water}L of ${progress[0]?.water[0]?.water}L` : `شربت اليوم ماء  ${progress[0]?.water[0]?.targets[0]?.water}L من ${progress[0]?.water[0]?.water}L`}😢</h2>
+                <h2>{language === 'en' ? `it is ${progress[0]?.water[0]?.targets[0]?.water}L of ${progress[0]?.water[0]?.water}L` : `شربت اليوم ماء  ${progress[0]?.water[0]?.targets[0]?.water}L من ${progress[0]?.water[0]?.water}L`}💪🏻</h2>
                 <p>
                   {language === 'en' ? "Don't forget, every drop counts! Try to add more water to your daily routine, your health is worth it!" : 'لا تنسى، كل قطرة مهمة! حاول أن تضيف المزيد من الماء إلى روتينك اليومي، فصحتك تستحق ذلك!'}
                 </p>
@@ -77,7 +78,7 @@ export default function Water({ progress, error, loading }) {
               </div>
             </div>
            
-
+            )
           )
             
         }

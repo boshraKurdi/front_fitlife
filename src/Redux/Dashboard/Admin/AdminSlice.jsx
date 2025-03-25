@@ -2,9 +2,12 @@ import { createSlice } from '@reduxjs/toolkit'
 import ActGetRequestGoals from './Act/ActGetRequestGoals'
 import ActRequestGoalConfirm from './Act/ActRequestGoalConfirm'
 import ActRequestGoalUnConfirm from './Act/ActRequestGoalUnConfirm'
+import ActPogress from './Act/ActPogress'
 const initialState = {
   dataRequestGoal: [] ,
   loading: 'idle',
+  progress:{},
+  message:'' ,
   loadingShow: 'idle',
   loadingStore: 'idle',
   error:null ,
@@ -16,7 +19,10 @@ export const adminSlice = createSlice({
   reducers: {
     CleanUp: (state) => {
         state.categories = [] 
-    } 
+    } ,
+    ResetMessages: (state) => {
+      state.message = [] 
+  } 
   } ,
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
@@ -34,6 +40,21 @@ export const adminSlice = createSlice({
         state.error = action.payload 
       }
     })
+    //progress
+    builder.addCase(ActPogress.pending , (state) => {
+      state.loading = 'pending' 
+      state.error = null
+    })
+    builder.addCase(ActPogress.fulfilled , (state , action) => {
+      state.loading = 'succeeded' 
+      state.progress = action.payload.data[0]
+    })
+    builder.addCase(ActPogress.rejected , (state , action) => {
+      state.loading = 'failed' 
+      if (action.payload && typeof action.payload === 'string') {
+        state.error = action.payload 
+      }
+    })
     //confirm
     builder.addCase(ActRequestGoalConfirm.pending , (state) => {
         state.loading = 'pending' 
@@ -41,7 +62,15 @@ export const adminSlice = createSlice({
       })
       builder.addCase(ActRequestGoalConfirm.fulfilled , (state , action) => {
         state.loading = 'succeeded' 
-        state.dataRequestGoal = action.payload.data
+        state.dataRequestGoal = state.dataRequestGoal.filter((el) => {
+          if(el.id !== action.payload.data.id)
+            return true
+          else
+            return false
+          
+        })
+        state.message = action.payload.message
+        state.type = action.payload.type
       })
       builder.addCase(ActRequestGoalConfirm.rejected , (state , action) => {
         state.loading = 'failed' 
@@ -56,7 +85,15 @@ export const adminSlice = createSlice({
       })
       builder.addCase(ActRequestGoalUnConfirm.fulfilled , (state , action) => {
         state.loading = 'succeeded' 
-        state.dataRequestGoal = action.payload.data
+        state.dataRequestGoal = state.dataRequestGoal.filter((el) => {
+          if(el.id !== action.payload.data.id)
+            return true
+          else
+            return false
+          
+        })
+        state.message = action.payload.message
+        state.type = action.payload.type
       })
       builder.addCase(ActRequestGoalUnConfirm.rejected , (state , action) => {
         state.loading = 'failed' 
@@ -69,6 +106,6 @@ export const adminSlice = createSlice({
    
 })
 // Action creators are generated for each case reducer function
-export { ActGetRequestGoals , ActRequestGoalConfirm , ActRequestGoalUnConfirm } 
-export const { CleanUp } = adminSlice.actions
+export { ActGetRequestGoals , ActRequestGoalConfirm , ActRequestGoalUnConfirm ,ActPogress } 
+export const { CleanUp  , ResetMessages} = adminSlice.actions
 export default adminSlice.reducer

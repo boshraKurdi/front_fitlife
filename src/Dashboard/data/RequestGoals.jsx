@@ -1,7 +1,7 @@
 import { Box, IconButton, Tooltip } from "@mui/material";
 import Header from "../components/Header";
 import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Table from "../components/Table";
@@ -9,19 +9,12 @@ import Swal from "sweetalert2";
 import { ActGetRequestGoals, ActRequestGoalConfirm, ActRequestGoalUnConfirm } from "../../Redux/Dashboard/Admin/AdminSlice";
 import { Link } from "react-router-dom";
 const RequestGoals = () => {
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(ActGetRequestGoals());
   }, [dispatch]);
-  const { dataRequestGoal } = useSelector((state) => state.admin);
-
-  const [rows, setRows] = useState(dataRequestGoal);
-  const [updatedRows, setUpdatedRows] = useState();
-
-  useEffect(() => {
-    setUpdatedRows(rows);
-  }, [rows]);
+  const { dataRequestGoal , loading  } = useSelector((state) => state.admin);
+  
   const columns = [
     { field: "id", headerName: "ID" },
     {
@@ -30,14 +23,14 @@ const RequestGoals = () => {
       headerName: " Name",
       flex: 1,
       cellClassName: "name-column--cell",
-      renderCell: (dataRequestGoal) => <Link to={"user/" + dataRequestGoal?.row.users?.id}>{dataRequestGoal?.row.users?.name}</Link>,
+      renderCell: (dataRequestGoal) => <Link to={"/dashboard/user/" + dataRequestGoal?.row.users?.id}>{dataRequestGoal?.row.users?.name}</Link>,
     },
     {
       field: "goal",
       headerName: "Goal",
       flex: 1,
       cellClassName: "name-column--cell",
-      renderCell: (dataRequestGoal) => <Link to={"goal/" + dataRequestGoal?.row.goal_plan?.goals.id}>{dataRequestGoal?.row.goal_plan?.goals.title}</Link>,
+      renderCell: (dataRequestGoal) => <Link to={"/dashboard/goal/" + dataRequestGoal?.row.goal_plan?.goals.id}>{dataRequestGoal?.row.goal_plan?.goals.title}</Link>,
     },
     {
       field: "event",
@@ -60,6 +53,7 @@ const RequestGoals = () => {
                 background: "red",
                 padding: "5px",
                 height:'32px',
+                color:"#Fff",
                 borderRadius: "8px",
               }}
             >
@@ -82,6 +76,7 @@ const RequestGoals = () => {
                 background: "green",
                 padding: "5px",
                 height:'32px',
+                color:"#Fff",
                 borderRadius: "8px",
               }}
             >
@@ -98,7 +93,6 @@ const RequestGoals = () => {
           }).catch(()=>{
             
           });
-          setRows((prevRows) => prevRows.filter((row) => row.id !== id));
   }, [dispatch]);
   function HandelDelete(id) {
     Swal.fire({
@@ -152,7 +146,7 @@ function HandelUpdateRquest(id) {
           subtitle="List of Data Request Goals Table"
         />
       </Box>
-      <Table  key={rows.length} columns={columns} data={updatedRows} getRowId={(row) => row.id} />
+      <Table loading={loading} columns={columns} data={dataRequestGoal} />
     </Box>
   );
 };

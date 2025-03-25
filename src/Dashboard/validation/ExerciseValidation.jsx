@@ -11,6 +11,8 @@ export default function ExerciseValidation(children){
     .string().required("required"),
     counter: yup
     .string().required("required"),
+    type: yup
+    .string().required("required"),
 });
 const initialValues = {
     title: children ? children.exercise.title: '',
@@ -20,6 +22,7 @@ const initialValues = {
     duration: children ? children.exercise.duration: '',
     calories:children ? children.exercise.calories: '',
     counter:children ? children.exercise.counter: '',
+    type:children ? children.exercise.type: 'feminine',
     steps:'',
     media: '' ,
 };

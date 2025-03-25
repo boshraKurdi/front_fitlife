@@ -1,206 +1,133 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./Stepper.css";
+import { format } from "date-fns";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import {  useEffect } from "react";
-import {SetData} from '../../../../Redux/Mode/ModeSlice'
-const Stepper = ({ indexOfToday }) => {
-  const { value , language } = useSelector((state) => state.mode);
+import { useEffect } from "react";
+import { SetData, SetHoliday } from "../../../../Redux/Mode/ModeSlice";
+const Stepper = ({ indexOfToday, myplan }) => {
+  const { value, language, data, is_holiday } = useSelector(
+    (state) => state.mode
+  );
   const dispatch = useDispatch();
+  const today = format(new Date(), "yyyy-MM-dd");
+
   useEffect(() => {
-    switch (indexOfToday) {
-      case 0:
-        dispatch(SetData({day: 1, week: 1 }));
-        break;
-      case 1:
-        dispatch(SetData({day: 2, week: 1 }));
-        break;
-      case 2:
-        dispatch(SetData({day: 3, week: 1 }));
-        break;
-      case 3:
-        dispatch(SetData({day: 4, week: 1 }));
-        break;
-      case 4:
-        dispatch(SetData({day: 5, week: 1 }));
-        break;
-      case 5:
-        dispatch(SetData({day: 6, week: 1 }));
-        break;
-      case 6:
-        dispatch(SetData({day: 7, week: 1 }));
-        break;
-      case 7:
-        dispatch(SetData({day: 1, week: 2 }));
-        break;
-      case 8:
-        dispatch(SetData({day: 2, week: 2 }));
-        break;
-      case 9:
-        dispatch(SetData({day: 3, week: 2 }));
-        break;
-      case 10:
-        dispatch(SetData({day: 4, week: 2 }));
-        break;
-      case 11:
-        dispatch(SetData({day: 5, week: 2 }));
-        break;
-      case 12:
-        dispatch(SetData({day: 6, week: 2 }));
-        break;
-      case 13:
-        dispatch(SetData({day: 7, week: 2 }));
-        break;
-      default:
-        dispatch(SetData({day: 0, week: 0 }));
+    let weekNumber = null;
+    let dayNumber = null;
+
+    if (indexOfToday !== -1) {
+      weekNumber = Math.floor(indexOfToday / 7) + 1;
+      dayNumber = (indexOfToday % 7) + 1;
+      dispatch(SetData({ ...data, day: dayNumber, week: weekNumber }));
+    }else{
+      dispatch(SetData({ ...data, day: -1, week: -1 }));
     }
-  }, [indexOfToday , dispatch]);
+    myplan?.date?.map((e) => {
+      if (format(e.date, "yyyy-MM-dd") === today) {
+        if (e.is_holiday) {
+          dispatch(SetHoliday(1));
+        }else{
+          dispatch(SetHoliday(0));
+        }
+      }
+    });
+  }, [indexOfToday, dispatch , myplan]);
 
   return (
     <div className="timeline">
+      {is_holiday ?
       <div className="timeline_container right_container">
-        <span style={{right: language === 'ar' && '10px'}} className={`num_img ${value}`}>1</span>
+        
+        <span
+          style={{ right: language === "ar" && "10px" }}
+          className={`num_img ${value}`}
+        >
+          🥳
+        </span>
         <div className={`text_body ${value}`}>
-          <button
-            className={
-              indexOfToday === 0 ? `cycle_number active` : "cycle_number"
-            }
+          <div
+            style={{
+              display: "flex",
+              alignItems: "flex-start",
+              flexDirection: "column",
+            }}
           >
-            1
-          </button>
-          <span className="ar">
-            <ChevronRightIcon style={{ color: "#ccc" }} />
-          </span>
-          <button
-            className={
-              indexOfToday === 1 ? `cycle_number active` : "cycle_number"
-            }
-          >
-            2
-          </button>
-          <span className="ar">
-            <ChevronRightIcon style={{ color: "#ccc" }} />
-          </span>
-          <button
-            className={
-              indexOfToday === 2 ? `cycle_number active` : "cycle_number"
-            }
-          >
-            3
-          </button>
-          <span className="ar">
-            <ChevronRightIcon style={{ color: "#ccc" }} />
-          </span>
-          <button
-            className={
-              indexOfToday === 3 ? `cycle_number active` : "cycle_number"
-            }
-          >
-            4
-          </button>
-          <span className="ar">
-            <ChevronRightIcon style={{ color: "#ccc" }} />
-          </span>
-          <button
-            className={
-              indexOfToday === 4 ? `cycle_number active` : "cycle_number"
-            }
-          >
-            5
-          </button>
-          <span className="ar">
-            <ChevronRightIcon style={{ color: "#ccc" }} />
-          </span>
-          <button
-            className={
-              indexOfToday === 5 ? `cycle_number active` : "cycle_number"
-            }
-          >
-            6
-          </button>
-          <span className="ar">
-            <ChevronRightIcon style={{ color: "#ccc" }} />
-          </span>
-          <button
-            className={
-              indexOfToday === 6 ? `cycle_number active` : "cycle_number"
-            }
-          >
-            7
-          </button>
+            <h2>{language == "ar" ? "عطلة سعيدة" : "Happy Holidays"}🥳</h2>
+            <p className="happy">
+              {language == "ar"
+                ? "يوجد عدة تمارين بسيطة اتمنى ان تستمتع بها في عطلتك تساعدك هذه التمارين على الهدوء والراحة وعدم الشعور بالملل اتمنى لك عطلة سعيدة"
+                : "There are several simple exercises that I hope you enjoy during your vacation. These exercises will help you to calm down, relax, and not feel bored. I wish you a happy vacation."}
+            </p>
+          </div>
+        </div>
+        </div>
+        :""}
+        <div className="timeline_container right_container">
+       
+        <span
+          style={{ right: language === "ar" && "10px" }}
+          className={`num_img ${value}`}
+        >
+          1
+        </span>
+        <div className={`text_body ${value}`}>
+          {
+             Array(7)
+             .fill(0)
+             .map((_, index) => {
+               return (
+                <>
+                <button
+                  className={
+                    indexOfToday === index ? `cycle_number active` : "cycle_number"
+                  }
+                >
+                  {(is_holiday && indexOfToday === index) ? language === 'ar' ? "عطلة" : 'holiday' : index+1}
+                </button>
+                <span className="ar">
+                  <ChevronRightIcon style={{ color: "#ccc" }} />
+                </span>
+               
+              </>
+               )
+          })
+        }
+         
         </div>
       </div>
-      <div className="timeline_container right_container">
-        <span style={{right: language === 'ar' && '10px'}} className={`num_img ${value}`}>2</span>
-        <div className={`text_body ${value}`}>
-          <button
-            className={
-              indexOfToday === 7 ? `cycle_number active` : "cycle_number"
-            }
-          >
-            1
-          </button>
-          <span className="ar">
-            <ChevronRightIcon style={{ color: "#ccc" }} />
-          </span>
-          <button
-            className={
-              indexOfToday === 8 ? `cycle_number active` : "cycle_number"
-            }
+   
+        <div className="timeline_container right_container">
+          <span
+            style={{ right: language === "ar" && "10px" }}
+            className={`num_img ${value}`}
           >
             2
-          </button>
-          <span className="ar">
-            <ChevronRightIcon style={{ color: "#ccc" }} />
           </span>
-          <button
-            className={
-              indexOfToday === 9 ? `cycle_number active` : "cycle_number"
-            }
-          >
-            3
-          </button>
-          <span className="ar">
-            <ChevronRightIcon style={{ color: "#ccc" }} />
-          </span>
-          <button
-            className={
-              indexOfToday === 10 ? `cycle_number active` : "cycle_number"
-            }
-          >
-            4
-          </button>
-          <span className="ar">
-            <ChevronRightIcon style={{ color: "#ccc" }} />
-          </span>
-          <button
-            className={
-              indexOfToday === 11 ? `cycle_number active` : "cycle_number"
-            }
-          >
-            5
-          </button>
-          <span className="ar">
-            <ChevronRightIcon style={{ color: "#ccc" }} />
-          </span>
-          <button
-            className={
-              indexOfToday === 12 ? `cycle_number active` : "cycle_number"
-            }
-          >
-            6
-          </button>
-          <span className="ar">
-            <ChevronRightIcon style={{ color: "#ccc" }} />
-          </span>
-          <button
-            className={
-              indexOfToday === 13 ? `cycle_number active` : "cycle_number"
-            }
-          >
-            7
-          </button>
+          <div className={`text_body ${value}`}>
+          {
+             Array(7)
+             .fill(0)
+             .map((_, index) => {
+               return (
+                <>
+                <button
+                  className={
+                    indexOfToday === index+7 ? `cycle_number active` : "cycle_number"
+                  }
+                >
+                    {(is_holiday && indexOfToday === index+7) ? language === 'ar' ? "عطلة" : 'holiday' : index+1}
+                </button>
+                <span className="ar">
+                  <ChevronRightIcon style={{ color: "#ccc" }} />
+                </span>
+               
+              </>
+               )
+          })
+        }
+          </div>
         </div>
-      </div>
+      
     </div>
   );
 };

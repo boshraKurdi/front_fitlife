@@ -41,15 +41,6 @@
 {
     left: 5%;
 }
-.timeline_container img{
-    position: absolute;
-    width: 40px;
-    border-radius: 50%;
-    right: -20px;
-    top: 32px;
-    z-index: 100;
-}
-
 .timeline::after{
     content: "";
     position: absolute;

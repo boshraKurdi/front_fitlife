@@ -31,7 +31,7 @@ export default function OtherFood({loading  , meal , error}) {
               </a>
             </h3>
 
-            <p className="card-text">{data.description && (language ==='ar' ? data.description_ar : data.description)}</p>
+            <p style={{fontWeight: "100"}} className="card-text">{data.description && (language ==='ar' ? data.description_ar : data.description)}</p>
 
             <Link to={'/mealDetails/'+data.id} className="btn-link has-before">
               {language ==='ar' ? "تفاصيل اكثر" : "Read More"}

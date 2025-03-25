@@ -55,6 +55,7 @@ const DetailsUser = () => {
                 <TextField
                   id="outlined-read-only-input"
                   label="Title"
+                    className="width"
                   defaultValue={user?.name}
                   sx={{ height: "80px" }}
                   slotProps={{
@@ -80,6 +81,7 @@ const DetailsUser = () => {
                 <TextField
                   id="outlined-read-only-input"
                   label="Description"
+                    className="width"
                   sx={{ height: "80px" }}
                   defaultValue={user?.description}
                   multiline
@@ -104,6 +106,7 @@ const DetailsUser = () => {
                 <TextField
                   id="outlined-read-only-input"
                   label="illness"
+                    className="width"
                   sx={{ fontSize: "2rem", height: "80px" }}
                   defaultValue={user?.illness}
                 InputLabelProps={{
@@ -126,6 +129,7 @@ const DetailsUser = () => {
                 <TextField
                   id="outlined-read-only-input"
                   label="email"
+                    className="width"
                   sx={{ fontSize: "2rem", height: "80px" }}
                   defaultValue={user?.email}
                 InputLabelProps={{
@@ -148,6 +152,7 @@ const DetailsUser = () => {
                 <TextField
                   id="outlined-read-only-input"
                   label="width"
+                    className="width"
                   sx={{ fontSize: "2rem", height: "80px" }}
                   defaultValue={user?.width+" kg"}
                 InputLabelProps={{
@@ -170,6 +175,7 @@ const DetailsUser = () => {
                 <TextField
                   id="outlined-read-only-input"
                   label="height"
+                    className="width"
                   sx={{ fontSize: "2rem", height: "80px" }}
                   defaultValue={user?.height+' cm'}
                 InputLabelProps={{
@@ -192,6 +198,7 @@ const DetailsUser = () => {
                 <TextField
                   id="outlined-read-only-input"
                   label="age"
+                    className="width"
                   sx={{ fontSize: "2rem", height: "80px" }}
                   defaultValue={user?.age}
                 InputLabelProps={{
@@ -214,6 +221,7 @@ const DetailsUser = () => {
                 <TextField
                   id="outlined-read-only-input"
                   label="address"
+                    className="width"
                   sx={{ fontSize: "2rem", height: "80px" }}
                   defaultValue={user?.address}
                 InputLabelProps={{

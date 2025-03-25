@@ -31,8 +31,7 @@ export default function Content() {
     [dispatch]
   );
   const { user } = useSelector((state) => state.auth)
-  let days = JSON.parse(user.days)
-  console.log(user)
+  let days = typeof user?.days === 'string' ? JSON.parse(user?.days) :user?.days
   function HandelDelete(){
     Swal.fire({
       title: "Are you sure?",
@@ -112,7 +111,7 @@ export default function Content() {
               <h3 className="cardtittle">{language == 'ar' ? "اخر نشاطي في التمارين" : "Latest activity exercises"}</h3>
               <Box height="250px" m="-20px 0 0 0">
                 {/* <LineChart title='exercises' data={profile?.caloriesForDay} isDashboard={true} /> */}
-                <BarChart data={profile?.caloriesForDay}/>
+                <BarChart title='calories' data={profile?.caloriesForDay}/>
               </Box>
             </div>
           </div>
@@ -121,7 +120,30 @@ export default function Content() {
               <h3 className="cardtittle">{language == 'ar' ? "اخر نشاطي في الوجبات" : "Latest activity meals"}</h3>
               <Box height="250px" m="-20px 0 0 0">
                 {/* <LineChart data={profile?.FoodForDay} title="meal" isDashboard={true} /> */}
-                <BarChart data={profile?.FoodForDay}/>
+                <BarChart title='calories' data={profile?.FoodForDay}/>
+              </Box>
+            </div>
+          </div>
+        </div>
+        <div
+          style={{ justifyContent: "center", marginBottom: "3rem" }}
+          className="row_profile row-1"
+        >
+          <div className="col">
+            <div className="latest-activity">
+              <h3 className="cardtittle">{language == 'ar' ? "اخر نشاطي في شرب الماء" : "Latest activity water"}</h3>
+              <Box height="250px" m="-20px 0 0 0">
+                {/* <LineChart title='exercises' data={profile?.caloriesForDay} isDashboard={true} /> */}
+                <BarChart title='liter' data={profile?.WaterForEveryDay}/>
+              </Box>
+            </div>
+          </div>
+          <div className="col">
+            <div className="latest-activity">
+              <h3 className="cardtittle">{language == 'ar' ? "اخر نشاطي في ساعات النوم" : "Latest activity sleep"}</h3>
+              <Box height="250px" m="-20px 0 0 0">
+                {/* <LineChart data={profile?.FoodForDay} title="meal" isDashboard={true} /> */}
+                <BarChart title='hours sleep' data={profile?.SleepForEveryDay}/>
               </Box>
             </div>
           </div>
