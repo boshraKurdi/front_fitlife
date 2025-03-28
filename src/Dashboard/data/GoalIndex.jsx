@@ -21,28 +21,34 @@ const GoalIndex = () => {
     dispatch(ActIndex());
   }, [dispatch]);
   const { goals, loading } = useSelector((state) => state.Dgoal);
+   const { language } = useSelector((state) => state.mode)
+   const headerID = "ID";
+   const headerTitle = language === "en" ? "Title" : "العنوان";
+   const headerDuration = language === "en" ? "Duration" : "المدة";
+   const headerEvent = language === "en" ? "Event" : "الحدث";
+   const headerPlan = language === "en" ? "Plan" : "الخطة";
   const columns = [
-    { field: "id", headerName: "ID" },
+    { field: "id", headerName: headerID },
     {
       field: "title",
-      headerName: "Title",
+      headerName: headerTitle,
       flex: 1,
     },
     {
       field: "duration",
-      headerName: "Duration",
+      headerName: headerDuration,
       flex: 1,
     },
     {
       field: "plan",
-      headerName: " Plan",
+      headerName: headerPlan,
       flex: 1,
       cellClassName: "name-column--cell",
       renderCell: (goals) => <Link to={"plan/" + goals.id}>plan</Link>,
     },
     {
       field: "event",
-      headerName: "event",
+      headerName: headerEvent,
       flex: 1,
       renderCell: (goals) => (
         <strong>
@@ -51,6 +57,7 @@ const GoalIndex = () => {
               variant="contained"
               size="small"
               style={{
+                margin:"0 0.5rem" ,
                 background: "red",
                 padding: "5px",
                 borderRadius: "8px",
@@ -64,7 +71,7 @@ const GoalIndex = () => {
               variant="contained"
               size="small"
               style={{
-                marginLeft: 16,
+                 margin:"0 0.5rem" ,
                 background: "green",
                 padding: "5px",
                 borderRadius: "8px",
@@ -78,7 +85,7 @@ const GoalIndex = () => {
               variant="contained"
               size="small"
               style={{
-                marginLeft: 16,
+                 margin:"0 0.5rem" ,
                 background: "#aaa",
                 padding: "5px",
                 borderRadius: "8px",
@@ -121,7 +128,7 @@ const GoalIndex = () => {
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="GOAL" subtitle="List of Goal Table" />
+        <Header title={language ==='en' ?"GOAL" : "الاهداف"} subtitle={language ==='en' ?"List of Goal Table" : "سجلات من جدول الاهداف"} />
         <Link to={"/dashboard/GoalForm"}>
           <Button
             sx={{
@@ -133,7 +140,7 @@ const GoalIndex = () => {
             }}
           >
             <AddIcon sx={{ fontSize: "2rem", mr: "10px" }} />
-            New Goal
+            {language ==='en' ? "New Goal" :"هدف جديد"}
           </Button>
         </Link>
       </Box>

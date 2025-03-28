@@ -13,8 +13,7 @@ export default function UseUpdateGoal() {
   const nav = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { value } = useSelector((state) => state.mode);
-  const { loadingStore, error } = useSelector((state) => state.Dgoal);
+  const { value , language } = useSelector((state) => state.mode);
   const { goal, loadingShow } = UseDetalisGoal();
   const { checkoutSchema, initialValues ,setInitialValues } = GoalValidation({
     goal,
@@ -75,16 +74,20 @@ export default function UseUpdateGoal() {
         enqueueSnackbar(`Update Goal  faild!`, { variant: "error" });
       });
   };
-  const [preview, setPreview] = useState(goal?.media && goal?.media[0].original_url);
-
+   const [preview, setPreview] = useState();
+  useEffect(() => {
+    if (goal?.media && goal.media[0]?.original_url) {
+      setPreview(goal.media[0].original_url);
+    }
+  }, [goal]);
   const handleImageChange = (event, setFieldValue) => {
     const file = event.currentTarget.files[0];
-    setFieldValue("image", file);
-
-    // إنشاء معاينة للصورة
+  
     if (file) {
+      setFieldValue("media", file);
+  
       const reader = new FileReader();
-      reader.onloadend = () => {
+      reader.onload = () => {
         setPreview(reader.result);
       };
       reader.readAsDataURL(file);
@@ -103,7 +106,6 @@ export default function UseUpdateGoal() {
       chips.filter((chip) => chip.key !== chipToDelete.key)
     );
   };
-  console.log(chipData)
   const newData = chipData?.map((data) => {
     return (
       <ListItem key={data.key}>
@@ -116,22 +118,19 @@ export default function UseUpdateGoal() {
     );
   });
   return {
-    id,
-    goal,
-    loadingShow,
     setChipData,
     MenuProps,
     isNonMobile,
+    language,
     value,
     newData,
     plans,
     loading,
     handleImageChange,
     handleFormSubmit,
-    loadingStore,
-    error,
+    loadingShow,
     checkoutSchema,
     initialValues,
-    preview
+    preview,
   };
 }

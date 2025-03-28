@@ -48,6 +48,10 @@ import CategoryForm from "../Dashboard/pages/form/CategoryForm";
 import CategoryUpdate from "../Dashboard/pages/update/CategoryUpdate";
 import Login from "../Dashboard/pages/login/Login";
 import RequierAuthPanel from "../Auth/RequierAuthPanel";
+import DChat from "../Dashboard/pages/chat/Chat";
+import RequestAdmin from "../Dashboard/data/RequestAdmin";
+import RequestCoach from "../Dashboard/data/RequestCoach";
+
 // route website
 // import RequierBack from "../Website/index";
 const regex = /^[0-9]+$/;
@@ -59,394 +63,534 @@ const Main = lazy(() => import("../Website/Pages/Main/Main")),
   GoogleCallBack = lazy(() =>
     import("../Website/Pages/Auth/GoogleCallBack/GoogleCallBack")
   ),
-  Information = lazy(() => import("../Website/Pages/Information/Information")) ,
-  GoalDetails = lazy(() => import("../Website/Pages/GoalDetails/GoalDetails")) ,
-  GymDetails = lazy(()=> import('../Website/Pages/GymDetails/GymDetails')),
-  Services = lazy(()=> import('../Website/Pages/Services/Services')),
-  Payment = lazy(()=> import('../Website/Pages/Payment/Payment')),
-  Gym = lazy(()=> import('../Website/Pages/Gym/Gym')),
-  PlanDetails = lazy(()=> import('../Website/Pages/PlanDetails/PlanDetails')),
-  Food = lazy(()=> import('../Website/Pages/Food/Food')),
-  ProfileCoach = lazy(()=> import('../Website/Pages/ProfileCoach/ProfileCoach')),
-  DetailsFood = lazy(()=> import("../Website/Pages/DetailsFood/DetailsFood")),
-  ExerciseDetails= lazy(()=> import("../Website/Pages/ExerciseDetails/ExerciseDetails")),
-  ProfileUser = lazy(()=> import("../Website/Pages/ProfileUser/ProfileUser")),
-   DashboardPlan = lazy(()=> import("../Website/Pages/DashboardPlan/DashboardPlan")),
-   EditProfile = lazy(()=> import("../Website/Pages/EditProfile/EditProfile")),
-   Sleep = lazy(()=> import("../Website/Pages/Sleep/Sleep")),
-   Workout  = lazy(()=> import("../Website/Pages/Workout/Workout")) ,
-   EditScheduling  = lazy(()=> import("../Website/Pages/EditScheduling/EditScheduling")) ,
-   Target  = lazy(()=> import("../Website/Pages/Target/Target")),
-  Chat = lazy(()=> import('../Website/Pages/Chat/Chat'));
+  Information = lazy(() => import("../Website/Pages/Information/Information")),
+  GoalDetails = lazy(() => import("../Website/Pages/GoalDetails/GoalDetails")),
+  GymDetails = lazy(() => import("../Website/Pages/GymDetails/GymDetails")),
+  Services = lazy(() => import("../Website/Pages/Services/Services")),
+  Payment = lazy(() => import("../Website/Pages/Payment/Payment")),
+  Gym = lazy(() => import("../Website/Pages/Gym/Gym")),
+  PlanDetails = lazy(() => import("../Website/Pages/PlanDetails/PlanDetails")),
+  Food = lazy(() => import("../Website/Pages/Food/Food")),
+  ProfileCoach = lazy(() =>
+    import("../Website/Pages/ProfileCoach/ProfileCoach")
+  ),
+  DetailsFood = lazy(() => import("../Website/Pages/DetailsFood/DetailsFood")),
+  ExerciseDetails = lazy(() =>
+    import("../Website/Pages/ExerciseDetails/ExerciseDetails")
+  ),
+  ProfileUser = lazy(() => import("../Website/Pages/ProfileUser/ProfileUser")),
+  DashboardPlan = lazy(() =>
+    import("../Website/Pages/DashboardPlan/DashboardPlan")
+  ),
+  EditProfile = lazy(() => import("../Website/Pages/EditProfile/EditProfile")),
+  Sleep = lazy(() => import("../Website/Pages/Sleep/Sleep")),
+  Workout = lazy(() => import("../Website/Pages/Workout/Workout")),
+  EditScheduling = lazy(() =>
+    import("../Website/Pages/EditScheduling/EditScheduling")
+  ),
+  Target = lazy(() => import("../Website/Pages/Target/Target")),
+  Chat = lazy(() => import("../Website/Pages/Chat/Chat")),
+  SendRequestAdmin = lazy(() =>
+    import("../Website/Pages/SendRequest/SendRequestAdmin")
+  ),
+  SendRequestCoach = lazy(() =>
+    import("../Website/Pages/SendRequest/SendRequestCoach")
+  );
 const router = createBrowserRouter([
   {
     path: "google/callback",
     element: <GoogleCallBack />,
   },
   {
-  path: '/dashboard' ,
-        element:  <MainDashboard /> ,
-        children:[
+    path: "/dashboard",
+    element: <MainDashboard />,
+    children: [
+      {
+        path: "loginPanel",
+        element: <Login />,
+      },
+      {
+        element: (
+          <Suspense fallback={<Loading />}>
+            <RequierAuthPanel allowedRole={["admin", "coach", "super"]} />
+          </Suspense>
+        ),
+        children: [
           {
-            path:'loginPanel' ,
-            element : <Login />
+            index: true,
+            element: <Dashboard />,
           },
           {
-            element:  <Suspense fallback={<Loading />}><RequierAuthPanel /></Suspense>,
+            path: "user",
+            element: <UserIndex />,
+          },
+
+          {
+            path: "category",
+            element: <Category />,
+          },
+          {
+            path: "meal",
+            element: <Meal />,
+          },
+          {
+            path: "goal",
+            element: <GoalIndex />,
+          },
+          {
+            path: "gym",
+            element: <GymIndex />,
+          },
+          {
+            path: "exercise",
+            element: <Exercise />,
+          },
+          {
+            path: "plan",
+            element: <Plan />,
+          },
+          {
+            element: (
+              <Suspense fallback={<Loading />}>
+                <RequierAuthPanel allowedRole={["coach"]} />
+              </Suspense>
+            ),
             children: [
               {
-                index:true ,
-                element : <Dashboard />
+                path: "chat",
+                element: <DChat />,
               },
-              {
-                path: 'user' ,
-                element: <UserIndex />
-              },
-              {
-                path: 'category' ,
-                element: <Category />
-              },
-              {
-                path: 'meal' ,
-                element: <Meal />
-              },
-              {
-                path: 'goal' ,
-                element: <GoalIndex />,
-              },
-              {
-                path: 'gym' ,
-                element: <GymIndex />,
-              },
-              {
-                path: 'exercise' ,
-                element: <Exercise />,
-              },
-              {
-                path: 'plan' ,
-                element: <Plan />,
-              },
-              {
-                path: 'requestGoals' ,
-                element: <RequestGoals />,
-              },
-              {
-                path: 'service' ,
-                element: <ServiceIndex />,
-              },
-              {
-                path: 'goal/plan/:id',
-                element: <PlanIndex />
-              },
-              {
-                path: 'goal/update/:id',
-                element: <GoalUpdate />
-              },
-              {
-                path: 'meal/update/:id',
-                element: <MealUpdate />
-              },
-              {
-                path: 'goal/plan/:id/exercises/:id',
-                element: <ExerciseIndex />
-              },
-              {
-                path: 'plan/update/:id',
-                element: <PlanUpdate />
-              },
-              {
-                path: 'exercise/update/:id',
-                element: <ExerciseUpdate />
-              },
-              {
-                path: 'service/update/:id',
-                element: <ServiceUpdate />
-              },
-              {
-                path: 'gym/update/:id',
-                element: <GymUpdate />
-              },
-              {
-                path: 'category/update/:id',
-                element: <CategoryUpdate />
-              },
-              
-              {
-                path: 'PlanForm' ,
-                element: <PlanForm />
-              },
-              {
-                path: 'CategoryForm' ,
-                element: <CategoryForm />
-              },
-              {
-                path: 'MealForm' ,
-                element: <MealForm />
-              },
-              {
-                path: 'ServiceForm' ,
-                element: <ServiceForm />
-              },
-              {
-                path: 'GoalForm' ,
-                element: <GoalForm />
-              },
-              {
-                path: 'ExerciseForm' ,
-                element: <ExerciseForm />
-              },
-              {
-                path: 'GymForm' ,
-                element: <GymForm />
-              },
-              {
-                path: 'plan/DetailsPlan/:id' ,
-                element: <DetailsPlan />
-              },
-              {
-                path: 'user/DetailsUser/:id' ,
-                element: <DetailsUser />
-              },
-              {
-                path: 'service/DetailsService/:id' ,
-                element: <DetailsService />
-              },
-              {
-                path: 'meal/DetailsMeal/:id' ,
-                element: <DetailsMeal />
-              },
-              {
-                path: 'exercise/DetailsExercise/:id' ,
-                element: <DetailsExercise />
-              },
-              {
-                path: 'gym/DetailsGym/:id' ,
-                element: <DetailsGym />
-              },
-              {
-                path: 'goal/DetailsGoal/:id' ,
-                element: <DetailsGoal />
-              },
-              {
-                path: 'bar' ,
-                element: <Bar />
-              },
-              {
-                path: 'pie' ,
-                element: <Pie />
-              },
-              {
-                path: 'line' ,
-                element: <Line />
-              },
-              {
-                path: 'faq' ,
-                element: <FAQ />
-              },
-              {
-                path: 'calendar' ,
-                element: <Calendar />
-              },
-              {
-                path: 'geography' ,
-                element: <Geography />
-              },
-            ]
+            ],
           },
-              
-        ]
+          {
+            path: "requestGoals",
+            element: <RequestGoals />,
+          },
+          {
+            path: "requestAdmin",
+            element: <RequestAdmin />,
+          },
+          {
+            path: "requestCoach",
+            element: <RequestCoach />,
+          },
+          {
+            path: "service",
+            element: <ServiceIndex />,
+          },
+          {
+            path: "goal/plan/:id",
+            element: <PlanIndex />,
+          },
+          {
+            path: "goal/update/:id",
+            element: <GoalUpdate />,
+          },
+          {
+            path: "meal/update/:id",
+            element: <MealUpdate />,
+          },
+          {
+            path: "goal/plan/:id/exercises/:id",
+            element: <ExerciseIndex />,
+          },
+          {
+            path: "plan/update/:id",
+            element: <PlanUpdate />,
+          },
+          {
+            path: "exercise/update/:id",
+            element: <ExerciseUpdate />,
+          },
+          {
+            path: "service/update/:id",
+            element: <ServiceUpdate />,
+          },
+          {
+            path: "gym/update/:id",
+            element: <GymUpdate />,
+          },
+          {
+            path: "category/update/:id",
+            element: <CategoryUpdate />,
+          },
+
+          {
+            path: "PlanForm",
+            element: <PlanForm />,
+          },
+          {
+            path: "CategoryForm",
+            element: <CategoryForm />,
+          },
+          {
+            path: "MealForm",
+            element: <MealForm />,
+          },
+          {
+            path: "ServiceForm",
+            element: <ServiceForm />,
+          },
+          {
+            path: "GoalForm",
+            element: <GoalForm />,
+          },
+          {
+            path: "ExerciseForm",
+            element: <ExerciseForm />,
+          },
+          {
+            path: "GymForm",
+            element: <GymForm />,
+          },
+          {
+            path: "plan/DetailsPlan/:id",
+            element: <DetailsPlan />,
+          },
+          {
+            path: "user/DetailsUser/:id",
+            element: <DetailsUser />,
+          },
+          {
+            path: "service/DetailsService/:id",
+            element: <DetailsService />,
+          },
+          {
+            path: "meal/DetailsMeal/:id",
+            element: <DetailsMeal />,
+          },
+          {
+            path: "exercise/DetailsExercise/:id",
+            element: <DetailsExercise />,
+          },
+          {
+            path: "gym/DetailsGym/:id",
+            element: <DetailsGym />,
+          },
+          {
+            path: "goal/DetailsGoal/:id",
+            element: <DetailsGoal />,
+          },
+          {
+            path: "bar",
+            element: <Bar />,
+          },
+          {
+            path: "pie",
+            element: <Pie />,
+          },
+          {
+            path: "line",
+            element: <Line />,
+          },
+          {
+            path: "faq",
+            element: <FAQ />,
+          },
+          {
+            path: "calendar",
+            element: <Calendar />,
+          },
+          {
+            path: "geography",
+            element: <Geography />,
+          },
+        ],
+      },
+    ],
   },
   {
     path: "/",
-    element:  <Suspense fallback={<Loading />}><Main /></Suspense>,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <Main />
+      </Suspense>
+    ),
     errorElement: <E404 />,
     children: [
       {
         index: true,
-        element:  <Suspense fallback={<Loading />}><Home /></Suspense>,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Home />
+          </Suspense>
+        ),
       },
-     
-          {
-            index: true,
-            path: "login",
-            element:  <Suspense fallback={<Loading />}><Auth /></Suspense>,
-          },
-   
-      {
-          path: 'goalDetails/:id',
-          element: <Suspense fallback={<Loading />}><GoalDetails /></Suspense>,
-          loader : ({params}) =>{
-            if (!regex.test(params.id)) {
-              throw new Response("bad request" , {
-                statusText: "goal not found" ,
-                status: 400
-              })
-            }
-            return true;
-          }
-      },
-      {
-        path: 'services/chat/:id',
-        element:  <Suspense fallback={<Loading />}><Chat /></Suspense>,
-        loader : ({params}) =>{
-          if (!regex.test(params.id)) {
-            throw new Response("bad request" , {
-              statusText: "chat not found" ,
-              status: 400
-            })
-          }
-          return true;
-        }
-      },
-      {
-        path: 'exerciseDetails/:id/:plan_id',
-        element: <Suspense fallback={<Loading />}><ExerciseDetails /></Suspense>,
-        loader : ({params}) =>{
-          if (!regex.test(params.id)) {
-            throw new Response("bad request" , {
-              statusText: "exercise not found" ,
-              status: 400
-            })
-          }
-          return true;
-        }
-    },
-    {
-      path: 'exerciseDetails/:id/:plan_id/workout',
-      element: <Suspense fallback={<Loading />}><Workout /></Suspense>,
-      loader : ({params}) =>{
-        if (!regex.test(params.id)) {
-          throw new Response("bad request" , {
-            statusText: "exercise not found" ,
-            status: 400
-          })
-        }
-        return true;
-      }
-  },
-    {
-      path: 'myProfile',
-      element: <Suspense fallback={<Loading />}><ProfileUser /></Suspense>,
-  },
-  {
-    path: 'target',
-    element: <Suspense fallback={<Loading />}><Target /></Suspense>,
-},
-  {
-    path: 'sleep',
-    element: <Suspense fallback={<Loading />}><Sleep /></Suspense>,
-},
-  {
-    path: 'myProfile/edit',
-    element: <Suspense fallback={<Loading />}><EditProfile /></Suspense>,
-},
-{
-  path: 'myProfile/editScheduling',
-  element: <Suspense fallback={<Loading />}><EditScheduling /></Suspense>,
-},
-      {
-        path: 'mealDetails/:id',
-        element: <Suspense fallback={<Loading />}><DetailsFood /></Suspense>,
-        loader : ({params}) =>{
-          if (!regex.test(params.id)) {
-            throw new Response("bad request" , {
-              statusText: "meal not found" ,
-              status: 400
-            })
-          }
-          return true;
-        }
 
-    },
       {
-        path: '/services/profileCoach/:id',
-        element:  <Suspense fallback={<Loading />}><ProfileCoach /></Suspense>,
-        loader : ({params}) =>{
+        index: true,
+        path: "login",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Auth />
+          </Suspense>
+        ),
+      },
+
+      {
+        path: "goalDetails/:id",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <GoalDetails />
+          </Suspense>
+        ),
+        loader: ({ params }) => {
           if (!regex.test(params.id)) {
-            throw new Response("bad request" , {
-              statusText: "coach not found" ,
-              status: 400
-            })
+            throw new Response("bad request", {
+              statusText: "goal not found",
+              status: 400,
+            });
           }
           return true;
-        }
+        },
       },
       {
-        path: 'food/:id',
-        element: <Suspense fallback={<Loading />}><Food /></Suspense>,
-        loader : ({params}) =>{
+        path: "services/chat/:id",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Chat />
+          </Suspense>
+        ),
+        loader: ({ params }) => {
           if (!regex.test(params.id)) {
-            throw new Response("bad request" , {
-              statusText: "food not found" ,
-              status: 400
-            })
+            throw new Response("bad request", {
+              statusText: "chat not found",
+              status: 400,
+            });
           }
           return true;
-        }
-    },
+        },
+      },
       {
-        element:  <Suspense fallback={<Loading />}><RequierAuth /></Suspense>,
+        path: "exerciseDetails/:id/:plan_id",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <ExerciseDetails />
+          </Suspense>
+        ),
+        loader: ({ params }) => {
+          if (!regex.test(params.id)) {
+            throw new Response("bad request", {
+              statusText: "exercise not found",
+              status: 400,
+            });
+          }
+          return true;
+        },
+      },
+      {
+        path: "exerciseDetails/:id/:plan_id/workout",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Workout />
+          </Suspense>
+        ),
+        loader: ({ params }) => {
+          if (!regex.test(params.id)) {
+            throw new Response("bad request", {
+              statusText: "exercise not found",
+              status: 400,
+            });
+          }
+          return true;
+        },
+      },
+      {
+        path: "myProfile",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <ProfileUser />
+          </Suspense>
+        ),
+      },
+      {
+        path: "requestAdmin",
+        element: <SendRequestAdmin />,
+      },
+      {
+        path: "requestCoach",
+        element: <SendRequestCoach />,
+      },
+      {
+        path: "target",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Target />
+          </Suspense>
+        ),
+      },
+      {
+        path: "sleep",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Sleep />
+          </Suspense>
+        ),
+      },
+      {
+        path: "myProfile/edit",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <EditProfile />
+          </Suspense>
+        ),
+      },
+      {
+        path: "myProfile/editScheduling",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <EditScheduling />
+          </Suspense>
+        ),
+      },
+      {
+        path: "mealDetails/:id",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <DetailsFood />
+          </Suspense>
+        ),
+        loader: ({ params }) => {
+          if (!regex.test(params.id)) {
+            throw new Response("bad request", {
+              statusText: "meal not found",
+              status: 400,
+            });
+          }
+          return true;
+        },
+      },
+      {
+        path: "/services/profileCoach/:id",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <ProfileCoach />
+          </Suspense>
+        ),
+        loader: ({ params }) => {
+          if (!regex.test(params.id)) {
+            throw new Response("bad request", {
+              statusText: "coach not found",
+              status: 400,
+            });
+          }
+          return true;
+        },
+      },
+      {
+        path: "food/:id",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Food />
+          </Suspense>
+        ),
+        loader: ({ params }) => {
+          if (!regex.test(params.id)) {
+            throw new Response("bad request", {
+              statusText: "food not found",
+              status: 400,
+            });
+          }
+          return true;
+        },
+      },
+      {
+        element: (
+          <Suspense fallback={<Loading />}>
+            <RequierAuth />
+          </Suspense>
+        ),
         children: [
           {
             path: "user",
-            element:  <Suspense fallback={<Loading />}><DashBoard /></Suspense>,
-           
+            element: (
+              <Suspense fallback={<Loading />}>
+                <DashBoard />
+              </Suspense>
+            ),
           },
           {
             path: "gym",
-            element:  <Suspense fallback={<Loading />}><Gym /></Suspense>,
-           
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Gym />
+              </Suspense>
+            ),
           },
           {
-            path: 'services',
-            element:  <Suspense fallback={<Loading />}><Services /></Suspense>,
+            path: "services",
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Services />
+              </Suspense>
+            ),
           },
           {
-            path: 'services/payment',
-            element:  <Suspense fallback={<Loading />}><Payment /></Suspense>,
+            path: "services/payment",
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Payment />
+              </Suspense>
+            ),
           },
           {
-            path: 'gymDetails/:id' ,
-            element: <Suspense fallback={<Loading />}><GymDetails /></Suspense>,
-            loader : ({params}) =>{
+            path: "gymDetails/:id",
+            element: (
+              <Suspense fallback={<Loading />}>
+                <GymDetails />
+              </Suspense>
+            ),
+            loader: ({ params }) => {
               if (!regex.test(params.id)) {
-                throw new Response("bad request" , {
-                  statusText: "gym not found" ,
-                  status: 400
-                })
+                throw new Response("bad request", {
+                  statusText: "gym not found",
+                  status: 400,
+                });
               }
               return true;
-            }
+            },
           },
           {
-            path: 'planDetails/:id' ,
-            element: <Suspense fallback={<Loading />}><PlanDetails /></Suspense>,
-            loader : ({params}) =>{
+            path: "planDetails/:id",
+            element: (
+              <Suspense fallback={<Loading />}>
+                <PlanDetails />
+              </Suspense>
+            ),
+            loader: ({ params }) => {
               if (!regex.test(params.id)) {
-                throw new Response("bad request" , {
-                  statusText: "plan not found" ,
-                  status: 400
-                })
+                throw new Response("bad request", {
+                  statusText: "plan not found",
+                  status: 400,
+                });
               }
               return true;
-            }
+            },
           },
           {
-            path: 'planDetails/:id/dashboard/:week/:day' ,
-            element: <Suspense fallback={<Loading />}><DashboardPlan /></Suspense>,
-            loader : ({params}) =>{
+            path: "planDetails/:id/dashboard/:week/:day",
+            element: (
+              <Suspense fallback={<Loading />}>
+                <DashboardPlan />
+              </Suspense>
+            ),
+            loader: ({ params }) => {
               if (!regex.test(params.id)) {
-                throw new Response("bad request" , {
-                  statusText: "plan not found" ,
-                  status: 400
-                })
+                throw new Response("bad request", {
+                  statusText: "plan not found",
+                  status: 400,
+                });
               }
               return true;
-            }
+            },
           },
           {
             path: "information",
-            element:  <Suspense fallback={<Loading />}><Information /></Suspense>,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Information />
+              </Suspense>
+            ),
           },
         ],
       },
@@ -472,7 +616,7 @@ export default function AppRouter() {
               title: "#000",
               secondy: "hsl(210, 26%, 11%, 0.5)",
               thred: "hsl(294.74deg 16.89% 62.04%)",
-               shadow: "rgba(0,0,0,0.1)"
+              shadow: "rgba(0,0,0,0.1)",
             },
           }
         : {
@@ -481,14 +625,14 @@ export default function AppRouter() {
               default: "hsl(210, 26%, 11%)",
             },
             primary: {
-              bg:"hsl(210, 26%, 11%)",
+              bg: "hsl(210, 26%, 11%)",
               main: "hsl(210, 26%, 11%)",
               light: "hsl(210, 26%, 11%)",
               contrastText: "hsl(214, 15%, 62%)",
               title: "#fff",
               secondy: "hsl(0, 0%, 100%, 0.1)",
-              thred: "hsl(294.74deg 16.89% 62.04%)" ,
-              shadow: "rgba(0,0,0,0)"
+              thred: "hsl(294.74deg 16.89% 62.04%)",
+              shadow: "rgba(0,0,0,0)",
             },
           }),
     },
@@ -497,7 +641,7 @@ export default function AppRouter() {
     <>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-          <RouterProvider router={router} />
+        <RouterProvider router={router} />
       </ThemeProvider>
     </>
   );

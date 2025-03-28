@@ -15,7 +15,7 @@ const Topbar = () => {
   const colors = tokens(theme.palette.mode);
   const dispatch = useDispatch();
   const { value } = useSelector((state) => state.mode);
-  const mode = value === "dark" ? 'light' : 'dark';
+  const mode = value === "dark" ? "light" : "dark";
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
       {/* SEARCH BAR */}
@@ -23,6 +23,8 @@ const Topbar = () => {
         display="flex"
         backgroundColor={colors.primary[400]}
         borderRadius="3px"
+        width="300px"
+        padding="0 1rem"
       >
         <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" />
         <IconButton type="button" sx={{ p: 1 }}>
@@ -32,9 +34,11 @@ const Topbar = () => {
 
       {/* ICONS */}
       <Box display="flex">
-        <IconButton onClick={()=>{
-          dispatch(SetMode(mode))
-        }}>
+        <IconButton
+          onClick={() => {
+            dispatch(SetMode(mode));
+          }}
+        >
           {value === "dark" ? (
             <DarkModeOutlinedIcon />
           ) : (

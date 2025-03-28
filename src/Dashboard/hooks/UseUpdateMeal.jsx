@@ -12,17 +12,15 @@ export default function UseUpdateMeal() {
   const nav = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { value } = useSelector((state) => state.mode);
-  const { loadingStore, error } = useSelector((state) => state.Dmeal);
+  const { value, language } = useSelector((state) => state.mode);
   const { meal, loadingShow } = UseDetalisMeal();
-  const { checkoutSchema, initialValues ,setInitialValues } = MealValidation({
+  const { checkoutSchema, initialValues, setInitialValues } = MealValidation({
     meal,
     loadingShow,
   });
-  
+
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  
   const [stepsData, setStepsData] = useState([]);
   const [stepsCount, setStepsCount] = useState(meal?.ingredients?.length);
   const handleStepImageChange = (file, index) => {
@@ -30,29 +28,30 @@ export default function UseUpdateMeal() {
     updatedSteps[index].media_ingredients = file;
     setStepsData(updatedSteps);
   };
-  useEffect(()=>{
-    setInitialValues({...initialValues , 
+  useEffect(() => {
+    setInitialValues({
+      ...initialValues,
       title: meal.title,
       title_ar: meal.title_ar,
       description: meal.description,
       description_ar: meal.description_ar,
-      calories:meal.calories,
-      fats:meal.fats,
-      carbohydrates:meal.carbohydrates,
-      proteins:meal.proteins,
-      prepare:meal.prepare,
-      prepare_ar:meal.prepare_ar,
-      category_id:meal.category_id,
-      ingredients: '',
-      media: '' ,
+      calories: meal.calories,
+      fats: meal.fats,
+      carbohydrates: meal.carbohydrates,
+      proteins: meal.proteins,
+      prepare: meal.prepare,
+      prepare_ar: meal.prepare_ar,
+      category_id: meal.category_id,
+      ingredients: "",
+      media: "",
     });
-  } , [id] )
+  }, [meal]);
   useEffect(() => {
     if (meal?.ingredients) {
-      const formattedSteps = meal.ingredients.map((step) => ({
+      const formattedSteps = meal?.ingredients?.map((step) => ({
         id: step.id || 0,
-        name: step.name || '',
-        name_ar: step.name_ar || '',
+        name: step.name || "",
+        name_ar: step.name_ar || "",
         num: step.num || 0,
         media_ingredients: null,
       }));
@@ -69,14 +68,14 @@ export default function UseUpdateMeal() {
   };
   const handleStepsCountChange = (e) => {
     const count = parseInt(e.target.value) || 0;
-  
+
     // نحدث العداد فقط (هذا يفيدك لو فيه عنصر Input مرتبط فيه)
     setStepsCount(count);
-  
+
     // أهم جزء: التحديث على stepsData نفسه
     setStepsData((prevStepsData) => {
       const currentCount = prevStepsData.length;
-  
+
       if (count > currentCount) {
         // نضيف الفارق بدون مضاعفة
         const difference = count - currentCount;
@@ -87,7 +86,7 @@ export default function UseUpdateMeal() {
           num: 0,
           media_ingredients: null,
         }));
-  
+
         return [...prevStepsData, ...additionalSteps];
       } else if (count < currentCount) {
         // نقص العناصر ببساطة
@@ -98,11 +97,6 @@ export default function UseUpdateMeal() {
       }
     });
   };
-  
-  
-  
-
- 
 
   const handleFormSubmit = (values) => {
     const formData = new FormData();
@@ -129,7 +123,7 @@ export default function UseUpdateMeal() {
       }
     });
     formData.append("media", values.media);
-    dispatch(ActUpdate({data:formData , id:id}))
+    dispatch(ActUpdate({ data: formData, id: id }))
       .unwrap()
       .then(() => {
         nav("/dashboard");
@@ -139,15 +133,20 @@ export default function UseUpdateMeal() {
         enqueueSnackbar(`Update Meal  faild!`, { variant: "error" });
       });
   };
-  const [preview, setPreview] = useState(meal?.media && meal?.media[0]?.original_url);
-
+  const [preview, setPreview] = useState();
+  useEffect(() => {
+    if (meal?.media && meal.media[0]?.original_url) {
+      setPreview(meal.media[0].original_url);
+    }
+  }, [meal]);
   const handleImageChange = (event, setFieldValue) => {
     const file = event.currentTarget.files[0];
-    setFieldValue("media", file);
 
     if (file) {
+      setFieldValue("media", file);
+
       const reader = new FileReader();
-      reader.onloadend = () => {
+      reader.onload = () => {
         setPreview(reader.result);
       };
       reader.readAsDataURL(file);
@@ -156,28 +155,23 @@ export default function UseUpdateMeal() {
   const { categories, loading } = useSelector((state) => state.Dcategory);
   useEffect(() => {
     dispatch(ActIndex());
-  }, [dispatch ]);
- 
+  }, [dispatch]);
 
   return {
-    id,
-    meal,
-    loadingShow,
     isNonMobile,
     value,
     handleDeleteStep,
-    handleStepChange,
-    stepsData,
-    handleStepsCountChange,
-    setStepsData,
-    stepsCount,
     categories,
+    language,
+    stepsData,
+    setStepsData,
+    handleStepsCountChange,
+    stepsCount,
     loading,
+    handleStepChange,
     handleImageChange,
-    handleStepImageChange ,
+    handleStepImageChange,
     handleFormSubmit,
-    loadingStore,
-    error,
     checkoutSchema,
     initialValues,
     preview,

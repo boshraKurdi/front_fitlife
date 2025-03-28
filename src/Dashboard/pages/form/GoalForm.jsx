@@ -1,14 +1,13 @@
 import {
   Box,
   Button,
-  TextField,
-  Select,
-  MenuItem,
   Paper,
   Chip,
   styled,
+  MenuItem,
+  Select,
 } from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from "@mui/icons-material/Add";
 import { Form, Formik } from "formik";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
@@ -20,13 +19,12 @@ import { useEffect, useState } from "react";
 import { ActStore } from "../../../Redux/Dashboard/Goal/GoalSlice";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import Loading from "../../components/loading/Loading";
+import InputForm from "../../components/InputForm";
 
 const GoalForm = () => {
   const nav = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-  const { value } = useSelector((state) => state.mode);
-  const { loadingStore, error } = useSelector((state) => state.Dgoal);
+  const { value, language } = useSelector((state) => state.mode);
   const { checkoutSchema, initialValues } = GoalValidation();
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const dispatch = useDispatch();
@@ -46,7 +44,7 @@ const GoalForm = () => {
     formData.append("description", values.description);
     formData.append("description_ar", values.description_ar);
     formData.append("duration", values.duration);
-    chipData.forEach(element => {
+    chipData.forEach((element) => {
       formData.append("Plan[]", element.key);
     });
     formData.append("calories_max", values.calories_max);
@@ -57,26 +55,27 @@ const GoalForm = () => {
       .then(() => {
         nav("/dashboard");
         enqueueSnackbar(`Update Goal successfully!`, { variant: "success" });
-        }).catch(()=>{
-          enqueueSnackbar(`Update Goal faild!`, { variant: "error" });
-        });
+      })
+      .catch(() => {
+        enqueueSnackbar(`Update Goal faild!`, { variant: "error" });
+      });
   };
-  const [preview, setPreview] = useState('');
-    
-      const handleImageChange = (event, setFieldValue) => {
-        const file = event.currentTarget.files[0];
-        setFieldValue("media", file);
-    
-        // إنشاء معاينة للصورة
-        if (file) {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            setPreview(reader.result);
-          };
-          reader.readAsDataURL(file);
-        }
+  const [preview, setPreview] = useState("");
+
+  const handleImageChange = (event, setFieldValue) => {
+    const file = event.currentTarget.files[0];
+    setFieldValue("media", file);
+
+    // إنشاء معاينة للصورة
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);
       };
-  
+      reader.readAsDataURL(file);
+    }
+  };
+
   const { plans, loading } = useSelector((state) => state.Dplan);
   useEffect(() => {
     dispatch(ActIndex());
@@ -95,7 +94,11 @@ const GoalForm = () => {
     return (
       <ListItem key={data.key}>
         <Chip
-          sx={{ fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' }}
+          sx={{
+            fontSize: "1.2rem",
+            fontFamily: "system-ui",
+            lineHeight: "1.5",
+          }}
           label={data.label}
           onDelete={handleDelete(data)}
         />
@@ -105,7 +108,7 @@ const GoalForm = () => {
 
   return (
     <Box m="20px">
-      <Header title="CREATE GOAL" subtitle="Create a New Goal" />
+      <Header title={language === "en" ?"CREATE GOAL" : "انشاء هدف"} subtitle={language === "en" ?"Create a New Goal" : "املأ البيانات لانشاء هدف"} />
       <Formik
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
@@ -114,6 +117,7 @@ const GoalForm = () => {
         {({
           values,
           errors,
+          isSubmitting,
           touched,
           setFieldValue,
           handleBlur,
@@ -129,183 +133,70 @@ const GoalForm = () => {
                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
               }}
             >
-              <TextField
-                variant="filled"
-                type="text"
-                label="Title"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.title}
-                name="title"
-                error={!!touched.title && !!errors.title}
-                helperText={touched.title && errors.title}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.title}
+                touched={touched.title}
+                errors={errors.title}
+                title={language === "en" ? "title" : "العنوان"}
+                name={"title"}
               />
-               <TextField
-              
-                variant="filled"
-                type="text"
-                label="Title AR"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.title_ar}
-                name="title_ar"
-                error={!!touched.title_ar && !!errors.title_ar}
-                helperText={touched.title_ar && errors.title_ar}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.title_ar}
+                touched={touched.title_ar}
+                errors={errors.title_ar}
+                title={language === "en" ? "title ar" : "العنوان بالعربي"}
+                name={"title_ar"}
               />
-              <TextField
-              
-                variant="filled"
-                type="text"
-                label="Description"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.description}
-                name="description"
-                error={!!touched.description && !!errors.description}
-                helperText={touched.description && errors.description}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.description}
+                touched={touched.description}
+                errors={errors.description}
+                title={language === "en" ? "description" : "الوصف"}
+                name={"description"}
               />
-               <TextField
-              
-                variant="filled"
-                type="text"
-                label="Description AR"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.description_ar}
-                name="description_ar"
-                error={!!touched.description_ar && !!errors.description_ar}
-                helperText={touched.description_ar && errors.description_ar}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.description_ar}
+                touched={touched.description_ar}
+                errors={errors.description_ar}
+                title={language === "en" ? "description ar" : "الوصف بالعربي"}
+                name={"description_ar"}
               />
-              <TextField
-              
-                variant="filled"
-                type="text"
-                label="Calories Min"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.calories_min}
-                name="calories_min"
-                error={!!touched.calories_min && !!errors.calories_min}
-                helperText={touched.calories_min && errors.calories_min}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.calories_min}
+                touched={touched.calories_min}
+                errors={errors.calories_min}
+                title={language === "en" ? "calories min" : "اقل سعرات حرارية"}
+                name={"calories_min"}
               />
-               <TextField
-              
-                variant="filled"
-                type="text"
-                label="Calories Max"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.calories_max}
-                name="calories_max"
-                error={!!touched.calories_max && !!errors.calories_max}
-                helperText={touched.calories_max && errors.calories_max}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.calories_max}
+                touched={touched.calories_max}
+                errors={errors.calories_max}
+                title={language === "en" ? "calories max" : "اكثر سعرات حرارية"}
+                name={"calories_max"}
               />
-              <TextField
-              
-                variant="filled"
-                type="text"
-                label="Duration"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.duration}
-                name="duration"
-                error={!!touched.duration && !!errors.duration}
-                helperText={touched.duration && errors.duration}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.duration}
+                touched={touched.duration}
+                errors={errors.duration}
+                title={language === "en" ? "duration" : "المدة"}
+                name={"duration"}
               />
-
               <Select
-              
                 name="Plan"
                 value={values.Plan}
                 variant="filled"
@@ -317,33 +208,35 @@ const GoalForm = () => {
                 displayEmpty
                 renderValue={(selected) => {
                   if (!selected) {
-                    return <em style={{ color: "#aaa" }}>Plan</em>;
+                    return <em style={{ color: "#aaa" }}>Plans</em>;
                   }
                   return selected;
                 }}
               >
-                {loading === 'pending'
-                  ? <MenuItem value="0">loading...</MenuItem>
-                  : plans.map((e) => {
-                      return (
-                        <MenuItem
-                          sx={{ fontSize: "1.2rem" ,fontFamily: 'system-ui',  lineHeight:'1.5' }}
-                          onClick={() => {
-                            setChipData((prevChipData) => [
-                              ...prevChipData,
-                              { key: e.id, label: e?.title },
-                            ]);
-                          }}
-                          key={e.id}
-                          value={e.id}
-                        >
-                          {e?.title}
-                        </MenuItem>
-                      );
-                    })}
+                {loading === "pending" ? (
+                  <MenuItem value="0">loading...</MenuItem>
+                ) : (
+                  plans?.map((e) => {
+                    return (
+                      <MenuItem
+                        sx={{ fontSize: "1.3rem", lineHeight: "1.5" }}
+                        onClick={() => {
+                          setChipData((prevChipData) => [
+                            ...prevChipData,
+                            { key: e.id, label: e?.title },
+                          ]);
+                        }}
+                        key={e.id}
+                        value={e.id}
+                      >
+                        {e?.title}
+                      </MenuItem>
+                    );
+                  })
+                )}
               </Select>
               {newData.length > 0 && (
-                <Paper            
+                <Paper
                   sx={{
                     display: "flex",
                     justifyContent: "center",
@@ -358,8 +251,22 @@ const GoalForm = () => {
                   {newData}
                 </Paper>
               )}
-               <div className="uploadfile" style={{ border: '2px dashed #ccc' ,gridColumn: "span 4" , display:'flex' , alignItems:'center' }}>
-                {preview && <img style={{width:'25%' , marginRight:'1rem'}} src={preview} alt="none" />}
+              <div
+                className="uploadfile"
+                style={{
+                  border: "2px dashed #ccc",
+                  gridColumn: "span 4",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                {preview && (
+                  <img
+                    style={{ width: "25%", marginRight: "1rem" }}
+                    src={preview}
+                    alt="none"
+                  />
+                )}
                 <label htmlFor="file" className="labelFile">
                   <span>
                     <CloudUploadIcon />
@@ -369,28 +276,33 @@ const GoalForm = () => {
                   </p>
                 </label>
                 <input
-                  variant="filled"
                   id="file"
                   type="file"
                   label="media"
                   onChange={(event) => handleImageChange(event, setFieldValue)}
                   name="media"
-                  sx={{ gridColumn: "span 4" }}
+                  style={{ gridColumn: "span 4" }}
                 />
               </div>
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Loading loading={loadingStore} error={error}>
-                <Button
-                  className={value === "dark" ? "newR dark" : "newR light"}
-                  sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}
-                  type="submit"
-                  color="secondary"
-                  variant="contained"
-                >
-                  Create New Goal <AddIcon sx={{ml:'1rem'}}/>
-                </Button>
-              </Loading>
+              <Button
+                className={value === "dark" ? "newR dark" : "newR light"}
+                sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}
+                type="submit"
+                color="secondary"
+                disabled={isSubmitting}
+                variant="contained"
+              >
+                {isSubmitting
+                  ? language === "en"
+                    ? "Loading..."
+                    : "انتظار..."
+                  : language === "en"
+                  ? "Create New Goal"
+                  : "هدف جديدة"}{" "}
+                <AddIcon sx={{ ml: "1rem" }} />
+              </Button>
             </Box>
           </Form>
         )}

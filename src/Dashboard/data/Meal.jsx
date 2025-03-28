@@ -21,23 +21,28 @@ const Meal = () => {
     dispatch(ActIndex(id));
   }, [dispatch, id]);
   const { meals, loading } = useSelector((state) => state.Dmeal);
+  const { language } = useSelector((state) => state.mode)
+  const headerID = "ID";
+  const headerTitle = language === "en" ? "Tile" : "العنوان";
+  const headerCategory = language === "en" ? "Category" : "الفئة";
+  const headerEvent = language === "en" ? "Event" : "الحدث";
   const columns = [
-    { field: "id", headerName: "ID" },
+    { field: "id", headerName: headerID },
     {
       field: "title",
-      headerName: "Title",
+      headerName: headerTitle,
       flex: 1,
     },
     {
       field: "category",
-      headerName: "Category",
+      headerName: headerCategory,
       flex: 1,
       valueGetter: (value, meals) =>
         meals.category?.title,
     },
     {
       field: "event",
-      headerName: "event",
+      headerName: headerEvent,
       flex: 1,
       renderCell: (meals) => (
         <strong>
@@ -46,6 +51,7 @@ const Meal = () => {
               variant="contained"
               size="small"
               style={{
+                margin:"0 0.5rem" ,
                 background: "red",
                 padding: "5px",
                 borderRadius: "8px",
@@ -59,7 +65,7 @@ const Meal = () => {
               variant="contained"
               size="small"
               style={{
-                marginLeft: 16,
+                 margin:"0 0.5rem" ,
                 background: "green",
                 padding: "5px",
                 borderRadius: "8px",
@@ -73,7 +79,7 @@ const Meal = () => {
               variant="contained"
               size="small"
               style={{
-                marginLeft: 16,
+                 margin:"0 0.5rem" ,
                 background: "#aaa",
                 padding: "5px",
                 borderRadius: "8px",
@@ -116,7 +122,7 @@ const Meal = () => {
   return (
     <Box m="20px">
         <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="MEAL" subtitle="List of Meal Table" />
+        <Header title={language ==='en' ? "MEAL":"الوجبات"} subtitle={language ==='en' ?"List of Meal Table":"سجلات من جدول الوجبات"} />
         <Link to={"/dashboard/MealForm"}>
           <Button
             sx={{
@@ -128,7 +134,7 @@ const Meal = () => {
             }}
           >
             <AddIcon sx={{ fontSize: "2rem", mr: "10px" }} />
-            New Meal
+            {language ==='en' ? "New Meal" : "وجبة جديدة"}
           </Button>
         </Link>
       </Box>

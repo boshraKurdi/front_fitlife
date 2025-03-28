@@ -21,6 +21,13 @@ const PlanIndex = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { plansForGoal, loading } = useSelector((state) => state.plan);
+  const { language } = useSelector((state) => state.mode)
+  const headerID = "ID";
+  const headerTitle = language === "en" ? "Tile plan" : "العنوان الخطة";
+  const headerTitleGoal = language === "en" ? "Tile Goal" : "العنوان الهدف";
+  const headerDuration = language === "en" ? "Duration" : "المدة";
+  const headerE = language === "en" ? "Exercises" : "التمرين";
+  const headerEvent = language === "en" ? "Event" : "الحدث";
   useEffect(() => {
     dispatch(ActGetPlanForGoal(id));
     return () => {
@@ -28,36 +35,29 @@ const PlanIndex = () => {
     };
   }, [dispatch, id]);
   const columns = [
-    { field: "id", headerName: "ID" },
+    { field: "id", headerName: headerID },
     {
       field: "title",
-      headerName: "Title goal",
+      headerName:headerTitleGoal,
       flex: 1,
       valueGetter: (value, plansForGoal) => plansForGoal.goals.title,
     },
     {
       field: "plan",
-      headerName: "Title plan",
+      headerName: headerTitle,
       flex: 1,
       valueGetter: (value, plansForGoal) => plansForGoal.plan_levels.plan.title,
     },
     {
-      field: "level",
-      headerName: "Level",
-      flex: 1,
-      valueGetter: (value, plansForGoal) =>
-        plansForGoal.plan_levels.level.title,
-    },
-    {
       field: "duration",
-      headerName: "Duration",
+      headerName: headerDuration,
       flex: 1,
       valueGetter: (value, plansForGoal) =>
         plansForGoal.plan_levels.plan.duration,
     },
     {
       field: "exercises",
-      headerName: " exercises",
+      headerName: headerE,
       flex: 1,
       cellClassName: "name-column--cell",
       renderCell: (plansForGoal) => {
@@ -70,7 +70,7 @@ const PlanIndex = () => {
     },
     {
       field: "event",
-      headerName: "event",
+      headerName:headerEvent,
       flex: 1,
       renderCell: (plansForGoal) => (
         <strong>
@@ -78,7 +78,7 @@ const PlanIndex = () => {
           <IconButton
             variant="contained"
             size="small"
-            style={{background: 'red' , padding: '5px' , borderRadius: '8px' }}
+            style={{ margin:"0 0.5rem" ,background: 'red' , padding: '5px' , borderRadius: '8px' }}
           >
             <DeleteIcon sx={{color:'#fff'}} className="delete"/>
           </IconButton>
@@ -87,7 +87,7 @@ const PlanIndex = () => {
           <IconButton
             variant="contained"
             size="small"
-            style={{ marginLeft: 16 , background: 'green' , padding: '5px' , borderRadius: '8px' }}
+            style={{  margin:"0 0.5rem"  , background: 'green' , padding: '5px' , borderRadius: '8px' }}
           >
             <EditIcon sx={{color:'#fff'}} className="update" />
           </IconButton>
@@ -96,7 +96,7 @@ const PlanIndex = () => {
           <IconButton
             variant="contained"
             size="small"
-            style={{ marginLeft: 16 , background: '#aaa' , padding: '5px' , borderRadius: '8px' }}
+            style={{  margin:"0 0.5rem"  , background: '#aaa' , padding: '5px' , borderRadius: '8px' }}
           >
             <FolderOpenIcon sx={{color:'#fff'}} onClick={()=>{window.location.pathname="/dashboard/DetailsPlan/"+plansForGoal.row.plan_levels.id}} className="open" />
           </IconButton>
@@ -135,7 +135,7 @@ const PlanIndex = () => {
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="PLAN" subtitle="List of Plan Table" />
+      <Header title={language ==='en' ? "PLAN" : "الخطط"} subtitle={language ==='en' ?"List of Plan Table" : "سجلات من جدول الخطط"} />
         <Link to={"/dashboard/PlanForm"}>
           <Button
             sx={{
@@ -147,7 +147,7 @@ const PlanIndex = () => {
             }}
           >
             <AddIcon sx={{ fontSize: "2rem", mr: "10px" }} />
-            New Plan
+            {language ==='en' ? "New Plan" : "خطة جديدة"}
           </Button>
         </Link>
       </Box>

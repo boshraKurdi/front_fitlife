@@ -1,25 +1,24 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { Form, Formik } from "formik";
 import Header from "../../components/Header";
 import EditIcon from "@mui/icons-material/Edit";
-import Loading from "../../components/loading/Loading";
 import UseUpdateCategory from "../../hooks/UseUpdateCategory";
+import InputForm from "../../components/InputForm";
 const CategoryUpdate = () => {
   const {
-    loadingShow,
     isNonMobile,
     value,
-    loadingStore,
+    language,
     handleFormSubmit,
-    error,
     checkoutSchema,
     initialValues,
   } = UseUpdateCategory();
 
   return (
     <Box m="20px">
-      <Header title="UPDATE CATEGORY" subtitle="Update a Category" />
+      <Header title={language === "en" ? "UPDATE CATEGORY" : "تعديل الفئة"} subtitle={language === "en" ?  "Update a Category" : "املأ البيانات لتعديل الفئة"} />
       <Formik
+        key={JSON.stringify(initialValues)}
         enableReinitialize={true}
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
@@ -30,6 +29,7 @@ const CategoryUpdate = () => {
           errors,
           touched,
           handleBlur,
+          isSubmitting,
           handleChange,
           handleSubmit,
         }) => (
@@ -42,73 +42,37 @@ const CategoryUpdate = () => {
                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
               }}
             >
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Title"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.title}
-                name="title"
-                error={!!touched.title && !!errors.title}
-                helperText={touched.title && errors.title}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.title}
+                touched={touched.title}
+                errors={errors.title}
+                title={language === "en" ? "title" : "العنوان"}
+                name={"title"}
               />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Title Ar"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.title_ar}
-                name="title_ar"
-                error={!!touched.title_ar && !!errors.title_ar}
-                helperText={touched.title_ar && errors.title_ar}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.title_ar}
+                touched={touched.title_ar}
+                errors={errors.title_ar}
+                title={language === "en" ? "title ar" : "العنوان بالعربي"}
+                name={"title_ar"}
               />
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Loading
-                loading={loadingStore}
-                loadingShow={loadingShow}
-                error={error}
+              <Button
+                className={value === "dark" ? "newR dark" : "newR light"}
+                sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}
+                type="submit"
+                color="secondary"
+                variant="contained"
+                disabled={isSubmitting}
               >
-                <Button
-                  className={value === "dark" ? "newR dark" : "newR light"}
-                  sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}
-                  type="submit"
-                  color="secondary"
-                  variant="contained"
-                >
-                  Update Category <EditIcon sx={{ ml: "1rem" }} />
-                </Button>
-              </Loading>
+                {isSubmitting ? (language === 'en' ? "Loading..." : "انتظار...") : (language === 'en' ?"Update Category":"تعديل الفئة")}
+                <EditIcon sx={{ ml: "1rem" }} />
+              </Button>
             </Box>
           </Form>
         )}

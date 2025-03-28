@@ -3,7 +3,6 @@ import { tokens } from "../../theme";
 import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import EmailIcon from "@mui/icons-material/Email";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import FaceRetouchingNaturalIcon from '@mui/icons-material/FaceRetouchingNatural';
 import Header from "../../components/Header";
@@ -21,16 +20,16 @@ const Dashboard = () => {
   const colors = tokens(theme.palette.mode);
   const dispatch = useDispatch();
   const { progress } = useSelector((state)=>state.admin)
+  const { language } = useSelector((state) => state.mode)
   useEffect(()=>{
     dispatch(ActPogress())
   } ,[dispatch])
-  console.log(progress)
 
   return (
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
+        <Header title={language === 'en' ? "DASHBOARD":"لوحة القيادة"} subtitle={language==='en' ? "Welcome to your dashboard":"مرحباً بكم في لوحة التحكم الخاصة بك"} />
       </Box>
 
       {/* GRID & CHARTS */}

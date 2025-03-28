@@ -22,7 +22,7 @@ const DetailsPlan = () => {
     (exercise) => exercise?.pivot?.day === selectedDay.day && exercise?.pivot?.week === selectedDay.week 
   );
   const newData = filteredExercises
-    ? filteredExercises.map((data) => (
+    ? filteredExercises?.map((data) => (
         <CardContentDetails
           key={data.id}
           title={data?.title}
@@ -187,36 +187,7 @@ const DetailsPlan = () => {
                     }}
                   />
                 </Box>
-                {plan.levels &&
-                  plan.levels.map((data, index) => {
-                    return (
-                      <>
-                        <Box m="15px">
-                          <TextField
-                            id="outlined-read-only-input"
-                            label={`level ${index}`}
-                            sx={{ fontSize: "2rem", height: "80px" }}
-                            className="width"
-                            defaultValue={data.title}
-                            InputLabelProps={{
-                              sx: {
-                                fontSize: "1.5rem",
-                                "&.Mui-focused": {
-                                  color: value === "dark" ? "#fff" : "#000",
-                                },
-                              },
-                            }}
-                            slotProps={{
-                              input: {
-                                style: { fontSize: "1.5rem", height: "100%" },
-                                readOnly: true,
-                              },
-                            }}
-                          />
-                        </Box>
-                      </>
-                    );
-                  })}
+          
               </CardContent>
             </Box>
           </Card>
@@ -248,8 +219,8 @@ const DetailsPlan = () => {
                 {Array(plan?.duration * 7)
                   .fill(0)
                   .map((_, index) => (
-                    <MenuItem key={index} value={index + 1}>
-                      يوم {index + 1}
+                    <MenuItem key={index} value={index+1}>
+                      يوم {index+1}
                     </MenuItem>
                   ))}
               </Select>

@@ -1,34 +1,34 @@
-import { Box, Button, TextField, Select, MenuItem, Paper } from "@mui/material";
+import { Box, Button, Select, MenuItem, Paper } from "@mui/material";
 import { Form, Formik } from "formik";
 import Header from "../../components/Header";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import Loading from "../../components/loading/Loading";
 import UseUpdateGym from "../../hooks/UseUpdateGym";
+import InputForm from "../../components/InputForm";
 const GymUpdate = () => {
   const {
     sections,
     loadingShow,
     setChipData,
     MenuProps,
+    language,
     isNonMobile,
     value,
     newData,
-    loadingStore,
     loading,
     handleImageChange,
     handleFormSubmit,
-    error,
     checkoutSchema,
     preview,
     initialValues,
   } = UseUpdateGym();
-  
+
   return (
     <Box m="20px">
-      <Header title="UPDATE GOAL" subtitle="Update a Goal" />
+      <Header title={language === "en" ? "UPDATE GOAL" : "تعديل النادي"} subtitle={language === "en" ? "Update a Goal" : "املأ البيانات لتعديل النادي"} />
       <Formik
         enableReinitialize={true}
+        key={JSON.stringify(initialValues)}
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
         validationSchema={checkoutSchema}
@@ -37,6 +37,7 @@ const GymUpdate = () => {
           values,
           errors,
           touched,
+          isSubmitting,
           setFieldValue,
           handleBlur,
           handleChange,
@@ -51,205 +52,77 @@ const GymUpdate = () => {
                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
               }}
             >
-              <TextField
-                variant="filled"
-                type="text"
-                label="Name"
-                disabled={loadingShow === "pending" ? true : false}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.name}
-                name="name"
-                error={!!touched.name && !!errors.name}
-                helperText={touched.name && errors.name}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.name}
+                touched={touched.name}
+                errors={errors.name}
+                title={language === "en" ? "name" : "اسم النادي"}
+                name={"name"}
               />
-              <TextField
-                variant="filled"
-                type="text"
-                label="Description"
-                disabled={loadingShow === "pending" ? true : false}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.description}
-                name="description"
-                error={!!touched.description && !!errors.description}
-                helperText={touched.description && errors.description}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.description}
+                touched={touched.description}
+                errors={errors.description}
+                title={language === "en" ? "description" : "الوصف"}
+                name={"description"}
               />
-               <TextField
-                variant="filled"
-                type="text"
-                label="Description AR"
-                disabled={loadingShow === "pending" ? true : false}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.description_ar}
-                name="description_ar"
-                error={!!touched.description_ar && !!errors.description_ar}
-                helperText={touched.description_ar && errors.description_ar}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.description_ar}
+                touched={touched.description_ar}
+                errors={errors.description_ar}
+                title={language === "en" ? "description ar" : "الوصف بالعربي"}
+                name={"description_ar"}
               />
-                <TextField
-                variant="filled"
-                type="text"
-                label="Open"
-                disabled={loadingShow === "pending" ? true : false}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.open}
-                name="open"
-                error={!!touched.open && !!errors.open}
-                helperText={touched.open && errors.open}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.open}
+                touched={touched.open}
+                errors={errors.open}
+                title={language === "en" ? "time open" : "وقت الفتح"}
+                name={"open"}
               />
-                <TextField
-                variant="filled"
-                type="text"
-                label="Close"
-                disabled={loadingShow === "pending" ? true : false}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.close}
-                name="close"
-                error={!!touched.close && !!errors.close}
-                helperText={touched.close && errors.close}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.close}
+                touched={touched.close}
+                errors={errors.close}
+                title={language === "en" ? "time close" : "وقت الاغلاق"}
+                name={"close"}
               />
-              <TextField
-                variant="filled"
-                type="text"
-                label="Price"
-                disabled={loadingShow === "pending" ? true : false}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.price}
-                name="price"
-                error={!!touched.price && !!errors.price}
-                helperText={touched.price && errors.price}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.price}
+                touched={touched.price}
+                errors={errors.price}
+                title={language === "en" ? "price" : "تكلفة النادي"}
+                name={"price"}
               />
-               <TextField
-                variant="filled"
-                type="text"
-                label="Address"
-                disabled={loadingShow === "pending" ? true : false}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.address}
-                name="address"
-                error={!!touched.address && !!errors.address}
-                helperText={touched.address && errors.address}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.type}
+                touched={touched.type}
+                errors={errors.type}
+                title={language === "en" ? "type" : "نوع النادي"}
+                name={"type"}
               />
-               <TextField
-                variant="filled"
-                type="text"
-                label="Type"
-                disabled={loadingShow === "pending" ? true : false}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.type}
-                name="type"
-                error={!!touched.type && !!errors.type}
-                helperText={touched.type && errors.type}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.address}
+                touched={touched.address}
+                errors={errors.address}
+                title={language === "en" ? "address" : "عنوان النادي"}
+                name={"address"}
               />
 
               <Select
@@ -266,7 +139,7 @@ const GymUpdate = () => {
                 {loading === "pending" ? (
                   <MenuItem value="0">loading...</MenuItem>
                 ) : (
-                    sections.map((e) => {
+                  sections?.map((e) => {
                     return (
                       <MenuItem
                         sx={{ fontSize: "1.5rem" }}
@@ -285,9 +158,8 @@ const GymUpdate = () => {
                   })
                 )}
               </Select>
-              {(newData.length > 0) && (
+              {newData.length > 0 && (
                 <Paper
-
                   sx={{
                     display: "flex",
                     justifyContent: "center",
@@ -299,12 +171,26 @@ const GymUpdate = () => {
                   }}
                   component="ul"
                 >
-                  {loadingShow === "pending" ? 'loading...' : newData}
+                  {loadingShow === "pending" ? "loading..." : newData}
                 </Paper>
               )}
-               <div className="uploadfile" style={{ border: '2px dashed #ccc' ,gridColumn: "span 4" , display:'flex' , alignItems:'center' }}>
-                {preview && <img style={{width:'25%' , marginRight:'1rem'}} src={preview} alt="none" />}
-                <label htmlFor="file" class="labelFile">
+              <div
+                className="uploadfile"
+                style={{
+                  border: "2px dashed #ccc",
+                  gridColumn: "span 4",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                {preview && (
+                  <img
+                    style={{ width: "25%", marginRight: "1rem" }}
+                    src={preview}
+                    alt="none"
+                  />
+                )}
+                <label htmlFor="file" className="labelFile">
                   <span>
                     <CloudUploadIcon />
                   </span>
@@ -313,28 +199,33 @@ const GymUpdate = () => {
                   </p>
                 </label>
                 <input
-                  variant="filled"
                   id="file"
                   type="file"
                   label="media"
                   onChange={(event) => handleImageChange(event, setFieldValue)}
                   name="media"
-                  sx={{ gridColumn: "span 4" }}
+                  style={{ gridColumn: "span 4" }}
                 />
               </div>
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Loading loading={loadingStore} loadingShow={loadingShow} error={error}>
-                <Button
-                  className={value === "dark" ? "newR dark" : "newR light"}
-                  sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}
-                  type="submit"
-                  color="secondary"
-                  variant="contained"
-                >
-                  Update Gym <EditIcon sx={{ml:'1rem'}}/>
-                </Button>
-              </Loading>
+              <Button
+                className={value === "dark" ? "newR dark" : "newR light"}
+                sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}
+                type="submit"
+                color="secondary"
+                disabled={isSubmitting}
+                variant="contained"
+              >
+                {isSubmitting
+                  ? language === "en"
+                    ? "Loading..."
+                    : "انتظار..."
+                  : language === "en"
+                  ? "Update Gym"
+                  : "تعديل النادي"}{" "}
+                <EditIcon sx={{ ml: "1rem" }} />
+              </Button>
             </Box>
           </Form>
         )}

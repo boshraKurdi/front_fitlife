@@ -13,33 +13,37 @@ export default function UseUpdateGym() {
   const nav = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { value } = useSelector((state) => state.mode);
-  const { sections , loading , error } = useSelector((state) => state.Dsection);
-  const { loadingStore  } = useSelector((state) => state.Dgym);
+  const { value, language } = useSelector((state) => state.mode);
+  const { sections, loading } = useSelector((state) => state.Dsection);
   const { gym, loadingShow } = UseDetalisGym();
-  const { checkoutSchema, initialValues , setInitialValues } = GymValidation({
+  const { checkoutSchema, initialValues, setInitialValues } = GymValidation({
     gym,
     loadingShow,
   });
-  const [chipData, setChipData] = useState([
-  ]);
+  const [chipData, setChipData] = useState([]);
   useEffect(() => {
-    setInitialValues({...initialValues , 
+    setInitialValues({
+      ...initialValues,
       name: gym.name,
-    description: gym.description,
-    description_ar: gym.description_ar,
-    open: gym.open,
-    close: gym.close,
-    price: gym.price ,
-    address: gym.address ,
-    type: gym.type ,
-    media: null
+      description: gym.description,
+      description_ar: gym.description_ar,
+      open: gym.open,
+      close: gym.close,
+      price: gym.price,
+      address: gym.address,
+      type: gym.type,
+      media: null,
     });
-    const newChipData = gym?.section && gym.section?.map((e) => ({
-      key: e.id,
-      label: e?.title
-    }), [id]);
-    
+    const newChipData =
+      gym?.section &&
+      gym.section?.map(
+        (e) => ({
+          key: e.id,
+          label: e?.title,
+        }),
+        [id]
+      );
+
     setChipData(newChipData);
   }, [gym]);
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -67,7 +71,7 @@ export default function UseUpdateGym() {
     formData.append("address", values.address);
     // formData.append("lat", values.calories_max);
     // formData.append("lon", values.media);
-    dispatch(ActUpdate({data:formData , id:id}))
+    dispatch(ActUpdate({ data: formData, id: id }))
       .unwrap()
       .then(() => {
         nav("/dashboard");
@@ -77,13 +81,28 @@ export default function UseUpdateGym() {
         enqueueSnackbar(`Update Gym  faild!`, { variant: "error" });
       });
   };
+  const [preview, setPreview] = useState();
+  useEffect(() => {
+    if (gym?.media && gym.media[0]?.original_url) {
+      setPreview(gym.media[0].original_url);
+    }
+  }, [gym]);
   const handleImageChange = (event, setFieldValue) => {
     const file = event.currentTarget.files[0];
-    setFieldValue("media", file);
+
+    if (file) {
+      setFieldValue("media", file);
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
   useEffect(() => {
     dispatch(ActIndex());
-  }, [dispatch ]);
+  }, [dispatch]);
   const ListItem = styled("li")(({ theme }) => ({
     margin: theme.spacing(0.5),
   }));
@@ -105,21 +124,19 @@ export default function UseUpdateGym() {
     );
   });
   return {
-    id,
-    gym,
     sections,
     loadingShow,
     setChipData,
     MenuProps,
+    language,
     isNonMobile,
     value,
     newData,
-    loadingStore,
     loading,
     handleImageChange,
     handleFormSubmit,
-    error,
     checkoutSchema,
+    preview,
     initialValues,
   };
 }

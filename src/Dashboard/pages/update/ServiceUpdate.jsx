@@ -1,25 +1,22 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { Form, Formik } from "formik";
 import Header from "../../components/Header";
 import EditIcon from "@mui/icons-material/Edit";
-import Loading from "../../components/loading/Loading";
 import UseUpdateService from "../../hooks/UseUpdateService";
+import InputForm from "../../components/InputForm";
 const ServiceUpdate = () => {
   const {
-    loadingShow,
     isNonMobile,
     value,
     handleFormSubmit,
-    loadingStore,
-    error,
     checkoutSchema,
+    language,
     initialValues,
   } = UseUpdateService();
 
-
   return (
     <Box m="20px">
-      <Header title="UPDATE SERVICE" subtitle="Update a Service" />
+      <Header title={language === "en" ? "UPDATE SERVICE" : "تعديل الخدمة"} subtitle={language === "en" ?  "Update a Service" : "املأ البيانات لتعديل خدمة"} />
       <Formik
         enableReinitialize={true}
         onSubmit={handleFormSubmit}
@@ -31,6 +28,7 @@ const ServiceUpdate = () => {
           errors,
           touched,
           handleBlur,
+          isSubmitting,
           handleChange,
           handleSubmit,
         }) => (
@@ -43,98 +41,52 @@ const ServiceUpdate = () => {
                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
               }}
             >
-              <TextField
-                disabled={loadingShow === "pending" ? true : false}
-                variant="filled"
-                type="text"
-                label="Service"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.service}
-                name="service"
-                error={!!touched.service && !!errors.service}
-                helperText={touched.service && errors.service}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.service}
+                touched={touched.service}
+                errors={errors.service}
+                title={language === "en" ? "service" : "الخدمة"}
+                name={"service"}
               />
-              <TextField
-                disabled={loadingShow === "pending" ? true : false}
-                variant="filled"
-                type="text"
-                label="Price"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.price}
-                name="price"
-                error={!!touched.price && !!errors.price}
-                helperText={touched.price && errors.price}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                type="number"
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.price}
+                touched={touched.price}
+                errors={errors.price}
+                title={language === "en" ? "price" : "سعر الخدمة"}
+                name={"price"}
               />
-              <TextField
-                disabled={loadingShow === "pending" ? true : false}
-                variant="filled"
-                type="text"
-                label="Duration"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.duration}
-                name="duration"
-                error={!!touched.duration && !!errors.duration}
-                helperText={touched.duration && errors.duration}
-                sx={{ gridColumn: "span 4" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                type="number"
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.duration}
+                touched={touched.duration}
+                errors={errors.duration}
+                title={language === "en" ? "duration" : "مدة الخدمة"}
+                name={"duration"}
               />
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Loading
-                loading={loadingStore}
-                loadingShow={loadingShow}
-                error={error}
+              <Button
+                className={value === "dark" ? "newR dark" : "newR light"}
+                sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}
+                type="submit"
+                color="secondary"
+                variant="contained"
               >
-                <Button
-                  className={value === "dark" ? "newR dark" : "newR light"}
-                  sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}
-                  type="submit"
-                  color="secondary"
-                  variant="contained"
-                >
-                  Update Service <EditIcon sx={{ ml: "1rem" }} />
-                </Button>
-              </Loading>
+                   {isSubmitting
+                  ? language === "en"
+                    ? "Loading..."
+                    : "انتظار..."
+                  : language === "en"
+                  ? "Update Servise"
+                  : "تعديل الخدمة"}{" "} <EditIcon sx={{ ml: "1rem" }} />
+              </Button>
             </Box>
           </Form>
         )}

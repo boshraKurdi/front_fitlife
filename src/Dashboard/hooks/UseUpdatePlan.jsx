@@ -10,7 +10,7 @@ import { ActIndex } from "../../Redux/Dashboard/Meal/MealSlice";
 export default function UseUpdatePlan() {
   const { enqueueSnackbar } = useSnackbar();
   const nav = useNavigate();
-  const { value } = useSelector((state) => state.mode);
+  const { value , language } = useSelector((state) => state.mode);
   const { loadingStore, error } = useSelector((state) => state.Dplan);
   const { plan, loadingShow } = useSelector((state) => state.Dplan);
   const { checkoutSchema, initialValues , setInitialValues } = PlanValidation({
@@ -43,17 +43,21 @@ export default function UseUpdatePlan() {
     type_ar: plan.type_ar,
       media: ''
     });
-  } , [id])
-  const [preview, setPreview] = useState(plan?.media && plan?.media[0]?.original_url);
-
+  } , [plan])
+  const [preview, setPreview] = useState();
+  useEffect(() => {
+    if (plan?.media && plan.media[0]?.original_url) {
+      setPreview(plan.media[0].original_url);
+    }
+  }, [plan]);
   const handleImageChange = (event, setFieldValue) => {
     const file = event.currentTarget.files[0];
-    setFieldValue("image", file);
 
-    // إنشاء معاينة للصورة
     if (file) {
+      setFieldValue("media", file);
+
       const reader = new FileReader();
-      reader.onloadend = () => {
+      reader.onload = () => {
         setPreview(reader.result);
       };
       reader.readAsDataURL(file);
@@ -154,6 +158,7 @@ export default function UseUpdatePlan() {
     meals,
     type ,
     time,
+    language,
     setTime ,
     type_ar,
     setChipData,

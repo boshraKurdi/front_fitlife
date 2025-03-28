@@ -20,25 +20,30 @@ const Plan = () => {
     dispatch(ActIndex());
   }, [dispatch]);
   const { plans, loading } = useSelector((state) => state.Dplan);
+  const { language } = useSelector((state) => state.mode)
+  const headerID = "ID";
+  const headerTitle = language === "en" ? "Tile" : "العنوان";
+  const headerDuration = language === "en" ? "Duration" : "المدة";
+  const headerEvent = language === "en" ? "Event" : "الحدث";
   const columns = [
-    { field: "id", headerName: "ID" },
+    { field: "id", headerName: headerID},
     {
         field: "title",
-        headerName: "Title",
+        headerName: headerTitle,
         flex: 1,
         cellClassName: "name-column--cell",
         valueGetter: (value, plans) => plans.title,
       },
       {
         field: "duration",
-        headerName: "Duration",
+        headerName:headerDuration,
         flex: 1,
         cellClassName: "name-column--cell",
         valueGetter: (value, plans) => plans.duration,
       },
     {
       field: "event",
-      headerName: "event",
+      headerName: headerEvent,
       flex: 1,
       renderCell: (plans) => (
         <strong>
@@ -47,6 +52,7 @@ const Plan = () => {
               variant="contained"
               size="small"
               style={{
+                margin:"0 0.5rem" ,
                 background: "red",
                 padding: "5px",
                 borderRadius: "8px",
@@ -60,7 +66,7 @@ const Plan = () => {
               variant="contained"
               size="small"
               style={{
-                marginLeft: 16,
+                 margin:"0 0.5rem" ,
                 background: "green",
                 padding: "5px",
                 borderRadius: "8px",
@@ -74,7 +80,7 @@ const Plan = () => {
               variant="contained"
               size="small"
               style={{
-                marginLeft: 16,
+                 margin:"0 0.5rem" ,
                 background: "#aaa",
                 padding: "5px",
                 borderRadius: "8px",
@@ -117,7 +123,7 @@ const Plan = () => {
   return (
     <Box m="20px">
         <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="PLAN" subtitle="List of Plan Table" />
+        <Header title={language ==='en' ? "PLAN" : "الخطط"} subtitle={language ==='en' ?"List of Plan Table" : "سجلات من جدول الخطط"} />
         <Link to={"/dashboard/PlanForm"}>
           <Button
             sx={{
@@ -129,7 +135,7 @@ const Plan = () => {
             }}
           >
             <AddIcon sx={{ fontSize: "2rem", mr: "10px" }} />
-            New Plan
+            {language ==='en' ? "New Plan" : "خطة جديدة"}
           </Button>
         </Link>
       </Box>

@@ -21,33 +21,32 @@ const GymIndex = () => {
     dispatch(ActIndex(id));
   }, [dispatch, id]);
   const { gyms , loading } = useSelector((state) => state.Dgym);
+  const { language } = useSelector((state) => state.mode)
+   const headerID = "ID";
+   const headerTitle = language === "en" ? "Name" : "اسم النادي";
+   const headerDuration = language === "en" ? "Type" : "نوع النادي";
+   const headerEvent = language === "en" ? "Event" : "الحدث";
+   const headerPlan = language === "en" ? "Location" : "الموقع";
   const columns = [
-    { field: "id", headerName: "ID" },
+    { field: "id", headerName: headerID },
     {
       field: "name",
-      headerName: "Name",
+      headerName: headerTitle,
       flex: 1,
     },
     {
       field: "type",
-      headerName: "Type",
+      headerName: headerDuration,
       flex: 1,
     },
     {
         field: "address",
-        headerName: "Location",
+        headerName: headerPlan,
         flex: 1,
     },
     {
-        field: "section",
-        headerName: " Section",
-        flex: 1,
-        cellClassName: "name-column--cell",
-        renderCell: (gyms) => <Link to={"section/" + gyms.id}>section</Link>,
-      },
-    {
       field: "event",
-      headerName: "event",
+      headerName:headerEvent,
       flex: 1,
       renderCell: (gyms) => (
         <strong>
@@ -56,6 +55,7 @@ const GymIndex = () => {
               variant="contained"
               size="small"
               style={{
+                margin:"0 0.5rem" ,
                 background: "red",
                 padding: "5px",
                 borderRadius: "8px",
@@ -69,7 +69,7 @@ const GymIndex = () => {
               variant="contained"
               size="small"
               style={{
-                marginLeft: 16,
+                 margin:"0 0.5rem" ,
                 background: "green",
                 padding: "5px",
                 borderRadius: "8px",
@@ -83,7 +83,7 @@ const GymIndex = () => {
               variant="contained"
               size="small"
               style={{
-                marginLeft: 16,
+                 margin:"0 0.5rem" ,
                 background: "#aaa",
                 padding: "5px",
                 borderRadius: "8px",
@@ -126,7 +126,7 @@ const GymIndex = () => {
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="GYM" subtitle="List of Gym Table" />
+        <Header title={language ==='en' ?"GYM":"النوادي الرياضية"} subtitle={language ==='en' ?"List of Gym Table" : "سجلات من جدول النوادي الرياضية"} />
         <Link to={"/dashboard/GymForm"}>
           <Button
             sx={{
@@ -138,7 +138,7 @@ const GymIndex = () => {
             }}
           >
             <AddIcon sx={{ fontSize: "2rem", mr: "10px" }} />
-            New Gym
+            {language ==='en' ? "New Gym" : "نادي جديد"}
           </Button>
         </Link>
       </Box>

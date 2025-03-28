@@ -1,0 +1,12 @@
+:root {
+    --mainColor: #3390ec;
+    --whiteColor: #ffffff;
+    --blackColor: #000000;
+    --borderColor: #dfe1e5;
+    --greenColor: #0ac630;
+    --unreadMessage: #c4c9cc;
+    --grayColor: #707579;
+}
+.chat svg{
+    font-size: 2rem;
+}

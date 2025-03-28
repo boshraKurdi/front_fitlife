@@ -102,6 +102,7 @@ export const categorySlice = createSlice({
         state.error = action.payload 
       }
     })
+    
    }
    
 })

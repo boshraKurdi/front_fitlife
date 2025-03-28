@@ -6,6 +6,8 @@ import ActProfile from './Act/ActProfile'
 import ActDeleteAccount from './Act/ActDeleteAccount'
 import ActEditProfile from './Act/ActEditProfile'
 import ActEditScheduling from './Act/ActEditScheduling'
+import ActSendRequestAdmin from './Act/ActSendRequestAdmin'
+import ActSendRequestCoach from './Act/ActSendRequestCoach'
 
 const initialState = {
   users: [] ,
@@ -139,10 +141,40 @@ export const userSlice = createSlice({
         state.error = action.payload 
       }
     })
+    // send admin
+    builder.addCase(ActSendRequestAdmin.pending , (state) => {
+      state.loading = 'pending' 
+      state.error = null
+    })
+    builder.addCase(ActSendRequestAdmin.fulfilled , (state , action ) => {
+      state.loading = 'succeeded' 
+      state.message = action.payload.message
+    })
+    builder.addCase(ActSendRequestAdmin.rejected , (state , action) => {
+      state.loading = 'failed' 
+      if (action.payload && typeof action.payload === 'string') {
+        state.error = action.payload 
+      }
+    })
+    //send coach
+    builder.addCase(ActSendRequestCoach.pending , (state) => {
+      state.loading = 'pending' 
+      state.error = null
+    })
+    builder.addCase(ActSendRequestCoach.fulfilled , (state , action ) => {
+      state.loading = 'succeeded' 
+      state.message = action.payload.message
+    })
+    builder.addCase(ActSendRequestCoach.rejected , (state , action) => {
+      state.loading = 'failed' 
+      if (action.payload && typeof action.payload === 'string') {
+        state.error = action.payload 
+      }
+    })
    }
 
 })
 // Action creators are generated for each case reducer function
-export { ActIndex , ActGetCoach , ActShow, ActProfile ,  ActDeleteAccount , ActEditProfile , ActEditScheduling} 
+export { ActSendRequestAdmin , ActSendRequestCoach , ActIndex , ActGetCoach , ActShow, ActProfile ,  ActDeleteAccount , ActEditProfile , ActEditScheduling} 
 export const { CleanUp ,ResetMessages } = userSlice.actions
 export default userSlice.reducer

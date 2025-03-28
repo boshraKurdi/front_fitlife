@@ -14,27 +14,32 @@ const RequestGoals = () => {
     dispatch(ActGetRequestGoals());
   }, [dispatch]);
   const { dataRequestGoal , loading  } = useSelector((state) => state.admin);
+  const { language } = useSelector((state) => state.mode)
+  const headerID = "ID";
+  const headerName = language === "en" ? "Name" : "اسم المستخدم";
+  const Goal = language === "en" ? "Goal" : "الهدف";
+  const headerEvent = language === "en" ? "Event" : "الحدث";
   
   const columns = [
-    { field: "id", headerName: "ID" },
+    { field: "id", headerName: headerID },
     {
      
       field: "name",
-      headerName: " Name",
+      headerName: headerName,
       flex: 1,
       cellClassName: "name-column--cell",
       renderCell: (dataRequestGoal) => <Link to={"/dashboard/user/" + dataRequestGoal?.row.users?.id}>{dataRequestGoal?.row.users?.name}</Link>,
     },
     {
       field: "goal",
-      headerName: "Goal",
+      headerName: Goal,
       flex: 1,
       cellClassName: "name-column--cell",
       renderCell: (dataRequestGoal) => <Link to={"/dashboard/goal/" + dataRequestGoal?.row.goal_plan?.goals.id}>{dataRequestGoal?.row.goal_plan?.goals.title}</Link>,
     },
     {
       field: "event",
-      headerName: "event",
+      headerName: headerEvent,
       flex: 1,
       renderCell: (dataRequestGoal) => (
         <strong>
@@ -50,6 +55,7 @@ const RequestGoals = () => {
               variant="contained"
               size="small"
               style={{
+                margin:"0 0.5rem" ,
                 background: "red",
                 padding: "5px",
                 height:'32px',
@@ -72,7 +78,7 @@ const RequestGoals = () => {
               variant="contained"
               size="small"
               style={{
-                marginLeft: 16,
+                margin:"0 0.5rem" ,
                 background: "green",
                 padding: "5px",
                 height:'32px',
@@ -141,9 +147,9 @@ function HandelUpdateRquest(id) {
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header
-          title="Request Goals"
-          subtitle="List of Data Request Goals Table"
+      <Header
+          title={language ==='en' ? "Request Goals" : "طلبات الاشتراك بهدف"}
+          subtitle={language ==='en' ?"List of Data Request coach Table" :"سجلات المستخدمين"}
         />
       </Box>
       <Table loading={loading} columns={columns} data={dataRequestGoal} />

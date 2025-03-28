@@ -134,6 +134,16 @@ export default function Profile() {
           <Avatar /> {language === 'ar' ? "حسابي الشخصي" : "My profile" }
           </NavLink>
         </MenuItem>
+        <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
+        <NavLink style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/requestAdmin'>
+          <Avatar /> {language === 'ar' ? "ترقية الى ادمن" : "Become Admin" }
+          </NavLink>
+        </MenuItem>
+        <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>
+        <NavLink style={{display: 'flex' , alignItems: 'center' , width: '100%'}} to='/requestCoach'>
+          <Avatar /> {language === 'ar' ? "ترقية الى مدرب" : "Become Coach" }
+          </NavLink>
+        </MenuItem>
         
         <Divider />
         {/* <MenuItem sx={{fontSize: '1.4rem'}} onClick={handleClose}>

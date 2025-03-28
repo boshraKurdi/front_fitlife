@@ -19,74 +19,82 @@ const ServiceIndex = () => {
   useEffect(() => {
     dispatch(ActIndex());
   }, [dispatch]);
+  const { language } = useSelector((state) => state.mode)
   const { services, loading } = useSelector((state) => state.Dservice);
+  const headerID = "ID";
+  const headerService = language === "en" ? "Service" : "الخدمة";
+  const headerPrice = language === "en" ? "Price" : "السعر";
+  const headerDuration = language === "en" ? "Duration" : "المدة";
+  const headerEvent = language === "en" ? "Event" : "الحدث";
+  
   const columns = [
-    { field: "id", headerName: "ID" },
-    {
-      field: "service",
-      headerName: "Service",
-      flex: 1,
-    },
-    {
-        field: "price",
-        headerName: "Price",
+      { field: "id", headerName: headerID },
+      {
+        field: "service",
+        headerName: headerService,
         flex: 1,
       },
-    {
-      field: "duration",
-      headerName: "Duration",
-      flex: 1,
-    },
-    {
-      field: "event",
-      headerName: "event",
-      flex: 1,
-      renderCell: (services) => (
-        <strong>
-          <Tooltip title="Delete" arrow placement="top" onClick={()=>{HandelDelete(services.id)}}>
-            <IconButton
-              variant="contained"
-              size="small"
-              style={{
-                background: "red",
-                padding: "5px",
-                borderRadius: "8px",
-              }}
-            >
-              <DeleteIcon sx={{color:'#fff'}} className="delete" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Update" arrow placement="top" onClick={()=>{nav('update/'+services.id)}}>
-            <IconButton
-              variant="contained"
-              size="small"
-              style={{
-                marginLeft: 16,
-                background: "green",
-                padding: "5px",
-                borderRadius: "8px",
-              }}
-            >
-              <EditIcon sx={{color:'#fff'}} className="update"  />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Open" arrow placement="top" onClick={()=>{nav('DetailsService/'+services.id)}}>
-            <IconButton
-              variant="contained"
-              size="small"
-              style={{
-                marginLeft: 16,
-                background: "#aaa",
-                padding: "5px",
-                borderRadius: "8px",
-              }}
-            >
-              <FolderOpenIcon sx={{color:'#fff'}} className="open" />
-            </IconButton>
-          </Tooltip>
-        </strong>
-      ),
-    },
+      {
+        field: "price",
+        headerName: headerPrice,
+        flex: 1,
+      },
+      {
+        field: "duration",
+        headerName: headerDuration,
+        flex: 1,
+      },
+      {
+        field: "event",
+        headerName: headerEvent,
+        flex: 1,
+        renderCell: (services) => (
+          <strong>
+            <Tooltip title="Delete" arrow placement="top" onClick={() => HandelDelete(services.id)}>
+              <IconButton
+                variant="contained"
+                size="small"
+                style={{
+                  margin:"0 0.5rem" ,
+                  background: "red",
+                  padding: "5px",
+                  borderRadius: "8px",
+                }}
+              >
+                <DeleteIcon sx={{ color: "#fff" }} className="delete" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Update" arrow placement="top" onClick={() => nav("update/" + services.id)}>
+              <IconButton
+                variant="contained"
+                size="small"
+                style={{
+                   margin:"0 0.5rem" ,
+                  background: "green",
+                  padding: "5px",
+                  borderRadius: "8px",
+                }}
+              >
+                <EditIcon sx={{ color: "#fff" }} className="update" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Open" arrow placement="top" onClick={() => nav("DetailsService/" + services.id)}>
+              <IconButton
+                variant="contained"
+                size="small"
+                style={{
+                   margin:"0 0.5rem" ,
+                  background: "#aaa",
+                  padding: "5px",
+                  borderRadius: "8px",
+                }}
+              >
+                <FolderOpenIcon sx={{ color: "#fff" }} className="open" />
+              </IconButton>
+            </Tooltip>
+          </strong>
+        ),
+      },
   ];
   const HandelDestroy = useCallback(
     (id) => {
@@ -118,7 +126,7 @@ const ServiceIndex = () => {
   return (
     <Box m="20px">
         <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="SERVICE" subtitle="List of Service Table" />
+        <Header title={language ==='en' ? "SERVICE" : "الخدمات"} subtitle={language ==='en' ? "List of Service Table" : "سجلات من جدول الخدمات"} />
         <Link to={"/dashboard/ServiceForm"}>
           <Button
             sx={{
@@ -130,7 +138,7 @@ const ServiceIndex = () => {
             }}
           >
             <AddIcon sx={{ fontSize: "2rem", mr: "10px" }} />
-            New Serivce
+            {language ==='en' ? "New Serivce" : "خدمة جديدة"}
           </Button>
         </Link>
       </Box>

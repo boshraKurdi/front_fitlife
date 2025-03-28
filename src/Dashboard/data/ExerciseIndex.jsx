@@ -16,33 +16,40 @@ const ExerciseIndex = () => {
     dispatch(ActExerciseIndex(id));
   }, [dispatch, id]);
   const { exercises, loading } = useSelector((state) => state.Dplan);
+      const { language } = useSelector((state) => state.mode)
+      const headerID = "ID";
+      const headerTitle = language === "en" ? "Title" : "العنوان";
+      const headerDuration = language === "en" ? "Duration" : "المدة";
+      const headerEvent = language === "en" ? "Event" : "الحدث";
+      const headerDay = language === "en" ? "Day" : "يوم";
+      const headerWeek = language === "en" ? "Week" : "اسبوع";
   const columns = [
-    { field: "id", headerName: "ID" },
+    { field: "id", headerName: headerID },
     {
       field: "title",
-      headerName: "Title",
+      headerName: headerTitle,
       flex: 1,
     },
     {
       field: "duration",
-      headerName: "Duration",
+      headerName: headerDuration,
       flex: 1,
     },
     {
       field: "day",
-      headerName: "day",
+      headerName: headerDay,
       flex: 1,
       valueGetter: (value, exercises) => exercises.pivot.day,
     },
     {
       field: "week",
-      headerName: "week",
+      headerName: headerWeek,
       flex: 1,
       valueGetter: (value, exercises) => exercises.pivot.week,
     },
     {
       field: "event",
-      headerName: "event",
+      headerName: headerEvent,
       flex: 1,
       renderCell: (exercises) => (
         <strong>
@@ -51,6 +58,7 @@ const ExerciseIndex = () => {
               variant="contained"
               size="small"
               style={{
+                margin:"0 0.5rem" ,
                 background: "red",
                 padding: "5px",
                 borderRadius: "8px",
@@ -64,7 +72,7 @@ const ExerciseIndex = () => {
               variant="contained"
               size="small"
               style={{
-                marginLeft: 16,
+                 margin:"0 0.5rem" ,
                 background: "green",
                 padding: "5px",
                 borderRadius: "8px",
@@ -78,7 +86,7 @@ const ExerciseIndex = () => {
               variant="contained"
               size="small"
               style={{
-                marginLeft: 16,
+                 margin:"0 0.5rem" ,
                 background: "#aaa",
                 padding: "5px",
                 borderRadius: "8px",
@@ -120,7 +128,7 @@ const ExerciseIndex = () => {
 
   return (
     <Box m="20px">
-      <Header title="EXERCISES" subtitle="List of Exercises Balances" />
+      <Header title={language ==='en' ?  "EXERCISE" : "التمارين"} subtitle={language ==='en' ? "List of Exercise Table" : "سجلات من جدول التمارين"} />
       <Table loading={loading} columns={columns} data={exercises} />
     </Box>
   );

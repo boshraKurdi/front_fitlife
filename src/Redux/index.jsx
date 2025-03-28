@@ -23,6 +23,7 @@ import Dservice from './Dashboard/Service/ServiceSlice';
 import Duser from './Dashboard/User/UserSlice';
 import admin from './Dashboard/Admin/AdminSlice';
 import ingredient from './Dashboard/Ingredient/IngredientsSlice';
+import Dchat from './Dashboard/Chat/ChatSlice';
 
 import {
   persistStore,
@@ -78,7 +79,8 @@ const rootReducer = combineReducers({
   target ,
   admin , 
   Duser ,
-  ingredient
+  ingredient ,
+  Dchat
 })
  const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 

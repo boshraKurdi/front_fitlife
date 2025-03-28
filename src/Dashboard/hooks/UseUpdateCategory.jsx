@@ -11,8 +11,7 @@ export default function UseUpdateCategory() {
   const nav = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { value } = useSelector((state) => state.mode);
-  const { loadingStore , error  } = useSelector((state) => state.Dcategory);
+  const { value , language } = useSelector((state) => state.mode);
   const { category, loadingShow } = UseDetailsCategory();
   const { checkoutSchema, initialValues , setInitialValues } = CategoryValidation({
     category,
@@ -23,7 +22,7 @@ export default function UseUpdateCategory() {
       title: category.title,
       title_ar: category.title_ar,
     });
-  }, [id])
+  }, [category])
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const handleFormSubmit = (values) => {
     const formData = new FormData();
@@ -41,14 +40,10 @@ export default function UseUpdateCategory() {
   };
   
   return {
-    id,
-    category,
-    loadingShow,
     isNonMobile,
     value,
-    loadingStore,
+    language,
     handleFormSubmit,
-    error,
     checkoutSchema,
     initialValues,
   };

@@ -20,50 +20,56 @@ const Category = () => {
     dispatch(ActIndex());
   }, [dispatch]);
   const { categories, loading } = useSelector((state) => state.Dcategory);
-  const columns = [
-    { field: "id", headerName: "ID" },
-    {
-      field: "title",
-      headerName: "Title",
-      flex: 1,
-    },
-    {
-      field: "event",
-      headerName: "event",
-      flex: 1,
-      renderCell: (categories) => (
-        <strong>
-          <Tooltip title="Delete" arrow placement="top" onClick={()=>{HandelDelete(categories.id)}}>
-            <IconButton
-              variant="contained"
-              size="small"
-              style={{
-                background: "red",
-                padding: "5px",
-                borderRadius: "8px",
-              }}
-            >
-              <DeleteIcon sx={{color:'#fff'}} className="delete" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Update" arrow placement="top" onClick={()=>{nav('update/'+categories.id)}}>
-            <IconButton
-              variant="contained"
-              size="small"
-              style={{
-                marginLeft: 16,
-                background: "green",
-                padding: "5px",
-                borderRadius: "8px",
-              }}
-            >
-              <EditIcon sx={{color:'#fff'}} className="update" />
-            </IconButton>
-          </Tooltip>
-        </strong>
-      ),
-    },
-  ];
+    const { language } = useSelector((state) => state.mode)
+    const headerID = "ID";
+    const headerTitle = language === "en" ? "Title" : "العنوان";
+    const headerEvent = language === "en" ? "Event" : "الحدث";
+    
+    const columns = [
+        { field: "id", headerName: headerID },
+        {
+          field: "title",
+          headerName: headerTitle,
+          flex: 1,
+        },
+        {
+          field: "event",
+          headerName: headerEvent,
+          flex: 1,
+          renderCell: (categories) => (
+            <strong>
+              <Tooltip title="Delete" arrow placement="top" onClick={() => HandelDelete(categories.id)}>
+                <IconButton
+                  variant="contained"
+                  size="small"
+                  style={{
+                    margin:"0 0.5rem",
+                    background: "red",
+                    padding: "5px",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <DeleteIcon sx={{ color: "#fff" }} className="delete" />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Update" arrow placement="top" onClick={() => nav("update/" + categories.id)}>
+                <IconButton
+                  variant="contained"
+                  size="small"
+                  style={{
+                    margin: "0 0.5rem",
+                    background: "green",
+                    padding: "5px",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <EditIcon sx={{ color: "#fff" }} className="update" />
+                </IconButton>
+              </Tooltip>
+            </strong>
+          ),
+        },
+    ];
   const HandelDestroy = useCallback(
     (id) => {
       dispatch(ActDestroy(id));
@@ -94,7 +100,7 @@ const Category = () => {
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="CATEGORY" subtitle="List of Category Table" />
+        <Header title={language ==='en' ? "CATEGORY" : "الفئات"} subtitle={language ==='en' ?  "List of Category Table" : "سجلات جدول الفئات"} />
         <Link to={"/dashboard/CategoryForm"}>
           <Button
             sx={{
@@ -106,7 +112,7 @@ const Category = () => {
             }}
           >
             <AddIcon sx={{ fontSize: "2rem", mr: "10px" }} />
-            New Categorie
+            {language ==='en' ?  "New Categorie" : "فئة جديدة"}
           </Button>
         </Link>
       </Box>

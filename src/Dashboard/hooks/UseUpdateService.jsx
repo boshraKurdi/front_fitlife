@@ -11,8 +11,7 @@ export default function UseUpdateService() {
   const nav = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { value } = useSelector((state) => state.mode);
-  const { loadingStore, error } = useSelector((state) => state.Dservice);
+  const { value , language } = useSelector((state) => state.mode);
   const { service, loadingShow } = UseDetalisService();
   const { checkoutSchema, initialValues , setInitialValues } = ServiceValidation({
     service,
@@ -48,15 +47,11 @@ export default function UseUpdateService() {
  
 
   return {
-    id,
-    service,
-    loadingShow,
     isNonMobile,
     value,
     handleFormSubmit,
-    loadingStore,
-    error,
     checkoutSchema,
+    language,
     initialValues,
   };
 }

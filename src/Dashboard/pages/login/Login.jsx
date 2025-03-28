@@ -41,7 +41,7 @@ export default function Login() {
     }
   }
   return (
-    <div style={{marginTop: "1rem"}} className="login">
+    <div style={{marginTop: "0rem"}} className="login">
     <div className="login__content">
       <div className="login__img">
         <img src={imgAuth} alt="" />

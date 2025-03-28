@@ -65,7 +65,7 @@ const DetailsExercise = () => {
                   borderRadius: "30px",
                   margin: "auto",
                 }}
-                image={exercise?.media && exercise.media[0].original_url}
+                image={exercise?.media && exercise?.media[0]?.original_url}
                 title="green iguana"
               />
               <CardContent

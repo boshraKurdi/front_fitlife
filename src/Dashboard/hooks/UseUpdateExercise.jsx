@@ -11,8 +11,7 @@ export default function UseUpdateExercise() {
   const nav = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { value } = useSelector((state) => state.mode);
-  const { loadingStore, error } = useSelector((state) => state.Dexercise);
+  const { value , language } = useSelector((state) => state.mode);
   const { exercise, loadingShow } = UseDetailsExercise();
   const { checkoutSchema, initialValues , setInitialValues } = ExerciseValidation({
     exercise,
@@ -41,7 +40,7 @@ export default function UseUpdateExercise() {
       steps:'',
       media :"",
     });
-  }, [id])
+  }, [exercise])
   
    const [stepsCount, setStepsCount] = useState(exercise?.steps?.length);
     const [stepsData, setStepsData] = useState([]);
@@ -129,39 +128,41 @@ export default function UseUpdateExercise() {
         enqueueSnackbar(`Update Exercise faild!`, { variant: "error" });
       });
   };
-  const [preview, setPreview] = useState(exercise?.media && exercise?.media[0]?.original_url);
+  const [preview, setPreview] = useState();
+  useEffect(() => {
+    if (exercise?.media && exercise.media[0]?.original_url) {
+      setPreview(exercise.media[0].original_url);
+    }
+  }, [exercise]);
+  const handleImageChange = (event, setFieldValue) => {
+    const file = event.currentTarget.files[0];
   
-    const handleImageChange = (event, setFieldValue) => {
-      const file = event.currentTarget.files[0];
-      setFieldValue("image", file);
+    if (file) {
+      setFieldValue("media", file);
   
-      if (file) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          setPreview(reader.result);
-        };
-        reader.readAsDataURL(file);
-      }
-    };
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return {
-    exercise,
-    loadingShow,
     MenuProps,
     handleStepImageChange,
     isNonMobile,
-    handleDeleteStep,
+    language,
     handleStepsCountChange,
     value,
+    handleDeleteStep,
     handleImageChange,
     handleFormSubmit,
-    loadingStore,
-    error,
+    setStepsData,
+    stepsData,
     checkoutSchema,
     initialValues,
-    preview ,
-    setStepsData ,
-    stepsData,
-    stepsCount
+    preview,
+    stepsCount,
   };
 }

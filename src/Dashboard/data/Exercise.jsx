@@ -21,69 +21,77 @@ const Exercise = () => {
     dispatch(ActExerciseIndex(id));
   }, [dispatch, id]);
   const { exercises, loading } = useSelector((state) => state.Dexercise);
+      const { language } = useSelector((state) => state.mode)
+  const headerID = "ID";
+  const headerTitle = language === "en" ? "Title" : "العنوان";
+  const headerDuration = language === "en" ? "Duration" : "المدة";
+  const headerEvent = language === "en" ? "Event" : "الحدث";
+  
   const columns = [
-    { field: "id", headerName: "ID" },
-    {
-      field: "title",
-      headerName: "Title",
-      flex: 1,
-    },
-    {
-      field: "duration",
-      headerName: "Duration",
-      flex: 1,
-    },
-    {
-      field: "event",
-      headerName: "event",
-      flex: 1,
-      renderCell: (exercises) => (
-        <strong>
-          <Tooltip title="Delete" arrow placement="top" onClick={()=>{HandelDelete(exercises.id)}}>
-            <IconButton
-              variant="contained"
-              size="small"
-              style={{
-                background: "red",
-                padding: "5px",
-                borderRadius: "8px",
-              }}
-            >
-              <DeleteIcon sx={{color:'#fff'}} className="delete" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Update" arrow placement="top" onClick={()=>{nav('update/'+exercises.id)}}>
-            <IconButton
-              variant="contained"
-              size="small"
-              style={{
-                marginLeft: 16,
-                background: "green",
-                padding: "5px",
-                borderRadius: "8px",
-              }}
-            >
-              <EditIcon sx={{color:'#fff'}} className="update"  />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Open" arrow placement="top" onClick={()=>{nav('DetailsExercise/'+exercises.id)}}>
-            <IconButton
-              variant="contained"
-              size="small"
-              style={{
-                marginLeft: 16,
-                background: "#aaa",
-                padding: "5px",
-                borderRadius: "8px",
-              }}
-            >
-              <FolderOpenIcon sx={{color:'#fff'}} className="open" />
-            </IconButton>
-          </Tooltip>
-        </strong>
-      ),
-    },
+      { field: "id", headerName: headerID },
+      {
+        field: "title",
+        headerName: headerTitle,
+        flex: 1,
+      },
+      {
+        field: "duration",
+        headerName: headerDuration,
+        flex: 1,
+      },
+      {
+        field: "event",
+        headerName: headerEvent,
+        flex: 1,
+        renderCell: (exercises) => (
+          <strong>
+            <Tooltip title="Delete" arrow placement="top" onClick={() => HandelDelete(exercises.id)}>
+              <IconButton
+                variant="contained"
+                size="small"
+                style={{
+                  margin:"0 0.5rem" ,
+                  background: "red",
+                  padding: "5px",
+                  borderRadius: "8px",
+                }}
+              >
+                <DeleteIcon sx={{ color: "#fff" }} className="delete" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Update" arrow placement="top" onClick={() => nav("update/" + exercises.id)}>
+              <IconButton
+                variant="contained"
+                size="small"
+                style={{
+                  margin:"0 0.5rem" ,
+                  background: "green",
+                  padding: "5px",
+                  borderRadius: "8px",
+                }}
+              >
+                <EditIcon sx={{ color: "#fff" }} className="update" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Open" arrow placement="top" onClick={() => nav("DetailsExercise/" + exercises.id)}>
+              <IconButton
+                variant="contained"
+                size="small"
+                style={{
+                  margin:"0 0.5rem" ,
+                  background: "#aaa",
+                  padding: "5px",
+                  borderRadius: "8px",
+                }}
+              >
+                <FolderOpenIcon sx={{ color: "#fff" }} className="open" />
+              </IconButton>
+            </Tooltip>
+          </strong>
+        ),
+      },
   ];
+  
   const HandelDestroy = useCallback(
     (id) => {
       dispatch(ActDestroy(id));
@@ -114,7 +122,7 @@ const Exercise = () => {
   return (
     <Box m="20px">
         <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="EXERCISE" subtitle="List of Exercise Table" />
+        <Header title={language ==='en' ?  "EXERCISE" : "التمارين"} subtitle={language ==='en' ? "List of Exercise Table" : "سجلات من جدول التمارين"} />
         <Link to={"/dashboard/ExerciseForm"}>
           <Button
             sx={{

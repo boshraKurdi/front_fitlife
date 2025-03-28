@@ -1,23 +1,23 @@
-import { Box, Button, MenuItem, Select, TextField } from "@mui/material";
+import { Box, Button, MenuItem, Select } from "@mui/material";
 import { Form, Formik } from "formik";
 import Header from "../../components/Header";
 import EditIcon from "@mui/icons-material/Edit";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import UseUpdatePlan from "../../hooks/UseUpdatePlan";
 import CustomizedAccordions from "../../components/customizedAccordions/CustomizedAccordions";
+import InputForm from "../../components/InputForm";
 const PlanUpdate = () => {
   const {
-    loadingShow,
     check,
     setCheck,
     MenuProps,
     isNonMobile,
+    language,
     value,
     exercises,
     meals,
     type,
     time,
-    setTime,
     type_ar,
     chipData,
     setChipData,
@@ -29,7 +29,7 @@ const PlanUpdate = () => {
   } = UseUpdatePlan();
   return (
     <Box m="20px">
-      <Header title="UPDATE PLAN" subtitle="Update a Plan" />
+      <Header title={language === "en" ? "UPDATE PLAN" : "تعديل الخطة"} subtitle={language === "en" ? "Update a Plan" : "املأ البيانات لتعديل الخطة"} />
       <Formik
         enableReinitialize={true}
         onSubmit={handleFormSubmit}
@@ -39,6 +39,7 @@ const PlanUpdate = () => {
         {({
           values,
           errors,
+          isSubmitting,
           touched,
           setFieldValue,
           handleBlur,
@@ -54,137 +55,51 @@ const PlanUpdate = () => {
                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
               }}
             >
-              <TextField
-                variant="filled"
-                type="text"
-                label="Title"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                disabled={loadingShow === "pending" ? true : false}
-                value={values.title}
-                name="title"
-                error={!!touched.title && !!errors.title}
-                helperText={touched.title && errors.title}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.title}
+                touched={touched.title}
+                errors={errors.title}
+                title={language === "en" ? "title" : "العنوان"}
+                name={"title"}
               />
-              <TextField
-                variant="filled"
-                type="text"
-                label="Title AR"
-                onBlur={handleBlur}
-                disabled={loadingShow === "pending" ? true : false}
-                onChange={handleChange}
-                value={values.title_ar}
-                name="title_ar"
-                error={!!touched.title_ar && !!errors.title_ar}
-                helperText={touched.title_ar && errors.title_ar}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.title_ar}
+                touched={touched.title_ar}
+                errors={errors.title_ar}
+                title={language === "en" ? "title ar" : "العنوان بالعربي"}
+                name={"title_ar"}
               />
-              <TextField
-                variant="filled"
-                type="text"
-                label="Description"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                disabled={loadingShow === "pending" ? true : false}
-                value={values.description}
-                name="description"
-                error={!!touched.description && !!errors.description}
-                helperText={touched.description && errors.description}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.description}
+                touched={touched.description}
+                errors={errors.description}
+                title={language === "en" ? "description" : "الوصف"}
+                name={"description"}
               />
-
-              <TextField
-                variant="filled"
-                type="text"
-                label="Description AR"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                disabled={loadingShow === "pending" ? true : false}
-                value={values.description_ar}
-                name="description_ar"
-                error={!!touched.description_ar && !!errors.description_ar}
-                helperText={touched.description_ar && errors.description_ar}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.description_ar}
+                touched={touched.description_ar}
+                errors={errors.description_ar}
+                title={language === "en" ? "description ar" : "الوصف بالعربي"}
+                name={"description_ar"}
               />
-
-              <TextField
-                variant="filled"
-                type="text"
-                label="Duration"
-                disabled={loadingShow === "pending" ? true : false}
-                onBlur={() => {
-                  setTime(values.duration);
-                  handleBlur;
-                }}
-                onChange={handleChange}
-                value={values.duration}
-                name="duration"
-                error={!!touched.duration && !!errors.duration}
-                helperText={touched.duration && errors.duration}
-                sx={{ gridColumn: "span 4" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.duration}
+                touched={touched.duration}
+                errors={errors.duration}
+                title={language === "en" ? "duration" : "المدة"}
+                name={"duration"}
               />
-
               <Select
                 name="type"
                 value={check.name}
@@ -225,158 +140,102 @@ const PlanUpdate = () => {
                   );
                 })}
               </Select>
-              <Select
-                name="type_ar"
-                value={check.name_ar}
-                variant="filled"
-                onChange={handleChange}
-                error={!!touched.type_ar && !!errors.type_ar}
-                helperText={touched.type_ar && errors.type_ar}
-                sx={{ gridColumn: "span 2", fontSize: "1.6rem" }}
-                MenuProps={MenuProps}
-                displayEmpty
-                renderValue={(selected) => {
-                  if (!selected) {
-                    return <em style={{ color: "#aaa" }}>Type Ar</em>;
-                  }
-                  return selected;
-                }}
-              >
-                {type_ar?.map((e, index) => {
-                  return (
-                    <MenuItem
-                      sx={{
-                        fontSize: "1.2rem",
-                        fontFamily: "system-ui",
-                        lineHeight: "1.5",
-                      }}
-                      onClick={() => {
-                        setCheck({
-                          ...check,
-                          name: type[index].name,
-                          name_ar: e.name,
-                        });
-                      }}
-                      key={index}
-                      value={e.name}
-                    >
-                      {e.name}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
+              {/* <Select
+                             name="type_ar"
+                             value={check.name_ar}
+                             variant="filled"
+                             onChange={handleChange}
+                             error={!!touched.type_ar && !!errors.type_ar}
+                             helperText={touched.type_ar && errors.type_ar}
+                             sx={{ gridColumn: "span 2", fontSize: "1.6rem" }}
+                             MenuProps={MenuProps}
+                             displayEmpty
+                             renderValue={(selected) => {
+                               if (!selected) {
+                                 return <em style={{ color: "#aaa" }}>Type Ar</em>;
+                               }
+                               return selected;
+                             }}
+                           >
+                             {type_ar?.map((e, index) => {
+                               return (
+                                 <MenuItem
+                                   sx={{
+                                     fontSize: "1.2rem",
+                                     fontFamily: "system-ui",
+                                     lineHeight: "1.5",
+                                   }}
+                                   onClick={() => {
+                                     setCheck({
+                                       ...check,
+                                       name: type[index].name,
+                                       name_ar: e.name,
+                                     });
+                                   }}
+                                   key={index}
+                                   value={e.name}
+                                 >
+                                   {e.name}
+                                 </MenuItem>
+                               );
+                             })}
+                           </Select> */}
               {check.name == "water" ? (
-                <TextField
-                  variant="filled"
-                  type="text"
-                  label="Water"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.water}
-                  name="water"
-                  error={!!touched.water && !!errors.water}
-                  helperText={touched.water && errors.water}
-                  sx={{ gridColumn: "span 4" }}
-                  InputProps={{
-                    sx: { fontSize: "1.5rem" },
-                  }}
-                  InputLabelProps={{
-                    sx: {
-                      fontSize: "1.6rem",
-                      color: value === "dark" ? "#fff" : "#000",
-                      "&.Mui-focused": {
-                        color: value === "dark" ? "#fff" : "#000",
-                      },
-                    },
-                  }}
+                <InputForm
+                  handleBlur={handleBlur}
+                  handleChange={handleChange}
+                  values={values.water}
+                  touched={touched.water}
+                  errors={errors.water}
+                  title={language === "en" ? "water" : "كمية الماء"}
+                  name={"water"}
                 />
               ) : check.name == "sleep" ? (
-                <TextField
-                  variant="filled"
-                  type="text"
-                  label="Sleep"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.water}
-                  name="sleep"
-                  error={!!touched.sleep && !!errors.sleep}
-                  helperText={touched.sleep && errors.sleep}
-                  sx={{ gridColumn: "span 4" }}
-                  InputProps={{
-                    sx: { fontSize: "1.5rem" },
-                  }}
-                  InputLabelProps={{
-                    sx: {
-                      fontSize: "1.6rem",
-                      color: value === "dark" ? "#fff" : "#000",
-                      "&.Mui-focused": {
-                        color: value === "dark" ? "#fff" : "#000",
-                      },
-                    },
-                  }}
+                <InputForm
+                  handleBlur={handleBlur}
+                  handleChange={handleChange}
+                  values={values.sleep}
+                  touched={touched.sleep}
+                  errors={errors.sleep}
+                  title={language === "en" ? "sleep" : "ساعات النوم"}
+                  name={"sleep"}
                 />
               ) : check.name == "food" ? (
                 <CustomizedAccordions
                   setChipData={setChipData}
                   chipData={chipData}
-                  time={time}
+                  time={time * 7}
                   data={meals}
                   title="meals"
                 />
               ) : check.name != "" ? (
                 <>
-                  <TextField
-                    variant="filled"
-                    type="text"
-                    label="Muscle"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.muscle}
-                    name="muscle"
-                    error={!!touched.muscle && !!errors.muscle}
-                    helperText={touched.muscle && errors.muscle}
-                    sx={{ gridColumn: "span 2" }}
-                    InputProps={{
-                      sx: { fontSize: "1.5rem" },
-                    }}
-                    InputLabelProps={{
-                      sx: {
-                        fontSize: "1.6rem",
-                        color: value === "dark" ? "#fff" : "#000",
-                        "&.Mui-focused": {
-                          color: value === "dark" ? "#fff" : "#000",
-                        },
-                      },
-                    }}
+                  <InputForm
+                    handleBlur={handleBlur}
+                    handleChange={handleChange}
+                    values={values.muscle}
+                    touched={touched.muscle}
+                    errors={errors.muscle}
+                    title={language === "en" ? "muscle" : "العضلة المستهدفة"}
+                    name={"muscle"}
                   />
-                  <TextField
-                    variant="filled"
-                    type="text"
-                    label="Muscle Ar"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.muscle_ar}
-                    name="muscle_ar"
-                    error={!!touched.muscle_ar && !!errors.muscle_ar}
-                    helperText={touched.muscle_ar && errors.muscle_ar}
-                    sx={{ gridColumn: "span 2" }}
-                    InputProps={{
-                      sx: { fontSize: "1.5rem" },
-                    }}
-                    InputLabelProps={{
-                      sx: {
-                        fontSize: "1.6rem",
-                        color: value === "dark" ? "#fff" : "#000",
-                        "&.Mui-focused": {
-                          color: value === "dark" ? "#fff" : "#000",
-                        },
-                      },
-                    }}
+                  <InputForm
+                    handleBlur={handleBlur}
+                    handleChange={handleChange}
+                    values={values.muscle_ar}
+                    touched={touched.muscle_ar}
+                    errors={errors.muscle_ar}
+                    title={
+                      language === "en"
+                        ? "muscle_ar"
+                        : "العضلة المستهدفة بالعربي"
+                    }
+                    name={"muscle_ar"}
                   />
                   <CustomizedAccordions
                     setChipData={setChipData}
                     chipData={chipData}
-                    time={time}
+                    time={time * 7}
                     data={exercises}
                     title="exercises"
                   />
@@ -384,7 +243,6 @@ const PlanUpdate = () => {
               ) : (
                 ""
               )}
-
               <div
                 className="uploadfile"
                 style={{
@@ -420,15 +278,21 @@ const PlanUpdate = () => {
               </div>
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-                <Button
-                  className={value === "dark" ? "newR dark" : "newR light"}
-                  sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}
-                  type="submit"
-                  color="secondary"
-                  variant="contained"
-                >
-                  Update Plan <EditIcon sx={{ ml: "1rem" }} />
-                </Button>
+              <Button
+                className={value === "dark" ? "newR dark" : "newR light"}
+                sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}
+                type="submit"
+                color="secondary"
+                variant="contained"
+              >
+                 {isSubmitting
+                  ? language === "en"
+                    ? "Loading..."
+                    : "انتظار..."
+                  : language === "en"
+                  ? "Update Plan"
+                  : "تعديل الخطة"}{" "}<EditIcon sx={{ ml: "1rem" }} />
+              </Button>
             </Box>
           </Form>
         )}

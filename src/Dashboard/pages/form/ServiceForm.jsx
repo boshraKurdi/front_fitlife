@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { Form, Formik } from "formik";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -8,17 +8,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
 import { ActStore } from "../../../Redux/Dashboard/Service/ServiceSlice";
 import { useNavigate } from "react-router-dom";
-import Loading from "../../components/loading/Loading";
+import InputForm from "../../components/InputForm";
 
 const ServiceForm = () => {
   const nav = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-  const { value } = useSelector((state) => state.mode);
-  const { loadingStore, error } = useSelector((state) => state.Dservice);
+  const { value, language } = useSelector((state) => state.mode)
   const { checkoutSchema, initialValues } = ServiceValidation();
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const dispatch = useDispatch();
-
 
   const handleFormSubmit = (values) => {
     const formData = new FormData();
@@ -31,14 +29,14 @@ const ServiceForm = () => {
         nav("/dashboard");
         enqueueSnackbar(`Update Service successfully!`, { variant: "success" });
       })
-      .catch((error) => {
+      .catch(() => {
         enqueueSnackbar(`Update Service faild!`, { variant: "error" });
       });
   };
 
   return (
     <Box m="20px">
-      <Header title="CREATE MEAL" subtitle="Create a New Meal" />
+      <Header title={language === "en" ? "CREATE SERVICE" : "انشاء الخدمة"} subtitle={language === "en" ? "Create a New Service" : "املأ البيانات لانشاء خدمة"} />
       <Formik
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
@@ -46,9 +44,9 @@ const ServiceForm = () => {
       >
         {({
           values,
+          isSubmitting,
           errors,
           touched,
-          setFieldValue,
           handleBlur,
           handleChange,
           handleSubmit,
@@ -62,91 +60,51 @@ const ServiceForm = () => {
                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
               }}
             >
-              <TextField
-                variant="filled"
-                type="text"
-                label="Service"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.service}
-                name="service"
-                error={!!touched.service && !!errors.service}
-                helperText={touched.service && errors.service}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.service}
+                touched={touched.service}
+                errors={errors.service}
+                service={language === "en" ? "service" : "الخدمة"}
+                name={"service"}
               />
-              <TextField
-                variant="filled"
-                type="text"
-                label="Price"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.price}
-                name="price"
-                error={!!touched.price && !!errors.price}
-                helperText={touched.price && errors.price}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.price}
+                touched={touched.price}
+                errors={errors.price}
+                title={language === "en" ? "price" : "سعر الخدمة"}
+                name={"price"}
               />
-              <TextField
-                variant="filled"
-                type="text"
-                label="Duration"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.duration}
-                name="duration"
-                error={!!touched.duration && !!errors.duration}
-                helperText={touched.duration && errors.duration}
-                sx={{ gridColumn: "span 4" }}
-                InputProps={{
-                  sx: { fontSize: "1.5rem" },
-                }}
-                InputLabelProps={{
-                  sx: {
-                    fontSize: "1.6rem",
-                    color: value === "dark" ? "#fff" : "#000",
-                    "&.Mui-focused": {
-                      color: value === "dark" ? "#fff" : "#000",
-                    },
-                  },
-                }}
+              <InputForm
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                values={values.duration}
+                touched={touched.duration}
+                errors={errors.duration}
+                title={language === "en" ? "duration" : "مدة الخدمة"}
+                name={"duration"}
               />
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Loading loading={loadingStore} error={error}>
-                <Button
-                  className={value === "dark" ? "newR dark" : "newR light"}
-                  sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}
-                  type="submit"
-                  color="secondary"
-                  variant="contained"
-                >
-                  Create New Service <AddIcon sx={{ ml: "1rem" }} />
-                </Button>
-              </Loading>
+              <Button
+                className={value === "dark" ? "newR dark" : "newR light"}
+                sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}
+                type="submit"
+                color="secondary"
+                disabled={isSubmitting}
+                variant="contained"
+              >
+                 {isSubmitting
+                  ? language === "en"
+                    ? "Loading..."
+                    : "انتظار..."
+                  : language === "en"
+                  ? "Create New Servise"
+                  : "خدمة جديدة"}{" "} <AddIcon sx={{ ml: "1rem" }} />
+              </Button>
             </Box>
           </Form>
         )}
