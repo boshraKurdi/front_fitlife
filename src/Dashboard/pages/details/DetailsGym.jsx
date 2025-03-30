@@ -13,20 +13,20 @@ import CardContentDetails from "../../components/card/cardContentDetails";
 
 
 const DetailsGym = () => {
-  const { value } = useSelector((state) => state.mode);
+  const { value , language } = useSelector((state) => state.mode);
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
   const {gym , loadingShow } = UseDetalisGym()
   const newData = gym.section ? gym.section.map((data) => {
     return(
       <>
-      <CardContentDetails  title={data.title} description={data.description} img={data.media && data.media[0]?.original_url} />
+      <CardContentDetails  title={language === 'en' ?data.title : data?.title_ar} description={language === 'en' ?data.description:data?.description_ar} img={data.media && data.media[0]?.original_url} />
       </>
     )
   } ) :''
   return (
     <Box m="20px">
-      <Header title="DETAILS GYM" subtitle="Information Gym" />
+      <Header title={language === 'en' ?"DETAILS GYM" : "تفاصيل النادي"} subtitle={language === 'en' ?"Information Gym" : "معلومات النادي"} />
       {loadingShow === "pending" ? (
         "loading..."
       ) : (
@@ -53,7 +53,7 @@ const DetailsGym = () => {
               <Box m="15px">
                 <TextField
                   id="outlined-read-only-input"
-                  label="Name"
+                  label={language === 'en' ?"Name" : "اسم النادي"}
                    className="width"
                   defaultValue={gym?.name}
                   sx={{ height: "80px" }}
@@ -79,10 +79,10 @@ const DetailsGym = () => {
               <Box m="15px">
                 <TextField
                   id="outlined-read-only-input"
-                  label="Description"
+                  label={language === 'en' ?"Description" : "الوصف"}
                    className="width"
                   sx={{ height: "80px" }}
-                  defaultValue={gym?.description}
+                  defaultValue={language === 'en' ?gym?.description : gym?.description_ar}
                   multiline
                   maxRows={2}
                  InputLabelProps={{
@@ -104,7 +104,7 @@ const DetailsGym = () => {
               <Box m="15px">
                 <TextField
                   id="outlined-read-only-input"
-                  label="Price"
+                  label={language === 'en' ?"Price" : "تكلفة النادي"}
                    className="width"
                   sx={{ fontSize: "2rem", height: "80px" }}
                   defaultValue={gym?.price}
@@ -127,7 +127,7 @@ const DetailsGym = () => {
               <Box m="15px">
                 <TextField
                   id="outlined-read-only-input"
-                  label="Open"
+                  label={language === 'en' ?"Open" : "وقت الفتح"}
                    className="width"
                   sx={{ fontSize: "2rem", height: "80px" }}
                   defaultValue={gym?.open}
@@ -150,7 +150,7 @@ const DetailsGym = () => {
               <Box m="15px">
                 <TextField
                   id="outlined-read-only-input"
-                  label="Close"
+                  label={language === 'en' ?"Close" : "وقت الاغلاق"}
                    className="width"
                   sx={{ fontSize: "2rem", height: "80px" }}
                   defaultValue={gym?.close}
@@ -173,7 +173,7 @@ const DetailsGym = () => {
               <Box m="15px">
                 <TextField
                   id="outlined-read-only-input"
-                  label="Type"
+                  label={language === 'en' ?"Type" : "نوع النادي"}
                    className="width"
                   sx={{ fontSize: "2rem", height: "80px" }}
                   defaultValue={gym?.type}
@@ -196,7 +196,7 @@ const DetailsGym = () => {
               <Box m="15px">
                 <TextField
                   id="outlined-read-only-input"
-                  label="Address"
+                  label={language === 'en' ?"Address" : "عنوان النادي"}
                    className="width"
                   sx={{ fontSize: "2rem", height: "80px" }}
                   defaultValue={gym?.address}
@@ -219,10 +219,63 @@ const DetailsGym = () => {
             </CardContent>
           </Box>
         </Card>
-        <h1 style={{margin: '2rem 0 1rem 0 ', fontSize: '2.5rem'}}>Sections</h1>
-        <section style={{display:'flex' , alignItems:'center' , justifyContent:'center' , width:'70vw' , margin:'auto'}}>
-        {gym.section && <SwiperComponent data={newData}/>}
-        </section>
+         <Card
+                    sx={{
+                      width: "70vw",
+                      margin: "auto",
+                
+                      marginTop: "4rem",
+                      background: colors.primary[900],
+                    }}
+                  >
+                      <Box
+                      sx={{
+                       
+                        padding: "2rem 2rem 0 2rem",
+                        [theme.breakpoints.down("lg")]: {
+                          flexDirection: "column",
+                        },
+                      }}
+                    >
+                     <Header title={language === 'en' ?"SECTIONS"  : "اقسام النادي"}/>
+                     </Box>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        width: "100%",
+                        padding: "2rem",
+                        [theme.breakpoints.down("lg")]: {
+                          flexDirection: "column",
+                        },
+                      }}
+                    >
+                      <CardContent
+                        sx={{
+                          flex: "1",
+                          display: "flex",
+                          flexWrap: "wrap",
+                          [theme.breakpoints.down("lg")]: {
+                            justifyContent: "center",
+                          },
+                        }}
+                      >
+                        <Box m="15px">
+                          <section
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              width: "65vw",
+                              margin: "auto",
+                            }}
+                          >
+                            {gym.section && <SwiperComponent data={newData}/>}
+                          </section>
+                        </Box>
+                      </CardContent>
+                    </Box>
+                  </Card>
+        
         </>
       )}
     </Box>

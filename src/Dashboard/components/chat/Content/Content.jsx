@@ -75,7 +75,7 @@ export default function Content({ id }) {
               : "chat-msg dark user"
           }
         >
-          {admin.id !== message.group?.user.id && myChat.type === "public" ? (
+          {admin.id !== message.group?.user.id && myChat?.type === "public" ? (
             <p
               style={{ color: "var(--fc-bg-event-color)", fontSize: "1.3rem" }}
             >
@@ -123,12 +123,12 @@ export default function Content({ id }) {
                 </div>
                 <div className="details">
                   <h3>
-                    {myChat.type === "public"
+                    {myChat?.type === "public"
                       ? myChat?.name
                       : myChat?.user && myChat?.user[0]?.name}
                   </h3>
                   <span>
-                    {myChat.type === "public" ? (
+                    {myChat?.type === "public" ? (
                       <div
                         style={{
                           display: "flex",

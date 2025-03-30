@@ -134,7 +134,7 @@ const Exercise = () => {
             }}
           >
             <AddIcon sx={{ fontSize: "2rem", mr: "10px" }} />
-            New Exercise
+            {language === "en" ? "New Exercise" : "تمرين جديد"}
           </Button>
         </Link>
       </Box>

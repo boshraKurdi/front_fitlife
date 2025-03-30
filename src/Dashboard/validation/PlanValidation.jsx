@@ -9,7 +9,7 @@ export default function PlanValidation(){
     title_ar: yup.string().required("required"),
     description: yup.string().required("required"),
     description_ar: yup.string().required("required"),
-    duration: yup.string().required("required"),
+    duration: yup.number().positive("The number must be positive.").required("required"),
     muscle: yup.string().required("required"),
     muscle_ar: yup.string().required("required"),
     // type: yup.string().required("required"),

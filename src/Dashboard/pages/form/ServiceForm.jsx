@@ -70,6 +70,7 @@ const ServiceForm = () => {
                 name={"service"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.price}

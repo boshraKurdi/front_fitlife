@@ -98,7 +98,16 @@ const PlanForm = () => {
       reader.readAsDataURL(file);
     }
   };
+  const handleDurationChange = (event, setFieldValue) => {
+    const value = event.target.value;
+    setFieldValue("duration", value);
 
+    // التأكد من أنه عدد صحيح وإيجابي
+    if (!isNaN(value) && value > 0) {
+      setTime(parseInt(value, 10));
+      setChipData(Array.from({ length: value * 7 }, () => [])); // تحديث الحقول بناءً على المدخل
+    }
+  };
   const { exercises } = useSelector((state) => state.Dexercise);
   useEffect(() => {
     dispatch(ActExerciseIndex());
@@ -110,7 +119,12 @@ const PlanForm = () => {
 
   return (
     <Box m="20px">
-      <Header title={language === "en" ?"CREATE PLAN" : "انشاء خطة"} subtitle={language === "en" ?"Create a New Plan":"املأ البيانات لانشاء خطة"} />
+      <Header
+        title={language === "en" ? "CREATE PLAN" : "انشاء خطة"}
+        subtitle={
+          language === "en" ? "Create a New Plan" : "املأ البيانات لانشاء خطة"
+        }
+      />
       <Formik
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
@@ -154,6 +168,7 @@ const PlanForm = () => {
                 name={"title_ar"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.description}
@@ -163,6 +178,7 @@ const PlanForm = () => {
                 name={"description"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.description_ar}
@@ -172,12 +188,17 @@ const PlanForm = () => {
                 name={"description_ar"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
-                handleChange={handleChange}
+                handleChange={(event) =>
+                  handleDurationChange(event, setFieldValue)
+                }
                 values={values.duration}
                 touched={touched.duration}
                 errors={errors.duration}
-                title={language === "en" ? "duration" : "المدة"}
+                title={
+                  language === "en" ? "Duration (Weeks)" : "المدة (بالأسابيع)"
+                }
                 name={"duration"}
               />
               <Select
@@ -204,6 +225,7 @@ const PlanForm = () => {
                         fontSize: "1.2rem",
                         fontFamily: "system-ui",
                         lineHeight: "1.5",
+                        
                       }}
                       onClick={() => {
                         setCheck({
@@ -262,6 +284,7 @@ const PlanForm = () => {
               </Select> */}
               {check.name == "water" ? (
                 <InputForm
+                  type={"number"}
                   handleBlur={handleBlur}
                   handleChange={handleChange}
                   values={values.water}
@@ -272,6 +295,7 @@ const PlanForm = () => {
                 />
               ) : check.name == "sleep" ? (
                 <InputForm
+                  type={"number"}
                   handleBlur={handleBlur}
                   handleChange={handleChange}
                   values={values.sleep}
@@ -284,7 +308,7 @@ const PlanForm = () => {
                 <CustomizedAccordions
                   setChipData={setChipData}
                   chipData={chipData}
-                  time={time * 7}
+                  time={time * 7} // الآن يتم تحديثه ديناميكيًا
                   data={meals}
                   title="meals"
                 />
@@ -367,13 +391,14 @@ const PlanForm = () => {
                 color="secondary"
                 variant="contained"
               >
-                 {isSubmitting
+                {isSubmitting
                   ? language === "en"
                     ? "Loading..."
                     : "انتظار..."
                   : language === "en"
                   ? "Create New Plan"
-                  : "خطة جديدة"}{" "}<AddIcon sx={{ ml: "1rem" }} />
+                  : "خطة جديدة"}{" "}
+                <AddIcon sx={{ ml: "1rem" }} />
               </Button>
             </Box>
           </Form>

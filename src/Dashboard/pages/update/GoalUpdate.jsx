@@ -25,9 +25,14 @@ const GoalUpdate = () => {
 
   return (
     <Box m="20px">
-      <Header title={language === "en" ? "UPDATE GOAL" : "تعديل الهدف"} subtitle={language === "en" ?  "Update a Goal" : "املأ البيانات لتعديل الهدف" } />
+      <Header
+        title={language === "en" ? "UPDATE GOAL" : "تعديل الهدف"}
+        subtitle={
+          language === "en" ? "Update a Goal" : "املأ البيانات لتعديل الهدف"
+        }
+      />
       <Formik
-         key={JSON.stringify(initialValues)}
+        key={JSON.stringify(initialValues)}
         enableReinitialize={true}
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
@@ -71,6 +76,7 @@ const GoalUpdate = () => {
                 name={"title_ar"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.description}
@@ -80,6 +86,7 @@ const GoalUpdate = () => {
                 name={"description"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.description_ar}
@@ -89,6 +96,7 @@ const GoalUpdate = () => {
                 name={"description_ar"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.calories_min}
@@ -97,7 +105,9 @@ const GoalUpdate = () => {
                 title={language === "en" ? "calories min" : "اقل سعرات حرارية"}
                 name={"calories_min"}
               />
+
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.calories_max}
@@ -107,6 +117,7 @@ const GoalUpdate = () => {
                 name={"calories_max"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.duration}

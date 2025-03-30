@@ -1,11 +1,13 @@
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import "./FormStyles.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ActSendRequestCoach } from "../../../Redux/User/UserSlice";
+import { MenuItem, Select } from "@mui/material";
+import { ActIndex } from "../../../Redux/Goal/GoalSlice";
 
 const SendRequestCoach = () => {
   const {
@@ -18,6 +20,11 @@ const SendRequestCoach = () => {
   const { enqueueSnackbar } = useSnackbar();
   const nav = useNavigate();
   const dispatch = useDispatch();
+  const [specialization, setSpecialization] = useState({ value: 0, title: "" });
+  useEffect(() => {
+      dispatch(ActIndex());
+    }, [dispatch]);
+    const { goals } = useSelector((state) => state.goal);
 
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -26,6 +33,7 @@ const SendRequestCoach = () => {
     formData.append("analysis", data.analysis);
     formData.append("education", data.education);
     formData.append("development", data.development);
+    formData.append("specialization", specialization.value);
 
     if (data.media && data.media[0]) {
       formData.append("media", data.media[0]);
@@ -65,7 +73,7 @@ const SendRequestCoach = () => {
           animate={{ opacity: 1, y: 0 }}
         >
           <h2>{language === "en" ? "Apply to become a coach" : "طلب أن تصبح مدرب"}</h2>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form className="class_form" onSubmit={handleSubmit(onSubmit)}>
             <textarea
               placeholder={language === "en" ? "Description" : "الوصف الكامل"}
               {...register("description", { required: language === "en" ? "Description is required" : "الوصف مطلوب" })}
@@ -99,7 +107,41 @@ const SendRequestCoach = () => {
               {...register("development", { required: language === "en" ? "Development is required" : "التطوير مطلوب" })}
             />
             {errors.development && <p className="error-message">{errors.development.message}</p>}
-
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={specialization.title} // تأكد من أن specialization.title هو القيمة الصحيحة
+              label="Specialization"
+              onChange={(event) => {
+                const selectedId = event.target.value; // الحصول على القيمة المحددة
+                const selectedData = goals.find(
+                  (data) => data.id === selectedId
+                ); // العثور على البيانات المناسبة
+                setSpecialization({
+                  ...specialization,
+                  title:
+                    language === "en"
+                      ? selectedData?.title
+                      : selectedData?.title_ar, // تحديث العنوان بناءً على اللغة
+                  value: selectedId, // تحديث القيمة
+                });
+              }}
+              displayEmpty
+              renderValue={(selected) => {
+                if (!selected) {
+                  return <em style={{ color: "#aaa" }}>Specialization</em>;
+                }
+                return selected;
+              }}
+            >
+              {goals?.map((data) => {
+                return (
+                  <MenuItem key={data?.id} value={data?.id}>
+                    {language === "en" ? data?.title : data?.title_ar}
+                  </MenuItem>
+                );
+              })}
+            </Select>
             <label className="custom-file-upload">
               {language === "en" ? "Select image" : "اختر صورة"}
               <input

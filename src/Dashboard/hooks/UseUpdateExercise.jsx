@@ -17,7 +17,7 @@ export default function UseUpdateExercise() {
     exercise,
     loadingShow,
   });
- 
+  const [stepsCount, setStepsCount] = useState();
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const MenuProps = {
     PaperProps: {
@@ -28,6 +28,7 @@ export default function UseUpdateExercise() {
     },
   };
   useEffect(()=>{
+    setStepsCount(exercise?.steps?.length)
     setInitialValues({...initialValues , 
       title: exercise.title,
       title_ar: exercise.title_ar,
@@ -42,7 +43,6 @@ export default function UseUpdateExercise() {
     });
   }, [exercise])
   
-   const [stepsCount, setStepsCount] = useState(exercise?.steps?.length);
     const [stepsData, setStepsData] = useState([]);
     const handleStepImageChange = (file, index) => {
       const updatedSteps = [...stepsData];

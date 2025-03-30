@@ -4,7 +4,7 @@ export default function ServiceValidation(){
 
   const checkoutSchema = yup.object().shape({
     service: yup.string().required("required"),
-    price: yup.string().required("required"),
+    price: yup.number().positive("The number must be positive.").required("required"),
     duration: yup.string().required("required"),
 });
 const [initialValues, setInitialValues]  = useState({

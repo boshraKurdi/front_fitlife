@@ -1,56 +1,67 @@
 import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Loading } from "../Website/index";
+import LoadingPage from "../Dashboard/components/loadingPage/LoadingPage";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { useSelector } from "react-redux";
 // route dashboard
-import MainDashboard from "../Dashboard/components/main/MainDashboard";
-import Dashboard from "../Dashboard/pages/dashboard";
-import UserIndex from "../Dashboard/data/UserIndex";
-import Bar from "../Dashboard/pages/bar";
-import PlanForm from "../Dashboard/pages/form/PlanForm";
-import Line from "../Dashboard/pages/line";
-import Pie from "../Dashboard/pages/pie";
-import FAQ from "../Dashboard/pages/faq";
-import Geography from "../Dashboard/pages/geography";
-import Calendar from "../Dashboard/pages/calendar/calendar";
-import GoalIndex from "../Dashboard/data/GoalIndex";
-import E404 from "../Website/Components/E404/E404";
-import PlanIndex from "../Dashboard/data/PlanIndex";
-import ExerciseIndex from "../Dashboard/data/ExerciseIndex";
-import GoalForm from "../Dashboard/pages/form/GoalForm";
-import DetailsPlan from "../Dashboard/pages/details/DetailsPlan";
-import DetailsGoal from "../Dashboard/pages/details/DetailsGoal";
-import GymIndex from "../Dashboard/data/GymIndex";
-import GymForm from "../Dashboard/pages/form/GymForm";
-import Exercise from "../Dashboard/data/Exercise";
-import Plan from "../Dashboard/data/Plan";
-import GoalUpdate from "../Dashboard/pages/update/GoalUpdate";
-import PlanUpdate from "../Dashboard/pages/update/PlanUpdate";
-import DetailsGym from "../Dashboard/pages/details/DetailsGym";
-import GymUpdate from "../Dashboard/pages/update/GymUpdate";
-import DetailsExercise from "../Dashboard/pages/details/DetailsExercise";
-import ExerciseForm from "../Dashboard/pages/form/ExerciseForm";
-import ExerciseUpdate from "../Dashboard/pages/update/ExerciseUpdate";
-import Meal from "../Dashboard/data/Meal";
-import MealUpdate from "../Dashboard/pages/update/MealUpdate";
-import MealForm from "../Dashboard/pages/form/MealForm";
-import DetailsMeal from "../Dashboard/pages/details/DetailsMeal";
-import ServiceForm from "../Dashboard/pages/form/ServiceForm";
-import ServiceUpdate from "../Dashboard/pages/update/ServiceUpdate";
-import ServiceIndex from "../Dashboard/data/ServiceIndex";
-import DetailsService from "../Dashboard/pages/details/DetailsService";
-import RequestGoals from "../Dashboard/data/RequestGoals";
-import DetailsUser from "../Dashboard/pages/details/DetailsUser";
-import Category from "../Dashboard/data/Category";
-import CategoryForm from "../Dashboard/pages/form/CategoryForm";
-import CategoryUpdate from "../Dashboard/pages/update/CategoryUpdate";
-import Login from "../Dashboard/pages/login/Login";
-import RequierAuthPanel from "../Auth/RequierAuthPanel";
-import DChat from "../Dashboard/pages/chat/Chat";
-import RequestAdmin from "../Dashboard/data/RequestAdmin";
-import RequestCoach from "../Dashboard/data/RequestCoach";
+const MainDashboard = lazy(() =>
+    import("../Dashboard/components/main/MainDashboard")
+  ),
+  Dashboard = lazy(() => import("../Dashboard/pages/dashboard")),
+  UserIndex = lazy(() => import("../Dashboard/data/UserIndex")),
+  Bar = lazy(() => import("../Dashboard/pages/bar")),
+  PlanForm = lazy(() => import("../Dashboard/pages/form/PlanForm")),
+  Line = lazy(() => import("../Dashboard/pages/line")),
+  Pie = lazy(() => import("../Dashboard/pages/pie")),
+  FAQ = lazy(() => import("../Dashboard/pages/faq")),
+  Geography = lazy(() => import("../Dashboard/pages/geography")),
+  Calendar = lazy(() => import("../Dashboard/pages/calendar/calendar")),
+  GoalIndex = lazy(() => import("../Dashboard/data/GoalIndex")),
+  E404 = lazy(() => import("../Website/Components/E404/E404")),
+  PlanIndex = lazy(() => import("../Dashboard/data/PlanIndex")),
+  ExerciseIndex = lazy(() => import("../Dashboard/data/ExerciseIndex")),
+  GoalForm = lazy(() => import("../Dashboard/pages/form/GoalForm")),
+  DetailsPlan = lazy(() => import("../Dashboard/pages/details/DetailsPlan")),
+  DetailsGoal = lazy(() => import("../Dashboard/pages/details/DetailsGoal")),
+  GymIndex = lazy(() => import("../Dashboard/data/GymIndex")),
+  GymForm = lazy(() => import("../Dashboard/pages/form/GymForm")),
+  Exercise = lazy(() => import("../Dashboard/data/Exercise")),
+  Plan = lazy(() => import("../Dashboard/data/Plan")),
+  GoalUpdate = lazy(() => import("../Dashboard/pages/update/GoalUpdate")),
+  PlanUpdate = lazy(() => import("../Dashboard/pages/update/PlanUpdate")),
+  DetailsGym = lazy(() => import("../Dashboard/pages/details/DetailsGym")),
+  GymUpdate = lazy(() => import("../Dashboard/pages/update/GymUpdate")),
+  DetailsExercise = lazy(() =>
+    import("../Dashboard/pages/details/DetailsExercise")
+  ),
+  ExerciseForm = lazy(() => import("../Dashboard/pages/form/ExerciseForm")),
+  ExerciseUpdate = lazy(() =>
+    import("../Dashboard/pages/update/ExerciseUpdate")
+  ),
+  Meal = lazy(() => import("../Dashboard/data/Meal")),
+  MealUpdate = lazy(() => import("../Dashboard/pages/update/MealUpdate")),
+  MealForm = lazy(() => import("../Dashboard/pages/form/MealForm")),
+  DetailsMeal = lazy(() => import("../Dashboard/pages/details/DetailsMeal")),
+  ServiceForm = lazy(() => import("../Dashboard/pages/form/ServiceForm")),
+  ServiceUpdate = lazy(() => import("../Dashboard/pages/update/ServiceUpdate")),
+  ServiceIndex = lazy(() => import("../Dashboard/data/ServiceIndex")),
+  DetailsService = lazy(() =>
+    import("../Dashboard/pages/details/DetailsService")
+  ),
+  RequestGoals = lazy(() => import("../Dashboard/data/RequestGoals")),
+  DetailsUser = lazy(() => import("../Dashboard/pages/details/DetailsUser")),
+  Category = lazy(() => import("../Dashboard/data/Category")),
+  CategoryForm = lazy(() => import("../Dashboard/pages/form/CategoryForm")),
+  CategoryUpdate = lazy(() =>
+    import("../Dashboard/pages/update/CategoryUpdate")
+  ),
+  Login = lazy(() => import("../Dashboard/pages/login/Login")),
+  RequierAuthPanel = lazy(() => import("../Auth/RequierAuthPanel")),
+  DChat = lazy(() => import("../Dashboard/pages/chat/Chat")),
+  RequestAdmin = lazy(() => import("../Dashboard/data/RequestAdmin")),
+  RequestCoach = lazy(() => import("../Dashboard/data/RequestCoach"));
 
 // route website
 // import RequierBack from "../Website/index";
@@ -103,173 +114,192 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <MainDashboard />,
+    element: (
+      <Suspense fallback={<LoadingPage />}>
+        <MainDashboard />
+      </Suspense>
+    ),
     children: [
       {
         path: "loginPanel",
         element: <Login />,
       },
       {
-        element: (
-          <Suspense fallback={<Loading />}>
-            <RequierAuthPanel allowedRole={["admin", "coach", "super"]} />
-          </Suspense>
-        ),
+        path: "loading",
+        element: <LoadingPage />,
+      },
+      {
+        element: <RequierAuthPanel allowedRole={["admin", "coach", "super"]} />,
         children: [
           {
             index: true,
             element: <Dashboard />,
           },
+
           {
             path: "user",
             element: <UserIndex />,
           },
+          {
+            element: <RequierAuthPanel allowedRole={["super"]} />,
+            children: [
+              {
+                path: "gym",
+                element: <GymIndex />,
+              },
+              {
+                path: "requestAdmin",
+                element: <RequestAdmin />,
+              },
+              {
+                path: "service",
+                element: <ServiceIndex />,
+              },
+              {
+                path: "service/update/:id",
+                element: <ServiceUpdate />,
+              },
+              {
+                path: "gym/update/:id",
+                element: <GymUpdate />,
+              },
+              {
+                path: "ServiceForm",
+                element: <ServiceForm />,
+              },
+              {
+                path: "GymForm",
+                element: <GymForm />,
+              },
+              {
+                path: "service/DetailsService/:id",
+                element: <DetailsService />,
+              },
+              {
+                path: "gym/DetailsGym/:id",
+                element: <DetailsGym />,
+              },
+            ],
+          },
+          {
+            element: <RequierAuthPanel allowedRole={["coach", "super"]} />,
+            children: [
+              {
+                path: "category",
+                element: <Category />,
+              },
+              {
+                path: "meal",
+                element: <Meal />,
+              },
+              {
+                path: "goal",
+                element: <GoalIndex />,
+              },
 
-          {
-            path: "category",
-            element: <Category />,
+              {
+                path: "exercise",
+                element: <Exercise />,
+              },
+              {
+                path: "plan",
+                element: <Plan />,
+              },
+              {
+                path: "goal/plan/:id",
+                element: <PlanIndex />,
+              },
+              {
+                path: "goal/plan/:id/exercises/:id",
+                element: <ExerciseIndex />,
+              },
+
+              {
+                path: "plan/DetailsPlan/:id",
+                element: <DetailsPlan />,
+              },
+              {
+                path: "meal/DetailsMeal/:id",
+                element: <DetailsMeal />,
+              },
+              {
+                path: "exercise/DetailsExercise/:id",
+                element: <DetailsExercise />,
+              },
+              {
+                path: "goal/DetailsGoal/:id",
+                element: <DetailsGoal />,
+              },
+            ],
           },
           {
-            path: "meal",
-            element: <Meal />,
-          },
-          {
-            path: "goal",
-            element: <GoalIndex />,
-          },
-          {
-            path: "gym",
-            element: <GymIndex />,
-          },
-          {
-            path: "exercise",
-            element: <Exercise />,
-          },
-          {
-            path: "plan",
-            element: <Plan />,
-          },
-          {
-            element: (
-              <Suspense fallback={<Loading />}>
-                <RequierAuthPanel allowedRole={["coach"]} />
-              </Suspense>
-            ),
+            element: <RequierAuthPanel allowedRole={["coach"]} />,
             children: [
               {
                 path: "chat",
                 element: <DChat />,
               },
+              {
+                path: "requestGoals",
+                element: <RequestGoals />,
+              },
+              {
+                path: "goal/update/:id",
+                element: <GoalUpdate />,
+              },
+              {
+                path: "meal/update/:id",
+                element: <MealUpdate />,
+              },
+
+              {
+                path: "plan/update/:id",
+                element: <PlanUpdate />,
+              },
+              {
+                path: "exercise/update/:id",
+                element: <ExerciseUpdate />,
+              },
+
+              {
+                path: "category/update/:id",
+                element: <CategoryUpdate />,
+              },
+              {
+                path: "PlanForm",
+                element: <PlanForm />,
+              },
+              {
+                path: "CategoryForm",
+                element: <CategoryForm />,
+              },
+              {
+                path: "MealForm",
+                element: <MealForm />,
+              },
+              {
+                path: "GoalForm",
+                element: <GoalForm />,
+              },
+              {
+                path: "ExerciseForm",
+                element: <ExerciseForm />,
+              },
             ],
           },
           {
-            path: "requestGoals",
-            element: <RequestGoals />,
-          },
-          {
-            path: "requestAdmin",
-            element: <RequestAdmin />,
-          },
-          {
-            path: "requestCoach",
-            element: <RequestCoach />,
-          },
-          {
-            path: "service",
-            element: <ServiceIndex />,
-          },
-          {
-            path: "goal/plan/:id",
-            element: <PlanIndex />,
-          },
-          {
-            path: "goal/update/:id",
-            element: <GoalUpdate />,
-          },
-          {
-            path: "meal/update/:id",
-            element: <MealUpdate />,
-          },
-          {
-            path: "goal/plan/:id/exercises/:id",
-            element: <ExerciseIndex />,
-          },
-          {
-            path: "plan/update/:id",
-            element: <PlanUpdate />,
-          },
-          {
-            path: "exercise/update/:id",
-            element: <ExerciseUpdate />,
-          },
-          {
-            path: "service/update/:id",
-            element: <ServiceUpdate />,
-          },
-          {
-            path: "gym/update/:id",
-            element: <GymUpdate />,
-          },
-          {
-            path: "category/update/:id",
-            element: <CategoryUpdate />,
+            element: <RequierAuthPanel allowedRole={["admin"]} />,
+            children: [
+              {
+                path: "requestCoach",
+                element: <RequestCoach />,
+              },
+            ],
           },
 
           {
-            path: "PlanForm",
-            element: <PlanForm />,
-          },
-          {
-            path: "CategoryForm",
-            element: <CategoryForm />,
-          },
-          {
-            path: "MealForm",
-            element: <MealForm />,
-          },
-          {
-            path: "ServiceForm",
-            element: <ServiceForm />,
-          },
-          {
-            path: "GoalForm",
-            element: <GoalForm />,
-          },
-          {
-            path: "ExerciseForm",
-            element: <ExerciseForm />,
-          },
-          {
-            path: "GymForm",
-            element: <GymForm />,
-          },
-          {
-            path: "plan/DetailsPlan/:id",
-            element: <DetailsPlan />,
-          },
-          {
             path: "user/DetailsUser/:id",
             element: <DetailsUser />,
-          },
-          {
-            path: "service/DetailsService/:id",
-            element: <DetailsService />,
-          },
-          {
-            path: "meal/DetailsMeal/:id",
-            element: <DetailsMeal />,
-          },
-          {
-            path: "exercise/DetailsExercise/:id",
-            element: <DetailsExercise />,
-          },
-          {
-            path: "gym/DetailsGym/:id",
-            element: <DetailsGym />,
-          },
-          {
-            path: "goal/DetailsGoal/:id",
-            element: <DetailsGoal />,
           },
           {
             path: "bar",

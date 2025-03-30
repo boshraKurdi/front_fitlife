@@ -12,11 +12,11 @@ export default function E404() {
     bodyError = "page not found";
   }
   return (
-    <div class="container_e">
-      <span class="left">{titleError}</span>
+    <div className="container_e">
+      <span className="left">{titleError}</span>
       <br />
-      <div class="pulse">{bodyError}</div>
-      <span class="right">go to Home</span>
+      <div className="pulse">{bodyError}</div>
+      <span className="right">go to Home</span>
     </div>
   );
 }

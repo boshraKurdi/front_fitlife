@@ -16,6 +16,7 @@ const GoalIndex = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  const {admin} = useSelector((state) => state.auth)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(ActIndex());
@@ -52,6 +53,8 @@ const GoalIndex = () => {
       flex: 1,
       renderCell: (goals) => (
         <strong>
+          {admin?.specialization === goals.id ?
+          <>
           <Tooltip title="Delete" arrow placement="top" onClick={()=>{HandelDelete(goals.id)}}>
             <IconButton
               variant="contained"
@@ -80,6 +83,8 @@ const GoalIndex = () => {
               <EditIcon sx={{color:'#fff'}} className="update" />
             </IconButton>
           </Tooltip>
+          </>
+          :""}
           <Tooltip title="Open" arrow placement="top" onClick={() => {nav('DetailsGoal/'+goals.id)}}>
             <IconButton
               variant="contained"
@@ -129,6 +134,7 @@ const GoalIndex = () => {
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title={language ==='en' ?"GOAL" : "الاهداف"} subtitle={language ==='en' ?"List of Goal Table" : "سجلات من جدول الاهداف"} />
+        {admin?.roles && admin?.roles[0]?.name === 'super' ?
         <Link to={"/dashboard/GoalForm"}>
           <Button
             sx={{
@@ -143,6 +149,7 @@ const GoalIndex = () => {
             {language ==='en' ? "New Goal" :"هدف جديد"}
           </Button>
         </Link>
+:""}
       </Box>
       <Table data={goals} columns={columns} loading={loading} />
     </Box>

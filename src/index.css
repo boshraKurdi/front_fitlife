@@ -466,3 +466,8 @@ body.dark {
 .display-group button:hover{
   transform: scale(1.1);
 }
+.class_form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

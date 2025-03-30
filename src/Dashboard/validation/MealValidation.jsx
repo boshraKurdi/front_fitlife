@@ -9,10 +9,10 @@ export default function MealValidation(){
     description_ar: yup.string().required("required"),
     prepare: yup.string().required("required"),
     prepare_ar: yup.string().required("required"),
-    calories: yup.string().required("required"),
-    carbohydrates: yup.string().required("required"),
-    fats: yup.string().required("required"),
-    proteins: yup.string().required("required"),
+    calories: yup.number().positive("The number must be positive.").required("required"),
+    carbohydrates: yup.number().positive("The number must be positive.").required("required"),
+    fats: yup.number().positive("The number must be positive.").required("required"),
+    proteins: yup.number().positive("The number must be positive.").required("required"),
 });
 const [initialValues, setInitialValues]  = useState({
     title:'',

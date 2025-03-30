@@ -25,7 +25,12 @@ const GymUpdate = () => {
 
   return (
     <Box m="20px">
-      <Header title={language === "en" ? "UPDATE GOAL" : "تعديل النادي"} subtitle={language === "en" ? "Update a Goal" : "املأ البيانات لتعديل النادي"} />
+      <Header
+        title={language === "en" ? "UPDATE GOAL" : "تعديل النادي"}
+        subtitle={
+          language === "en" ? "Update a Goal" : "املأ البيانات لتعديل النادي"
+        }
+      />
       <Formik
         enableReinitialize={true}
         key={JSON.stringify(initialValues)}
@@ -62,6 +67,7 @@ const GymUpdate = () => {
                 name={"name"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.description}
@@ -71,6 +77,7 @@ const GymUpdate = () => {
                 name={"description"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.description_ar}
@@ -98,6 +105,7 @@ const GymUpdate = () => {
                 name={"close"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.price}

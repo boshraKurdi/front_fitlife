@@ -29,7 +29,14 @@ const ExerciseUpdate = () => {
 
   return (
     <Box m="20px">
-      <Header title={language === "en" ? "UPDATE EXERCISE" : "تعديل التمرين"} subtitle={language === "en" ? "Update a Exercise" : "املأ البيانات لعديل التمرين"} />
+      <Header
+        title={language === "en" ? "UPDATE EXERCISE" : "تعديل التمرين"}
+        subtitle={
+          language === "en"
+            ? "Update a Exercise"
+            : "املأ البيانات لعديل التمرين"
+        }
+      />
       <Formik
         key={JSON.stringify(initialValues)}
         enableReinitialize={true}
@@ -76,6 +83,7 @@ const ExerciseUpdate = () => {
                 name={"title_ar"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.description}
@@ -85,6 +93,7 @@ const ExerciseUpdate = () => {
                 name={"description"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.description_ar}
@@ -94,6 +103,7 @@ const ExerciseUpdate = () => {
                 name={"description_ar"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.calories}
@@ -103,6 +113,7 @@ const ExerciseUpdate = () => {
                 name={"calories"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.duration}
@@ -112,6 +123,7 @@ const ExerciseUpdate = () => {
                 name={"duration"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.counter}
@@ -123,6 +135,7 @@ const ExerciseUpdate = () => {
 
               {/* Steps Count */}
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleStepsCountChange}
                 values={stepsCount}
@@ -144,6 +157,7 @@ const ExerciseUpdate = () => {
                   mb={2}
                 >
                   <InputForm
+                    num={4}
                     handleBlur={handleBlur}
                     handleChange={(e) => {
                       const updatedSteps = [...stepsData];
@@ -161,6 +175,7 @@ const ExerciseUpdate = () => {
                     name={"step"}
                   />
                   <InputForm
+                    num={4}
                     handleBlur={handleBlur}
                     handleChange={(e) => {
                       const updatedSteps = [...stepsData];
@@ -180,6 +195,7 @@ const ExerciseUpdate = () => {
                   <div className="cu">
                     <CustomeButton
                       accept={"media_steps/*"}
+                      index={index}
                       onChange={(e) =>
                         handleStepImageChange(e.target.files[0], index)
                       }

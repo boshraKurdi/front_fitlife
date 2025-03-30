@@ -77,10 +77,10 @@ const ExerciseForm = () => {
   };
   const handleImageChange = (event, setFieldValue) => {
     const file = event.currentTarget.files[0];
-  
+
     if (file) {
-      setFieldValue("media", file); 
-  
+      setFieldValue("media", file);
+
       const reader = new FileReader();
       reader.onload = () => {
         setPreview(reader.result);
@@ -108,7 +108,14 @@ const ExerciseForm = () => {
 
   return (
     <Box m="20px">
-      <Header title={language === "en" ?"CREATE EXERCISE" : "انشاء تمرين"} subtitle={language === "en" ?"Create a New Exercise" : "املأ البيانات لانشاء تمرين"} />
+      <Header
+        title={language === "en" ? "CREATE EXERCISE" : "انشاء تمرين"}
+        subtitle={
+          language === "en"
+            ? "Create a New Exercise"
+            : "املأ البيانات لانشاء تمرين"
+        }
+      />
 
       <Formik
         onSubmit={handleFormSubmit}
@@ -155,6 +162,7 @@ const ExerciseForm = () => {
                 name={"title_ar"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.description}
@@ -164,6 +172,7 @@ const ExerciseForm = () => {
                 name={"description"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.description_ar}
@@ -173,6 +182,7 @@ const ExerciseForm = () => {
                 name={"description_ar"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.calories}
@@ -182,6 +192,7 @@ const ExerciseForm = () => {
                 name={"calories"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.duration}
@@ -191,6 +202,7 @@ const ExerciseForm = () => {
                 name={"duration"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.counter}
@@ -202,6 +214,7 @@ const ExerciseForm = () => {
 
               {/* Steps Count */}
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleStepsCountChange}
                 values={stepsCount}
@@ -223,6 +236,7 @@ const ExerciseForm = () => {
                   mb={2}
                 >
                   <InputForm
+                    num={4}
                     handleBlur={handleBlur}
                     handleChange={(e) => {
                       const updatedSteps = [...stepsData];
@@ -240,6 +254,7 @@ const ExerciseForm = () => {
                     name={"step"}
                   />
                   <InputForm
+                    num={4}
                     handleBlur={handleBlur}
                     handleChange={(e) => {
                       const updatedSteps = [...stepsData];
@@ -259,6 +274,7 @@ const ExerciseForm = () => {
                   <div className="cu">
                     <CustomeButton
                       accept={"media_steps/*"}
+                      index={index}
                       onChange={(e) =>
                         handleStepImageChange(e.target.files[0], index)
                       }

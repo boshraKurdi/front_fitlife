@@ -17,6 +17,7 @@ const PlanUpdate = () => {
     exercises,
     meals,
     type,
+    handleDurationChange,
     time,
     type_ar,
     chipData,
@@ -29,7 +30,12 @@ const PlanUpdate = () => {
   } = UseUpdatePlan();
   return (
     <Box m="20px">
-      <Header title={language === "en" ? "UPDATE PLAN" : "تعديل الخطة"} subtitle={language === "en" ? "Update a Plan" : "املأ البيانات لتعديل الخطة"} />
+      <Header
+        title={language === "en" ? "UPDATE PLAN" : "تعديل الخطة"}
+        subtitle={
+          language === "en" ? "Update a Plan" : "املأ البيانات لتعديل الخطة"
+        }
+      />
       <Formik
         enableReinitialize={true}
         onSubmit={handleFormSubmit}
@@ -74,6 +80,7 @@ const PlanUpdate = () => {
                 name={"title_ar"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.description}
@@ -83,6 +90,7 @@ const PlanUpdate = () => {
                 name={"description"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.description_ar}
@@ -92,12 +100,17 @@ const PlanUpdate = () => {
                 name={"description_ar"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
-                handleChange={handleChange}
+                handleChange={(event) =>
+                  handleDurationChange(event, setFieldValue)
+                }
                 values={values.duration}
                 touched={touched.duration}
                 errors={errors.duration}
-                title={language === "en" ? "duration" : "المدة"}
+                title={
+                  language === "en" ? "Duration (Weeks)" : "المدة (بالأسابيع)"
+                }
                 name={"duration"}
               />
               <Select
@@ -182,6 +195,7 @@ const PlanUpdate = () => {
                            </Select> */}
               {check.name == "water" ? (
                 <InputForm
+                  type={"number"}
                   handleBlur={handleBlur}
                   handleChange={handleChange}
                   values={values.water}
@@ -192,6 +206,7 @@ const PlanUpdate = () => {
                 />
               ) : check.name == "sleep" ? (
                 <InputForm
+                  type={"number"}
                   handleBlur={handleBlur}
                   handleChange={handleChange}
                   values={values.sleep}
@@ -204,7 +219,7 @@ const PlanUpdate = () => {
                 <CustomizedAccordions
                   setChipData={setChipData}
                   chipData={chipData}
-                  time={time * 7}
+                  time={time * 7} // الآن يتم تحديثه ديناميكيًا
                   data={meals}
                   title="meals"
                 />
@@ -232,6 +247,7 @@ const PlanUpdate = () => {
                     }
                     name={"muscle_ar"}
                   />
+
                   <CustomizedAccordions
                     setChipData={setChipData}
                     chipData={chipData}
@@ -285,13 +301,14 @@ const PlanUpdate = () => {
                 color="secondary"
                 variant="contained"
               >
-                 {isSubmitting
+                {isSubmitting
                   ? language === "en"
                     ? "Loading..."
                     : "انتظار..."
                   : language === "en"
                   ? "Update Plan"
-                  : "تعديل الخطة"}{" "}<EditIcon sx={{ ml: "1rem" }} />
+                  : "تعديل الخطة"}{" "}
+                <EditIcon sx={{ ml: "1rem" }} />
               </Button>
             </Box>
           </Form>

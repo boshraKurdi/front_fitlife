@@ -1,18 +1,22 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const ActGetRequestCoach = createAsyncThunk(
-    'Admin/ActGetRequestCoach',
-    async (id , thunkAPI) => {
-        const { rejectWithValue , getState } = thunkAPI;
+import { LOGOUT } from "../../../Api/Api";
+const ActAuthLogoutPanel = createAsyncThunk(
+    'Auth/ActAuthLogoutPanel',
+    async (data , thunkAPI) => {
+        const { rejectWithValue , getState , signal} = thunkAPI;
         const { auth } = getState()
         try {
-            const response = await axios.get(`dashboard/admin/getRequestCoach`, {
+            const response = await axios.post(`${LOGOUT}` , {
+                signal: signal,
+              }, {
                 headers: {
                   Authorization: 'Bearer ' + auth.tokenAdmin
               }
               });
-            return response.data
+            return response.data   
         } catch (error) {
+            console.log(error)
             if (axios.isAxiosError(error)) {
                 return rejectWithValue(error.response?.data.message || error.message);   
             }else{
@@ -21,4 +25,4 @@ const ActGetRequestCoach = createAsyncThunk(
         }
     },
   )
-  export default ActGetRequestCoach
+  export default ActAuthLogoutPanel

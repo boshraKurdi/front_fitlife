@@ -19,7 +19,6 @@ const MealUpdate = () => {
     handleStepsCountChange,
     stepsCount,
     loading,
-    handleStepChange,
     handleImageChange,
     handleStepImageChange,
     handleFormSubmit,
@@ -35,11 +34,15 @@ const MealUpdate = () => {
       },
     },
   };
-  console.log(stepsData)
 
   return (
     <Box m="20px">
-      <Header title={language === "en" ? "UPDATE MEAL" : "تعديل الوجبة"} subtitle={language === "en" ? "Update a Meal" : "ملأ البيانات لعديل الوجبة"} />
+      <Header
+        title={language === "en" ? "UPDATE MEAL" : "تعديل الوجبة"}
+        subtitle={
+          language === "en" ? "Update a Meal" : "ملأ البيانات لعديل الوجبة"
+        }
+      />
       <Formik
         enableReinitialize={true}
         onSubmit={handleFormSubmit}
@@ -85,6 +88,7 @@ const MealUpdate = () => {
                 name={"title_ar"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.description}
@@ -94,6 +98,7 @@ const MealUpdate = () => {
                 name={"description"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.description_ar}
@@ -103,6 +108,7 @@ const MealUpdate = () => {
                 name={"description_ar"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.calories}
@@ -112,6 +118,7 @@ const MealUpdate = () => {
                 name={"calories"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.carbohydrates}
@@ -121,6 +128,7 @@ const MealUpdate = () => {
                 name={"carbohydrates"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.fats}
@@ -130,6 +138,7 @@ const MealUpdate = () => {
                 name={"fats"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.proteins}
@@ -139,6 +148,7 @@ const MealUpdate = () => {
                 name={"proteins"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.prepare}
@@ -148,6 +158,7 @@ const MealUpdate = () => {
                 name={"prepare"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.prepare_ar}
@@ -195,13 +206,13 @@ const MealUpdate = () => {
                 )}
               </Select>
               <InputForm
-                type="number"
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleStepsCountChange}
                 values={stepsCount}
                 touched={""}
                 errors={""}
-                title={language === "en" ? "Number of Steps" : "عدد الخطوات"}
+                title={language === "en" ? "Number of components" : "عدد المكونات"}
                 name={""}
               />
 
@@ -213,11 +224,12 @@ const MealUpdate = () => {
                   flexDirection="column"
                   gridColumn="span 4"
                   p={2}
-                   className="boxx"
+                  className="boxx"
                   borderRadius="8px"
                   mb={2}
                 >
                   <InputForm
+                    num={4}
                     handleBlur={handleBlur}
                     handleChange={(e) => {
                       const updatedSteps = [...stepsData];
@@ -235,6 +247,7 @@ const MealUpdate = () => {
                     name={""}
                   />
                   <InputForm
+                    num={4}
                     handleBlur={handleBlur}
                     handleChange={(e) => {
                       const updatedSteps = [...stepsData];
@@ -272,6 +285,7 @@ const MealUpdate = () => {
                   <div className="cu">
                     <CustomeButton
                       accept={"media_ingredients/*"}
+                      index={index}
                       onChange={(e) =>
                         handleStepImageChange(e.target.files[0], index)
                       }
@@ -323,22 +337,23 @@ const MealUpdate = () => {
               </div>
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-                <Button
-                  className={value === "dark" ? "newR dark" : "newR light"}
-                  sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}
-                  type="submit"
-                  color="secondary"
-                  variant="contained"
-                  disabled={isSubmitting}
-                >
-                    {isSubmitting
+              <Button
+                className={value === "dark" ? "newR dark" : "newR light"}
+                sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}
+                type="submit"
+                color="secondary"
+                variant="contained"
+                disabled={isSubmitting}
+              >
+                {isSubmitting
                   ? language === "en"
                     ? "Loading..."
                     : "انتظار..."
                   : language === "en"
                   ? "Update Meal"
-                  : "تعديل الوجبة"}{" "} <EditIcon sx={{ ml: "1rem" }} />
-                </Button>
+                  : "تعديل الوجبة"}{" "}
+                <EditIcon sx={{ ml: "1rem" }} />
+              </Button>
             </Box>
           </Form>
         )}

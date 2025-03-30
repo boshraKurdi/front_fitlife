@@ -7,11 +7,11 @@ export default function GoalValidation(){
     title_ar: yup.string().required("required"),
     description: yup.string().required("required"),
     description_ar: yup.string().required("required"),
-    duration: yup.string().required("required"),
+    duration: yup.number().positive("The number must be positive.").required("required"),
     calories_min: yup
-    .string().required("required"),
+    .number().positive("The number must be positive.").required("required"),
     calories_max: yup
-    .string().required("required"),
+    .number().positive("The number must be positive.").required("required"),
     // media: yup.mixed()
     // .required("required upload file!")
     // .test(

@@ -22,6 +22,7 @@ const MealForm = () => {
   const { checkoutSchema, initialValues } = MealValidation();
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(ActIndex());
   }, [dispatch]);
@@ -35,6 +36,8 @@ const MealForm = () => {
   };
   const [stepsCount, setStepsCount] = useState(0);
   const [stepsData, setStepsData] = useState([]);
+  const [mealImage, setMealImage] = useState(null);
+  const [preview, setPreview] = useState("");
 
   const handleFormSubmit = (values) => {
     const formData = new FormData();
@@ -49,7 +52,11 @@ const MealForm = () => {
     formData.append("carbohydrates", values.carbohydrates);
     formData.append("proteins", values.proteins);
     formData.append("category_id", values.category_id);
-    // إضافة خطوات التمرين
+
+    if (mealImage) {
+      formData.append("media", mealImage);
+    }
+
     stepsData.forEach((step, index) => {
       formData.append(`ingredients[${index}][name]`, step.name);
       formData.append(`ingredients[${index}][name_ar]`, step.name_ar);
@@ -58,43 +65,61 @@ const MealForm = () => {
         formData.append(`media_ingredients[${index}]`, step.media_ingredients);
       }
     });
-    formData.append("media", values.media);
+
     dispatch(ActStore(formData))
       .unwrap()
       .then(() => {
         nav("/dashboard");
-        enqueueSnackbar(`Update Meal successfully!`, { variant: "success" });
+        enqueueSnackbar("Update Meal successfully!", { variant: "success" });
       })
       .catch(() => {
-        enqueueSnackbar(`Update Meal faild!`, { variant: "error" });
+        enqueueSnackbar("Update Meal failed!", { variant: "error" });
       });
   };
-  const [preview, setPreview] = useState("");
   const handleDeleteStep = (index) => {
     setStepsData((prevSteps) => prevSteps.filter((_, i) => i !== index));
   };
-  const handleImageChange = (event, setFieldValue) => {
-    const file = event.currentTarget.files[0];
-    setFieldValue("media", file);
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
 
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
+    setMealImage(file);
+
+    // إنشاء معاينة للصورة
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+
+    console.log("Meal Image Updated:", file);
   };
+  console.log("Updated Steps Data:", stepsData);
+
   const handleStepImageChange = (file, index) => {
-    const updatedSteps = [...stepsData];
-    updatedSteps[index].media_ingredients = file;
-    setStepsData(updatedSteps);
+    if (!file) return;
+
+    setStepsData((prevSteps) =>
+      prevSteps.map((step, i) =>
+        i === index ? { ...step, media_ingredients: file } : step
+      )
+    );
   };
 
+  useEffect(() => {
+    setStepsData(
+      Array.from({ length: stepsCount }, (_, i) => ({
+        name: "",
+        name_ar: "",
+        num: 0,
+        media_ingredients: null,
+      }))
+    );
+  }, [stepsCount]);
   const handleStepsCountChange = (e) => {
     const count = parseInt(e.target.value) || 0;
     setStepsCount(count);
-    const stepsArray = Array.from({ length: count }, (_, idx) => ({
+    const stepsArray = Array.from({ length: count }, () => ({
       name: "",
       name_ar: "",
       num: 0,
@@ -105,7 +130,12 @@ const MealForm = () => {
 
   return (
     <Box m="20px">
-      <Header title={language === "en" ? "CREATE MEAL": "انشاء وجبة"} subtitle={language === "en" ?"Create a New Meal" : "املأ البيانات لانشاء وجبة"} />
+      <Header
+        title={language === "en" ? "CREATE MEAL" : "انشاء وجبة"}
+        subtitle={
+          language === "en" ? "Create a New Meal" : "املأ البيانات لانشاء وجبة"
+        }
+      />
       <Formik
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
@@ -115,7 +145,6 @@ const MealForm = () => {
           values,
           errors,
           touched,
-          setFieldValue,
           isSubmitting,
           handleBlur,
           handleChange,
@@ -149,6 +178,7 @@ const MealForm = () => {
                 name={"title_ar"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.description}
@@ -158,6 +188,7 @@ const MealForm = () => {
                 name={"description"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.description_ar}
@@ -167,6 +198,7 @@ const MealForm = () => {
                 name={"description_ar"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.calories}
@@ -176,6 +208,7 @@ const MealForm = () => {
                 name={"calories"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.carbohydrates}
@@ -185,6 +218,7 @@ const MealForm = () => {
                 name={"carbohydrates"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.fats}
@@ -194,6 +228,7 @@ const MealForm = () => {
                 name={"fats"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.proteins}
@@ -203,6 +238,7 @@ const MealForm = () => {
                 name={"proteins"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.prepare}
@@ -212,6 +248,7 @@ const MealForm = () => {
                 name={"prepare"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.prepare_ar}
@@ -282,6 +319,7 @@ const MealForm = () => {
                   mb={2}
                 >
                   <InputForm
+                    num={4}
                     handleBlur={handleBlur}
                     handleChange={(e) => {
                       const updatedSteps = [...stepsData];
@@ -299,6 +337,7 @@ const MealForm = () => {
                     name={""}
                   />
                   <InputForm
+                    num={4}
                     handleBlur={handleBlur}
                     handleChange={(e) => {
                       const updatedSteps = [...stepsData];
@@ -335,7 +374,8 @@ const MealForm = () => {
                   />
                   <div className="cu">
                     <CustomeButton
-                      accept={"media_ingredients/*"}
+                      accept={"image/*"}
+                      index={index}
                       onChange={(e) =>
                         handleStepImageChange(e.target.files[0], index)
                       }
@@ -380,29 +420,31 @@ const MealForm = () => {
                   id="file"
                   type="file"
                   label="media"
-                  onChange={(event) => handleImageChange(event, setFieldValue)}
+                  accept="image/*"
+                  onChange={handleImageChange}
                   name="media"
                   style={{ gridColumn: "span 4" }}
                 />
               </div>
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-                <Button
-                  className={value === "dark" ? "newR dark" : "newR light"}
-                  sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}
-                  type="submit"
-                  color="secondary"
-                  disabled={isSubmitting}
-                  variant="contained"
-                >
-                   {isSubmitting
+              <Button
+                className={value === "dark" ? "newR dark" : "newR light"}
+                sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}
+                type="submit"
+                color="secondary"
+                disabled={isSubmitting}
+                variant="contained"
+              >
+                {isSubmitting
                   ? language === "en"
                     ? "Loading..."
                     : "انتظار..."
                   : language === "en"
                   ? "Create New Meal"
-                  : "وجبة جديدة"}{" "}<AddIcon sx={{ ml: "1rem" }} />
-                </Button>
+                  : "وجبة جديدة"}{" "}
+                <AddIcon sx={{ ml: "1rem" }} />
+              </Button>
             </Box>
           </Form>
         )}

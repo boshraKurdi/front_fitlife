@@ -143,11 +143,22 @@ export default function UseUpdatePlan() {
   useEffect(() => {
       dispatch(ActIndex());
     }, [dispatch]);
+    const handleDurationChange = (event, setFieldValue) => {
+      const value = event.target.value;
+      setFieldValue("duration", value);
+      
+      // التأكد من أنه عدد صحيح وإيجابي
+      if (!isNaN(value) && value > 0) {
+        setTime(parseInt(value, 10)); 
+        setChipData(Array.from({ length: value * 7 }, () => [])); // تحديث الحقول بناءً على المدخل
+      }
+    };
     const { meals } = useSelector((state) => state.Dmeal);
   return {
     id,
     plan,
     loadingShow,
+    handleDurationChange,
     check ,
     setCheck,
     MenuProps,

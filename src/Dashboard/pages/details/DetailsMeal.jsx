@@ -10,7 +10,7 @@ import CardContentDetails from "../../components/card/cardContentDetails";
 import SwiperComponent from "../../components/swiper/SwiperComponent";
 
 const DetailsMeal = () => {
-  const { value } = useSelector((state) => state.mode);
+  const { value , language } = useSelector((state) => state.mode);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { meal, loadingShow } = UseDetailsMeal();
@@ -19,7 +19,7 @@ const DetailsMeal = () => {
         return (
           <CardContentDetails
             key={data.id}
-            title={data?.title}
+            title={language === 'en' ?data?.title : data?.title_ar}
             description={data?.num + " " + data?.name}
             img={data?.media && data?.media[0]?.original_url}
           />
@@ -28,7 +28,7 @@ const DetailsMeal = () => {
     : "";
   return (
     <Box m="20px">
-      <Header title="DETAILS MEAL" subtitle="Information Meal" />
+      <Header title={language === 'en' ?"DETAILS MEAL" : "تفاصيل الوجبة"} subtitle={language === 'en' ?"Information Meal" : "معلومات الوجبة"} />
       {loadingShow === "pending" ? (
         "loading..."
       ) : (
@@ -78,9 +78,9 @@ const DetailsMeal = () => {
                 <Box m="15px">
                   <TextField
                     id="outlined-read-only-input"
-                    label="Title"
+                    label={language === 'en' ?"Title" : "العنوان"}
                     className="width"
-                    defaultValue={meal?.title}
+                    defaultValue={language === 'en' ?meal?.title : meal?.title_ar}
                     sx={{ height: "80px" }}
                     slotProps={{
                       input: {
@@ -104,10 +104,10 @@ const DetailsMeal = () => {
                 <Box m="15px">
                   <TextField
                     id="outlined-read-only-input"
-                    label="Description"
+                    label={language === 'en' ?"Description" : "الوصف"}
                     className="width"
                     sx={{ height: "80px" }}
-                    defaultValue={meal?.description}
+                    defaultValue={language === 'en' ?meal?.description : meal?.description_ar}
                     multiline
                     maxRows={2}
                     InputLabelProps={{
@@ -129,10 +129,10 @@ const DetailsMeal = () => {
                 <Box m="15px">
                   <TextField
                     id="outlined-read-only-input"
-                    label="Components"
+                    label={language === 'en' ?"Prepare" : "طريقة التحضير"}
                     className="width"
                     sx={{ height: "80px" }}
-                    defaultValue={meal?.components}
+                    defaultValue={language === 'en' ?meal?.prepare : meal?.prepare_ar}
                     multiline
                     maxRows={2}
                     InputLabelProps={{
@@ -154,32 +154,7 @@ const DetailsMeal = () => {
                 <Box m="15px">
                   <TextField
                     id="outlined-read-only-input"
-                    label="Prepare"
-                    className="width"
-                    sx={{ height: "80px" }}
-                    defaultValue={meal?.prepare}
-                    multiline
-                    maxRows={2}
-                    InputLabelProps={{
-                      sx: {
-                        fontSize: "1.5rem",
-                        "&.Mui-focused": {
-                          color: value === "dark" ? "#fff" : "#000",
-                        },
-                      },
-                    }}
-                    slotProps={{
-                      input: {
-                        style: { fontSize: "1.5rem", height: "100%" },
-                        readOnly: true,
-                      },
-                    }}
-                  />
-                </Box>
-                <Box m="15px">
-                  <TextField
-                    id="outlined-read-only-input"
-                    label="Calories"
+                    label={language === 'en' ?"Calories" : "السعرات الحرارية"}
                     className="width"
                     sx={{ fontSize: "2rem", height: "80px" }}
                     defaultValue={meal?.calories}
@@ -202,7 +177,7 @@ const DetailsMeal = () => {
                 <Box m="15px">
                   <TextField
                     id="outlined-read-only-input"
-                    label="Category"
+                    label={language === 'en' ?"Category" : "الفئة"}
                     className="width"
                     sx={{ fontSize: "2rem", height: "80px" }}
                     defaultValue={meal?.category?.title}
@@ -242,7 +217,7 @@ const DetailsMeal = () => {
                 },
               }}
             >
-              <Header title="INGREDIENTS" />
+              <Header title={language === 'en' ?"INGREDIENTS" : "المكونات"} />
             </Box>
             <Box
               sx={{

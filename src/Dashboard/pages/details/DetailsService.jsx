@@ -9,13 +9,13 @@ import { tokens } from "../../theme";
 
 
 const DetailsService = () => {
-  const { value } = useSelector((state) => state.mode);
+  const { value , language } = useSelector((state) => state.mode);
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
   const {service , loadingShow } = UseDetailsService()
   return (
     <Box m="20px">
-      <Header title="DETAILS SERVICE" subtitle="Information Service" />
+      <Header title={language === 'en' ?"DETAILS SERVICE" : "تفاصيل الخدمة"} subtitle={language === 'en' ?"Information Service" : "معلومات الخدمة"} />
       {loadingShow === "pending" ? (
         "loading..."
       ) : (
@@ -31,7 +31,7 @@ const DetailsService = () => {
                 <TextField
                   id="outlined-read-only-input"
                     className="width"
-                  label="Service"
+                  label={language === 'en' ?"Service" : "الخدمة"}
                   defaultValue={service?.service}
                   sx={{ height: "80px" }}
                   slotProps={{
@@ -56,7 +56,7 @@ const DetailsService = () => {
               <Box m="15px">
                 <TextField
                   id="outlined-read-only-input"
-                  label="Price"
+                  label={language === 'en' ?"Price" : "السعر"}
                     className="width"
                   sx={{ height: "80px" }}
                   defaultValue={service?.price}
@@ -81,7 +81,7 @@ const DetailsService = () => {
               <Box m="15px">
                 <TextField
                   id="outlined-read-only-input"
-                  label="Duration"
+                  label={language === 'en' ?"Duration" : "مدة الخدمة"}
                     className="width"
                   sx={{ height: "80px" }}
                   defaultValue={service?.duration}

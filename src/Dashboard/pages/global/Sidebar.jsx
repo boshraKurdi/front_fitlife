@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, MenuItem } from "react-pro-sidebar";
 import {
   Avatar,
@@ -9,32 +9,30 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { tokens } from "../../theme";
-import CategoryIcon from '@mui/icons-material/Category';
+import CategoryIcon from "@mui/icons-material/Category";
 import TableChartIcon from "@mui/icons-material/TableChart";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import LayersIcon from "@mui/icons-material/Layers";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
-import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
-import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import ChatIcon from "@mui/icons-material/Chat";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
+import LogoutIcon from '@mui/icons-material/Logout';
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
-import BarChartIcon from "@mui/icons-material/BarChart";
 import SportsVolleyballIcon from "@mui/icons-material/SportsVolleyball";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import ActAuthLogoutPanel from "../../../Redux/Auth/Act/ActAuthLogoutPanel";
+import { ActIndex } from "../../../Redux/Dashboard/Goal/GoalSlice";
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -46,7 +44,10 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
         color: colors.grey[100],
       }}
       className={
-        title === "Dashboard" || title === "Chat" || title === "لوحة القيادة" || title === 'المحادثات'
+        title === "Dashboard" ||
+        title === "Chat" ||
+        title === "لوحة القيادة" ||
+        title === "المحادثات"
           ? `linkA dash ${value}`
           : "linkA"
       }
@@ -60,17 +61,31 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 };
 
 const Sidebar = () => {
+  const nav = useNavigate()
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { admin } = useSelector((state) => state.auth);
-  const { value , language } = useSelector((state) => state.mode);
+  const { value, language } = useSelector((state) => state.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+  const dispatch = useDispatch()
+  const { goals } = useSelector((state) => state.Dgoal)
+  useEffect(()=>{
+    dispatch(ActIndex())
+  } , [dispatch])
   const [openData, setOpenData] = useState({
     one: false,
     two: false,
     three: false,
   });
+  function HandelLogout(){
+    const promise = dispatch(ActAuthLogoutPanel()).unwrap().then(()=>{
+      nav('/dashboard/loginPanel')
+      }).catch((error)=>{console.log(error)})
+      return () => {
+      promise.abort();
+    }
+  }
 
   const handleToggle = (num) => {
     if (num == 1) {
@@ -149,6 +164,7 @@ const Sidebar = () => {
                 <Typography variant="h3" color={colors.grey[100]}>
                   {admin?.roles[0]?.name}
                 </Typography>
+                
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
                 </IconButton>
@@ -186,13 +202,28 @@ const Sidebar = () => {
                 >
                   {admin?.name}
                 </Typography>
+                <Typography
+                  variant="h5"
+                  color={colors.greenAccent[400]}
+                  sx={{ m: "10px 0 0 0" }}
+                >
+                  {
+                  goals?.map((data)=>{
+                    if (data.id === admin?.specialization) {
+                 return(
+                  <>{data?.title}</>
+                 )     
+                    }
+                  })
+                }
+                </Typography>
               </Box>
             </Box>
           )}
 
           <Box>
             <Item
-              title={language =='en' ?"Dashboard" : "لوحة القيادة"}
+              title={language == "en" ? "Dashboard" : "لوحة القيادة"}
               to="/dashboard"
               icon={<HomeOutlinedIcon style={{ fontSize: "2rem" }} />}
               selected={selected}
@@ -209,8 +240,7 @@ const Sidebar = () => {
             ) : (
               ""
             )}
-            {admin?.roles[0]?.name === "admin" ||
-            admin?.roles[0]?.name === "super" ? (
+          
               <>
                 <Typography
                   variant="h6"
@@ -230,7 +260,7 @@ const Sidebar = () => {
                   <AssignmentTurnedInIcon
                     style={{ fontSize: "1.8rem", marginRight: "2rem" }}
                   />{" "}
-                  {language =='en' ? "Requests" : "الطلبات المرسلة"}
+                  {language == "en" ? "Requests" : "الطلبات المرسلة"}
                   <span style={{ display: "flex" }}>
                     {openData.one ? (
                       <KeyboardArrowDownIcon />
@@ -240,35 +270,57 @@ const Sidebar = () => {
                   </span>
                 </Typography>
                 <Collapse in={openData.one} timeout="auto" unmountOnExit>
+                {admin?.roles && admin?.roles[0]?.name == "coach" ?
                   <Box sx={{ ml: 4 }}>
                     <Item
-                      title={language =='en' ?"request goal" : "طلبات الاهداف"}
+                      title={
+                        language == "en" ? "request goal" : "طلبات الاهداف"
+                      }
                       to="/dashboard/requestGoals"
                       icon={<AssignmentIcon style={{ fontSize: "1.7rem" }} />}
                       selected={selected}
                       setSelected={setSelected}
                     />
                   </Box>
-                  <Box sx={{ ml: 4 }}>
-                    <Item
-                      title={language =='en' ? "request admin" : "طلبات الترقية الى ادمن"}
-                      to="/dashboard/requestAdmin"
-                      icon={<AssignmentIcon style={{ fontSize: "1.7rem" }} />}
-                      selected={selected}
-                      setSelected={setSelected}
-                    />
-                  </Box>
-                  <Box sx={{ ml: 4 }}>
-                    <Item
-                      title={language =='en' ? "request coach" : "طلبات الترقية الى مدربين"}
-                      to="/dashboard/requestCoach"
-                      icon={<AssignmentIcon style={{ fontSize: "1.7rem" }} />}
-                      selected={selected}
-                      setSelected={setSelected}
-                    />
-                  </Box>
+                  :""}
+                  {admin?.roles && admin?.roles[0]?.name == "super" ? (
+                    <Box sx={{ ml: 4 }}>
+                      <Item
+                        title={
+                          language == "en"
+                            ? "request admin"
+                            : "طلبات الترقية الى ادمن"
+                        }
+                        to="/dashboard/requestAdmin"
+                        icon={<AssignmentIcon style={{ fontSize: "1.7rem" }} />}
+                        selected={selected}
+                        setSelected={setSelected}
+                      />
+                    </Box>
+                  ) : (
+                    ""
+                  )}
+                  {admin?.roles && admin?.roles[0]?.name == "admin" ? (
+                    <Box sx={{ ml: 4 }}>
+                      <Item
+                        title={
+                          language == "en"
+                            ? "request coach"
+                            : "طلبات الترقية الى مدربين"
+                        }
+                        to="/dashboard/requestCoach"
+                        icon={<AssignmentIcon style={{ fontSize: "1.7rem" }} />}
+                        selected={selected}
+                        setSelected={setSelected}
+                      />
+                    </Box>
+                  ) : (
+                    ""
+                  )}
                 </Collapse>
-
+              </>
+            {admin?.roles && admin?.roles[0]?.name !== "admin" ? (
+              <>
                 <Typography
                   variant="h6"
                   color={colors.grey[300]}
@@ -287,7 +339,7 @@ const Sidebar = () => {
                   <TableChartIcon
                     style={{ fontSize: "1.8rem", marginRight: "2rem" }}
                   />{" "}
-                  {language =='en' ? "Data": "البيانات" }
+                  {language == "en" ? "Data" : "البيانات"}
                   <span style={{ display: "flex" }}>
                     {openData.two ? (
                       <KeyboardArrowDownIcon />
@@ -300,14 +352,15 @@ const Sidebar = () => {
                 <Collapse in={openData.two} timeout="auto" unmountOnExit>
                   <Box sx={{ ml: 4 }}>
                     <Item
-                      title={language =='en' ?"Goal" : "الاهداف"}
+                      title={language == "en" ? "Goal" : "الاهداف"}
                       to="/dashboard/goal"
                       icon={<AssignmentIcon style={{ fontSize: "1.7rem" }} />}
                       selected={selected}
                       setSelected={setSelected}
                     />
+
                     <Item
-                      title={language =='en' ?"User" : "المستخدمين"}
+                      title={language == "en" ? "User" : "المستخدمين"}
                       to="/dashboard/user"
                       icon={
                         <AssignmentIndIcon style={{ fontSize: "1.7rem" }} />
@@ -317,7 +370,7 @@ const Sidebar = () => {
                     />
 
                     <Item
-                      title={language =='en' ?"Plan" : "الخطط"}
+                      title={language == "en" ? "Plan" : "الخطط"}
                       to="/dashboard/plan"
                       icon={
                         <AppRegistrationIcon style={{ fontSize: "1.7rem" }} />
@@ -326,7 +379,7 @@ const Sidebar = () => {
                       setSelected={setSelected}
                     />
                     <Item
-                      title={language =='en' ? "Meal" : "الوجبات"}
+                      title={language == "en" ? "Meal" : "الوجبات"}
                       to="/dashboard/meal"
                       icon={
                         <RestaurantMenuIcon style={{ fontSize: "1.7rem" }} />
@@ -335,25 +388,27 @@ const Sidebar = () => {
                       setSelected={setSelected}
                     />
                     <Item
-                      title={language =='en' ?"Category" : "الفئات"}
+                      title={language == "en" ? "Category" : "الفئات"}
                       to="/dashboard/category"
-                      icon={
-                        <CategoryIcon style={{ fontSize: "1.7rem" }} />
-                      }
+                      icon={<CategoryIcon style={{ fontSize: "1.7rem" }} />}
                       selected={selected}
                       setSelected={setSelected}
                     />
+                    {admin?.roles[0]?.name === "super" ? (
+                      <Item
+                        title={language == "en" ? "Gym" : "النوادي الرياضة"}
+                        to="/dashboard/gym"
+                        icon={
+                          <FitnessCenterIcon style={{ fontSize: "1.7rem" }} />
+                        }
+                        selected={selected}
+                        setSelected={setSelected}
+                      />
+                    ) : (
+                      ""
+                    )}
                     <Item
-                      title={language =='en' ?"Gym" : "النوادي الرياضة"}
-                      to="/dashboard/gym"
-                      icon={
-                        <FitnessCenterIcon style={{ fontSize: "1.7rem" }} />
-                      }
-                      selected={selected}
-                      setSelected={setSelected}
-                    />
-                    <Item
-                      title={language =='en' ?"Exercise" : "التمارين"}
+                      title={language == "en" ? "Exercise" : "التمارين"}
                       to="/dashboard/exercise"
                       icon={
                         <SportsVolleyballIcon style={{ fontSize: "1.7rem" }} />
@@ -361,73 +416,25 @@ const Sidebar = () => {
                       selected={selected}
                       setSelected={setSelected}
                     />
-                    <Item
-                      title={language =='en' ?"Service" : "الخدمات"}
-                      to="/dashboard/service"
-                      icon={<AttachMoneyIcon style={{ fontSize: "1.7rem" }} />}
-                      selected={selected}
-                      setSelected={setSelected}
-                    />
+                    {admin?.roles[0]?.name === "super" ? (
+                      <Item
+                        title={language == "en" ? "Service" : "الخدمات"}
+                        to="/dashboard/service"
+                        icon={
+                          <AttachMoneyIcon style={{ fontSize: "1.7rem" }} />
+                        }
+                        selected={selected}
+                        setSelected={setSelected}
+                      />
+                    ) : (
+                      ""
+                    )}
                   </Box>
                 </Collapse>
-                </>
+              </>
             ) : (
               ""
             )}
-                <Typography
-                  variant="h6"
-                  className={`ll ${value}`}
-                  color={colors.grey[300]}
-                  sx={{
-                    m: "15px 0 5px 20px",
-                    cursor: "pointer",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                  onClick={() => {
-                    handleToggle(3);
-                  }}
-                >
-                  <LayersIcon
-                    style={{ fontSize: "1.8rem", marginRight: "2rem" }}
-                  />{" "}
-                  {language =='en' ? "pages":"الصفحات" }
-                  <span style={{ display: "flex" }}>
-                    {openData.three ? (
-                      <KeyboardArrowDownIcon />
-                    ) : (
-                      <ChevronRightIcon />
-                    )}
-                  </span>
-                </Typography>
-                <Collapse in={openData.three} timeout="auto" unmountOnExit>
-                  <Box sx={{ ml: 4 }}>
-                    <Item
-                      title={language === 'en' ? "Calendar":"تقويم"} 
-                      to="/dashboard/calendar"
-                      icon={
-                        <CalendarTodayOutlinedIcon
-                          style={{ fontSize: "1.7rem" }}
-                        />
-                      }
-                      selected={selected}
-                      setSelected={setSelected}
-                    />
-                    <Item
-                      title={language === 'en' ?"FAQ Page":"صفحة الأسئلة الشائعة"}
-                      to="/dashboard/faq"
-                      icon={
-                        <HelpOutlineOutlinedIcon
-                          style={{ fontSize: "1.7rem" }}
-                        />
-                      }
-                      selected={selected}
-                      setSelected={setSelected}
-                    />
-                  </Box>
-                </Collapse>
-           
             <Typography
               variant="h6"
               className={`ll ${value}`}
@@ -440,57 +447,68 @@ const Sidebar = () => {
                 alignItems: "center",
               }}
               onClick={() => {
-                handleToggle(4);
+                handleToggle(3);
               }}
             >
-              <BarChartIcon
-                style={{ fontSize: "1.8rem", marginRight: "2rem" }}
-              />{" "}
-              {language === 'en' ? "charts" :"المخططات البيانية"}
+              <LayersIcon style={{ fontSize: "1.8rem", marginRight: "2rem" }} />{" "}
+              {language == "en" ? "pages" : "الصفحات"}
               <span style={{ display: "flex" }}>
-                {openData.four ? (
+                {openData.three ? (
                   <KeyboardArrowDownIcon />
                 ) : (
                   <ChevronRightIcon />
                 )}
               </span>
             </Typography>
-            <Collapse in={openData.four} timeout="auto" unmountOnExit>
+            <Collapse in={openData.three} timeout="auto" unmountOnExit>
               <Box sx={{ ml: 4 }}>
                 <Item
-                  title={language === 'en' ? "Bar Chart":"مخطط شريطي"}
-                  to="/dashboard/bar"
-                  icon={<BarChartOutlinedIcon style={{ fontSize: "1.7rem" }} />}
-                  selected={selected}
-                  setSelected={setSelected}
-                />
-                <Item
-                  title={language === 'en' ?"Pie Chart" :"مخطط دائري"}
-                  to="/dashboard/pie"
+                  title={language === "en" ? "Calendar" : "تقويم"}
+                  to="/dashboard/calendar"
                   icon={
-                    <PieChartOutlineOutlinedIcon
-                      style={{ fontSize: "1.7rem" }}
-                    />
+                    <CalendarTodayOutlinedIcon style={{ fontSize: "1.7rem" }} />
                   }
                   selected={selected}
                   setSelected={setSelected}
                 />
                 <Item
-                  title={language === 'en' ?"Line Chart":"مخطط خطي"}
-                  to="/dashboard/line"
-                  icon={<TimelineOutlinedIcon style={{ fontSize: "1.7rem" }} />}
-                  selected={selected}
-                  setSelected={setSelected}
-                />
-                <Item
-                  title={language === 'en' ?"Geography Chart" :"مخطط الجغرافيا"}
-                  to="/dashboard/geography"
-                  icon={<MapOutlinedIcon style={{ fontSize: "1.7rem" }} />}
+                  title={
+                    language === "en" ? "FAQ Page" : "صفحة الأسئلة الشائعة"
+                  }
+                  to="/dashboard/faq"
+                  icon={
+                    <HelpOutlineOutlinedIcon style={{ fontSize: "1.7rem" }} />
+                  }
                   selected={selected}
                   setSelected={setSelected}
                 />
               </Box>
             </Collapse>
+
+          
+            <Typography
+              variant="h6"
+              className={`ll ${value}`}
+              color={colors.grey[300]}
+              sx={{
+                m: "15px 0 5px 20px",
+                cursor: "pointer",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+              onClick={() => {
+                HandelLogout()
+              }}
+            >
+              <LogoutIcon
+                style={{ fontSize: "1.8rem", marginRight: "2rem" }}
+              />{" "}
+              {language === "en" ? "logout" : "تسجيل الخروج"}
+              <span style={{ display: "flex" }}>
+                
+              </span>
+            </Typography>
           </Box>
         </Menu>
       </div>

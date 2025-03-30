@@ -47,7 +47,7 @@ export default function Login() {
         <img src={imgAuth} alt="" />
       </div>
       <div className="login__forms">
-    <form onSubmit={handleSubmit(onSubmit)} style={{right:language ==="ar" && "-11rem" , left:language ==="ar" && "0"}} className="login__registre" id="login-in">
+    <form onSubmit={handleSubmit(onSubmit)} style={{bottom: "3rem" ,right:language ==="ar" && "-11rem" , left:language ==="ar" && "0"}} className="login__registre" id="login-in">
       <h1 className="login__title">{language === 'ar' ? 'تسجيل الدخول لوحة التحكم' : 'Sign In Dashboard'}</h1>
 
       <div className={errors.email ? 'inputError login__box w-100' : 'login__box w-100'}>

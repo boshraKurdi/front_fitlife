@@ -7,11 +7,13 @@ export default function ExerciseValidation(){
     title_ar: yup.string().required("required"),
     description: yup.string().required("required"),
     description_ar: yup.string().required("required"),
-    duration: yup.string().required("required"),
+    duration: yup.number().positive("The number must be positive.").required("required"),
     calories: yup
-    .string().required("required"),
+    .number().positive("The number must be positive.").required("required"),
+    steps: yup
+    .number().positive("The number must be positive."),
     counter: yup
-    .string().required("required"),
+    .number().positive("The number must be positive.").required("required"),
     type: yup
     .string().required("required"),
 });

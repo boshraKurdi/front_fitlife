@@ -16,10 +16,13 @@ import {
 } from "@mui/material";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
+import { useSelector } from "react-redux";
+
 
 const Calendar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const {langauge} = useSelector((state) => state.mode)
   const [currentEvents, setCurrentEvents] = useState([]);
 
   const handleDateClick = (selected) => {
@@ -50,7 +53,7 @@ const Calendar = () => {
 
   return (
     <Box m="20px">
-      <Header title="Calendar" subtitle="Full Calendar Interactive Page" />
+      <Header title={langauge === 'en' ? "Calendar" : "التقويم"} subtitle={langauge === 'en' ? "Full Calendar Interactive Page" :"صفحة تفاعلية للتقويم الكامل"} />
 
       <Box display="flex" justifyContent="space-between">
         {/* CALENDAR SIDEBAR */}
@@ -60,7 +63,7 @@ const Calendar = () => {
           p="15px"
           borderRadius="4px"
         >
-          <Typography variant="h5">Events</Typography>
+          <Typography variant="h5">{langauge === "en" ? "Events" :"الاحداث"}</Typography>
           <List>
             {currentEvents.map((event) => (
               <ListItem
@@ -103,10 +106,12 @@ const Calendar = () => {
               center: "title",
               right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
             }}
+            
             initialView="dayGridMonth"
             editable={true}
             selectable={true}
             selectMirror={true}
+            dayCellClassNames={() => "custom-day-cell"} // ✅ إضافة كلاس لكل يوم
             dayMaxEvents={true}
             select={handleDateClick}
             eventClick={handleEventClick}

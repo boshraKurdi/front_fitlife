@@ -1,21 +1,21 @@
-import { Box, IconButton, useTheme } from "@mui/material";
+import { Box, IconButton, MenuItem, Select, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import { useDispatch, useSelector } from "react-redux";
-import { SetMode } from "../../../Redux/Mode/ModeSlice";
+import { SetLanguage, SetMode } from "../../../Redux/Mode/ModeSlice";
 
 const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const dispatch = useDispatch();
-  const { value } = useSelector((state) => state.mode);
+  const { value, language } = useSelector((state) => state.mode);
   const mode = value === "dark" ? "light" : "dark";
+  const handleChange = () => {
+    dispatch(SetLanguage());
+  };
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
       {/* SEARCH BAR */}
@@ -34,26 +34,31 @@ const Topbar = () => {
 
       {/* ICONS */}
       <Box display="flex">
+      <Box display="flex" margin={"0 1rem"}>
         <IconButton
           onClick={() => {
             dispatch(SetMode(mode));
           }}
         >
           {value === "dark" ? (
-            <DarkModeOutlinedIcon />
+            <DarkModeOutlinedIcon style={{ fontSize: "2.3rem" }} />
           ) : (
-            <LightModeOutlinedIcon />
+            <LightModeOutlinedIcon style={{ fontSize: "2.3rem" }} />
           )}
         </IconButton>
-        <IconButton>
-          <NotificationsOutlinedIcon />
-        </IconButton>
-        <IconButton>
-          <SettingsOutlinedIcon />
-        </IconButton>
-        <IconButton>
-          <PersonOutlinedIcon />
-        </IconButton>
+      </Box>
+      <Box>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={language}
+          label="Age"
+          onChange={handleChange}
+        >
+          <MenuItem value={"en"}>English</MenuItem>
+          <MenuItem value={"ar"}>Arabic</MenuItem>
+        </Select>
+      </Box>
       </Box>
     </Box>
   );

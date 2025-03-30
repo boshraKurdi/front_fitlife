@@ -11,7 +11,7 @@ import SwiperComponent from "../../components/swiper/SwiperComponent";
 import CardContentDetails from "../../components/card/cardContentDetails";
 
 const DetailsGoal = () => {
-  const { value } = useSelector((state) => state.mode);
+  const { value , language } = useSelector((state) => state.mode);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { goal, loadingShow } = UseDetalisGoal();
@@ -20,8 +20,8 @@ const DetailsGoal = () => {
         return (
           <CardContentDetails
             key={data.id}
-            title={data?.title}
-            description={data?.description}
+            title={language === 'en' ? data?.title : data?.title_ar}
+            description={language === 'en' ?data?.description : data?.description_ar0}
             img={data?.media && data?.media[0]?.original_url}
           />
         );
@@ -29,7 +29,7 @@ const DetailsGoal = () => {
     : "";
   return (
     <Box m="20px">
-      <Header title="DETAILS GOAL" subtitle="Information Goal" />
+      <Header title={language === 'en' ?"DETAILS GOAL" :"تفاصيل الهدف"} subtitle={language === 'en' ?"Information Goal":"معلومات الهدف"} />
       {loadingShow === "pending" ? (
         "loading..."
       ) : (
@@ -79,9 +79,9 @@ const DetailsGoal = () => {
                 <Box m="15px">
                   <TextField
                     id="outlined-read-only-input"
-                    label="Title"
+                    label={language === 'en' ?"Title" : "العنوان"}
                     className="width"
-                    defaultValue={goal?.title}
+                    defaultValue={language === 'en' ?goal?.title : goal?.title_ar}
                     sx={{ height: "80px" }}
                     slotProps={{
                       input: {
@@ -105,10 +105,10 @@ const DetailsGoal = () => {
                 <Box m="15px">
                   <TextField
                     id="outlined-read-only-input"
-                    label="Description"
+                    label={language === 'en' ?"Description" : "الوصف"}
                     className="width"
                     sx={{ height: "80px" }}
-                    defaultValue={goal?.description}
+                    defaultValue={language === 'en' ?goal?.description : goal?.description_ar}
                     multiline
                     maxRows={2}
                     InputLabelProps={{
@@ -130,7 +130,7 @@ const DetailsGoal = () => {
                 <Box m="15px">
                   <TextField
                     id="outlined-read-only-input"
-                    label="Duration"
+                    label={language === 'en' ?"Duration" : "المدة"}
                     className="width"
                     sx={{ fontSize: "2rem", height: "80px" }}
                     defaultValue={goal?.duration}
@@ -153,11 +153,36 @@ const DetailsGoal = () => {
                 <Box m="15px">
                   <TextField
                     id="outlined-read-only-input"
-                    label="Calories"
+                    label={language === 'en' ?"Calories max" : "السعرات الحرارية الاعظمي"}
                     className="width"
                     sx={{ fontSize: "2rem", height: "80px" }}
                     defaultValue={
                       goal?.calories_min + " to " + goal?.calories_max
+                    }
+                    InputLabelProps={{
+                      sx: {
+                        fontSize: "1.5rem",
+                        "&.Mui-focused": {
+                          color: value === "dark" ? "#fff" : "#000",
+                        },
+                      },
+                    }}
+                    slotProps={{
+                      input: {
+                        style: { fontSize: "1.5rem", height: "100%" },
+                        readOnly: true,
+                      },
+                    }}
+                  />
+                </Box>
+                <Box m="15px">
+                  <TextField
+                    id="outlined-read-only-input"
+                    label={language === 'en' ?"Calories min" : "السعرات الحرارية الاقلي"}
+                    className="width"
+                    sx={{ fontSize: "2rem", height: "80px" }}
+                    defaultValue={
+                      goal?.calories_min + " to " + goal?.calories_min
                     }
                     InputLabelProps={{
                       sx: {
@@ -197,7 +222,7 @@ const DetailsGoal = () => {
                 },
               }}
             >
-             <Header title="PLANS GOAL"/>
+             <Header title={language === 'en' ?"PLANS GOAL"  : "خطط الهدف"}/>
              </Box>
             <Box
               sx={{

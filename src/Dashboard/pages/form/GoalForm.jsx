@@ -108,7 +108,12 @@ const GoalForm = () => {
 
   return (
     <Box m="20px">
-      <Header title={language === "en" ?"CREATE GOAL" : "انشاء هدف"} subtitle={language === "en" ?"Create a New Goal" : "املأ البيانات لانشاء هدف"} />
+      <Header
+        title={language === "en" ? "CREATE GOAL" : "انشاء هدف"}
+        subtitle={
+          language === "en" ? "Create a New Goal" : "املأ البيانات لانشاء هدف"
+        }
+      />
       <Formik
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
@@ -152,6 +157,7 @@ const GoalForm = () => {
                 name={"title_ar"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.description}
@@ -161,6 +167,7 @@ const GoalForm = () => {
                 name={"description"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.description_ar}
@@ -170,6 +177,7 @@ const GoalForm = () => {
                 name={"description_ar"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.calories_min}
@@ -179,6 +187,7 @@ const GoalForm = () => {
                 name={"calories_min"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.calories_max}
@@ -188,6 +197,7 @@ const GoalForm = () => {
                 name={"calories_max"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.duration}

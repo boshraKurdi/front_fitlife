@@ -6,10 +6,11 @@ export default function GymValidation(){
     name: yup.string().required("required"),
     description: yup.string().required("required"),
     description_ar: yup.string().required("required"),
-    open: yup.string().required("required"),
-    close: yup.string().required("required"),
-    price: yup.string().required("required"),
+    open: yup.number().positive("The number must be positive.").required("required"),
+    close: yup.number().positive("The number must be positive.").required("required"),
+    price: yup.number().positive("The number must be positive.").required("required"),
     type: yup.string().required("required"),
+    address: yup.string().required("required"),
 });
 const [initialValues, setInitialValues]  = useState({
     name: '',

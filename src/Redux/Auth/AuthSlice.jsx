@@ -5,6 +5,7 @@ import ActAuthUpdate from './Act/ActAuthUpdate'
 import ActAuthLogout from './Act/ActAuthLogout'
 import ActGetUser from './Act/ActGetUser'
 import ActAuthLoginPanel from './Act/ActAuthLoginPanel'
+import ActAuthLogoutPanel from './Act/ActAuthLogoutPanel'
 const initialState = {
   user: {name:null , id:null} ,
   admin:{},
@@ -120,6 +121,23 @@ export const authSlice = createSlice({
         state.error = action.payload 
       }
     })
+    // LOGOUT PANEL
+    builder.addCase(ActAuthLogoutPanel.pending , (state) => {
+      state.loading = 'pending' 
+      state.error = null
+    })
+    builder.addCase(ActAuthLogoutPanel.fulfilled , (state , action) => {
+      state.loading = 'succeeded' 
+      state.admin = {}
+      state.tokenAdmin = null
+
+    })
+    builder.addCase(ActAuthLogoutPanel.rejected , (state , action) => {
+      state.loading = 'failed' 
+      if (action.payload && typeof action.payload === 'string') {
+        state.error = action.payload 
+      }
+    })
     //user
     builder.addCase(ActGetUser.pending , (state) => {
       state.loading = 'pending' 
@@ -136,6 +154,6 @@ export const authSlice = createSlice({
   },
 })
 // Action creators are generated for each case reducer function
-export { ActAuthSignUp , ActAuthLogin , ActAuthUpdate , ActAuthLogout , ActGetUser , ActAuthLoginPanel }
+export { ActAuthLogoutPanel ,ActAuthSignUp , ActAuthLogin , ActAuthUpdate , ActAuthLogout , ActGetUser , ActAuthLoginPanel }
 export const { CleanUp , SetAuth ,LogOut , SetPanel } = authSlice.actions
 export default authSlice.reducer

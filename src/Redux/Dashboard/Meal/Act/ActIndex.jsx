@@ -3,9 +3,14 @@ import axios from "axios";
 const ActIndex = createAsyncThunk(
     'Meal/ActIndex',
     async (_ , thunkAPI) => {
-        const { rejectWithValue  } = thunkAPI;
+        const { rejectWithValue , getState  } = thunkAPI;
+        const { auth } = getState()
         try {
-            const response = await axios.get(`dashboard/meal/index`);
+            const response = await axios.get(`dashboard/meal/index`, {
+                headers: {
+                  Authorization: 'Bearer ' + auth.tokenAdmin
+              }
+              });
             return response.data.data   
         } catch (error) {
             if (axios.isAxiosError(error)) {

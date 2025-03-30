@@ -1,4 +1,3 @@
-import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -11,7 +10,7 @@ import SwiperComponent from "../../components/swiper/SwiperComponent";
 import CardContentDetails from "../../components/card/cardContentDetails";
 
 const DetailsExercise = () => {
-  const { value } = useSelector((state) => state.mode);
+  const { value , language } = useSelector((state) => state.mode);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { exercise, loadingShow } = UseDetailsExercise();
@@ -21,8 +20,8 @@ const DetailsExercise = () => {
           <>
             <CardContentDetails
              key={data.id}
-              title={"Step " + (index + 1)}
-              description={data.content}
+              title={(language === 'en' ?"Step " : "الخطوة ")+ (index + 1)}
+              description={language === 'en' ?data.content  : data.content_ar}
               img={data?.media && data?.media[0]?.original_url}
             />
           </>
@@ -31,7 +30,7 @@ const DetailsExercise = () => {
     : "";
   return (
     <Box m="20px">
-      <Header title="DETAILS EXERCISE" subtitle="Information Exercise" />
+      <Header title={language === 'en' ? "DETAILS EXERCISE" : "تفاصيل التمرين"} subtitle={language === 'en' ?"Information Exercise" : "معلومات التمرين"} />
       {loadingShow === "pending" ? (
         "loading..."
       ) : (
@@ -81,7 +80,7 @@ const DetailsExercise = () => {
                 <Box m="15px">
                   <TextField
                     id="outlined-read-only-input"
-                    label="Title"
+                    label={language === 'en' ? "Title" : "العنوان"}
                     className="width"
                     defaultValue={exercise?.title}
                     sx={{ height: "80px" }}
@@ -107,10 +106,10 @@ const DetailsExercise = () => {
                 <Box m="15px">
                   <TextField
                     id="outlined-read-only-input"
-                    label="Description"
+                    label={language === 'en' ?"Description" : "الوصف" }
                     className="width"
                     sx={{ height: "80px" }}
-                    defaultValue={exercise?.description}
+                    defaultValue={language === 'en' ?exercise?.description : exercise?.description_ar}
                     multiline
                     maxRows={2}
                     InputLabelProps={{
@@ -132,7 +131,7 @@ const DetailsExercise = () => {
                 <Box m="15px">
                   <TextField
                     id="outlined-read-only-input"
-                    label="Duration"
+                    label={language === 'en' ? "Duration" : "المدة"}
                     className="width"
                     sx={{ fontSize: "2rem", height: "80px" }}
                     defaultValue={exercise?.duration}
@@ -155,7 +154,7 @@ const DetailsExercise = () => {
                 <Box m="15px">
                   <TextField
                     id="outlined-read-only-input"
-                    label="Calories"
+                    label={language === 'en' ?"Calories" : "الصعرات الحرارية"}
                     className="width"
                     sx={{ fontSize: "2rem", height: "80px" }}
                     defaultValue={exercise?.calories}
@@ -178,7 +177,7 @@ const DetailsExercise = () => {
                 <Box m="15px">
                   <TextField
                     id="outlined-read-only-input"
-                    label="Counter"
+                    label={language === 'en' ?"Counter" : "العداد"}
                     className="width"
                     sx={{ fontSize: "2rem", height: "80px" }}
                     defaultValue={exercise?.counter}
@@ -239,7 +238,7 @@ const DetailsExercise = () => {
                     },
                   }}
                 >
-                  <Header title="STEPS" />
+                  <Header title={language === 'en' ?"STEPS" : "خطوات التمرين"} />
                 </Box>
                 <section
                   style={{

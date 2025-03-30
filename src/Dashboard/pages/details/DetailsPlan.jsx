@@ -13,37 +13,37 @@ import CardContentDetails from "../../components/card/cardContentDetails";
 import { useState } from "react";
 
 const DetailsPlan = () => {
-  const { value } = useSelector((state) => state.mode);
-  const [selectedDay, setSelectedDay] = useState({week:1 , day:1});
+  const { value , language } = useSelector((state) => state.mode);
+  const [selectedDay, setSelectedDay] = useState({ week: 1, day: 1 });
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { plan, loadingShow } = UseDetalisPlan();
   const filteredExercises = plan?.exercise?.filter(
-    (exercise) => exercise?.pivot?.day === selectedDay.day && exercise?.pivot?.week === selectedDay.week 
+    (exercise) =>
+      exercise?.pivot?.day === selectedDay.day &&
+      exercise?.pivot?.week === selectedDay.week
   );
   const newData = filteredExercises
     ? filteredExercises?.map((data) => (
         <CardContentDetails
           key={data.id}
-          title={data?.title}
-          description={data?.description}
+          title={language === 'en' ?data?.title : data?.title_ar}
+          description={language === 'en' ?data?.description : data?.description_ar}
           img={data?.media && data?.media[0]?.original_url}
         />
       ))
     : "";
   const HandleChange = (event) => {
-    setSelectedDay({...selectedDay , week:Math.floor(event.target.value/7)+1 , day:(event.target.value%7)+1});
+    const selectedValue = event.target.value; // القيمة المختارة من القائمة
+    setSelectedDay({
+      week: Math.ceil(selectedValue / 7), // تحديد الأسبوع الصحيح
+      day: selectedValue % 7 === 0 ? 7 : selectedValue % 7, // التأكد من أن اليوم يكون صحيحًا
+    });
   };
-
-  // const newData = plan?.exercise && plan.exercise.map((data) => {
-  //   return(
-  //     <CardContentDetails  title={data.title} description={data.description} img={data.media && data.media[0].original_url} />
-  //   )
-  // })
 
   return (
     <Box m="20px">
-      <Header title="DETAILS PLAN" subtitle="Information Plan" />
+      <Header title={language === 'en' ?"DETAILS PLAN" : "تفاصيل الخطة"} subtitle={language === 'en' ?"Information Plan" : "معلومات الخطة"} />
       {loadingShow === "pending" ? (
         "loading..."
       ) : (
@@ -93,9 +93,9 @@ const DetailsPlan = () => {
                 <Box m="15px">
                   <TextField
                     id="outlined-read-only-input"
-                    label="Title"
+                    label={language === 'en' ?"Title" : "العنوان"}
                     className="width"
-                    defaultValue={plan?.title}
+                    defaultValue={language === 'en' ?plan?.title : plan?.title_ar}
                     sx={{ height: "80px" }}
                     slotProps={{
                       input: {
@@ -119,10 +119,10 @@ const DetailsPlan = () => {
                 <Box m="15px">
                   <TextField
                     id="outlined-read-only-input"
-                    label="Description"
+                    label={language === 'en' ?"Description" : "الوصف"}
                     className="width"
                     sx={{ height: "80px" }}
-                    defaultValue={plan?.description}
+                    defaultValue={language === 'en' ?plan?.description : plan?.description_ar}
                     multiline
                     maxRows={2}
                     InputLabelProps={{
@@ -144,7 +144,7 @@ const DetailsPlan = () => {
                 <Box m="15px">
                   <TextField
                     id="outlined-read-only-input"
-                    label="Duration"
+                    label={language === 'en' ?"Duration" : "المدة"}
                     className="width"
                     sx={{ fontSize: "2rem", height: "80px" }}
                     defaultValue={plan?.duration}
@@ -167,10 +167,10 @@ const DetailsPlan = () => {
                 <Box m="15px">
                   <TextField
                     id="outlined-read-only-input"
-                    label="Muscle"
+                    label={language === 'en' ?"Muscle" : "العضلة المستهدفة"}
                     className="width"
                     sx={{ fontSize: "2rem", height: "80px" }}
-                    defaultValue={plan?.muscle}
+                    defaultValue={language === 'en' ?plan?.muscle : plan?.muscle_ar}
                     InputLabelProps={{
                       sx: {
                         fontSize: "1.5rem",
@@ -187,7 +187,6 @@ const DetailsPlan = () => {
                     }}
                   />
                 </Box>
-          
               </CardContent>
             </Box>
           </Card>
@@ -208,7 +207,7 @@ const DetailsPlan = () => {
                 },
               }}
             >
-              <Header title="PLANS EXERCISE" />
+              <Header title={language === 'en' ?"PLANS EXERCISE" : "تمارين الخطة"} />
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -219,8 +218,10 @@ const DetailsPlan = () => {
                 {Array(plan?.duration * 7)
                   .fill(0)
                   .map((_, index) => (
-                    <MenuItem key={index} value={index+1}>
-                      يوم {index+1}
+                    <MenuItem key={index} value={index + 1}>
+                      {`الأسبوع ${Math.ceil((index + 1) / 7)} - اليوم ${
+                        (index % 7) + 1
+                      }`}
                     </MenuItem>
                   ))}
               </Select>
@@ -261,11 +262,6 @@ const DetailsPlan = () => {
               </CardContent>
             </Box>
           </Card>
-          {/* <h1 style={{margin: '2rem 0 1rem 0 ', fontSize: '2.5rem'}}>Exercise</h1>
-        <section style={{display:'flex' , alignItems:'center' , justifyContent:'center' , width:'70vw' , margin:'auto'}}>
-        
-        <SwiperComponent data={newData}/>
-        </section> */}
         </>
       )}
     </Box>

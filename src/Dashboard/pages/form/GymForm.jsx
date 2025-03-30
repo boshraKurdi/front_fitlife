@@ -36,6 +36,8 @@ const GymForm = () => {
       },
     },
   };
+  const [stats, setStats] = useState({ loading: "idle", error: "" });
+  const [address, setAddress] = useState({ lat: 0, lon: 0 });
 
   const handleFormSubmit = (values) => {
     const formData = new FormData();
@@ -48,18 +50,24 @@ const GymForm = () => {
     formData.append("open", values.open);
     formData.append("close", values.close);
     formData.append("address", values.address);
+    formData.append("lat", address.lat);
+    formData.append("lon", address.lon);
     formData.append("price", values.price);
     formData.append("type", values.type);
     formData.append("media", values.media);
-    dispatch(ActStore(formData))
-      .unwrap()
-      .then(() => {
-        nav("/dashboard");
-        enqueueSnackbar(`Update Gym successfully!`, { variant: "success" });
-      })
-      .catch(() => {
-        enqueueSnackbar(`Update Gym faild!`, { variant: "error" });
-      });
+    if (stats.loading === "succeeded") {
+      dispatch(ActStore(formData))
+        .unwrap()
+        .then(() => {
+          nav("/dashboard");
+          enqueueSnackbar(`Update Gym successfully!`, { variant: "success" });
+        })
+        .catch(() => {
+          enqueueSnackbar(`Update Gym faild!`, { variant: "error" });
+        });
+    } else {
+      enqueueSnackbar(`faild found loaction try agien!`, { variant: "error" });
+    }
   };
   const [preview, setPreview] = useState("");
   const handleImageChange = (event, setFieldValue) => {
@@ -73,7 +81,48 @@ const GymForm = () => {
       reader.readAsDataURL(file);
     }
   };
+  console.log(address, stats.loading);
 
+  const getLatALon = async (location) => {
+    if (!location) return; // التأكد من عدم إرسال قيمة فارغة
+
+    console.log("Fetching location for:", location);
+
+    try {
+      setStats({ ...stats, loading: "pending" });
+
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+          location
+        )}&addressdetails=1`,
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0",
+          },
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! Status: ${res.status}`);
+      }
+
+      const data = await res.json();
+
+      if (!data.length) {
+        throw new Error("Location not found");
+      }
+
+      const { lat, lon } = data[0];
+
+      setStats({ ...stats, loading: "succeeded" });
+      setAddress({ ...address, lat, lon });
+
+      console.log("Coordinates:", { lat, lon });
+    } catch (error) {
+      console.error("Error fetching location:", error);
+      setStats({ ...stats, loading: "failed", error: error.message });
+    }
+  };
 
   const { sections, loading } = useSelector((state) => state.Dsection);
   useEffect(() => {
@@ -103,7 +152,14 @@ const GymForm = () => {
 
   return (
     <Box m="20px">
-      <Header title={language === "en" ?"CREATE GYM": "انشاء نادي رياضي"} subtitle={language === "en" ? "Create a New Gym" : "املأ البيانات لانشاء نادي رياضي"} />
+      <Header
+        title={language === "en" ? "CREATE GYM" : "انشاء نادي رياضي"}
+        subtitle={
+          language === "en"
+            ? "Create a New Gym"
+            : "املأ البيانات لانشاء نادي رياضي"
+        }
+      />
       <Formik
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
@@ -138,6 +194,7 @@ const GymForm = () => {
                 name={"name"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.description}
@@ -147,6 +204,7 @@ const GymForm = () => {
                 name={"description"}
               />
               <InputForm
+                num={4}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.description_ar}
@@ -155,7 +213,8 @@ const GymForm = () => {
                 title={language === "en" ? "description ar" : "الوصف بالعربي"}
                 name={"description_ar"}
               />
-                <InputForm
+              <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.open}
@@ -164,7 +223,8 @@ const GymForm = () => {
                 title={language === "en" ? "time open" : "وقت الفتح"}
                 name={"open"}
               />
-               <InputForm
+              <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.close}
@@ -174,6 +234,7 @@ const GymForm = () => {
                 name={"close"}
               />
               <InputForm
+                type={"number"}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
                 values={values.price}
@@ -191,8 +252,11 @@ const GymForm = () => {
                 title={language === "en" ? "type" : "نوع النادي"}
                 name={"type"}
               />
-               <InputForm
-                handleBlur={handleBlur}
+              <InputForm
+                handleBlur={(e) => {
+                  handleBlur(e);
+                  getLatALon(values.address);
+                }}
                 handleChange={handleChange}
                 values={values.address}
                 touched={touched.address}
@@ -203,7 +267,7 @@ const GymForm = () => {
               <Select
                 fullWidth
                 name="section"
-                value={values.levels}
+                value={values.section}
                 variant="filled"
                 onChange={handleChange}
                 error={!!touched.section && !!errors.section}
@@ -292,22 +356,23 @@ const GymForm = () => {
               </div>
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-                <Button
-                  className={value === "dark" ? "newR dark" : "newR light"}
-                  sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}
-                  type="submit"
-                  color="secondary"
-                  disabled={isSubmitting}
-                  variant="contained"
-                >
-                   {isSubmitting
+              <Button
+                className={value === "dark" ? "newR dark" : "newR light"}
+                sx={{ marginRight: "auto", padding: "1.5rem 2rem" }}
+                type="submit"
+                color="secondary"
+                disabled={isSubmitting}
+                variant="contained"
+              >
+                {isSubmitting
                   ? language === "en"
                     ? "Loading..."
                     : "انتظار..."
                   : language === "en"
                   ? "Create New Gym"
-                  : "نادي جديدة"}{" "} <AddIcon />
-                </Button>
+                  : "نادي جديدة"}{" "}
+                <AddIcon />
+              </Button>
             </Box>
           </Form>
         )}

@@ -3,9 +3,14 @@ import axios from "axios";
 const ActPogress = createAsyncThunk(
     'Admin/ActPogress',
     async (id , thunkAPI) => {
-        const { rejectWithValue } = thunkAPI;
+        const { rejectWithValue ,getState } = thunkAPI;
+        const { auth } = getState()
         try {
-            const response = await axios.get(`dashboard/user/progress`);
+            const response = await axios.get(`dashboard/user/progress`, {
+                headers: {
+                  Authorization: 'Bearer ' + auth.tokenAdmin
+              }
+              });
             return response.data
         } catch (error) {
             if (axios.isAxiosError(error)) {

@@ -11,7 +11,7 @@ import Header from "../../components/Header";
 import { Box } from "@mui/material";
 export default function Chat() {
   const dispatch = useDispatch();
-  const { value } = useSelector((state) => state.mode);
+  const { value , language } = useSelector((state) => state.mode);
   const { myChats , loading , error , users } = useSelector((state) => state.Dchat);
   const [idchat , setIdChat] = useState(myChats[0]?.id)
   useEffect(() => {
@@ -19,9 +19,9 @@ export default function Chat() {
   } , [dispatch])
   return (
     <Box m="20px">
-      <Header title="CHATS" subtitle="List of Chat" />
+      <Header title={language === 'en' ? "CHATS" : "محاداثي"} subtitle={language === "en" ? "List of Chat" : "سجلات المحادثات"} />
       <main
-        style={{ backgroundImage: `url(${Bg_Image})` }}
+        style={{direction: "ltr" , backgroundImage: `url(${Bg_Image})` }}
         className={`${value} chat`}
       >
         <div

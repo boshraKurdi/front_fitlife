@@ -22,13 +22,14 @@ export default function UseUpdateMeal() {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const [stepsData, setStepsData] = useState([]);
-  const [stepsCount, setStepsCount] = useState(meal?.ingredients?.length);
+  const [stepsCount, setStepsCount] = useState();
   const handleStepImageChange = (file, index) => {
     const updatedSteps = [...stepsData];
     updatedSteps[index].media_ingredients = file;
     setStepsData(updatedSteps);
   };
   useEffect(() => {
+    setStepsCount(meal?.ingredients?.length)
     setInitialValues({
       ...initialValues,
       title: meal.title,
@@ -69,10 +70,8 @@ export default function UseUpdateMeal() {
   const handleStepsCountChange = (e) => {
     const count = parseInt(e.target.value) || 0;
 
-    // نحدث العداد فقط (هذا يفيدك لو فيه عنصر Input مرتبط فيه)
     setStepsCount(count);
 
-    // أهم جزء: التحديث على stepsData نفسه
     setStepsData((prevStepsData) => {
       const currentCount = prevStepsData.length;
 

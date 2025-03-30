@@ -1,7 +1,7 @@
 import "./CustomeButton.css";
-export default function CustomeButton({ accept, onChange }) {
+export default function CustomeButton({ accept, onChange , index }) {
   return (
-    <label className="custum-file-upload" htmlFor="file">
+    <label className="custum-file-upload" htmlFor={`a+${index}`}>
       <div className="icon">
         <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24">
           <g strokeWidth="0" id="SVGRepo_bgCarrier"></g>
@@ -24,7 +24,7 @@ export default function CustomeButton({ accept, onChange }) {
       {/* <div className="text">
         <span>Click to upload image</span>
       </div> */}
-      <input type="file" id="file" accept={accept} onChange={onChange} />
+      <input type="file" id={`a+${index}`} accept={accept} onChange={onChange} />
     </label>
   );
 }
