@@ -1,16 +1,17 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const ActExerciseIndex = createAsyncThunk(
-    'Plan/ActExerciseIndex',
-    async ({id} , thunkAPI) => {
+const ActSendMessageAi = createAsyncThunk(
+    'Chat/ActSendMessageAi',
+    async (data , thunkAPI) => {
         const { rejectWithValue , getState } = thunkAPI;
-        const { auth } = getState();
+        const { auth } = getState()
         try {
-            const response = await axios.post(`plan/${id}/exercises`,{} ,{
+            const response = await axios.post(`chat/sendMessageAi` , data , {
                 headers: {
-                Authorization: 'Bearer ' + auth.token
-            }});
-            return response.data.data   
+                  Authorization: 'Bearer ' + auth.token
+              }
+              });
+            return response.data 
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 return rejectWithValue(error.response?.data.message || error.message);   
@@ -20,4 +21,4 @@ const ActExerciseIndex = createAsyncThunk(
         }
     },
   )
-  export default ActExerciseIndex
+  export default ActSendMessageAi

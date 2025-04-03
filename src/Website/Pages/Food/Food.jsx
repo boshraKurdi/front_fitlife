@@ -7,8 +7,6 @@ import { useEffect, useState } from "react";
 import SkeletonLoading from "../../Components/Loading/SkeletonLoading/SkeletonLoading";
 import LottieFiles from "../../Components/Loading/LottieLoading/LottieFiles";
 import Water from "../../Components/Food/Water/Water";
-import { format } from "date-fns";
-import { SetDataMeal } from "../../../Redux/Mode/ModeSlice";
 export default function Food() {
   const { data } = useSelector((state) => state.mode);
   const [open, setOpen] = useState({
@@ -24,7 +22,7 @@ export default function Food() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(ActIndex({ time: open, data: data }));
+    dispatch(ActIndex({ time: open }));
   }, [dispatch, open, data]);
  
   return (

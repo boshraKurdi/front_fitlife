@@ -14,9 +14,11 @@ const Stepper = ({ indexOfToday, myplan }) => {
   useEffect(() => {
     let weekNumber = null;
     let dayNumber = null;
+    let weekn = null;
 
     if (indexOfToday !== -1) {
-      weekNumber = Math.floor(indexOfToday / 7) + 1;
+      weekn = Math.floor(indexOfToday / 7)
+      weekNumber = Math.floor(weekn % myplan?.duration) + 1;
       dayNumber = (indexOfToday % 7) + 1;
       dispatch(SetData({ ...data, day: dayNumber, week: weekNumber }));
     }else{

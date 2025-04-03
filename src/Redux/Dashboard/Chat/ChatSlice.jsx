@@ -15,6 +15,7 @@ const initialState = {
   loading: 'idle',
   loading2: 'idle' ,
   loading3: 'idle' ,
+  loadingMessage: "idle",
   error:null
 }
 
@@ -90,8 +91,18 @@ export const chatSlice = createSlice({
           state.error = action.payload 
         }
       })
-      builder.addCase(ActSendMessage.fulfilled , (state , action) => { 
-        state.messages.push(action.payload.message)
+      builder.addCase(ActSendMessage.pending , (state) => {
+        state.loadingMessage = 'pending' 
+        state.error = null
+      })
+      builder.addCase(ActSendMessage.fulfilled , (state) => { 
+        state.loadingMessage = 'succeeded' 
+      })
+      builder.addCase(ActSendMessage.rejected , (state , action) => {
+        state.loadingMessage = 'failed' 
+        if (action.payload && typeof action.payload === 'string') {
+          state.error = action.payload 
+        }
       })
 
       //create new group

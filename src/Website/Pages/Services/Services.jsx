@@ -1,3 +1,4 @@
+import ChatBot from '../../Components/Services/ChatBot/ChatBot'
 import Coach from '../../Components/Services/Coach/Coach'
 import Service from '../../Components/Services/Service/Service'
 import Setp from '../../Components/Services/Setp/Setp'
@@ -8,6 +9,7 @@ export default function Services(){
         <Setp />
         <Service />
         <Coach />
+        <ChatBot />
         </>
         
     )

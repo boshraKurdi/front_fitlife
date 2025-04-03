@@ -3,11 +3,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const ActProgress = createAsyncThunk(
     'Target/ActProgress',
-    async ({day , week }, thunkAPI) => {
+    async (_, thunkAPI) => {
         const { rejectWithValue , getState } = thunkAPI;
         const { auth } = getState()
         try {
-            const response = await axios.get(`target/progress/${day}/${week}` , {
+            const response = await axios.get(`target/progress/` , {
                 headers: {
                   Authorization: 'Bearer ' + auth.token
               }

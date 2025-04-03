@@ -20,7 +20,6 @@ const Exercises = ({ data, myplan, id }) => {
     myplan?.date?.findIndex(
       (date) => format(date.date, "yyyy-MM-dd") === today
     );
-console.log(is_holiday)
   useEffect(() => {
     dispatch(ActExerciseIndex({ data: data, id: id }))
       .unwrap()

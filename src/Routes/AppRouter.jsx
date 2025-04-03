@@ -106,7 +106,9 @@ const Main = lazy(() => import("../Website/Pages/Main/Main")),
   ),
   SendRequestCoach = lazy(() =>
     import("../Website/Pages/SendRequest/SendRequestCoach")
-  );
+  ),
+   ChatBot = lazy(() =>
+    import("../Website/Pages/ChatBot/ChatBot"));
 const router = createBrowserRouter([
   {
     path: "google/callback",
@@ -501,6 +503,23 @@ const router = createBrowserRouter([
           if (!regex.test(params.id)) {
             throw new Response("bad request", {
               statusText: "coach not found",
+              status: 400,
+            });
+          }
+          return true;
+        },
+      },
+      {
+        path: "/services/chatBot/:id",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <ChatBot />
+          </Suspense>
+        ),
+        loader: ({ params }) => {
+          if (!regex.test(params.id)) {
+            throw new Response("bad request", {
+              statusText: "chat not found",
               status: 400,
             });
           }

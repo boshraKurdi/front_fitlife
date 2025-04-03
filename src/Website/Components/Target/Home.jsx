@@ -6,7 +6,6 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 export default function Home({progress , error , loading}){
     const { MyComponentTitle } = Components()
     const { value , language } = useSelector((state) => state.mode);
-    console.log(progress)
    
     return(
         <>

@@ -12,15 +12,15 @@ import { ActShow } from "../../../Redux/Chat/ChatSlice"
 import { Bg_Image } from "../../index";
 import SkeletonLoading from "../../Components/Loading/SkeletonLoading/SkeletonLoading";
 export default function Chat() {
-  const { id } = useParams();
   const dispatch = useDispatch();
-  const { myChat, loading2 } = useSelector((state) => state.chat);
   const { value } = useSelector((state) => state.mode);
+  const { id } = useParams();
+  const { myChat, loading2 } = useSelector((state) => state.chat);
   useEffect(() => {
     dispatch(ActShow(id));
   }, [dispatch, id]);
   return (
-    <main  style={{ backgroundImage: `url(${Bg_Image})` }} className={`${value} chat`}>
+    <main  style={{direction: "ltr" , backgroundImage: `url(${Bg_Image})` }} className={`${value} chat`}>
       <div className="container_chat">
         <SideBar />
         <section
@@ -37,12 +37,12 @@ export default function Chat() {
               <SkeletonLoading loading={loading2} type="headerChat">
                 <div className="image">
                   <img
-                    src={myChat.user && myChat.user[0].media[0].original_url}
+                    src={myChat.user && myChat?.user[0]?.media[0]?.original_url}
                     alt=""
                   />
                 </div>
                 <div className="details">
-                  <h3>{myChat.user && myChat.user[0].name}</h3>
+                  <h3>{myChat.user && myChat?.user[0]?.name}</h3>
                   <span>last seen 10 minutes ago</span>
                 </div>
               </SkeletonLoading>

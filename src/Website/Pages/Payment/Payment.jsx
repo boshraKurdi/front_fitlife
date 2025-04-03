@@ -6,7 +6,9 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import UsePayment from "../../Hooks/UsePayment";
 import ButtonLoading from "../../Components/Loading/ButtonLoading/ButtonLoading";
+import { useSelector } from "react-redux";
 export default function Payment() {
+  const { language } = useSelector((state) => state.mode)
   const { register, handleSubmit, onSubmit, errors, error, loading , message , type } =
     UsePayment();
   return (
@@ -17,7 +19,7 @@ export default function Payment() {
         </div>
         <div className="login__forms">
           <div style={{bottom:'-0.5%'}} className="wrapper login__create">
-            <h2> Payment Form </h2>
+            <h2> {language === "en" ? "Payment Form" : "الدفع" }</h2>
             <form onSubmit={handleSubmit(onSubmit)} method="post">
               <div className="input_group">
                 <div className="input_box">
@@ -31,7 +33,7 @@ export default function Payment() {
                   />
                   <label htmlFor="bc1">
                     {" "}
-                    <span> Credit Card</span>
+                    <span> {language === "en" ? "Credit Card" :"بطاقة ائتمان"}</span>
                   </label>
 
                   <input
@@ -44,7 +46,7 @@ export default function Payment() {
                   />
                   <label htmlFor="bc2">
                     {" "}
-                    <span> Paypal</span>
+                    <span> {language === "en" ? "Paypal" : "بايبال"}</span>
                   </label>
                 </div>
               </div>
@@ -102,7 +104,7 @@ export default function Payment() {
                     disabled={loading === "pending" ? true : false}
                     type="submit"
                   >
-                    {loading === "pending" ? <ButtonLoading /> : "Pay Now"}
+                    {loading === "pending" ? <ButtonLoading /> : language == "en" ? "Pay Now" :"ادفع الان"}
                   </button>
                 </div>
               </div>

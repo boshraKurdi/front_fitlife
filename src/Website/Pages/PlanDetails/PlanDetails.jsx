@@ -13,7 +13,7 @@ export default function PlanDetails(){
      const dispatch = useDispatch()
         const { myplan , error , loading } = useSelector((state) => state.myPlan)
         useEffect(()=>{
-          dispatch(ActShow({id:id , day:data?.day , week:data?.week, data:{one:'weekly' , two:data.week}})).unwrap().catch(()=>{console.log('error')})
+          dispatch(ActShow({id:id , data:{one:'weekly' , two:data.week}})).unwrap().catch(()=>{console.log('error')})
         } , [dispatch , id , type , data])
         console.log(data)
     return(

@@ -9,8 +9,7 @@ export default function ProfileCoach() {
     const { value , language } = useSelector((state) => state.mode) 
     const { user , loading , error } = useSelector((state) => state.user)
     const { id } = useParams()
-    const dispatch = useDispatch();
-    console.log(error , loading)
+    const dispatch = useDispatch()
     function HandelChat(){
       dispatch(ActStore(id))
     }

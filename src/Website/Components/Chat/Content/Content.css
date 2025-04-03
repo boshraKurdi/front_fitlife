@@ -119,6 +119,7 @@
     border-radius: 1rem;
     width: fit-content;
     max-width: 60%;
+    min-width: 125px;
     padding: .5rem 1rem;
     margin: 1rem 0;
     display: flex;
@@ -129,6 +130,11 @@
     background-color: var(--whiteColor);
     margin-right: auto;
 
+}
+.img_message{
+    width: 200px ;
+    height: 200px;
+    border-radius: 8px;
 }
 .chat_content .chat_container .chat-msg.dark{
     background-color: var(--fc-button-active-bg-color);
@@ -216,3 +222,54 @@
     justify-content: center;
     cursor: pointer;
 }
+.upload-box {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0px 0px 1000px 1000px rgba(0, 0, 0, 0.15);
+    transition: 0.3s;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+    z-index: 99999999;
+  }
+ 
+  .preview-image {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .caption-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin: 1rem 0;
+    outline: 0;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .send-btn, .cancel-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+  }
+  
+  .send-btn {
+    background: #007bff;
+    color: white;
+  }
+  
+  .cancel-btn {
+    background: #dc3545;
+    color: white;
+  }
+  

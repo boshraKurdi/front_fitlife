@@ -2,11 +2,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const ActShow = createAsyncThunk(
     'MyPlan/ActShow',
-    async ({id , day , week , data} , thunkAPI) => {
+    async ({id , data} , thunkAPI) => {
         const { rejectWithValue , getState } = thunkAPI;
         const { auth  } = getState()
         try {
-            const response = await axios.post(`plan/${id}/${day}/${week}/show`, {type: data.one , number_week:data.two } ,  {
+            const response = await axios.post(`plan/${id}/show`, {type: data.one , number_week:data.two } ,  {
                 headers: {
                   Authorization: 'Bearer ' + auth.token
               }

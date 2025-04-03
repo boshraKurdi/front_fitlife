@@ -5,13 +5,13 @@ import SwiperComponent from '../Swiper/SwiperComponent'
 import { useEffect } from 'react'
 import { ActExerciseIndex } from '../../../Redux/Plan/PlanSlice'
 import Content from './Content/Content'
-export default function Exercise({id , day , week}){
+export default function Exercise({id}){
     const { exercises , loading , error } = useSelector((state) => state.plan)
     const { language } = useSelector((state) => state.mode)
     const dispatch = useDispatch()
     useEffect(()=>{
-        dispatch(ActExerciseIndex({id:id , day:day , week:week})).unwrap().catch(()=>{})
-    } ,[dispatch , id , day , week])
+        dispatch(ActExerciseIndex({id:id})).unwrap().catch(()=>{})
+    } ,[dispatch , id])
     const newData = exercises && exercises[0].exercise.map((data)=>{
         return(
             <Content key={data.id} data={data} />

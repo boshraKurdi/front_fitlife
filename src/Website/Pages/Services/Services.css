@@ -18,6 +18,70 @@
     text-align: center;
   }
   
+.chatbot.why__container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  align-items: center;
+}
+
+.chatbot .why__image img {
+  max-width: 450px;
+  margin: auto;
+  border-radius: 50%;
+}
+.btn_botchat{
+  padding: 1rem;
+  background: var(--coquelicot);
+  color: #fff;
+  border-radius: 8px;
+  width: 100%;
+  margin-top: 3rem;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+}
+.chatbot .why__content p {
+  color: var(--sonic-silver);
+  font-size: 1.2rem;
+}
+
+.chatbot .why__grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 80px auto;
+  gap: 2rem;
+}
+.chatbot .section__header{
+  padding: 1rem 0;
+  font-size: 3rem;
+}
+.chatbot .why__grid span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: var(--primary-color);
+  border-radius: 10px;
+  box-shadow: 5px 5px 20px var(--coquelicot);
+}
+
+.chatbot .why__grid h4 {
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.chatbot .why__grid p {
+  color: var(--sonic-silver);
+}
+.chatbot svg{
+  font-size: 2.5rem;
+  color: var(--color-pu);
+}
+  
   .header__container h1::before {
     position: absolute;
     content: "GROW YOUR STRENGTH";

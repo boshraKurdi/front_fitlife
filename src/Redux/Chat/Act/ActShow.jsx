@@ -4,9 +4,9 @@ const ActShow = createAsyncThunk(
     'Chat/ActShow',
     async (id , thunkAPI) => {
         const { rejectWithValue , getState } = thunkAPI;
-        const { auth } = getState()
+        const { auth , mode } = getState()
         try {
-            const response = await axios.get(`chat/show/${id}` , {
+            const response = await axios.get(`chat/show/${id}?lang=${mode.language}` , {
                 headers: {
                   Authorization: 'Bearer ' + auth.token
               }
