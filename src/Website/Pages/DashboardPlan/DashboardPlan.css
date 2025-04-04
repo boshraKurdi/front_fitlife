@@ -312,7 +312,7 @@
 }
 .profile .pather_day_week .day_week{
   padding: 1rem;
-  background-color: var(--fc-highlight-color);
+  background-color: var(--coquelicot_10);
   margin:0.5rem;
   width: 47%;
   font-size: 1.3rem;

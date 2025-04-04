@@ -56,7 +56,6 @@ const MealForm = () => {
     if (mealImage) {
       formData.append("media", mealImage);
     }
-
     stepsData.forEach((step, index) => {
       formData.append(`ingredients[${index}][name]`, step.name);
       formData.append(`ingredients[${index}][name_ar]`, step.name_ar);

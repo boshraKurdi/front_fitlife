@@ -34,7 +34,7 @@ export default function InputForm({
         fontSize: "1.3rem",
       },
       "& .MuiFilledInput-root": {
-        borderBottom: `2px solid ${!!errors ? "red" : "#3da58a"}`,
+  
         "&.Mui-error": {
           borderBottom: "2px solid red",
         },

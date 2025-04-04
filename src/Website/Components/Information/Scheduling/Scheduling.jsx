@@ -2,6 +2,7 @@ import "./Scheduling.css";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import { useState } from "react";
+import { useSnackbar } from "notistack";
 import { useSelector } from "react-redux";
 export default function Scheduling({
   setBox,
@@ -13,6 +14,7 @@ export default function Scheduling({
   function ChangeSetting(name) {
     setBox(name);
   }
+   const { enqueueSnackbar } = useSnackbar();
   const [check, setCheck] = useState({
     sunday: true,
     tuesday: true,
@@ -22,6 +24,18 @@ export default function Scheduling({
     friday: true,
     saturday: true,
   });
+  const handleChange = (day) => {
+    const falseCount = Object.values(check).filter((value) => value === false).length;
+    if (!check[day]) {
+      setCheck((prev) => ({ ...prev, [day]: !prev[day] }));
+      return;
+    }
+    if (falseCount < 3) {
+      setCheck((prev) => ({ ...prev, [day]: !prev[day] }));
+    } else {
+      enqueueSnackbar("لا يمكنك تحديد أكثر من ثلاثة أيام", { variant: `error` });
+    }
+  };
   const { language } = useSelector((state) => state.mode)
   return (
     <form
@@ -43,8 +57,8 @@ export default function Scheduling({
                   type="checkbox"
                   name="days"
                   checked={check.sunday}
-                  onChange={(e) => {
-                    setCheck({ ...check, sunday:  e.target.checked });
+                  onChange={() => {
+                    handleChange("sunday")
                   }}
                   className="login__input"
                 />
@@ -56,8 +70,8 @@ export default function Scheduling({
                   type="checkbox"
                   name="days"
                   checked={check.monday}
-                  onChange={(e) => {
-                    setCheck({ ...check, monday:  e.target.checked });
+                  onChange={() => {
+                    handleChange("monday")
                   }}
                   className="login__input"
                 />
@@ -69,8 +83,8 @@ export default function Scheduling({
                   type="checkbox"
                   checked={check.tuesday}
                   name="days"
-                  onChange={(e) => {
-                    setCheck({ ...check, tuesday: e.target.checked });
+                  onChange={() => {
+                    handleChange("tuesday")
                   }}
                   className="login__input"
                 />
@@ -82,8 +96,8 @@ export default function Scheduling({
                   type="checkbox"
                   name="days"
                   checked={check.wednesday}
-                  onChange={(e) => {
-                    setCheck({ ...check, wednesday:  e.target.checked });
+                  onChange={() => {
+                    handleChange("wednesday")
                   }}
                   className="login__input"
                 />
@@ -95,8 +109,8 @@ export default function Scheduling({
                   type="checkbox"
                   name="days"
                   checked={check.thrusday}
-                  onChange={(e) => {
-                    setCheck({ ...check, thrusday:  e.target.checked });
+                  onChange={() => {
+                    handleChange("thrusday")
                   }}
                   className="login__input"
                 />
@@ -108,8 +122,8 @@ export default function Scheduling({
                   type="checkbox"
                   name="days"
                   checked={check.friday}
-                  onChange={(e) => {
-                    setCheck({ ...check, friday:  e.target.checked });
+                  onChange={() => {
+                    handleChange("friday")
                   }}
                   className="login__input"
                 />
@@ -120,8 +134,8 @@ export default function Scheduling({
                   id="saturday"
                   type="checkbox"
                   checked={check.saturday}
-                  onChange={(e) => {
-                    setCheck({ ...check, saturday:  e.target.checked });
+                  onChange={() => {
+                    handleChange("saturday")
                   }}
                   name="days"
                   className="login__input"
