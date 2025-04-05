@@ -141,7 +141,25 @@ const GymUpdate = () => {
                 onChange={handleChange}
                 error={!!touched.section && !!errors.section}
                 helperText={touched.section && errors.section}
-                sx={{ gridColumn: "span 4", fontSize: "1.6rem" }}
+                sx={{
+                  gridColumn: "span 4",
+                  fontSize: "1.6rem",
+                  "&:before": {
+                    borderBottom: "none",
+                  },
+                  "&:after": {
+                    borderBottom: "none",
+                  },
+                  "& .MuiFilledInput-root": {
+                    backgroundColor: "transparent",
+                    "&:before": {
+                      borderBottom: "none",
+                    },
+                    "&:after": {
+                      borderBottom: "none",
+                    },
+                  },
+                }}
                 MenuProps={MenuProps}
               >
                 {loading === "pending" ? (

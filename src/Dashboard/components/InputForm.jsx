@@ -36,7 +36,7 @@ export default function InputForm({
       "& .MuiFilledInput-root": {
   
         "&.Mui-error": {
-          borderBottom: "2px solid red",
+          borderBottom: "1px solid red",
         },
       },
       "& .MuiFilledInput-root::before": { borderBottom: "none !important" },
@@ -44,15 +44,15 @@ export default function InputForm({
     }}
     InputProps={{
       sx: { fontSize: "1.5rem" },
-      endAdornment:
+      startAdornment:
         type === "number" ? (
           <div className="up_down">
-          <InputAdornment style={{padding:"0" , margin:"0.5rem .5rem"}} position="start">
+          <InputAdornment style={{padding:"0" , margin:"0 .5rem"}} position="start">
             <IconButton className="up" onClick={() => handleChange({ target: { name, value: Math.max(Number(values) - 1, 0) } })}>
               <Remove />
             </IconButton>
           </InputAdornment>
-           <InputAdornment style={{padding:"0" , margin:"0.5rem .5rem"}} position="start">
+           <InputAdornment style={{padding:"0" , margin:"0 .5rem"}} position="start">
            <IconButton className="dwon" onClick={() => handleChange({ target: { name, value: Number(values) + 1 } })}>
              <Add />
            </IconButton>
@@ -62,7 +62,7 @@ export default function InputForm({
       }}
     InputLabelProps={{
       sx: {
-        fontSize: "1.6rem",
+        fontSize: "1.5rem",
         color: value === "dark" ? "#fff" : "#000",
         "&.Mui-focused": {
           color: value === "dark" ? "#fff" : "#000",

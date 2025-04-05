@@ -46,14 +46,14 @@ const PlanIndex = () => {
       field: "plan",
       headerName: headerTitle,
       flex: 1,
-      valueGetter: (value, plansForGoal) => plansForGoal.plan_levels.plan.title,
+      valueGetter: (value, plansForGoal) => plansForGoal.plan.title,
     },
     {
       field: "duration",
       headerName: headerDuration,
       flex: 1,
       valueGetter: (value, plansForGoal) =>
-        plansForGoal.plan_levels.plan.duration,
+        plansForGoal.plan.duration,
     },
     {
       field: "exercises",
@@ -62,7 +62,7 @@ const PlanIndex = () => {
       cellClassName: "name-column--cell",
       renderCell: (plansForGoal) => {
         return (
-          <Link to={"exercises/" + plansForGoal.row.plan_levels.id}>
+          <Link to={"exercises/" + plansForGoal.row.plan.id}>
             exercises
           </Link>
         );

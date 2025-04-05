@@ -267,7 +267,25 @@ const MealForm = () => {
                 onChange={handleChange}
                 error={!!touched.category_id && !!errors.category_id}
                 helperText={touched.category_id && errors.category_id}
-                sx={{ gridColumn: "span 2", fontSize: "1.6rem" }}
+                sx={{
+                  gridColumn: "span 2",
+                  fontSize: "1.6rem",
+                  "&:before": {
+                    borderBottom: "none",
+                  },
+                  "&:after": {
+                    borderBottom: "none",
+                  },
+                  "& .MuiFilledInput-root": {
+                    backgroundColor: "transparent",
+                    "&:before": {
+                      borderBottom: "none",
+                    },
+                    "&:after": {
+                      borderBottom: "none",
+                    },
+                  },
+                }}
                 MenuProps={MenuProps}
                 displayEmpty
                 renderValue={(selected) => {

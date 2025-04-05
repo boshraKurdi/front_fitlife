@@ -120,7 +120,25 @@ const PlanUpdate = () => {
                 onChange={handleChange}
                 error={!!touched.type && !!errors.type}
                 helperText={touched.type && errors.type}
-                sx={{ gridColumn: "span 2", fontSize: "1.6rem" }}
+                sx={{
+                  gridColumn: "span 2",
+                  fontSize: "1.6rem",
+                  "&:before": {
+                    borderBottom: "none",
+                  },
+                  "&:after": {
+                    borderBottom: "none",
+                  },
+                  "& .MuiFilledInput-root": {
+                    backgroundColor: "transparent",
+                    "&:before": {
+                      borderBottom: "none",
+                    },
+                    "&:after": {
+                      borderBottom: "none",
+                    },
+                  },
+                }}
                 MenuProps={MenuProps}
                 displayEmpty
                 renderValue={(selected) => {

@@ -146,7 +146,7 @@ export const adminSlice = createSlice({
       builder.addCase(ActActiveCoach.fulfilled , (state , action) => {
         state.loading = 'succeeded' 
         state.Rcoach = state.Rcoach.filter((el) => {
-          if(el.id !== action.payload.id)
+          if(el.id !== action.payload)
             return true
           else
             return false
@@ -167,7 +167,7 @@ export const adminSlice = createSlice({
       builder.addCase(ActActiveAdmin.fulfilled , (state, action) => {
         state.loading = 'succeeded' 
         state.Radmin = state.Radmin.filter((el) => {
-          if(el.id !== action.payload.id)
+          if(el.id !== action.payload)
             return true
           else
             return false
@@ -188,14 +188,14 @@ export const adminSlice = createSlice({
       builder.addCase(ActNotActiveCoachAndAdmin.fulfilled , (state , action) => {
         state.loading = 'succeeded' 
         state.Radmin = state.Radmin.filter((el) => {
-          if(el.id !== action.payload.id)
+          if(el.id !== action.payload)
             return true
           else
             return false
           
         })
         state.Rcoach = state.Rcoach.filter((el) => {
-          if(el.id !== action.payload.id)
+          if(el.id !== action.payload)
             return true
           else
             return false
