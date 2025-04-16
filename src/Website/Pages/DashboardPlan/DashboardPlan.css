@@ -12,6 +12,11 @@
   text-transform: uppercase;
   margin-bottom: 1.5rem;
 }
+.st{
+  padding: 0.5rem;
+  color: #fff;
+  font-size: 1.1rem;
+}
 .bmi{
   display: flex;
     align-items: center;

@@ -8,6 +8,7 @@ import ActEditProfile from './Act/ActEditProfile'
 import ActEditScheduling from './Act/ActEditScheduling'
 import ActSendRequestAdmin from './Act/ActSendRequestAdmin'
 import ActSendRequestCoach from './Act/ActSendRequestCoach'
+import ActProgressGoal from './Act/ActProgressGoal'
 
 const initialState = {
   users: [] ,
@@ -16,6 +17,7 @@ const initialState = {
   user: {} ,
   datauser: {},
   message: "",
+  progressGoal: {},
   type: "",
   loading: 'idle',
   error:null
@@ -171,10 +173,25 @@ export const userSlice = createSlice({
         state.error = action.payload 
       }
     })
+    //goal progress
+    builder.addCase(ActProgressGoal.pending , (state) => {
+      state.loading = 'pending' 
+      state.error = null
+    })
+    builder.addCase(ActProgressGoal.fulfilled , (state , action ) => {
+      state.loading = 'succeeded' 
+      state.progressGoal = action.payload
+    })
+    builder.addCase(ActProgressGoal.rejected , (state , action) => {
+      state.loading = 'failed' 
+      if (action.payload && typeof action.payload === 'string') {
+        state.error = action.payload 
+      }
+    })
    }
 
 })
 // Action creators are generated for each case reducer function
-export { ActSendRequestAdmin , ActSendRequestCoach , ActIndex , ActGetCoach , ActShow, ActProfile ,  ActDeleteAccount , ActEditProfile , ActEditScheduling} 
+export { ActProgressGoal ,ActSendRequestAdmin , ActSendRequestCoach , ActIndex , ActGetCoach , ActShow, ActProfile ,  ActDeleteAccount , ActEditProfile , ActEditScheduling} 
 export const { CleanUp ,ResetMessages } = userSlice.actions
 export default userSlice.reducer

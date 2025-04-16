@@ -107,8 +107,10 @@ const Main = lazy(() => import("../Website/Pages/Main/Main")),
   SendRequestCoach = lazy(() =>
     import("../Website/Pages/SendRequest/SendRequestCoach")
   ),
-   ChatBot = lazy(() =>
-    import("../Website/Pages/ChatBot/ChatBot"));
+  ProgressGoal = lazy(() =>
+    import("../Website/Pages/ProgressGoal/ProgressGoal")
+  ),
+  ChatBot = lazy(() => import("../Website/Pages/ChatBot/ChatBot"));
 const router = createBrowserRouter([
   {
     path: "google/callback",
@@ -434,6 +436,23 @@ const router = createBrowserRouter([
             <ProfileUser />
           </Suspense>
         ),
+      },
+      {
+        path: "myProfile/progressGoal/:id",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <ProgressGoal />
+          </Suspense>
+        ),
+        loader: ({ params }) => {
+          if (!regex.test(params.id)) {
+            throw new Response("bad request", {
+              statusText: "goal not found",
+              status: 400,
+            });
+          }
+          return true;
+        },
       },
       {
         path: "requestAdmin",
