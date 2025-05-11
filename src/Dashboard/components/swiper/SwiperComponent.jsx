@@ -25,10 +25,10 @@ const SwiperComponent = ({ data }) => {
         },
        
         1024: {
-          slidesPerView: data.length < 2 ? data.length : 2,
+          slidesPerView: data?.length < 2 ? data?.length : 2,
         },
         1240: {
-          slidesPerView: data.length < 3 ? data.length : 3,
+          slidesPerView: data?.length < 3 ? data?.length : 3,
         },
       }}
     >

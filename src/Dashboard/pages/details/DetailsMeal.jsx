@@ -14,6 +14,7 @@ const DetailsMeal = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { meal, loadingShow } = UseDetailsMeal();
+  console.log(meal)
   const newData = meal?.ingredients
     ? meal?.ingredients?.map((data) => {
         return (

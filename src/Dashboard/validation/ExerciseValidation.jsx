@@ -28,6 +28,8 @@ const [initialValues, setInitialValues]  = useState({
     type:'feminine',
     steps:'',
     media: '' ,
+    video: '' ,
+    svg: '' ,
 });
 return {checkoutSchema , initialValues ,setInitialValues }
 }

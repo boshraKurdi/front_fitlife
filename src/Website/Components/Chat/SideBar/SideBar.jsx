@@ -11,6 +11,7 @@ import SkeletonLoading from "../../Loading/SkeletonLoading/SkeletonLoading";
 export default function SideBar() {
   const dispatch = useDispatch();
   const { value } = useSelector((state) => state.mode);
+  const [check , setCheck ]= useState([])
   const { myChats , loading , error } = useSelector((state) => state.chat);
   const [searchTerm, setSearchTerm] = useState('');
   useEffect(() => {
@@ -23,7 +24,7 @@ export default function SideBar() {
   : myChats;
   let newData = filteredChats.map((chat)=>{
     return(
-      <Content key={chat.id} chat={chat} />
+      <Content check={check} setCheck={setCheck} key={chat.id} chat={chat} />
     )
   })
   const handleSearchChange = useCallback((e) => {

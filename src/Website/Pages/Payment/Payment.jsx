@@ -53,7 +53,7 @@ export default function Payment() {
               <div className="input_group">
                 <div className="input_box">
                   <input
-                    type="tel"
+                    type="number"
                     className="name"
                     name="number"
                     {...register("number")}
@@ -64,7 +64,7 @@ export default function Payment() {
                 </div>
                 <div className="input_box">
                   <input
-                    type="tel"
+                    type="number"
                     className="name"
                     name="cvc"
                     {...register("cvc")}

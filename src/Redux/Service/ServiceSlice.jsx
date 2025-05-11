@@ -4,7 +4,7 @@ import ActPayment from './Act/ActPayment'
 
 const initialState = {
   services: [] ,
-  message:'message',
+  message:'',
   type:'error',
   loading: 'idle',
   error:null

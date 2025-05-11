@@ -122,7 +122,7 @@ const DetailsPlan = () => {
                     label={language === 'en' ?"Description" : "الوصف"}
                     className="width"
                     sx={{ height: "80px" }}
-                    defaultValue={language === 'en' ?plan?.description : plan?.description_ar}
+                    defaultValue={language === 'en' ? plan?.description : plan?.description_ar}
                     multiline
                     maxRows={2}
                     InputLabelProps={{
@@ -215,7 +215,7 @@ const DetailsPlan = () => {
                 label="Day"
                 onChange={HandleChange}
               >
-                {Array(plan?.duration * 7)
+                {Array(plan?.duration ? (plan?.duration * 7) : 0)
                   .fill(0)
                   .map((_, index) => (
                     <MenuItem key={index} value={index + 1}>

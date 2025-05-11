@@ -37,12 +37,12 @@ export default function Chat() {
               <SkeletonLoading loading={loading2} type="headerChat">
                 <div className="image">
                   <img
-                    src={myChat.user && myChat?.user[0]?.media[0]?.original_url}
+                    src={myChat?.user && myChat?.user[0]?.media[0]?.original_url}
                     alt=""
                   />
                 </div>
                 <div className="details">
-                  <h3>{myChat.user && myChat?.user[0]?.name}</h3>
+                  <h3>{myChat?.user && myChat?.user[0]?.name}</h3>
                   <span>last seen 10 minutes ago</span>
                 </div>
               </SkeletonLoading>

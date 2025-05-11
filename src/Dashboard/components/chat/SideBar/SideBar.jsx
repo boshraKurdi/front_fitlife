@@ -13,6 +13,7 @@ export default function SideBar({ myChats, loading, error, setIdChat, users }) {
   const { value } = useSelector((state) => state.mode);
   const { admin } = useSelector((state) => state.auth);
   const [chipData, setChipData] = useState([admin.id]);
+  const [check , setCheck ]= useState([])
   const [status, setStatus] = useState(false);
   const [name, setName] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -36,7 +37,7 @@ export default function SideBar({ myChats, loading, error, setIdChat, users }) {
         );
       })
     : filteredChats?.map((chat) => {
-        return <Content key={chat.id} chat={chat} setIdChat={setIdChat} />;
+        return <Content check={check} setCheck={setCheck} key={chat.id} chat={chat} setIdChat={setIdChat} />;
       });
   const handleSearchChange = useCallback((e) => {
     setSearchTerm(e.target.value);

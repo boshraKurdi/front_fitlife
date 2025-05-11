@@ -10,7 +10,9 @@ const initialState = {
   myChats: [] ,
   messages: [] ,
   message:'',
+  load: false,
   myChat: {},
+  messageAi:"",
   loading: 'idle',
   loading2: 'idle' ,
   loading3: 'idle' ,
@@ -26,6 +28,9 @@ export const chatSlice = createSlice({
       state.loading = 'idle'
       state.error = null
     } ,
+    Load:(state)=>{
+      state.load = !state.load
+    }
   } ,
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
@@ -52,6 +57,7 @@ export const chatSlice = createSlice({
         state.loading3 = 'succeeded' 
         state.messages = action.payload.data
         state.message = action.payload.message
+        state.messageAi = action.payload.messageAi
       })
       builder.addCase(ActGetMessages.rejected , (state , action) => {
         state.loading3 = 'failed' 
@@ -137,5 +143,5 @@ export const chatSlice = createSlice({
 })
 // Action creators are generated for each case reducer function
 export { ActStoreAi,ActSendMessageAi ,ActGetChat , ActGetMessages , ActStore , ActShow , ActSendMessage}
-export const { CleanUp } = chatSlice.actions
+export const { CleanUp , Load } = chatSlice.actions
 export default chatSlice.reducer

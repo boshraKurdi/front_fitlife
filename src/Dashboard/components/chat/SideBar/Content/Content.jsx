@@ -1,9 +1,10 @@
 import { Avatar, Stack } from "@mui/material";
 import { format } from 'date-fns';
-export default function Content({ chat , setIdChat }) {
+export default function Content({ chat , setIdChat , check , setCheck }) {
   return (
     <div onClick={()=>{
       setIdChat(chat?.id)
+      setCheck(prevCheck => [...prevCheck, chat?.id]);
     }}  className="chat-box" id="Msg">
       <div className="chat-img">
         <Stack direction="row" spacing={2}>
@@ -26,7 +27,7 @@ export default function Content({ chat , setIdChat }) {
         </div>
         <div className="chat-msg">
           <p>{chat?.lastMessage}</p>
-          {chat?.countMessageIsNotSeen ? <span>{chat?.countMessageIsNotSeen}</span> : ""}
+          {!check.includes(chat?.id) ? (chat?.countMessageIsNotSeen ? <span>{chat?.countMessageIsNotSeen} </span> : ""):""}
         </div>
       </div>
     </div>

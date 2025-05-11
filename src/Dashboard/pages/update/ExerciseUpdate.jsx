@@ -22,6 +22,8 @@ const ExerciseUpdate = () => {
     setStepsData,
     stepsData,
     checkoutSchema,
+    handleVideoChange,
+    handleSvgChange,
     initialValues,
     preview,
     stepsCount,
@@ -223,7 +225,56 @@ const ExerciseUpdate = () => {
                   { id: 1, title: "feminine", value: "feminine" },
                 ]}
               />
-
+  <div
+                className="uploadfile"
+                style={{
+                  border: "2px dashed #ccc",
+                  gridColumn: "span 4",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <label htmlFor="video" className="labelFile">
+                  <span>
+                    <CloudUploadIcon />
+                  </span>
+                  <p>
+                    Drag and drop your video here or click to select an image!
+                  </p>
+                </label>
+                <input
+                  id="video"
+                  type="file"
+                  label="video"
+                  onChange={(event) => handleVideoChange(event, setFieldValue)}
+                  style={{ display: "none" }}
+                />
+              </div>
+              <div
+                className="uploadfile"
+                style={{
+                  border: "2px dashed #ccc",
+                  gridColumn: "span 4",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <label htmlFor="svg" className="labelFile">
+                  <span>
+                    <CloudUploadIcon />
+                  </span>
+                  <p>
+                    Drag and drop your svg here or click to select an image!
+                  </p>
+                </label>
+                <input
+                  id="svg"
+                  type="file"
+                  label="svg"
+                  onChange={(event) => handleSvgChange(event, setFieldValue)}
+                  style={{ display: "none" }}
+                />
+              </div>
               <div
                 className="uploadfile"
                 style={{
